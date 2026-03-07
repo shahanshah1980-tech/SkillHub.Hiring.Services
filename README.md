@@ -1,2 +1,2 @@
 # SkillHub.Hiring.Services
-SkillHub & amp;Hiring Services
+SkillHub & Hiring Services
