@@ -62,12 +62,12 @@ margin:4px;
 
 <div>
 
-<input class="otp-box" maxlength="1" onkeyup="move(this,0)">
-<input class="otp-box" maxlength="1" onkeyup="move(this,1)">
-<input class="otp-box" maxlength="1" onkeyup="move(this,2)">
-<input class="otp-box" maxlength="1" onkeyup="move(this,3)">
-<input class="otp-box" maxlength="1" onkeyup="move(this,4)">
-<input class="otp-box" maxlength="1" onkeyup="move(this,5)">
+<input class="otp-box" maxlength="1" disabled onkeyup="move(this,0)">
+<input class="otp-box" maxlength="1" disabled onkeyup="move(this,1)">
+<input class="otp-box" maxlength="1" disabled onkeyup="move(this,2)">
+<input class="otp-box" maxlength="1" disabled onkeyup="move(this,3)">
+<input class="otp-box" maxlength="1" disabled onkeyup="move(this,4)">
+<input class="otp-box" maxlength="1" disabled onkeyup="move(this,5)">
 
 </div>
 
@@ -78,6 +78,7 @@ margin:4px;
 <script>
 
 var generatedOTP;
+var otpEnabled=false;
 
 function login(){
 
@@ -87,7 +88,6 @@ var pass=document.getElementById("password").value;
 if(user=="" || pass==""){
 
 alert("Please enter Username and Password");
-
 return;
 
 }
@@ -96,9 +96,23 @@ generatedOTP=Math.floor(100000 + Math.random()*900000);
 
 alert("WhatsApp OTP: "+generatedOTP);
 
+otpEnabled=true;
+
+var boxes=document.getElementsByClassName("otp-box");
+
+for(var i=0;i<boxes.length;i++){
+
+boxes[i].disabled=false;
+
+}
+
+boxes[0].focus();
+
 }
 
 function move(field,index){
+
+if(!otpEnabled) return;
 
 var boxes=document.getElementsByClassName("otp-box");
 
