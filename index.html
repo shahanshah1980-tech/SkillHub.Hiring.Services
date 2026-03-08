@@ -1,12 +1,101 @@
-<!-- Example index.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>SkillHub Hiring Service</title>
+<title>SkillHub Hiring Services</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f2f2f2;
+text-align:center;
+margin-top:100px;
+}
+
+.container{
+width:350px;
+background:white;
+padding:30px;
+margin:auto;
+border-radius:10px;
+box-shadow:0 0 10px #ccc;
+}
+
+input{
+width:90%;
+padding:10px;
+margin:10px;
+font-size:16px;
+}
+
+button{
+padding:10px 20px;
+font-size:16px;
+background:#0078d7;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+</style>
+
 </head>
+
 <body>
-    <h1>Welcome to SkillHub Hiring Service!</h1>
-    <p>This is your published GitHub Pages site.</p>
+
+<div class="container">
+
+<h2>SkillHub Login</h2>
+
+<input type="text" id="username" placeholder="Create Username">
+
+<input type="password" id="password" placeholder="Create Password">
+
+<input type="text" id="phone" placeholder="WhatsApp Number">
+
+<button onclick="sendOTP()">Send OTP</button>
+
+<br>
+
+<input type="text" id="otp" placeholder="Enter OTP">
+
+<button onclick="verifyOTP()">Verify & Login</button>
+
+</div>
+
+<script>
+
+var generatedOTP;
+
+function sendOTP(){
+
+generatedOTP=Math.floor(100000 + Math.random()*900000);
+
+alert("WhatsApp OTP: " + generatedOTP);
+
+}
+
+function verifyOTP(){
+
+var userOTP=document.getElementById("otp").value;
+
+if(userOTP==generatedOTP){
+
+alert("Login Successful");
+
+window.location="dashboard.html";
+
+}
+
+else{
+
+alert("Wrong OTP");
+
+}
+
+}
+
+</script>
+
 </body>
 </html>
