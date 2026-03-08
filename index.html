@@ -58,13 +58,20 @@ background:#28a745;
 
 .back{
 background:#ff9800;
-margin-top:10px;
+}
+
+.create{
+background:#0078d7;
+}
+
+.cancel{
+background:#e53935;
 }
 
 .otp-container{
 display:flex;
 justify-content:center;
-gap:4px;
+gap:5px;
 margin-top:10px;
 display:none;
 }
@@ -76,7 +83,6 @@ font-size:16px;
 text-align:center;
 }
 
-/* Signup form hidden */
 #signupForm{
 display:none;
 }
@@ -132,11 +138,10 @@ display:none;
 
 <input type="password" placeholder="Confirm Password"><br>
 
-<button>Create Account</button>
-
-<br>
-
-<button class="back" onclick="backLogin()">Back to Login</button>
+<div class="btns">
+<button class="create">Create Account</button>
+<button class="cancel" onclick="backLogin()">Cancel</button>
+</div>
 
 </div>
 
@@ -156,8 +161,23 @@ alert("Please enter Username and Password");
 return;
 }
 
+/* Generate OTP */
+
 generatedOTP=Math.floor(100000 + Math.random()*900000);
-alert("WhatsApp OTP: "+generatedOTP);
+
+/* WhatsApp message */
+
+var message="Your SkillHub OTP is: "+generatedOTP;
+
+/* WhatsApp link */
+
+var whatsappLink="https://wa.me/919918841855?text="+encodeURIComponent(message);
+
+/* Open WhatsApp */
+
+window.open(whatsappLink,"_blank");
+
+/* Show OTP boxes */
 
 document.getElementById("otpContainer").style.display="flex";
 
@@ -189,12 +209,15 @@ entered+=boxes[i].value;
 }
 
 if(entered.length==6){
+
 if(entered==generatedOTP){
+alert("Login Successful");
 window.location="dashboard.html";
 }
 else{
 alert("Wrong OTP");
 }
+
 }
 
 }
