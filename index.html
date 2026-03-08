@@ -14,7 +14,7 @@ margin-top:80px;
 
 .container{
 background:white;
-width:350px;
+width:360px;
 margin:auto;
 padding:30px;
 border-radius:10px;
@@ -38,12 +38,22 @@ cursor:pointer;
 margin-top:10px;
 }
 
+/* OTP boxes container */
+
+.otp-container{
+display:flex;
+justify-content:center;
+gap:6px;
+margin-top:10px;
+}
+
+/* OTP box */
+
 .otp-box{
 width:40px;
 height:40px;
 font-size:20px;
 text-align:center;
-margin:4px;
 }
 
 </style>
@@ -60,7 +70,7 @@ margin:4px;
 
 <input type="password" id="password" placeholder="Password"><br>
 
-<div>
+<div class="otp-container">
 
 <input class="otp-box" maxlength="1" disabled onkeyup="move(this,0)">
 <input class="otp-box" maxlength="1" disabled onkeyup="move(this,1)">
