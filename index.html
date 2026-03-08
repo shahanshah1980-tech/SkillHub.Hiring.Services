@@ -42,8 +42,9 @@ margin-top:10px;
 .otp-container{
 display:flex;
 justify-content:center;
-gap:2px;
+gap:4px;
 margin-top:10px;
+display:none; /* hidden by default */
 }
 
 /* OTP box small size */
@@ -68,7 +69,7 @@ text-align:center;
 
 <input type="password" id="password" placeholder="Password"><br>
 
-<div class="otp-container">
+<div class="otp-container" id="otpContainer">
 <input class="otp-box" maxlength="1" disabled onkeyup="move(this,0)">
 <input class="otp-box" maxlength="1" disabled onkeyup="move(this,1)">
 <input class="otp-box" maxlength="1" disabled onkeyup="move(this,2)">
@@ -92,24 +93,23 @@ var user=document.getElementById("username").value;
 var pass=document.getElementById("password").value;
 
 if(user=="" || pass==""){
-
 alert("Please enter Username and Password");
 return;
-
 }
 
+// OTP generate
 generatedOTP=Math.floor(100000 + Math.random()*900000);
-
 alert("WhatsApp OTP: "+generatedOTP);
+
+// Show OTP boxes
+document.getElementById("otpContainer").style.display="flex";
 
 otpEnabled=true;
 
 var boxes=document.getElementsByClassName("otp-box");
 
 for(var i=0;i<boxes.length;i++){
-
 boxes[i].disabled=false;
-
 }
 
 boxes[0].focus();
@@ -123,32 +123,21 @@ if(!otpEnabled) return;
 var boxes=document.getElementsByClassName("otp-box");
 
 if(field.value.length==1 && index<5){
-
 boxes[index+1].focus();
-
 }
 
 var entered="";
-
 for(var i=0;i<6;i++){
-
 entered+=boxes[i].value;
-
 }
 
 if(entered.length==6){
-
 if(entered==generatedOTP){
-
 window.location="dashboard.html";
-
 }
 else{
-
 alert("Wrong OTP");
-
 }
-
 }
 
 }
