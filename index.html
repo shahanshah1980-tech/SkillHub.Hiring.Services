@@ -12,7 +12,6 @@ text-align:center;
 margin-top:60px;
 }
 
-/* Top Title */
 .title{
 font-size:32px;
 font-weight:bold;
@@ -20,7 +19,6 @@ color:#0078d7;
 margin-bottom:25px;
 }
 
-/* Login Box */
 .container{
 background:white;
 width:360px;
@@ -30,14 +28,13 @@ border-radius:10px;
 box-shadow:0 0 10px #ccc;
 }
 
-input[type=text],input[type=password]{
+input{
 width:90%;
 padding:10px;
 margin:10px;
 font-size:16px;
 }
 
-/* Button container */
 .btns{
 display:flex;
 justify-content:center;
@@ -55,12 +52,15 @@ cursor:pointer;
 border-radius:5px;
 }
 
-/* Signup button color */
 .signup{
-background:#0078d7;
+background:#28a745;
 }
 
-/* OTP boxes container */
+.back{
+background:#ff9800;
+margin-top:10px;
+}
+
 .otp-container{
 display:flex;
 justify-content:center;
@@ -69,12 +69,16 @@ margin-top:10px;
 display:none;
 }
 
-/* OTP box small size */
 .otp-box{
 width:30px;
 height:30px;
 font-size:16px;
 text-align:center;
+}
+
+/* Signup form hidden */
+#signupForm{
+display:none;
 }
 
 </style>
@@ -85,7 +89,9 @@ text-align:center;
 
 <h1 class="title">SkillHub & Hiring Services</h1>
 
-<div class="container">
+<!-- LOGIN FORM -->
+
+<div class="container" id="loginForm">
 
 <h2>Login</h2>
 
@@ -104,10 +110,36 @@ text-align:center;
 
 <div class="btns">
 <button onclick="login()">Login</button>
-<button class="signup" onclick="signup()">Signup</button>
+<button class="signup" onclick="openSignup()">Signup</button>
 </div>
 
 </div>
+
+
+<!-- SIGNUP FORM -->
+
+<div class="container" id="signupForm">
+
+<h2>Create Account</h2>
+
+<input type="text" placeholder="Full Name"><br>
+
+<input type="text" placeholder="Mobile Number"><br>
+
+<input type="text" placeholder="Username"><br>
+
+<input type="password" placeholder="Password"><br>
+
+<input type="password" placeholder="Confirm Password"><br>
+
+<button>Create Account</button>
+
+<br>
+
+<button class="back" onclick="backLogin()">Back to Login</button>
+
+</div>
+
 
 <script>
 
@@ -141,10 +173,6 @@ boxes[0].focus();
 
 }
 
-function signup(){
-window.location="signup.html";
-}
-
 function move(field,index){
 
 if(!otpEnabled) return;
@@ -168,6 +196,24 @@ else{
 alert("Wrong OTP");
 }
 }
+
+}
+
+/* OPEN SIGNUP */
+
+function openSignup(){
+
+document.getElementById("loginForm").style.display="none";
+document.getElementById("signupForm").style.display="block";
+
+}
+
+/* BACK TO LOGIN */
+
+function backLogin(){
+
+document.getElementById("signupForm").style.display="none";
+document.getElementById("loginForm").style.display="block";
 
 }
 
