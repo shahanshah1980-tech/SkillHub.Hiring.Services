@@ -2,42 +2,138 @@
 <html>
 <head>
 <title>SkillHub Hiring Services</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f2f2f2;
+text-align:center;
+margin-top:80px;
+}
+
+.container{
+background:white;
+width:350px;
+margin:auto;
+padding:30px;
+border-radius:10px;
+box-shadow:0 0 10px #ccc;
+}
+
+input[type=text],input[type=password]{
+width:90%;
+padding:10px;
+margin:10px;
+font-size:16px;
+}
+
+button{
+padding:10px 20px;
+font-size:16px;
+background:#0078d7;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+.otp-box{
+width:40px;
+height:40px;
+font-size:20px;
+text-align:center;
+margin:5px;
+}
+
+#otpSection{
+display:none;
+}
+
+</style>
+
 </head>
 
-<body style="font-family:Arial;text-align:center;margin-top:100px;">
+<body>
+
+<div class="container">
 
 <h2>SkillHub Login</h2>
 
-<input type="text" placeholder="Username"><br><br>
+<div id="loginSection">
 
-<input type="password" placeholder="Password"><br><br>
+<input type="text" placeholder="Username"><br>
 
-<button onclick="sendOTP()">Send OTP</button>
+<input type="password" placeholder="Password"><br>
 
-<br><br>
+<button onclick="login()">Login</button>
 
-<input type="text" id="otp" placeholder="Enter OTP"><br><br>
+</div>
 
-<button onclick="verifyOTP()">Login</button>
+<div id="otpSection">
+
+<h3>Enter OTP</h3>
+
+<div>
+
+<input class="otp-box" maxlength="1" onkeyup="move(this,0)">
+<input class="otp-box" maxlength="1" onkeyup="move(this,1)">
+<input class="otp-box" maxlength="1" onkeyup="move(this,2)">
+<input class="otp-box" maxlength="1" onkeyup="move(this,3)">
+<input class="otp-box" maxlength="1" onkeyup="move(this,4)">
+<input class="otp-box" maxlength="1" onkeyup="move(this,5)">
+
+</div>
+
+</div>
+
+</div>
 
 <script>
 
-var otp;
+var generatedOTP;
 
-function sendOTP(){
-otp=Math.floor(100000+Math.random()*900000);
-alert("WhatsApp OTP: "+otp);
+function login(){
+
+generatedOTP=Math.floor(100000 + Math.random()*900000);
+
+alert("WhatsApp OTP: " + generatedOTP);
+
+document.getElementById("loginSection").style.display="none";
+document.getElementById("otpSection").style.display="block";
+
 }
 
-function verifyOTP(){
+function move(field,index){
 
-var userOTP=document.getElementById("otp").value;
+var boxes=document.getElementsByClassName("otp-box");
 
-if(userOTP==otp){
+if(field.value.length==1 && index<5){
+
+boxes[index+1].focus();
+
+}
+
+var entered="";
+
+for(var i=0;i<6;i++){
+
+entered+=boxes[i].value;
+
+}
+
+if(entered.length==6){
+
+if(entered==generatedOTP){
+
 window.location="dashboard.html";
+
 }
 else{
+
 alert("Wrong OTP");
+
+}
+
 }
 
 }
