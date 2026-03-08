@@ -37,6 +37,14 @@ margin:10px;
 font-size:16px;
 }
 
+/* Button container */
+.btns{
+display:flex;
+justify-content:center;
+gap:10px;
+margin-top:10px;
+}
+
 button{
 padding:10px 20px;
 font-size:16px;
@@ -44,8 +52,12 @@ background:#0078d7;
 color:white;
 border:none;
 cursor:pointer;
-margin-top:10px;
 border-radius:5px;
+}
+
+/* Signup button color */
+.signup{
+background:#28a745;
 }
 
 /* OTP boxes container */
@@ -90,7 +102,10 @@ text-align:center;
 <input class="otp-box" maxlength="1" disabled onkeyup="move(this,5)">
 </div>
 
+<div class="btns">
 <button onclick="login()">Login</button>
+<button class="signup" onclick="signup()">Signup</button>
+</div>
 
 </div>
 
@@ -109,11 +124,9 @@ alert("Please enter Username and Password");
 return;
 }
 
-// Generate OTP
 generatedOTP=Math.floor(100000 + Math.random()*900000);
 alert("WhatsApp OTP: "+generatedOTP);
 
-// Show OTP boxes
 document.getElementById("otpContainer").style.display="flex";
 
 otpEnabled=true;
@@ -126,6 +139,10 @@ boxes[i].disabled=false;
 
 boxes[0].focus();
 
+}
+
+function signup(){
+window.location="signup.html";
 }
 
 function move(field,index){
