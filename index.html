@@ -219,9 +219,31 @@ function move(field, index, event) {
     if (entered.length === 6) {
         if (entered == generatedOTP) {
             alert("Login Successful");
+
+            // CLEAR OTP BOXES
+            for (var i = 0; i < boxes.length; i++) {
+                boxes[i].value = "";
+                boxes[i].disabled = true;
+            }
+
+            // HIDE OTP CONTAINER
+            document.getElementById("otpContainer").style.display = "none";
+
+            // CLEAR LOGIN FIELDS
+            document.getElementById("username").value = "";
+            document.getElementById("password").value = "";
+
+            otpEnabled = false;
+
+            // Redirect to dashboard
             window.location = "dashboard.html";
         } else {
             alert("Wrong OTP");
+            // Clear OTP boxes for retry
+            for (var i = 0; i < boxes.length; i++) {
+                boxes[i].value = "";
+            }
+            boxes[0].focus();
         }
     }
 }
