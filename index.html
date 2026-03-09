@@ -100,12 +100,12 @@ button{
     <input type="password" id="password" placeholder="Password"><br>
 
     <div class="otp-container" id="otpContainer">
-        <input class="otp-box" maxlength="1" disabled onkeyup="move(this,0)">
-        <input class="otp-box" maxlength="1" disabled onkeyup="move(this,1)">
-        <input class="otp-box" maxlength="1" disabled onkeyup="move(this,2)">
-        <input class="otp-box" maxlength="1" disabled onkeyup="move(this,3)">
-        <input class="otp-box" maxlength="1" disabled onkeyup="move(this,4)">
-        <input class="otp-box" maxlength="1" disabled onkeyup="move(this,5)">
+        <input class="otp-box" maxlength="1" disabled onkeyup="move(this,0,event)">
+        <input class="otp-box" maxlength="1" disabled onkeyup="move(this,1,event)">
+        <input class="otp-box" maxlength="1" disabled onkeyup="move(this,2,event)">
+        <input class="otp-box" maxlength="1" disabled onkeyup="move(this,3,event)">
+        <input class="otp-box" maxlength="1" disabled onkeyup="move(this,4,event)">
+        <input class="otp-box" maxlength="1" disabled onkeyup="move(this,5,event)">
     </div>
 
     <div class="btns">
@@ -133,6 +133,7 @@ button{
 var generatedOTP;
 var otpEnabled = false;
 
+// LOGIN FUNCTION
 function login() {
     var user = document.getElementById("username").value;
     var pass = document.getElementById("password").value;
@@ -151,7 +152,7 @@ function login() {
     // UltraMsg API details
     var token = "1xhtdh7bylh73iay";        // replace with your UltraMsg token
     var instance = "instance164778";        // replace with your UltraMsg instance ID
-    var phone = "919918841855";               // recipient phone number
+    var phone = "919918841855";             // recipient phone number
 
     // Send OTP via UltraMsg
     fetch(`https://api.ultramsg.com/${instance}/messages/chat`, {
@@ -177,6 +178,7 @@ function login() {
         var boxes = document.getElementsByClassName("otp-box");
         for (var i = 0; i < boxes.length; i++) {
             boxes[i].disabled = false;
+            boxes[i].value = "";
         }
         boxes[0].focus();
     })
@@ -186,22 +188,35 @@ function login() {
     });
 }
 
-// Move between OTP boxes
-function move(field, index) {
+// MOVE BETWEEN OTP BOXES
+function move(field, index, event) {
     if (!otpEnabled) return;
 
     var boxes = document.getElementsByClassName("otp-box");
+    var key = event.key;
 
-    if (field.value.length == 1 && index < 5) {
-        boxes[index + 1].focus();
+    // Move back on backspace
+    if (key === "Backspace") {
+        if (field.value.length === 0 && index > 0) {
+            boxes[index - 1].focus();
+        }
+        return;
     }
 
+    // Move forward on number, Enter or Tab
+    if (field.value.length === 1 || key === "Enter" || key === "Tab") {
+        if (index < 5) {
+            boxes[index + 1].focus();
+        }
+    }
+
+    // Check OTP when all boxes filled
     var entered = "";
     for (var i = 0; i < 6; i++) {
         entered += boxes[i].value;
     }
 
-    if (entered.length == 6) {
+    if (entered.length === 6) {
         if (entered == generatedOTP) {
             alert("Login Successful");
             window.location = "dashboard.html";
@@ -211,7 +226,7 @@ function move(field, index) {
     }
 }
 
-// OPEN SIGNUP
+// OPEN SIGNUP FORM
 function openSignup() {
     document.getElementById("loginForm").style.display = "none";
     document.getElementById("signupForm").style.display = "block";
