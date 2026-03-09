@@ -1,247 +1,71 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>SkillHub Hiring Services</title>
+<?php
+session_start();
 
-<style>
+// DATABASE CONFIG
+$host="localhost"; $db="skillhub"; $user="root"; $pass="";
+$conn=new mysqli($host,$user,$pass,$db);
+if($conn->connect_error){ die("DB Connection Failed: ".$conn->connect_error); }
 
-body{
-font-family:Arial;
-background:#f2f2f2;
-text-align:center;
-margin-top:60px;
+// PASSWORD FUNCTIONS
+function hash_pass($password){ return password_hash($password,PASSWORD_DEFAULT); }
+function verify_pass($password,$hash){ return password_verify($password,$hash); }
+
+// ULTRAMSG FUNCTION
+function send_whatsapp($phone,$message){
+    $phone=preg_replace('/[^0-9]/','',$phone);
+    if(substr($phone,0,1)=="0") $phone="91".substr($phone,1); // India +91 example
+    $instance_id="instance164778"; 
+    $token="1xhtdh7bylh73iay";
+    $url="https://api.ultramsg.com/".$instance_id."/messages/chat";
+    $data=array("token"=>$token,"to"=>$phone,"body"=>$message);
+    $ch=curl_init(); curl_setopt($ch,CURLOPT_URL,$url); curl_setopt($ch,CURLOPT_POST,1);
+    curl_setopt($ch,CURLOPT_POSTFIELDS,http_build_query($data)); curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+    $response=curl_exec($ch); $err=curl_error($ch); curl_close($ch);
+    if($err){ error_log("WhatsApp Error: ".$err); return false; }
+    return $response;
 }
 
-.title{
-font-size:32px;
-font-weight:bold;
-color:#0078d7;
-margin-bottom:25px;
+// HANDLE AJAX
+if(isset($_POST['action'])){
+    $action=$_POST['action'];
+
+    if($action=="signup"){
+        $fullName=$_POST['fullName']; $mobile=$_POST['mobile']; $username=$_POST['username']; $password=$_POST['password'];
+        $check=$conn->prepare("SELECT id FROM users WHERE username=? OR mobile=?"); $check->bind_param("ss",$username,$mobile);
+        $check->execute(); $check->store_result();
+        if($check->num_rows>0){ echo json_encode(["status"=>"error","message"=>"Username or Mobile exists"]); exit; }
+        $hash=hash_pass($password);
+        $stmt=$conn->prepare("INSERT INTO users(fullname,mobile,username,password) VALUES(?,?,?,?)");
+        $stmt->bind_param("ssss",$fullName,$mobile,$username,$hash); $stmt->execute();
+        echo json_encode(["status"=>"success","message"=>"Account created"]); exit;
+    }
+
+    if($action=="login"){
+        $username=$_POST['username']; $password=$_POST['password'];
+        $stmt=$conn->prepare("SELECT password,mobile FROM users WHERE username=?"); $stmt->bind_param("s",$username);
+        $stmt->execute(); $stmt->store_result(); $stmt->bind_result($db_pass,$mobile);
+        if($stmt->num_rows==0){ echo json_encode(["status"=>"error","message"=>"Username not found"]); exit; }
+        $stmt->fetch(); if(!verify_pass($password,$db_pass)){ echo json_encode(["status"=>"error","message"=>"Wrong password"]); exit; }
+
+        $otp=rand(100000,999999); $created_at=date("Y-m-d H:i:s");
+        $stmt2=$conn->prepare("INSERT INTO otp_log(username,otp,created_at) VALUES(?,?,?)");
+        $stmt2->bind_param("sss",$username,$otp,$created_at); $stmt2->execute();
+
+        $message="Your SkillHub OTP: ".$otp;
+        $res=send_whatsapp($mobile,$message);
+        if(!$res){ echo json_encode(["status"=>"error","message"=>"Failed to send OTP"]); exit; }
+
+        echo json_encode(["status"=>"success","message"=>"OTP sent via WhatsApp"]); exit;
+    }
+
+    if($action=="verify"){
+        $username=$_POST['username']; $otp=$_POST['otp'];
+        $stmt=$conn->prepare("SELECT otp,created_at FROM otp_log WHERE username=? ORDER BY id DESC LIMIT 1");
+        $stmt->bind_param("s",$username); $stmt->execute(); $stmt->store_result(); $stmt->bind_result($db_otp,$created_at);
+        if($stmt->num_rows==0){ echo json_encode(["status"=>"error","message"=>"No OTP found"]); exit; }
+        $stmt->fetch(); if(time()-strtotime($created_at)>300){ echo json_encode(["status"=>"error","message"=>"OTP expired"]); exit; }
+        if($otp!=$db_otp){ echo json_encode(["status"=>"error","message"=>"Wrong OTP"]); exit; }
+        $_SESSION['username']=$username; echo json_encode(["status"=>"success","message"=>"Login Successful"]); exit;
+    }
 }
-
-.container{
-background:white;
-width:360px;
-margin:auto;
-padding:30px;
-border-radius:10px;
-box-shadow:0 0 10px #ccc;
-}
-
-input{
-width:90%;
-padding:10px;
-margin:10px;
-font-size:16px;
-}
-
-.btns{
-display:flex;
-justify-content:center;
-gap:10px;
-margin-top:10px;
-}
-
-button{
-padding:10px 20px;
-font-size:16px;
-background:#0078d7;
-color:white;
-border:none;
-cursor:pointer;
-border-radius:5px;
-}
-
-.signup{
-background:#0078d7;
-}
-
-.back{
-background:#ff9800;
-}
-
-.create{
-background:#0078d7;
-}
-
-.cancel{
-background:#0078d7;
-}
-
-.otp-container{
-display:flex;
-justify-content:center;
-gap:4px;   /* boxes ke bich ka gap kam */
-margin-top:10px;
-display:none;
-}
-
-.otp-box{
-width:22px;     /* box chhota */
-height:22px;
-font-size:14px;
-text-align:center;
-padding:0;
-}
-
-#signupForm{
-display:none;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<h1 class="title">SkillHub & Hiring Services</h1>
-
-<!-- LOGIN FORM -->
-
-<div class="container" id="loginForm">
-
-<h2>Login</h2>
-
-<input type="text" id="username" placeholder="Username"><br>
-
-<input type="password" id="password" placeholder="Password"><br>
-
-<div class="otp-container" id="otpContainer">
-<input class="otp-box" maxlength="1" disabled onkeyup="move(this,0)">
-<input class="otp-box" maxlength="1" disabled onkeyup="move(this,1)">
-<input class="otp-box" maxlength="1" disabled onkeyup="move(this,2)">
-<input class="otp-box" maxlength="1" disabled onkeyup="move(this,3)">
-<input class="otp-box" maxlength="1" disabled onkeyup="move(this,4)">
-<input class="otp-box" maxlength="1" disabled onkeyup="move(this,5)">
-</div>
-
-<div class="btns">
-<button onclick="login()">Login</button>
-<button class="signup" onclick="openSignup()">Signup</button>
-</div>
-
-</div>
-
-
-<!-- SIGNUP FORM -->
-
-<div class="container" id="signupForm">
-
-<h2>Create Account</h2>
-
-<input type="text" placeholder="Full Name"><br>
-
-<input type="text" placeholder="Mobile Number"><br>
-
-<input type="text" placeholder="Username"><br>
-
-<input type="password" placeholder="Password"><br>
-
-<input type="password" placeholder="Confirm Password"><br>
-
-<div class="btns">
-<button class="create">Create Account</button>
-<button class="cancel" onclick="backLogin()">Cancel</button>
-</div>
-
-</div>
-
-
-<script>
-
-var generatedOTP;
-var otpEnabled=false;
-
-function login(){
-
-var user=document.getElementById("username").value;
-var pass=document.getElementById("password").value;
-
-if(user=="" || pass==""){
-alert("Please enter Username and Password");
-return;
-}
-
-/* Generate OTP */
-
-generatedOTP=Math.floor(100000 + Math.random()*900000);
-
-/* WhatsApp message */
-
-var message="Your SkillHub OTP is: "+generatedOTP;
-
-/* WhatsApp link */
-
-var whatsappLink="https://wa.me/919918841855?text="+encodeURIComponent(message);
-
-/* Open WhatsApp */
-
-window.open(whatsappLink,"_blank");
-
-/* Show OTP boxes */
-
-document.getElementById("otpContainer").style.display="flex";
-
-otpEnabled=true;
-
-var boxes=document.getElementsByClassName("otp-box");
-
-for(var i=0;i<boxes.length;i++){
-boxes[i].disabled=false;
-}
-
-boxes[0].focus();
-
-}
-
-function move(field,index){
-
-if(!otpEnabled) return;
-
-var boxes=document.getElementsByClassName("otp-box");
-
-if(field.value.length==1 && index<5){
-boxes[index+1].focus();
-}
-
-var entered="";
-for(var i=0;i<6;i++){
-entered+=boxes[i].value;
-}
-
-if(entered.length==6){
-
-if(entered==generatedOTP){
-alert("Login Successful");
-window.location="dashboard.html";
-}
-else{
-alert("Wrong OTP");
-}
-
-}
-
-}
-
-/* OPEN SIGNUP */
-
-function openSignup(){
-
-document.getElementById("loginForm").style.display="none";
-document.getElementById("signupForm").style.display="block";
-
-}
-
-/* BACK TO LOGIN */
-
-function backLogin(){
-
-document.getElementById("signupForm").style.display="none";
-document.getElementById("loginForm").style.display="block";
-
-}
-
-</script>
-
-</body>
-</html>
+?>
