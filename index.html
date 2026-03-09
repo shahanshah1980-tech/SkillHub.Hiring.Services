@@ -1,222 +1,432 @@
 <?php
-// Start session
 session_start();
 header('Content-Type: text/html; charset=UTF-8');
 
-// --- DATABASE CONFIG ---
+// DATABASE CONFIG
 $host = "localhost";
 $db = "skillhub";
 $user = "root";
-$pass = ""; // apna DB password
+$pass = "";
+
 $conn = new mysqli($host,$user,$pass,$db);
 if($conn->connect_error){ die("Connection failed: ".$conn->connect_error); }
 
-// --- FUNCTIONS ---
+// PASSWORD FUNCTIONS
 function hash_pass($password){ return password_hash($password,PASSWORD_DEFAULT); }
 function verify_pass($password,$hash){ return password_verify($password,$hash); }
 
-// --- HANDLE AJAX REQUESTS ---
+// WHATSAPP SEND FUNCTION (UltraMsg)
+function send_whatsapp($phone,$message){
+
+$instance_id="instance164778";
+$token="1xhtdh7bylh73iay";
+
+$url="https://api.ultramsg.com/".$instance_id."/messages/chat";
+
+$data=[
+"token"=>$token,
+"to"=>$phone,
+"body"=>$message
+];
+
+$options=[
+"http"=>[
+"header"=>"Content-Type: application/x-www-form-urlencoded\r\n",
+"method"=>"POST",
+"content"=>http_build_query($data)
+]
+];
+
+$context=stream_context_create($options);
+$result=file_get_contents($url,false,$context);
+
+return $result;
+}
+
+// HANDLE AJAX
 if(isset($_POST['action'])){
 
-    $action = $_POST['action'];
+$action=$_POST['action'];
 
-    // --- SIGNUP ---
-    if($action=="signup"){
-        $fullName = $_POST['fullName'];
-        $mobile = $_POST['mobile'];
-        $username = $_POST['username'];
-        $password = $_POST['password'];
 
-        $check = $conn->prepare("SELECT id FROM users WHERE username=? OR mobile=?");
-        $check->bind_param("ss",$username,$mobile);
-        $check->execute(); $check->store_result();
-        if($check->num_rows>0){
-            echo json_encode(["status"=>"error","message"=>"Username or Mobile already exists"]); exit;
-        }
+// SIGNUP
+if($action=="signup"){
 
-        $hash_pass = hash_pass($password);
-        $stmt = $conn->prepare("INSERT INTO users(fullname,mobile,username,password) VALUES(?,?,?,?)");
-        $stmt->bind_param("ssss",$fullName,$mobile,$username,$hash_pass);
-        $stmt->execute();
-        echo json_encode(["status"=>"success","message"=>"Account created successfully"]);
-        exit;
-    }
+$fullName=$_POST['fullName'];
+$mobile=$_POST['mobile'];
+$username=$_POST['username'];
+$password=$_POST['password'];
 
-    // --- LOGIN & SEND OTP ---
-    if($action=="login"){
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+$check=$conn->prepare("SELECT id FROM users WHERE username=? OR mobile=?");
+$check->bind_param("ss",$username,$mobile);
+$check->execute();
+$check->store_result();
 
-        $stmt = $conn->prepare("SELECT password,mobile FROM users WHERE username=?");
-        $stmt->bind_param("s",$username);
-        $stmt->execute(); $stmt->store_result();
-        $stmt->bind_result($db_pass,$mobile);
+if($check->num_rows>0){
+echo json_encode(["status"=>"error","message"=>"Username or Mobile already exists"]);
+exit;
+}
 
-        if($stmt->num_rows==0){ echo json_encode(["status"=>"error","message"=>"Username not found"]); exit; }
-        $stmt->fetch();
-        if(!verify_pass($password,$db_pass)){ echo json_encode(["status"=>"error","message"=>"Wrong password"]); exit; }
+$hash_pass=hash_pass($password);
 
-        $otp = rand(100000,999999);
-        $created_at = date("Y-m-d H:i:s");
+$stmt=$conn->prepare("INSERT INTO users(fullname,mobile,username,password) VALUES(?,?,?,?)");
+$stmt->bind_param("ssss",$fullName,$mobile,$username,$hash_pass);
+$stmt->execute();
 
-        $stmt2 = $conn->prepare("INSERT INTO otp_log(username,otp,created_at) VALUES(?,?,?)");
-        $stmt2->bind_param("sss",$username,$otp,$created_at);
-        $stmt2->execute();
+echo json_encode(["status"=>"success","message"=>"Account created successfully"]);
+exit;
 
-        $whatsapp_link = "https://web.whatsapp.com/send/?phone=".$mobile."&text=".urlencode("Your SkillHub OTP is: ".$otp)."&app_absent=0";
+}
 
-        echo json_encode(["status"=>"success","otp"=>$otp,"whatsapp"=>$whatsapp_link,"phone"=>$mobile]);
-        exit;
-    }
 
-    // --- VERIFY OTP ---
-    if($action=="verify"){
-        $username = $_POST['username'];
-        $otp = $_POST['otp'];
+// LOGIN & SEND OTP
+if($action=="login"){
 
-        $stmt = $conn->prepare("SELECT otp,created_at FROM otp_log WHERE username=? ORDER BY id DESC LIMIT 1");
-        $stmt->bind_param("s",$username);
-        $stmt->execute(); $stmt->store_result();
-        $stmt->bind_result($db_otp,$created_at);
+$username=$_POST['username'];
+$password=$_POST['password'];
 
-        if($stmt->num_rows==0){ echo json_encode(["status"=>"error","message"=>"No OTP found"]); exit; }
-        $stmt->fetch();
+$stmt=$conn->prepare("SELECT password,mobile FROM users WHERE username=?");
+$stmt->bind_param("s",$username);
+$stmt->execute();
+$stmt->store_result();
+$stmt->bind_result($db_pass,$mobile);
 
-        $now = time(); $otp_time = strtotime($created_at);
-        if($now - $otp_time > 300){ echo json_encode(["status"=>"error","message"=>"OTP expired"]); exit; }
+if($stmt->num_rows==0){
+echo json_encode(["status"=>"error","message"=>"Username not found"]);
+exit;
+}
 
-        if($otp!=$db_otp){ echo json_encode(["status"=>"error","message"=>"Wrong OTP"]); exit; }
+$stmt->fetch();
 
-        $_SESSION['username']=$username;
-        echo json_encode(["status"=>"success","message"=>"Login Successful"]);
-        exit;
-    }
+if(!verify_pass($password,$db_pass)){
+echo json_encode(["status"=>"error","message"=>"Wrong password"]);
+exit;
+}
+
+$otp=rand(100000,999999);
+$created_at=date("Y-m-d H:i:s");
+
+$stmt2=$conn->prepare("INSERT INTO otp_log(username,otp,created_at) VALUES(?,?,?)");
+$stmt2->bind_param("sss",$username,$otp,$created_at);
+$stmt2->execute();
+
+$message="Your SkillHub OTP is: ".$otp;
+
+send_whatsapp($mobile,$message);
+
+echo json_encode(["status"=>"success","message"=>"OTP sent to WhatsApp"]);
+exit;
+
+}
+
+
+// VERIFY OTP
+if($action=="verify"){
+
+$username=$_POST['username'];
+$otp=$_POST['otp'];
+
+$stmt=$conn->prepare("SELECT otp,created_at FROM otp_log WHERE username=? ORDER BY id DESC LIMIT 1");
+$stmt->bind_param("s",$username);
+$stmt->execute();
+$stmt->store_result();
+$stmt->bind_result($db_otp,$created_at);
+
+if($stmt->num_rows==0){
+echo json_encode(["status"=>"error","message"=>"No OTP found"]);
+exit;
+}
+
+$stmt->fetch();
+
+$now=time();
+$otp_time=strtotime($created_at);
+
+if($now-$otp_time>300){
+echo json_encode(["status"=>"error","message"=>"OTP expired"]);
+exit;
+}
+
+if($otp!=$db_otp){
+echo json_encode(["status"=>"error","message"=>"Wrong OTP"]);
+exit;
+}
+
+$_SESSION['username']=$username;
+
+echo json_encode(["status"=>"success","message"=>"Login Successful"]);
+exit;
+
+}
+
 }
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
+
 <title>SkillHub Hiring Services</title>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-body{font-family:'Segoe UI',sans-serif;background:#f9f9f9;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;}
-.container{background:white;width:400px;max-width:90%;padding:30px;border-radius:15px;box-shadow:0 8px 20px rgba(0,0,0,0.1);}
-h1{text-align:center;color:#0078d7;margin-bottom:25px;}
-input{width:100%;padding:12px;margin:10px 0;border:1px solid #ccc;border-radius:8px;font-size:16px;}
-button{width:48%;padding:12px;margin:5px 1%;font-size:16px;border:none;border-radius:8px;cursor:pointer;}
-button.login{background:#0078d7;color:white;}
-button.signup{background:#28a745;color:white;}
-.otp-container{display:flex;justify-content:center;gap:4px;margin-top:15px;display:none;}
-.otp-box{width:25px;height:25px;text-align:center;font-size:14px;border:1px solid #ccc;border-radius:5px;}
+
+body{
+font-family:'Segoe UI';
+background:#f9f9f9;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.container{
+background:white;
+width:400px;
+max-width:90%;
+padding:30px;
+border-radius:15px;
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}
+
+h1{
+text-align:center;
+color:#0078d7;
+margin-bottom:25px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px;
+}
+
+button{
+width:48%;
+padding:12px;
+margin:5px 1%;
+font-size:16px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+.login{background:#0078d7;color:white;}
+.signup{background:#28a745;color:white;}
+
+.otp-container{
+display:flex;
+justify-content:center;
+gap:4px;
+margin-top:15px;
+display:none;
+}
+
+.otp-box{
+width:25px;
+height:25px;
+text-align:center;
+font-size:14px;
+border:1px solid #ccc;
+border-radius:5px;
+}
+
 #signupForm{display:none;}
-.back{background:#ff9800;color:white;width:100%;margin-top:10px;}
+
+.back{
+background:#ff9800;
+color:white;
+width:100%;
+margin-top:10px;
+}
+
 </style>
+
 </head>
+
 <body>
 
-<!-- LOGIN FORM -->
+
 <div class="container" id="loginForm">
+
 <h1>SkillHub & Hiring Services</h1>
+
 <input type="text" id="username" placeholder="Username">
+
 <input type="password" id="password" placeholder="Password">
 
+
 <div class="otp-container" id="otpContainer">
+
 <input class="otp-box" maxlength="1" disabled onkeyup="move(this,0)">
 <input class="otp-box" maxlength="1" disabled onkeyup="move(this,1)">
 <input class="otp-box" maxlength="1" disabled onkeyup="move(this,2)">
 <input class="otp-box" maxlength="1" disabled onkeyup="move(this,3)">
 <input class="otp-box" maxlength="1" disabled onkeyup="move(this,4)">
 <input class="otp-box" maxlength="1" disabled onkeyup="move(this,5)">
+
 </div>
 
-<div style="display:flex; justify-content:center; gap:10px; margin-top:15px;">
+
+<div style="display:flex;justify-content:center;gap:10px;margin-top:15px;">
+
 <button class="login" onclick="login()">Login</button>
+
 <button class="signup" onclick="openSignup()">Signup</button>
-</div>
+
 </div>
 
-<!-- SIGNUP FORM -->
+</div>
+
+
 <div class="container" id="signupForm">
+
 <h1>Create Account</h1>
+
 <input type="text" id="fullName" placeholder="Full Name">
 <input type="text" id="mobile" placeholder="Mobile Number">
 <input type="text" id="newUsername" placeholder="Username">
 <input type="password" id="newPassword" placeholder="Password">
 <input type="password" id="confirmPassword" placeholder="Confirm Password">
 
-<div style="display:flex; justify-content:center; gap:10px; margin-top:15px;">
+<div style="display:flex;justify-content:center;gap:10px;margin-top:15px;">
+
 <button class="login create" onclick="createAccount()">Create Account</button>
+
 <button class="back" onclick="backLogin()">Cancel</button>
-</div>
+
 </div>
 
+</div>
+
+
 <script>
-var generatedOTP;
+
 var otpEnabled=false;
 
 function login(){
-    var user=document.getElementById("username").value;
-    var pass=document.getElementById("password").value;
-    if(user=="" || pass==""){ alert("Enter Username & Password"); return; }
 
-    fetch("index.php",{
-        method:"POST",
-        headers:{"Content-Type":"application/x-www-form-urlencoded"},
-        body:"action=login&username="+user+"&password="+pass
-    }).then(res=>res.json()).then(data=>{
-        if(data.status=="success"){
-            generatedOTP=data.otp;
-            window.open(data.whatsapp,"_blank");
-            document.getElementById("otpContainer").style.display="flex";
-            otpEnabled=true;
-            var boxes=document.getElementsByClassName("otp-box");
-            for(var i=0;i<boxes.length;i++){ boxes[i].disabled=false; }
-            boxes[0].focus();
-        } else { alert(data.message); }
-    });
+var user=document.getElementById("username").value;
+var pass=document.getElementById("password").value;
+
+if(user==""||pass==""){alert("Enter Username & Password");return;}
+
+fetch("index.php",{
+
+method:"POST",
+
+headers:{"Content-Type":"application/x-www-form-urlencoded"},
+
+body:"action=login&username="+user+"&password="+pass
+
+}).then(res=>res.json()).then(data=>{
+
+if(data.status=="success"){
+
+document.getElementById("otpContainer").style.display="flex";
+
+otpEnabled=true;
+
+var boxes=document.getElementsByClassName("otp-box");
+
+for(var i=0;i<boxes.length;i++){boxes[i].disabled=false;}
+
+boxes[0].focus();
+
+}else{alert(data.message);}
+
+});
+
 }
+
 
 function move(field,index){
-    if(!otpEnabled) return;
-    var boxes=document.getElementsByClassName("otp-box");
-    if(field.value.length==1 && index<5){ boxes[index+1].focus(); }
-    var entered=""; for(var i=0;i<6;i++){ entered+=boxes[i].value; }
-    if(entered.length==6){
-        var user=document.getElementById("username").value;
-        fetch("index.php",{
-            method:"POST",
-            headers:{"Content-Type":"application/x-www-form-urlencoded"},
-            body:"action=verify&username="+user+"&otp="+entered
-        }).then(res=>res.json()).then(data=>{
-            if(data.status=="success"){ alert(data.message); window.location="dashboard.html"; }
-            else{ alert(data.message); }
-        });
-    }
+
+if(!otpEnabled)return;
+
+var boxes=document.getElementsByClassName("otp-box");
+
+if(field.value.length==1 && index<5){boxes[index+1].focus();}
+
+var entered="";
+
+for(var i=0;i<6;i++){entered+=boxes[i].value;}
+
+if(entered.length==6){
+
+var user=document.getElementById("username").value;
+
+fetch("index.php",{
+
+method:"POST",
+
+headers:{"Content-Type":"application/x-www-form-urlencoded"},
+
+body:"action=verify&username="+user+"&otp="+entered
+
+}).then(res=>res.json()).then(data=>{
+
+if(data.status=="success"){alert(data.message);window.location="dashboard.html";}
+
+else{alert(data.message);}
+
+});
+
 }
 
-function openSignup(){ document.getElementById("loginForm").style.display="none"; document.getElementById("signupForm").style.display="block"; }
-function backLogin(){ document.getElementById("signupForm").style.display="none"; document.getElementById("loginForm").style.display="block"; }
+}
+
+
+function openSignup(){
+document.getElementById("loginForm").style.display="none";
+document.getElementById("signupForm").style.display="block";
+}
+
+function backLogin(){
+document.getElementById("signupForm").style.display="none";
+document.getElementById("loginForm").style.display="block";
+}
+
 
 function createAccount(){
-    var fullName=document.getElementById("fullName").value;
-    var mobile=document.getElementById("mobile").value;
-    var newUsername=document.getElementById("newUsername").value;
-    var newPassword=document.getElementById("newPassword").value;
-    var confirmPassword=document.getElementById("confirmPassword").value;
 
-    if(fullName=="" || mobile=="" || newUsername=="" || newPassword=="" || confirmPassword==""){ alert("Fill all fields"); return; }
-    if(newPassword!==confirmPassword){ alert("Passwords do not match"); return; }
+var fullName=document.getElementById("fullName").value;
+var mobile=document.getElementById("mobile").value;
+var newUsername=document.getElementById("newUsername").value;
+var newPassword=document.getElementById("newPassword").value;
+var confirmPassword=document.getElementById("confirmPassword").value;
 
-    fetch("index.php",{
-        method:"POST",
-        headers:{"Content-Type":"application/x-www-form-urlencoded"},
-        body:"action=signup&fullName="+fullName+"&mobile="+mobile+"&username="+newUsername+"&password="+newPassword
-    }).then(res=>res.json()).then(data=>{
-        if(data.status=="success"){ alert(data.message); backLogin(); }
-        else{ alert(data.message); }
-    });
+if(fullName==""||mobile==""||newUsername==""||newPassword==""||confirmPassword==""){
+alert("Fill all fields");return;
 }
+
+if(newPassword!==confirmPassword){
+alert("Passwords do not match");return;
+}
+
+fetch("index.php",{
+
+method:"POST",
+
+headers:{"Content-Type":"application/x-www-form-urlencoded"},
+
+body:"action=signup&fullName="+fullName+"&mobile="+mobile+"&username="+newUsername+"&password="+newPassword
+
+}).then(res=>res.json()).then(data=>{
+
+if(data.status=="success"){alert(data.message);backLogin();}
+else{alert(data.message);}
+
+});
+
+}
+
 </script>
+
 </body>
 </html>
