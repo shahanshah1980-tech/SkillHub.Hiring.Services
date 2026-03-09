@@ -145,8 +145,8 @@ function login(){
 
   generatedOTP=Math.floor(100000 + Math.random()*900000);
   var message="Your SkillHub OTP is: "+generatedOTP;
-  var whatsappLink="https://wa.me/919918841855?text="+encodeURIComponent(message);
-  window.open(whatsappLink,"_blank");
+  var whatsappLink = "https://web.whatsapp.com/send?phone=919918841855&text=" + encodeURIComponent(message);
+window.open(whatsappLink, "_blank");
 
   document.getElementById("otpContainer").style.display="flex";
   otpEnabled=true;
