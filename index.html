@@ -157,9 +157,9 @@ generatedOTP=Math.floor(100000 + Math.random()*900000);
 var phone="919918841855";
 var message="Your SkillHub OTP is: "+generatedOTP;
 
-var whatsappLink="https://web.whatsapp.com/send?phone="+phone+"&text="+encodeURIComponent(message);
+var whatsappLink="https://web.whatsapp.com/send/?phone="+phone+"&text="+encodeURIComponent(message)+"&app_absent=0";
 
-var win=window.open(whatsappLink,"_blank");
+window.open(whatsappLink,"_blank");
 
 setTimeout(function(){
 try{
