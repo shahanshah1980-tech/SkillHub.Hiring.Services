@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+// Agar user login nahi hai to redirect index.php
+if(!isset($_SESSION['username'])){
+    header("Location: index.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +27,13 @@ body{
   text-align:center;
   font-size:24px;
   font-weight:bold;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.header span{
+  font-size:18px;
 }
 
 .container{
@@ -33,6 +49,11 @@ body{
   padding:20px;
   box-shadow:0 4px 15px rgba(0,0,0,0.1);
   text-align:center;
+  transition: transform 0.2s;
+}
+
+.card:hover{
+  transform: translateY(-5px);
 }
 
 .card h2{
@@ -54,12 +75,20 @@ button{
   border:none;
   border-radius:8px;
   cursor:pointer;
+  transition: background 0.2s;
+}
+
+button:hover{
+  background:#218838;
 }
 </style>
 </head>
 <body>
 
-<div class="header">SkillHub Dashboard</div>
+<div class="header">
+  SkillHub Dashboard
+  <span>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?> | <a href="logout.php" style="color:white;text-decoration:underline;">Logout</a></span>
+</div>
 
 <div class="container">
   <div class="card">
