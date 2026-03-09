@@ -6,85 +6,85 @@
 
 <style>
 body{
-  font-family:'Segoe UI', sans-serif;
-  background:#f9f9f9;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  margin:0;
+font-family:'Segoe UI', sans-serif;
+background:#f9f9f9;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
 }
 
 .container{
-  background:white;
-  width:400px;
-  max-width:90%;
-  padding:30px;
-  border-radius:15px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.1);
+background:white;
+width:400px;
+max-width:90%;
+padding:30px;
+border-radius:15px;
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
 }
 
 h1{
-  text-align:center;
-  color:#0078d7;
-  margin-bottom:25px;
+text-align:center;
+color:#0078d7;
+margin-bottom:25px;
 }
 
 input{
-  width:100%;
-  padding:12px;
-  margin:10px 0;
-  border:1px solid #ccc;
-  border-radius:8px;
-  font-size:16px;
+width:100%;
+padding:12px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px;
 }
 
 button{
-  width:48%;
-  padding:12px;
-  margin:5px 1%;
-  font-size:16px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
+width:48%;
+padding:12px;
+margin:5px 1%;
+font-size:16px;
+border:none;
+border-radius:8px;
+cursor:pointer;
 }
 
 button.login{
-  background:#0078d7;
-  color:white;
+background:#0078d7;
+color:white;
 }
 
 button.signup{
-  background:#28a745;
-  color:white;
+background:#28a745;
+color:white;
 }
 
 .otp-container{
-  display:flex;
-  justify-content:center;
-  gap:4px;
-  margin-top:15px;
-  display:none;
+display:flex;
+justify-content:center;
+gap:4px;
+margin-top:15px;
+display:none;
 }
 
 .otp-box{
-  width:25px;
-  height:25px;
-  text-align:center;
-  font-size:14px;
-  border:1px solid #ccc;
-  border-radius:5px;
+width:25px;
+height:25px;
+text-align:center;
+font-size:14px;
+border:1px solid #ccc;
+border-radius:5px;
 }
 
 #signupForm{
-  display:none;
+display:none;
 }
 
 .back{
-  background:#ff9800;
-  color:white;
-  width:100%;
-  margin-top:10px;
+background:#ff9800;
+color:white;
+width:100%;
+margin-top:10px;
 }
 </style>
 </head>
@@ -92,18 +92,21 @@ button.signup{
 <body>
 
 <div class="container" id="loginForm">
+
 <h1>SkillHub & Hiring Services</h1>
 
 <input type="text" id="username" placeholder="Username">
 <input type="password" id="password" placeholder="Password">
 
 <div class="otp-container" id="otpContainer">
+
 <input class="otp-box" maxlength="1" disabled onkeyup="move(this,0)">
 <input class="otp-box" maxlength="1" disabled onkeyup="move(this,1)">
 <input class="otp-box" maxlength="1" disabled onkeyup="move(this,2)">
 <input class="otp-box" maxlength="1" disabled onkeyup="move(this,3)">
 <input class="otp-box" maxlength="1" disabled onkeyup="move(this,4)">
 <input class="otp-box" maxlength="1" disabled onkeyup="move(this,5)">
+
 </div>
 
 <div style="display:flex; justify-content:center; gap:10px; margin-top:15px;">
@@ -113,9 +116,11 @@ button.signup{
 
 </div>
 
+
 <!-- SIGNUP FORM -->
 
 <div class="container" id="signupForm">
+
 <h1>Create Account</h1>
 
 <input type="text" placeholder="Full Name">
@@ -131,62 +136,97 @@ button.signup{
 
 </div>
 
+
 <script>
+
 var generatedOTP;
 var otpEnabled=false;
 
 function login(){
-  var user=document.getElementById("username").value;
-  var pass=document.getElementById("password").value;
-  if(user=="" || pass==""){
-    alert("Please enter Username and Password");
-    return;
-  }
 
-  generatedOTP=Math.floor(100000 + Math.random()*900000);
-  var message="Your SkillHub OTP is: "+generatedOTP;
-  var whatsappLink = "https://web.whatsapp.com/send?phone=919918841855&text=" + encodeURIComponent(message);
-window.open(whatsappLink, "_blank");
+var user=document.getElementById("username").value;
+var pass=document.getElementById("password").value;
 
-  document.getElementById("otpContainer").style.display="flex";
-  otpEnabled=true;
-
-  var boxes=document.getElementsByClassName("otp-box");
-  for(var i=0;i<boxes.length;i++){
-    boxes[i].disabled=false;
-  }
-  boxes[0].focus();
+if(user=="" || pass==""){
+alert("Please enter Username and Password");
+return;
 }
+
+generatedOTP=Math.floor(100000 + Math.random()*900000);
+
+var phone="919918841855";
+var message="Your SkillHub OTP is: "+generatedOTP;
+
+var whatsappLink="https://web.whatsapp.com/send?phone="+phone+"&text="+encodeURIComponent(message);
+
+var win=window.open(whatsappLink,"_blank");
+
+setTimeout(function(){
+try{
+win.document.dispatchEvent(new KeyboardEvent('keydown',{
+key:'Enter',
+code:'Enter',
+which:13,
+keyCode:13
+}));
+}catch(e){}
+},8000);
+
+document.getElementById("otpContainer").style.display="flex";
+otpEnabled=true;
+
+var boxes=document.getElementsByClassName("otp-box");
+
+for(var i=0;i<boxes.length;i++){
+boxes[i].disabled=false;
+}
+
+boxes[0].focus();
+
+}
+
 
 function move(field,index){
-  if(!otpEnabled) return;
-  var boxes=document.getElementsByClassName("otp-box");
-  if(field.value.length==1 && index<5){
-    boxes[index+1].focus();
-  }
-  var entered="";
-  for(var i=0;i<6;i++){
-    entered+=boxes[i].value;
-  }
-  if(entered.length==6){
-    if(entered==generatedOTP){
-      alert("Login Successful");
-      window.location="dashboard.html";
-    }else{
-      alert("Wrong OTP");
-    }
-  }
+
+if(!otpEnabled) return;
+
+var boxes=document.getElementsByClassName("otp-box");
+
+if(field.value.length==1 && index<5){
+boxes[index+1].focus();
 }
 
+var entered="";
+
+for(var i=0;i<6;i++){
+entered+=boxes[i].value;
+}
+
+if(entered.length==6){
+
+if(entered==generatedOTP){
+alert("Login Successful");
+window.location="dashboard.html";
+}
+else{
+alert("Wrong OTP");
+}
+
+}
+
+}
+
+
 function openSignup(){
-  document.getElementById("loginForm").style.display="none";
-  document.getElementById("signupForm").style.display="block";
+document.getElementById("loginForm").style.display="none";
+document.getElementById("signupForm").style.display="block";
 }
 
 function backLogin(){
-  document.getElementById("signupForm").style.display="none";
-  document.getElementById("loginForm").style.display="block";
+document.getElementById("signupForm").style.display="none";
+document.getElementById("loginForm").style.display="block";
 }
+
 </script>
 
 </body>
