@@ -60,28 +60,29 @@ button{
 .otp-box{
     width:40px;          /* square size */
     height:40px;
-    font-size:20px;      /* bigger for bank/PIN feel */
+    font-size:20px;      /* readable */
     text-align:center;
-    border:0px solid #ccc;
-    border-radius:8px;
+    border:1px solid black; /* simple black border */
+    border-radius:4px;    /* slight rounding */
     outline:none;
     padding:0;
-    margin:0 0px;        /* spacing between boxes */
-    transition: all 0.2s;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* subtle shadow */
-    background:#f9f9f9;   /* light background */
+    margin:0 5px;        /* small gap between boxes */
+    background:#fff;      /* white background */
+    box-shadow: none;     /* no shadow */
+    transition: none;     /* no animation */
 }
 
 .otp-box:focus{
-    border-color:black;
-    box-shadow:0 0 8px #0078d7; /* glow on focus */
-    background:#fff;
+    border-color:black;   /* keep black border on focus */
+    background:#fff;      /* stay white */
+    box-shadow: none;     /* no glow */
 }
+
 .otp-container button{
     height:40px;
     padding:0 10px;
     font-size:14px;
-    margin-left:00px;
+    margin-left:5px;
 }
 </style>
 </head>
