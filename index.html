@@ -20,7 +20,7 @@ body{
 
 .container{
     background:white;
-    width:360px;
+    width:400px;
     margin:auto;
     padding:30px;
     border-radius:10px;
@@ -51,11 +51,10 @@ button{
 }
 
 .otp-container{
-    display:flex;
-    justify-content:center;
-    gap:0px;
-    margin-top:15px;
     display:none;
+    justify-content:space-between; /* left boxes, right button */
+    align-items:center;
+    margin-top:15px;
 }
 
 .otp-box{
@@ -67,8 +66,8 @@ button{
     border-radius:5px;
     outline:none;
     transition:border-color 0.2s, box-shadow 0.2s;
-    margin:0;
     padding:0;
+    margin-right:5px;
 }
 
 .otp-box:focus{
@@ -76,14 +75,11 @@ button{
     box-shadow:0 0 5px #0078d7;
 }
 
-.resend-container{
-    display:none;
-    justify-content:center;
-    margin-top:15px;
-}
-
-#signupForm{
-    display:none;
+.otp-container button{
+    height:36px;
+    padding:0 10px;
+    font-size:14px;
+    margin-left:10px;
 }
 </style>
 </head>
@@ -92,6 +88,7 @@ button{
 
 <h1 class="title">SkillHub & Hiring Services</h1>
 
+<!-- LOGIN FORM -->
 <div class="container" id="loginForm">
 
 <h2>Login</h2>
@@ -100,15 +97,14 @@ button{
 <input type="password" id="password" placeholder="Password"><br>
 
 <div class="otp-container" id="otpContainer">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-</div>
-
-<div class="resend-container" id="resendContainer">
+    <div>
+        <input class="otp-box" maxlength="1">
+        <input class="otp-box" maxlength="1">
+        <input class="otp-box" maxlength="1">
+        <input class="otp-box" maxlength="1">
+        <input class="otp-box" maxlength="1">
+        <input class="otp-box" maxlength="1">
+    </div>
     <button onclick="resendOTP()">Resend OTP</button>
 </div>
 
@@ -119,6 +115,7 @@ button{
 
 </div>
 
+<!-- SIGNUP FORM -->
 <div class="container" id="signupForm">
 
 <h2>Create Account</h2>
@@ -130,15 +127,14 @@ button{
 <input type="password" id="signupConfirmPassword" placeholder="Confirm Password"><br>
 
 <div class="otp-container" id="signupOtpContainer">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-</div>
-
-<div class="resend-container" id="signupResendContainer">
+    <div>
+        <input class="otp-box" maxlength="1">
+        <input class="otp-box" maxlength="1">
+        <input class="otp-box" maxlength="1">
+        <input class="otp-box" maxlength="1">
+        <input class="otp-box" maxlength="1">
+        <input class="otp-box" maxlength="1">
+    </div>
     <button onclick="resendSignupOTP()">Resend OTP</button>
 </div>
 
@@ -150,7 +146,6 @@ button{
 </div>
 
 <script>
-
 // UltraMsg credentials
 var token = "1xhtdh7bylh73iay";
 var instance = "instance164778";
@@ -178,10 +173,9 @@ function login() {
 
     var user = JSON.parse(data);
 
-    // Check username and password
     if (username == user.username && pass == user.password) {
         var mobile = user.mobile;
-        sendLoginOTP(mobile); // Send OTP to mobile via WhatsApp
+        sendLoginOTP(mobile);
     } else {
         alert("Invalid username or password");
     }
@@ -191,18 +185,15 @@ function sendLoginOTP(mobile){
     generatedOTP = Math.floor(100000 + Math.random() * 900000);
 
     document.getElementById("otpContainer").style.display = "flex";
-    document.getElementById("resendContainer").style.display = "flex";
 
     var boxes = document.querySelectorAll("#otpContainer input");
     boxes.forEach(b => b.value = "");
     boxes[0].focus();
 
-    // Disable resend button initially
-    document.querySelector("#resendContainer button").disabled = true;
+    document.querySelector("#otpContainer button").disabled = true;
 
     startLoginOtpTimer();
 
-    // Send OTP via WhatsApp
     sendWhatsAppOTP(mobile, generatedOTP, "Your SkillHub login OTP is:");
 }
 
@@ -211,13 +202,13 @@ function startLoginOtpTimer(){
     loginOtpCountdown = 90;
 
     loginOtpTimer = setInterval(() => {
-        document.querySelector("#resendContainer button").textContent = `Resend OTP (${loginOtpCountdown}s)`;
+        document.querySelector("#otpContainer button").textContent = `Resend OTP (${loginOtpCountdown}s)`;
         loginOtpCountdown--;
 
         if(loginOtpCountdown < 0){
             clearInterval(loginOtpTimer);
-            document.querySelector("#resendContainer button").textContent = "Resend OTP";
-            document.querySelector("#resendContainer button").disabled = false;
+            document.querySelector("#otpContainer button").textContent = "Resend OTP";
+            document.querySelector("#otpContainer button").disabled = false;
         }
     }, 1000);
 }
@@ -235,10 +226,9 @@ function signup(){
     signupGeneratedOTP = Math.floor(100000 + Math.random() * 900000);
 
     document.getElementById("signupOtpContainer").style.display = "flex";
-    document.getElementById("signupResendContainer").style.display = "flex";
 
     var mobile = document.getElementById("signupMobile").value.trim();
-    document.querySelector("#signupResendContainer button").disabled = true;
+    document.querySelector("#signupOtpContainer button").disabled = true;
 
     startSignupOtpTimer();
 
@@ -250,13 +240,13 @@ function startSignupOtpTimer(){
     signupOtpCountdown = 90;
 
     signupOtpTimer = setInterval(() => {
-        document.querySelector("#signupResendContainer button").textContent = `Resend OTP (${signupOtpCountdown}s)`;
+        document.querySelector("#signupOtpContainer button").textContent = `Resend OTP (${signupOtpCountdown}s)`;
         signupOtpCountdown--;
 
         if(signupOtpCountdown < 0){
             clearInterval(signupOtpTimer);
-            document.querySelector("#signupResendContainer button").textContent = "Resend OTP";
-            document.querySelector("#signupResendContainer button").disabled = false;
+            document.querySelector("#signupOtpContainer button").textContent = "Resend OTP";
+            document.querySelector("#signupOtpContainer button").disabled = false;
         }
     }, 1000);
 }
@@ -287,9 +277,7 @@ function sendWhatsAppOTP(number, otp, message){
         })
     })
     .then(res => res.json())
-    .then(data => {
-        console.log("OTP sent:", data);
-    })
+    .then(data => console.log("OTP sent:", data))
     .catch(err => console.error("Error sending OTP:", err));
 }
 
@@ -350,7 +338,6 @@ function backLogin(){
     document.getElementById("signupForm").style.display="none";
     document.getElementById("loginForm").style.display="block";
 }
-
 </script>
 
 </body>
