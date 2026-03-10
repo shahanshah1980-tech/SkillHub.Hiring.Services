@@ -52,29 +52,31 @@ button{
 
 .otp-container{
     display:none;
-    justify-content:flex-start; /* OTP boxes left-aligned */
+    justify-content:center; /* center OTP boxes */
     align-items:center;
-    margin-top:10px;
+    margin-top:15px;
 }
 
 .otp-box{
-    width:40px;       /* compact */
-    height:40px;
-    font-size:18px;
+    width:50px;          /* square size */
+    height:50px;
+    font-size:24px;      /* bigger for bank/PIN feel */
     text-align:center;
     border:2px solid #ccc;
-    border-radius:5px;
+    border-radius:8px;
     outline:none;
     padding:0;
-    margin-right:3px; /* closer spacing */
-    transition:border-color 0.2s, box-shadow 0.2s;
+    margin:0 5px;        /* spacing between boxes */
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* subtle shadow */
+    background:#f9f9f9;   /* light background */
 }
 
 .otp-box:focus{
     border-color:#0078d7;
-    box-shadow:0 0 5px #0078d7;
+    box-shadow:0 0 8px #0078d7; /* glow on focus */
+    background:#fff;
 }
-
 .otp-container button{
     height:36px;
     padding:0 10px;
