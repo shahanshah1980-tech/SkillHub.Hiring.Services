@@ -159,24 +159,26 @@ var generatedOTP;
 var signupGeneratedOTP;
 
 // ---------------- LOGIN ----------------
-function login(){
-
-    var mobile = document.getElementById("username").value.trim();
+function login() {
+    var username = document.getElementById("username").value.trim();
     var pass = document.getElementById("password").value.trim();
 
     var data = localStorage.getItem("skillhub_user");
 
-    if(!data){
+    if (!data) {
         alert("No account found. Please signup first");
         return;
     }
 
     var user = JSON.parse(data);
 
-    if(mobile == user.mobile && pass == user.password){
-        sendLoginOTP(mobile);
-    }else{
-        alert("Invalid mobile or password");
+    // Check username and password
+    if (username == user.username && pass == user.password) {
+        // Fetch the user's mobile number
+        var mobile = user.mobile;
+        sendLoginOTP(mobile); // Send OTP to mobile via WhatsApp
+    } else {
+        alert("Invalid username or password");
     }
 }
 
