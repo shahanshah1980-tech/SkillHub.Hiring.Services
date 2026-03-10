@@ -4,6 +4,7 @@
 <title>SkillHub Hiring Services</title>
 
 <style>
+
 body{
 font-family:Arial;
 background:#f2f2f2;
@@ -60,8 +61,8 @@ display:none;
 }
 
 .otp-box{
-width:28px;
-height:28px;
+width:30px;
+height:30px;
 font-size:16px;
 text-align:center;
 }
@@ -69,9 +70,11 @@ text-align:center;
 #signupForm{
 display:none;
 }
+
 </style>
 
 </head>
+
 <body>
 
 <h1 class="title">SkillHub & Hiring Services</h1>
@@ -85,12 +88,12 @@ display:none;
 
 <div class="otp-container" id="otpContainer">
 
-<input class="otp-box" maxlength="1" disabled onkeydown="move(this,0,event)">
-<input class="otp-box" maxlength="1" disabled onkeydown="move(this,1,event)">
-<input class="otp-box" maxlength="1" disabled onkeydown="move(this,2,event)">
-<input class="otp-box" maxlength="1" disabled onkeydown="move(this,3,event)">
-<input class="otp-box" maxlength="1" disabled onkeydown="move(this,4,event)">
-<input class="otp-box" maxlength="1" disabled onkeydown="move(this,5,event)">
+<input class="otp-box" maxlength="1" disabled onkeydown="handleKey(event,0)">
+<input class="otp-box" maxlength="1" disabled onkeydown="handleKey(event,1)">
+<input class="otp-box" maxlength="1" disabled onkeydown="handleKey(event,2)">
+<input class="otp-box" maxlength="1" disabled onkeydown="handleKey(event,3)">
+<input class="otp-box" maxlength="1" disabled onkeydown="handleKey(event,4)">
+<input class="otp-box" maxlength="1" disabled onkeydown="handleKey(event,5)">
 
 </div>
 
@@ -100,6 +103,7 @@ display:none;
 </div>
 
 </div>
+
 
 <div class="container" id="signupForm">
 
@@ -118,6 +122,7 @@ display:none;
 
 </div>
 
+
 <script>
 
 var generatedOTP;
@@ -129,8 +134,10 @@ var user=document.getElementById("username").value;
 var pass=document.getElementById("password").value;
 
 if(user=="" || pass==""){
+
 alert("Please enter Username and Password");
 return;
+
 }
 
 generatedOTP=Math.floor(100000 + Math.random()*900000);
@@ -142,40 +149,67 @@ document.getElementById("otpContainer").style.display="flex";
 var boxes=document.getElementsByClassName("otp-box");
 
 for(var i=0;i<boxes.length;i++){
+
 boxes[i].disabled=false;
 boxes[i].value="";
+
 }
 
 boxes[0].focus();
+
 otpEnabled=true;
 
 }
 
-function move(field,index,event){
+
+
+function handleKey(event,index){
 
 if(!otpEnabled) return;
 
 var boxes=document.getElementsByClassName("otp-box");
 
+
+// ENTER → NEXT BOX
 if(event.key==="Enter"){
+
 event.preventDefault();
+
 if(index < boxes.length-1){
+
 boxes[index+1].focus();
-}
-return;
+boxes[index+1].select();
+
 }
 
+return;
+
+}
+
+
+// BACKSPACE → PREVIOUS BOX
 if(event.key==="Backspace"){
-if(field.value=="" && index>0){
+
+if(boxes[index].value=="" && index>0){
+
 boxes[index-1].focus();
-}
-return;
+boxes[index-1].select();
+
 }
 
+return;
+
+}
+
+
+// NUMBER TYPE → NEXT BOX
 setTimeout(function(){
 
-if(field.value.length===1 && index < boxes.length-1){
+if(boxes[index].value.length===1 && index < boxes.length-1){
+
 boxes[index+1].focus();
+boxes[index+1].select();
+
 }
 
 checkOTP();
@@ -184,28 +218,39 @@ checkOTP();
 
 }
 
+
+
 function checkOTP(){
 
 var boxes=document.getElementsByClassName("otp-box");
+
 var entered="";
 
 for(var i=0;i<boxes.length;i++){
-entered += boxes[i].value;
+
+entered+=boxes[i].value;
+
 }
+
 
 if(entered.length===6){
 
 if(entered==generatedOTP){
 
 alert("Login Successful");
+
 window.location="dashboard.html";
 
-}else{
+}
+
+else{
 
 alert("Wrong OTP");
 
 for(var i=0;i<boxes.length;i++){
+
 boxes[i].value="";
+
 }
 
 boxes[0].focus();
@@ -216,14 +261,21 @@ boxes[0].focus();
 
 }
 
+
+
 function openSignup(){
+
 document.getElementById("loginForm").style.display="none";
 document.getElementById("signupForm").style.display="block";
+
 }
 
+
 function backLogin(){
+
 document.getElementById("signupForm").style.display="none";
 document.getElementById("loginForm").style.display="block";
+
 }
 
 </script>
