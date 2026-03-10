@@ -59,20 +59,25 @@ button{
     cursor:pointer;
 }
 
+.otp-inputs{
+    display:flex;
+    gap:0px; /* boxes ke beech bilkul gap nahi */
+}
+
 .otp-box{
     width:30px;
     height:30px;
     font-size:16px;
     text-align:center;
-    border:solid black;       /* normal border nahi dikhaye */
-    border-radius:0px;     /* rounded corner nahi */
+    border:1px solid black;   /* normal black border */
+    border-radius:0px;        /* no rounded corners */
+    outline:none;             /* default focus outline remove */
 }
 
-/* focus hone par black border dikhe */
+/* focus hone par border same black rahe */
 .otp-box:focus{
-    border:0px solid black;
+    border:1px solid black;
 }
-
 .timer{
     margin-top:10px;
     font-size:14px;
