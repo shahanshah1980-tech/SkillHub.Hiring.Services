@@ -59,24 +59,39 @@ button{
     cursor:pointer;
 }
 
-.otp-inputs{
-    display:flex;
-    gap:0px; /* boxes ke beech bilkul gap nahi */
+.otp-container{
+    display:none;
+    justify-content:center; /* center OTP boxes */
+    align-items:center;
+    margin-top:15px;
 }
 
 .otp-box{
-    width:20px;
-    height:20px;
-    font-size:16px;
+    width:40px;          /* square size */
+    height:40px;
+    font-size:20px;      /* readable */
     text-align:center;
-    border:solid black;   /* normal black border */
-    border-radius:0px;        /* no rounded corners */
-
+    border:1px solid black; /* simple black border */
+    border-radius:4px;    /* slight rounding */
+    outline:none;
+    padding:0;
+    margin:0 0px;        /* small gap between boxes */
+    background:#fff;      /* white background */
+    box-shadow: none;     /* no shadow */
+    transition: none;     /* no animation */
 }
 
-/* focus hone par border same black rahe */
 .otp-box:focus{
-    border:0px solid black;
+    border-color:black;   /* keep black border on focus */
+    background:#fff;      /* stay white */
+    box-shadow: none;     /* no glow */
+}
+
+.otp-container button{
+    height:40px;
+    padding:0 10px;
+    font-size:14px;
+    margin-left:5px;
 }
 .timer{
     margin-top:10px;
