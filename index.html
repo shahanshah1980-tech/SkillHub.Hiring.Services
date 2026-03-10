@@ -52,27 +52,38 @@ cursor:pointer;
 }
 
 .otp-container{
-display:none;
-justify-content:center;
-align-items:center;
-margin-top:15px;
+    display:none;
+    justify-content:center; /* center OTP boxes */
+    align-items:center;
+    margin-top:15px;
 }
 
 .otp-box{
-width:40px;
-height:40px;
-font-size:20px;
-text-align:center;
-border:1px solid black;
-border-radius:4px;
-outline:none;
+    width:40px;          /* square size */
+    height:40px;
+    font-size:20px;      /* readable */
+    text-align:center;
+    border:1px solid black; /* simple black border */
+    border-radius:4px;    /* slight rounding */
+    outline:none;
+    padding:0;
+    margin:0 0px;        /* small gap between boxes */
+    background:#fff;      /* white background */
+    box-shadow: none;     /* no shadow */
+    transition: none;     /* no animation */
+}
+
+.otp-box:focus{
+    border-color:black;   /* keep black border on focus */
+    background:#fff;      /* stay white */
+    box-shadow: none;     /* no glow */
 }
 
 .otp-container button{
-height:40px;
-padding:0 10px;
-font-size:14px;
-margin-left:5px;
+    height:40px;
+    padding:0 10px;
+    font-size:14px;
+    margin-left:5px;
 }
 </style>
 </head>
