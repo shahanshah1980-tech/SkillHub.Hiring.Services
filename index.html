@@ -1,10 +1,10 @@
+```html
 <!DOCTYPE html>
 <html>
 <head>
 <title>SkillHub Hiring Services</title>
 
 <style>
-
 body{
 font-family:Arial;
 background:#f2f2f2;
@@ -76,7 +76,6 @@ margin-top:10px;
 #signupForm{
 display:none;
 }
-
 </style>
 </head>
 
@@ -90,31 +89,25 @@ display:none;
 
 <h2>Login</h2>
 
-<input type="text" id="username" placeholder="WhatsApp Number"><br>
+<input type="text" id="username" placeholder="WhatsApp Mobile Number"><br>
 <input type="password" id="password" placeholder="Password"><br>
 
 <div class="otp-container" id="otpContainer">
-
 <input class="otp-box" maxlength="1">
 <input class="otp-box" maxlength="1">
 <input class="otp-box" maxlength="1">
 <input class="otp-box" maxlength="1">
 <input class="otp-box" maxlength="1">
 <input class="otp-box" maxlength="1">
-
 </div>
 
 <div class="resend-container" id="resendContainer">
-
 <button onclick="resendOTP()">Resend OTP</button>
-
 </div>
 
 <div class="btns">
-
 <button onclick="login()">Login</button>
 <button onclick="openSignup()">Signup</button>
-
 </div>
 
 </div>
@@ -132,27 +125,21 @@ display:none;
 <input type="password" id="signupConfirmPassword" placeholder="Confirm Password"><br>
 
 <div class="otp-container" id="signupOtpContainer">
-
 <input class="otp-box" maxlength="1">
 <input class="otp-box" maxlength="1">
 <input class="otp-box" maxlength="1">
 <input class="otp-box" maxlength="1">
 <input class="otp-box" maxlength="1">
 <input class="otp-box" maxlength="1">
-
 </div>
 
 <div class="resend-container" id="signupResendContainer">
-
 <button onclick="resendSignupOTP()">Resend OTP</button>
-
 </div>
 
 <div class="btns">
-
 <button onclick="signup()">Create Account</button>
 <button onclick="backLogin()">Cancel</button>
-
 </div>
 
 </div>
@@ -196,8 +183,8 @@ function sendLoginOTP(mobile){
 
 generatedOTP=Math.floor(100000+Math.random()*900000);
 
-    var token = "1xhtdh7bylh73iay";     
-    var instance = "instance164778"; 
+var token="YOUR_ULTRAMSG_TOKEN";
+var instance="YOUR_INSTANCE_ID";
 
 fetch(`https://api.ultramsg.com/${instance}/messages/chat`,{
 
@@ -205,11 +192,9 @@ method:'POST',
 headers:{'Content-Type':'application/json'},
 
 body:JSON.stringify({
-
 token:token,
 to:mobile+"@c.us",
 body:"Your Login OTP is: "+generatedOTP
-
 })
 
 })
@@ -229,20 +214,17 @@ boxes[0].focus();
 
 }
 
-/* OTP INPUT AUTO MOVE */
+/* LOGIN OTP VERIFY */
 
 document.querySelectorAll("#otpContainer input").forEach((box,index,boxes)=>{
 
 box.addEventListener("input",function(){
 
 if(box.value.length==1 && index<boxes.length-1){
-
 boxes[index+1].focus();
-
 }
 
 var entered="";
-
 boxes.forEach(b=>entered+=b.value);
 
 if(entered.length==6){
@@ -277,31 +259,27 @@ sendLoginOTP(mobile);
 
 }
 
-/* SIGNUP FUNCTION */
+/* SIGNUP */
 
 function signup(){
 
-var name=document.getElementById("signupName").value;
-var mobile=document.getElementById("signupMobile").value;
-var username=document.getElementById("signupUsername").value;
 var pass=document.getElementById("signupPassword").value;
 var confirm=document.getElementById("signupConfirmPassword").value;
 
 if(pass!=confirm){
-
 alert("Password not match");
-
 return;
-
 }
 
-sendSignupOTP(mobile);
+sendSignupOTP();
 
 }
 
 /* SEND SIGNUP OTP */
 
-function sendSignupOTP(mobile){
+function sendSignupOTP(){
+
+var mobile=document.getElementById("signupMobile").value;
 
 signupGeneratedOTP=Math.floor(100000+Math.random()*900000);
 
@@ -314,11 +292,9 @@ method:'POST',
 headers:{'Content-Type':'application/json'},
 
 body:JSON.stringify({
-
 token:token,
 to:mobile+"@c.us",
 body:"Your Signup OTP is: "+signupGeneratedOTP
-
 })
 
 })
@@ -339,13 +315,10 @@ document.querySelectorAll("#signupOtpContainer input").forEach((box,index,boxes)
 box.addEventListener("input",function(){
 
 if(box.value.length==1 && index<boxes.length-1){
-
 boxes[index+1].focus();
-
 }
 
 var entered="";
-
 boxes.forEach(b=>entered+=b.value);
 
 if(entered.length==6){
@@ -354,7 +327,7 @@ if(entered==signupGeneratedOTP){
 
 var userData={
 
-name:document.getElementById("signupName").value,
+fullname:document.getElementById("signupName").value,
 mobile:document.getElementById("signupMobile").value,
 username:document.getElementById("signupUsername").value,
 password:document.getElementById("signupPassword").value
@@ -387,9 +360,7 @@ boxes[0].focus();
 
 function resendSignupOTP(){
 
-var mobile=document.getElementById("signupMobile").value;
-
-sendSignupOTP(mobile);
+sendSignupOTP();
 
 }
 
@@ -413,3 +384,4 @@ document.getElementById("loginForm").style.display="block";
 
 </body>
 </html>
+```
