@@ -51,21 +51,10 @@ button{
     border-radius:5px;
 }
 
-.signup{
-    background:#0078d7;
-}
-
-.back{
-    background:#ff9800;
-}
-
-.create{
-    background:#0078d7;
-}
-
-.cancel{
-    background:#0078d7;
-}
+.signup{ background:#0078d7; }
+.back{ background:#ff9800; }
+.create{ background:#0078d7; }
+.cancel{ background:#0078d7; }
 
 .otp-container{
     display:flex;
@@ -95,170 +84,233 @@ button{
 
 <!-- LOGIN FORM -->
 <div class="container" id="loginForm">
-    <h2>Login</h2>
-    <input type="text" id="username" placeholder="Username"><br>
-    <input type="password" id="password" placeholder="Password"><br>
+<h2>Login</h2>
 
-    <div class="otp-container" id="otpContainer">
-        <input class="otp-box" maxlength="1" disabled onkeyup="move(this,0,event)">
-        <input class="otp-box" maxlength="1" disabled onkeyup="move(this,1,event)">
-        <input class="otp-box" maxlength="1" disabled onkeyup="move(this,2,event)">
-        <input class="otp-box" maxlength="1" disabled onkeyup="move(this,3,event)">
-        <input class="otp-box" maxlength="1" disabled onkeyup="move(this,4,event)">
-        <input class="otp-box" maxlength="1" disabled onkeyup="move(this,5,event)">
-    </div>
+<input type="text" id="username" placeholder="Username"><br>
+<input type="password" id="password" placeholder="Password"><br>
 
-    <div class="btns">
-        <button onclick="login()">Login</button>
-        <button class="signup" onclick="openSignup()">Signup</button>
-    </div>
+<div class="otp-container" id="otpContainer">
+
+<input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" disabled onkeyup="move(this,0,event)">
+<input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" disabled onkeyup="move(this,1,event)">
+<input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" disabled onkeyup="move(this,2,event)">
+<input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" disabled onkeyup="move(this,3,event)">
+<input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" disabled onkeyup="move(this,4,event)">
+<input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" disabled onkeyup="move(this,5,event)">
+
+</div>
+
+<div class="btns">
+<button onclick="login()">Login</button>
+<button class="signup" onclick="openSignup()">Signup</button>
+</div>
 </div>
 
 <!-- SIGNUP FORM -->
 <div class="container" id="signupForm">
-    <h2>Create Account</h2>
-    <input type="text" placeholder="Full Name"><br>
-    <input type="text" placeholder="Mobile Number" id="signupMobile"><br>
-    <input type="text" placeholder="Username"><br>
-    <input type="password" placeholder="Password"><br>
-    <input type="password" placeholder="Confirm Password"><br>
 
-    <div class="btns">
-        <button class="create">Create Account</button>
-        <button class="cancel" onclick="backLogin()">Cancel</button>
-    </div>
+<h2>Create Account</h2>
+
+<input type="text" placeholder="Full Name"><br>
+<input type="text" placeholder="Mobile Number" id="signupMobile"><br>
+<input type="text" placeholder="Username"><br>
+<input type="password" placeholder="Password"><br>
+<input type="password" placeholder="Confirm Password"><br>
+
+<div class="btns">
+<button class="create">Create Account</button>
+<button class="cancel" onclick="backLogin()">Cancel</button>
+</div>
+
 </div>
 
 <script>
+
 var generatedOTP;
 var otpEnabled = false;
 
 // LOGIN FUNCTION
-function login() {
-    var user = document.getElementById("username").value;
-    var pass = document.getElementById("password").value;
+function login(){
 
-    if (user == "" || pass == "") {
-        alert("Please enter Username and Password");
-        return;
-    }
+var user=document.getElementById("username").value;
+var pass=document.getElementById("password").value;
 
-    // Generate 6-digit OTP
-    generatedOTP = Math.floor(100000 + Math.random() * 900000);
-
-    // WhatsApp message
-    var message = "Your SkillHub OTP is: " + generatedOTP;
-
-    // UltraMsg API details
-    var token = "1xhtdh7bylh73iay";        // replace with your UltraMsg token
-    var instance = "instance164778";        // replace with your UltraMsg instance ID
-    var phone = "919918841855";             // recipient phone number
-
-    // Send OTP via UltraMsg
-    fetch(`https://api.ultramsg.com/${instance}/messages/chat`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            token: token,
-            to: phone,
-            body: message
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log("UltraMsg response:", data);
-        alert("OTP sent via WhatsApp!");
-
-        // Show OTP boxes
-        document.getElementById("otpContainer").style.display = "flex";
-        otpEnabled = true;
-
-        var boxes = document.getElementsByClassName("otp-box");
-        for (var i = 0; i < boxes.length; i++) {
-            boxes[i].disabled = false;
-            boxes[i].value = "";
-        }
-        boxes[0].focus();
-    })
-    .catch(error => {
-        console.error("Error sending OTP:", error);
-        alert("Failed to send OTP. Try again.");
-    });
+if(user=="" || pass==""){
+alert("Please enter Username and Password");
+return;
 }
 
-// MOVE BETWEEN OTP BOXES
-function move(field, index, event) {
-    if (!otpEnabled) return;
+// Generate OTP
+generatedOTP=Math.floor(100000 + Math.random()*900000);
 
-    var boxes = document.getElementsByClassName("otp-box");
-    var key = event.key;
+var message="Your SkillHub OTP is: "+generatedOTP;
 
-    // Move back on backspace
-    if (key === "Backspace") {
-        if (field.value.length === 0 && index > 0) {
-            boxes[index - 1].focus();
-        }
-        return;
-    }
+var token="1xhtdh7bylh73iay";
+var instance="instance164778";
+var phone="919918841855";
 
-    // Move forward on number, Enter or Tab
-    if (field.value.length === 1 || key === "Enter" || key === "Tab") {
-        if (index < 5) {
-            boxes[index + 1].focus();
-        }
-    }
+fetch(`https://api.ultramsg.com/${instance}/messages/chat`,{
 
-    // Check OTP when all boxes filled
-    var entered = "";
-    for (var i = 0; i < 6; i++) {
-        entered += boxes[i].value;
-    }
+method:'POST',
 
-    if (entered.length === 6) {
-        if (entered == generatedOTP) {
-            alert("Login Successful");
+headers:{
+'Content-Type':'application/json'
+},
 
-            // CLEAR OTP BOXES
-            for (var i = 0; i < boxes.length; i++) {
-                boxes[i].value = "";
-                boxes[i].disabled = true;
-            }
+body:JSON.stringify({
 
-            // HIDE OTP CONTAINER
-            document.getElementById("otpContainer").style.display = "none";
+token:token,
+to:phone,
+body:message
 
-            // CLEAR LOGIN FIELDS
-            document.getElementById("username").value = "";
-            document.getElementById("password").value = "";
+})
 
-            otpEnabled = false;
+})
 
-            // Redirect to dashboard
-            window.location = "dashboard.html";
-        } else {
-            alert("Wrong OTP");
-            // Clear OTP boxes for retry
-            for (var i = 0; i < boxes.length; i++) {
-                boxes[i].value = "";
-            }
-            boxes[0].focus();
-        }
-    }
+.then(response=>response.json())
+
+.then(data=>{
+
+alert("OTP sent via WhatsApp!");
+
+document.getElementById("otpContainer").style.display="flex";
+
+otpEnabled=true;
+
+var boxes=document.getElementsByClassName("otp-box");
+
+for(var i=0;i<boxes.length;i++){
+
+boxes[i].disabled=false;
+boxes[i].value="";
+
 }
 
-// OPEN SIGNUP FORM
-function openSignup() {
-    document.getElementById("loginForm").style.display = "none";
-    document.getElementById("signupForm").style.display = "block";
+boxes[0].focus();
+
+})
+
+.catch(error=>{
+
+alert("Failed to send OTP");
+
+});
+
 }
 
-// BACK TO LOGIN
-function backLogin() {
-    document.getElementById("signupForm").style.display = "none";
-    document.getElementById("loginForm").style.display = "block";
+// OTP MOVE FUNCTION
+function move(field,index,event){
+
+if(!otpEnabled) return;
+
+var boxes=document.getElementsByClassName("otp-box");
+
+var key=event.key;
+
+// BACKSPACE
+if(key==="Backspace"){
+
+if(field.value.length===0 && index>0){
+
+boxes[index-1].focus();
+
 }
+
+return;
+
+}
+
+// ENTER KEY
+if(key==="Enter"){
+
+if(index < boxes.length-1){
+
+boxes[index+1].focus();
+
+}
+
+return;
+
+}
+
+// NUMBER ENTER
+if(field.value.length===1){
+
+if(index < boxes.length-1){
+
+boxes[index+1].focus();
+
+}
+
+}
+
+// CHECK OTP
+var entered="";
+
+for(var i=0;i<boxes.length;i++){
+
+entered+=boxes[i].value;
+
+}
+
+if(entered.length===6){
+
+if(entered==generatedOTP){
+
+alert("Login Successful");
+
+for(var i=0;i<boxes.length;i++){
+
+boxes[i].value="";
+boxes[i].disabled=true;
+
+}
+
+document.getElementById("otpContainer").style.display="none";
+
+document.getElementById("username").value="";
+document.getElementById("password").value="";
+
+otpEnabled=false;
+
+window.location="dashboard.html";
+
+}
+
+else{
+
+alert("Wrong OTP");
+
+for(var i=0;i<boxes.length;i++){
+
+boxes[i].value="";
+
+}
+
+boxes[0].focus();
+
+}
+
+}
+
+}
+
+// OPEN SIGNUP
+function openSignup(){
+
+document.getElementById("loginForm").style.display="none";
+document.getElementById("signupForm").style.display="block";
+
+}
+
+// BACK LOGIN
+function backLogin(){
+
+document.getElementById("signupForm").style.display="none";
+document.getElementById("loginForm").style.display="block";
+
+}
+
 </script>
 
 </body>
