@@ -51,11 +51,12 @@ button{
     border-radius: 5px;
 }
 
-/* PROFESSIONAL OTP STYLE */
+/* OTP Style */
 .otp-container{
     display: flex;
     justify-content: center;
-    gap: 4px; /* boxes ke beech very close */
+    align-items: center;
+    gap: 4px; 
     margin-top: 15px;
     display: none;
 }
@@ -69,20 +70,46 @@ button{
     border-radius: 5px;
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
-    margin: 0;
-    padding: 0;
 }
 
 .otp-box:focus{
     border-color: #0078d7;
     box-shadow: 0 0 5px #0078d7;
 }
+
+/* Resend OTP Button and Timer */
+.resend-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#resendBtn{
+    padding: 5px 12px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    background: #0078d7;
+    color: white;
+    cursor: pointer;
+}
+
+#resendBtn:disabled{
+    background: #999;
+    cursor: not-allowed;
+}
+
+#timer{
+    font-size: 14px;
+    color: #555;
+}
 #signupForm{
     display: none;
 }
 </style>
 </head>
-
 <body>
 
 <h1 class="title">SkillHub & Hiring Services</h1>
@@ -99,6 +126,11 @@ button{
     <input class="otp-box" maxlength="1" disabled onkeydown="handleKey(event,3)">
     <input class="otp-box" maxlength="1" disabled onkeydown="handleKey(event,4)">
     <input class="otp-box" maxlength="1" disabled onkeydown="handleKey(event,5)">
+</div>
+
+<div class="resend-container" id="resendContainer" style="display:none;">
+    <button id="resendBtn" onclick="resendOTP()" disabled>Resend OTP</button>
+    <span id="timer">30s</span>
 </div>
 
 <div class="btns">
@@ -124,6 +156,8 @@ button{
 <script>
 var generatedOTP;
 var otpEnabled=false;
+var timerInterval;
+var timerCount=30;
 
 function login(){
     var user=document.getElementById("username").value;
@@ -133,10 +167,18 @@ function login(){
         return;
     }
 
-    generatedOTP=Math.floor(100000 + Math.random()*900000);
-    alert("Demo OTP: "+generatedOTP);
+    generateOTP();
+    showOTPUI();
+}
 
+function generateOTP(){
+    generatedOTP=Math.floor(100000 + Math.random()*900000);
+    alert("Demo OTP: "+generatedOTP); // Replace with WhatsApp API or SMS
+}
+
+function showOTPUI(){
     document.getElementById("otpContainer").style.display="flex";
+    document.getElementById("resendContainer").style.display="flex";
 
     var boxes=document.getElementsByClassName("otp-box");
     for(var i=0;i<boxes.length;i++){
@@ -145,13 +187,14 @@ function login(){
     }
     boxes[0].focus();
     otpEnabled=true;
+
+    startTimer();
 }
 
 function handleKey(event,index){
     if(!otpEnabled) return;
     var boxes=document.getElementsByClassName("otp-box");
 
-    // ENTER → NEXT BOX
     if(event.key==="Enter"){
         event.preventDefault();
         if(index < boxes.length-1){
@@ -161,7 +204,6 @@ function handleKey(event,index){
         return;
     }
 
-    // BACKSPACE → PREVIOUS BOX
     if(event.key==="Backspace"){
         if(boxes[index].value=="" && index>0){
             boxes[index-1].focus();
@@ -170,7 +212,6 @@ function handleKey(event,index){
         return;
     }
 
-    // NUMBER → NEXT BOX
     setTimeout(function(){
         if(boxes[index].value.length===1 && index < boxes.length-1){
             boxes[index+1].focus();
@@ -198,6 +239,30 @@ function checkOTP(){
             boxes[0].focus();
         }
     }
+}
+
+function startTimer(){
+    var btn=document.getElementById("resendBtn");
+    var timerSpan=document.getElementById("timer");
+    timerCount=30;
+    btn.disabled=true;
+    timerSpan.textContent=timerCount+"s";
+
+    clearInterval(timerInterval);
+    timerInterval=setInterval(function(){
+        timerCount--;
+        timerSpan.textContent=timerCount+"s";
+        if(timerCount<=0){
+            clearInterval(timerInterval);
+            btn.disabled=false;
+            timerSpan.textContent="You can resend now";
+        }
+    },1000);
+}
+
+function resendOTP(){
+    generateOTP();
+    startTimer();
 }
 
 function openSignup(){
