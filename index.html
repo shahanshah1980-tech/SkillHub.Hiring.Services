@@ -5,85 +5,85 @@
 
 <style>
 body{
-font-family:Arial;
-background:#f2f2f2;
-text-align:center;
-margin-top:60px;
+    font-family:Arial;
+    background:#f2f2f2;
+    text-align:center;
+    margin-top:60px;
 }
 
 .title{
-font-size:32px;
-font-weight:bold;
-color:#0078d7;
-margin-bottom:25px;
+    font-size:32px;
+    font-weight:bold;
+    color:#0078d7;
+    margin-bottom:25px;
 }
 
 .container{
-background:white;
-width:360px;
-margin:auto;
-padding:30px;
-border-radius:10px;
-box-shadow:0 0 10px #ccc;
+    background:white;
+    width:360px;
+    margin:auto;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 10px #ccc;
 }
 
 input{
-width:90%;
-padding:10px;
-margin:10px;
-font-size:16px;
+    width:90%;
+    padding:10px;
+    margin:10px;
+    font-size:16px;
 }
 
 .btns{
-display:flex;
-justify-content:center;
-gap:10px;
+    display:flex;
+    justify-content:center;
+    gap:10px;
 }
 
 button{
-padding:10px 20px;
-font-size:16px;
-background:#0078d7;
-color:white;
-border:none;
-border-radius:5px;
-cursor:pointer;
+    padding:10px 20px;
+    font-size:16px;
+    background:#0078d7;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
 }
 
 .otp-container{
-display:flex;
-justify-content:center;
-gap:0px;
-margin-top:15px;
-display:none;
+    display:flex;
+    justify-content:center;
+    gap:0px;
+    margin-top:15px;
+    display:none;
 }
 
 .otp-box{
-width:30px;
-height:30px;
-font-size:16px;
-text-align:center;
-border:2px solid #ccc;
-border-radius:5px;
-outline:none;
-transition:border-color 0.2s, box-shadow 0.2s;
-margin:0;
-padding:0;
+    width:30px;
+    height:30px;
+    font-size:16px;
+    text-align:center;
+    border:2px solid #ccc;
+    border-radius:5px;
+    outline:none;
+    transition:border-color 0.2s, box-shadow 0.2s;
+    margin:0;
+    padding:0;
 }
 
 .otp-box:focus{
-border-color:#0078d7;
-box-shadow:0 0 5px #0078d7;
+    border-color:#0078d7;
+    box-shadow:0 0 5px #0078d7;
 }
 
 .resend-container{
-display:none;
-justify-content:center;
-margin-top:10px;
+    display:none;
+    justify-content:center;
+    margin-top:10px;
 }
 
 #signupForm{
-display:none;
+    display:none;
 }
 </style>
 </head>
@@ -100,21 +100,21 @@ display:none;
 <input type="password" id="password" placeholder="Password"><br>
 
 <div class="otp-container" id="otpContainer">
-<input class="otp-box" maxlength="1">
-<input class="otp-box" maxlength="1">
-<input class="otp-box" maxlength="1">
-<input class="otp-box" maxlength="1">
-<input class="otp-box" maxlength="1">
-<input class="otp-box" maxlength="1">
+    <input class="otp-box" maxlength="1">
+    <input class="otp-box" maxlength="1">
+    <input class="otp-box" maxlength="1">
+    <input class="otp-box" maxlength="1">
+    <input class="otp-box" maxlength="1">
+    <input class="otp-box" maxlength="1">
 </div>
 
 <div class="resend-container" id="resendContainer">
-<button onclick="resendOTP()">Resend OTP</button>
+    <button onclick="resendOTP()">Resend OTP</button>
 </div>
 
 <div class="btns">
-<button onclick="login()">Login</button>
-<button onclick="openSignup()">Signup</button>
+    <button onclick="login()">Login</button>
+    <button onclick="openSignup()">Signup</button>
 </div>
 
 </div>
@@ -130,21 +130,21 @@ display:none;
 <input type="password" id="signupConfirmPassword" placeholder="Confirm Password"><br>
 
 <div class="otp-container" id="signupOtpContainer">
-<input class="otp-box" maxlength="1">
-<input class="otp-box" maxlength="1">
-<input class="otp-box" maxlength="1">
-<input class="otp-box" maxlength="1">
-<input class="otp-box" maxlength="1">
-<input class="otp-box" maxlength="1">
+    <input class="otp-box" maxlength="1">
+    <input class="otp-box" maxlength="1">
+    <input class="otp-box" maxlength="1">
+    <input class="otp-box" maxlength="1">
+    <input class="otp-box" maxlength="1">
+    <input class="otp-box" maxlength="1">
 </div>
 
 <div class="resend-container" id="signupResendContainer">
-<button onclick="resendSignupOTP()">Resend OTP</button>
+    <button onclick="resendSignupOTP()">Resend OTP</button>
 </div>
 
 <div class="btns">
-<button onclick="signup()">Create Account</button>
-<button onclick="backLogin()">Cancel</button>
+    <button onclick="signup()">Create Account</button>
+    <button onclick="backLogin()">Cancel</button>
 </div>
 
 </div>
@@ -157,6 +157,12 @@ var instance = "instance164778";
 
 var generatedOTP;
 var signupGeneratedOTP;
+
+// OTP Timer variables
+var loginOtpTimer;
+var signupOtpTimer;
+var loginOtpCountdown = 90;
+var signupOtpCountdown = 90;
 
 // ---------------- LOGIN ----------------
 function login() {
@@ -174,7 +180,6 @@ function login() {
 
     // Check username and password
     if (username == user.username && pass == user.password) {
-        // Fetch the user's mobile number
         var mobile = user.mobile;
         sendLoginOTP(mobile); // Send OTP to mobile via WhatsApp
     } else {
@@ -183,7 +188,6 @@ function login() {
 }
 
 function sendLoginOTP(mobile){
-
     generatedOTP = Math.floor(100000 + Math.random() * 900000);
 
     document.getElementById("otpContainer").style.display = "flex";
@@ -193,13 +197,33 @@ function sendLoginOTP(mobile){
     boxes.forEach(b => b.value = "");
     boxes[0].focus();
 
+    // Disable resend button initially
+    document.querySelector("#resendContainer button").disabled = true;
+
+    startLoginOtpTimer();
+
     // Send OTP via WhatsApp
     sendWhatsAppOTP(mobile, generatedOTP, "Your SkillHub login OTP is:");
 }
 
+function startLoginOtpTimer(){
+    clearInterval(loginOtpTimer);
+    loginOtpCountdown = 90;
+
+    loginOtpTimer = setInterval(() => {
+        document.querySelector("#resendContainer button").textContent = `Resend OTP (${loginOtpCountdown}s)`;
+        loginOtpCountdown--;
+
+        if(loginOtpCountdown < 0){
+            clearInterval(loginOtpTimer);
+            document.querySelector("#resendContainer button").textContent = "Resend OTP";
+            document.querySelector("#resendContainer button").disabled = false;
+        }
+    }, 1000);
+}
+
 // ---------------- SIGNUP ----------------
 function signup(){
-
     var pass = document.getElementById("signupPassword").value;
     var confirm = document.getElementById("signupConfirmPassword").value;
 
@@ -214,7 +238,27 @@ function signup(){
     document.getElementById("signupResendContainer").style.display = "flex";
 
     var mobile = document.getElementById("signupMobile").value.trim();
+    document.querySelector("#signupResendContainer button").disabled = true;
+
+    startSignupOtpTimer();
+
     sendWhatsAppOTP(mobile, signupGeneratedOTP, "Your SkillHub signup OTP is:");
+}
+
+function startSignupOtpTimer(){
+    clearInterval(signupOtpTimer);
+    signupOtpCountdown = 90;
+
+    signupOtpTimer = setInterval(() => {
+        document.querySelector("#signupResendContainer button").textContent = `Resend OTP (${signupOtpCountdown}s)`;
+        signupOtpCountdown--;
+
+        if(signupOtpCountdown < 0){
+            clearInterval(signupOtpTimer);
+            document.querySelector("#signupResendContainer button").textContent = "Resend OTP";
+            document.querySelector("#signupResendContainer button").disabled = false;
+        }
+    }, 1000);
 }
 
 // ---------------- RESEND ----------------
@@ -226,6 +270,7 @@ function resendOTP(){
 function resendSignupOTP(){
     var mobile = document.getElementById("signupMobile").value.trim();
     sendWhatsAppOTP(mobile, signupGeneratedOTP, "Your SkillHub signup OTP is:");
+    startSignupOtpTimer();
 }
 
 // ---------------- WHATSAPP OTP ----------------
