@@ -160,24 +160,23 @@ var otpEnabled=false;
 var timerInterval;
 var timerCount=30;
 
-// ===== Login and OTP Functions =====
 function login(){
-    var user=document.getElementById("username").value.trim();
-    var pass=document.getElementById("password").value.trim();
+    var user=document.getElementById("username").value;
+    var pass=document.getElementById("password").value;
     if(user=="" || pass==""){
-        alert("Please enter WhatsApp number and Password");
+        alert("Please enter WhatsApp Number and Password");
         return;
     }
-    generateOTP();
+
+    generateOTP(); // send OTP via WhatsApp
 }
 
 // ===== Generate OTP and send via UltraMsg =====
 function generateOTP(){
-    generatedOTP = Math.floor(100000 + Math.random()*900000); // 6-digit OTP
-
+    generatedOTP = Math.floor(100000 + Math.random() * 900000); // 6-digit OTP
     var mobileNumber = document.getElementById("username").value.trim();
     if(!mobileNumber){
-        alert("Enter your WhatsApp number to receive OTP");
+        alert("Please enter WhatsApp number to receive OTP");
         return;
     }
 
@@ -196,7 +195,7 @@ function generateOTP(){
     .then(response => response.json())
     .then(data => {
         console.log("OTP sent:", data);
-        showOTPUI();
+        showOTPUI(); // show input boxes after sending
     })
     .catch(error => {
         console.error("Error sending OTP:", error);
@@ -204,7 +203,6 @@ function generateOTP(){
     });
 }
 
-// ===== Show OTP Inputs =====
 function showOTPUI(){
     document.getElementById("otpContainer").style.display="flex";
     document.getElementById("resendContainer").style.display="flex";
@@ -220,7 +218,6 @@ function showOTPUI(){
     startTimer();
 }
 
-// ===== Handle OTP Key Inputs =====
 function handleKey(event,index){
     if(!otpEnabled) return;
     var boxes=document.getElementsByClassName("otp-box");
@@ -251,7 +248,6 @@ function handleKey(event,index){
     },10);
 }
 
-// ===== Check OTP =====
 function checkOTP(){
     var boxes=document.getElementsByClassName("otp-box");
     var entered="";
@@ -261,7 +257,7 @@ function checkOTP(){
     if(entered.length===6){
         if(entered==generatedOTP){
             alert("Login Successful");
-            window.location="dashboard.html"; // Redirect after success
+            window.location="dashboard.html";
         } else {
             alert("Wrong OTP");
             for(var i=0;i<boxes.length;i++){
@@ -272,7 +268,6 @@ function checkOTP(){
     }
 }
 
-// ===== OTP Timer =====
 function startTimer(){
     var btn=document.getElementById("resendBtn");
     var timerSpan=document.getElementById("timer");
@@ -292,13 +287,12 @@ function startTimer(){
     },1000);
 }
 
-// ===== Resend OTP =====
+// ===== Resend OTP via WhatsApp =====
 function resendOTP(){
-    generateOTP(); // Automatically sends new OTP via WhatsApp
+    generateOTP(); // same function sends new OTP via WhatsApp
     startTimer();
 }
 
-// ===== Signup / Back =====
 function openSignup(){
     document.getElementById("loginForm").style.display="none";
     document.getElementById("signupForm").style.display="block";
