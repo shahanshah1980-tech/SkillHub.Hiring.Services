@@ -4,8 +4,9 @@
 <title>SkillHub Hiring Services</title>
 
 <style>
+
 body{
-font-family: Arial;
+font-family:Arial;
 background:#f2f2f2;
 text-align:center;
 margin-top:60px;
@@ -53,7 +54,7 @@ cursor:pointer;
 .otp-container{
 display:none;
 justify-content:center;
-gap:4px;
+gap:5px;
 margin-top:15px;
 }
 
@@ -67,16 +68,15 @@ border-radius:5px;
 }
 
 .resend-container{
-display:flex;
-justify-content:center;
-gap:10px;
-margin-top:10px;
 display:none;
+justify-content:center;
+margin-top:10px;
 }
 
 #signupForm{
 display:none;
 }
+
 </style>
 </head>
 
@@ -162,7 +162,7 @@ display:none;
 var generatedOTP;
 var signupGeneratedOTP;
 
-/* LOGIN */
+/* LOGIN FUNCTION */
 
 function login(){
 
@@ -190,12 +190,14 @@ alert("Invalid mobile or password");
 
 }
 
+/* SEND LOGIN OTP */
+
 function sendLoginOTP(mobile){
 
 generatedOTP=Math.floor(100000+Math.random()*900000);
 
-var token="YOUR_ULTRAMSG_TOKEN";
-var instance="YOUR_INSTANCE_ID";
+    var token = "1xhtdh7bylh73iay";     
+    var instance = "instance164778"; 
 
 fetch(`https://api.ultramsg.com/${instance}/messages/chat`,{
 
@@ -203,9 +205,11 @@ method:'POST',
 headers:{'Content-Type':'application/json'},
 
 body:JSON.stringify({
+
 token:token,
 to:mobile+"@c.us",
 body:"Your Login OTP is: "+generatedOTP
+
 })
 
 })
@@ -215,18 +219,17 @@ body:"Your Login OTP is: "+generatedOTP
 document.getElementById("otpContainer").style.display="flex";
 document.getElementById("resendContainer").style.display="flex";
 
+var boxes=document.querySelectorAll("#otpContainer input");
+
+boxes.forEach(b=>b.value="");
+
+boxes[0].focus();
+
 })
-}
-
-function resendOTP(){
-
-var mobile=document.getElementById("username").value;
-
-sendLoginOTP(mobile);
 
 }
 
-/* OTP CHECK LOGIN */
+/* OTP INPUT AUTO MOVE */
 
 document.querySelectorAll("#otpContainer input").forEach((box,index,boxes)=>{
 
@@ -264,7 +267,17 @@ boxes[0].focus();
 
 });
 
-/* SIGNUP */
+/* RESEND LOGIN OTP */
+
+function resendOTP(){
+
+var mobile=document.getElementById("username").value;
+
+sendLoginOTP(mobile);
+
+}
+
+/* SIGNUP FUNCTION */
 
 function signup(){
 
@@ -286,12 +299,14 @@ sendSignupOTP(mobile);
 
 }
 
+/* SEND SIGNUP OTP */
+
 function sendSignupOTP(mobile){
 
 signupGeneratedOTP=Math.floor(100000+Math.random()*900000);
 
-    var token = "1xhtdh7bylh73iay";     
-    var instance = "instance164778"; 
+var token="YOUR_ULTRAMSG_TOKEN";
+var instance="YOUR_INSTANCE_ID";
 
 fetch(`https://api.ultramsg.com/${instance}/messages/chat`,{
 
@@ -299,9 +314,11 @@ method:'POST',
 headers:{'Content-Type':'application/json'},
 
 body:JSON.stringify({
+
 token:token,
 to:mobile+"@c.us",
 body:"Your Signup OTP is: "+signupGeneratedOTP
+
 })
 
 })
@@ -312,9 +329,10 @@ document.getElementById("signupOtpContainer").style.display="flex";
 document.getElementById("signupResendContainer").style.display="flex";
 
 })
+
 }
 
-/* OTP CHECK SIGNUP */
+/* SIGNUP OTP VERIFY */
 
 document.querySelectorAll("#signupOtpContainer input").forEach((box,index,boxes)=>{
 
@@ -364,6 +382,16 @@ boxes[0].focus();
 });
 
 });
+
+/* RESEND SIGNUP OTP */
+
+function resendSignupOTP(){
+
+var mobile=document.getElementById("signupMobile").value;
+
+sendSignupOTP(mobile);
+
+}
 
 /* FORM SWITCH */
 
