@@ -51,19 +51,29 @@ cursor:pointer;
 }
 
 .otp-container{
-display:none;
-justify-content:center;
-gap:5px;
-margin-top:15px;
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-top: 15px;
+    display: none;
 }
 
 .otp-box{
-width:40px;
-height:50px;
-font-size:24px;
-text-align:center;
-border:2px solid #ccc;
-border-radius:5px;
+    width: 40px;
+    height: 50px;
+    font-size: 24px;
+    text-align: center;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    margin: 0;
+    padding: 0;
+}
+
+.otp-box:focus{
+    border-color: #0078d7;
+    box-shadow: 0 0 5px #0078d7;
 }
 
 .resend-container{
@@ -86,7 +96,7 @@ display:none;
 
 <h2>Login</h2>
 
-<input type="text" id="username" placeholder="WhatsApp Mobile Number"><br>
+<input type="text" id="username" placeholder="Username"><br>
 <input type="password" id="password" placeholder="Password"><br>
 
 <div class="otp-container" id="otpContainer">
