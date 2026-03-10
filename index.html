@@ -59,27 +59,19 @@ button{
     cursor:pointer;
 }
 
-.otp-container{
-    display:none;
-    flex-direction:row;
-    align-items:center;
-    margin-top:15px;
-    justify-content:center;
-    gap:0px; /* boxes aur resend button ke beech thoda gap */
-}
-
-.otp-inputs{
-    display:flex;
-    gap:0px; /* boxes ke beech gap badhaya */
-}
-
 .otp-box{
     width:30px;
     height:30px;
     font-size:20px;
     text-align:center;
-    border:0px black;
-    border-radius:0px;
+    border:none;       /* normal border nahi dikhaye */
+    border-radius:0px; /* rounded corner nahi */
+    outline:none;      /* default outline remove */
+}
+
+/* focus hone par black border dikhe */
+.otp-box:focus{
+    border:1px solid black;
 }
 
 .timer{
