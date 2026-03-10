@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,8 +82,6 @@ display:none;
 
 <h1 class="title">SkillHub & Hiring Services</h1>
 
-<!-- LOGIN FORM -->
-
 <div class="container" id="loginForm">
 
 <h2>Login</h2>
@@ -111,8 +108,6 @@ display:none;
 </div>
 
 </div>
-
-<!-- SIGNUP FORM -->
 
 <div class="container" id="signupForm">
 
@@ -149,8 +144,6 @@ display:none;
 var generatedOTP;
 var signupGeneratedOTP;
 
-/* LOGIN FUNCTION */
-
 function login(){
 
 var mobile=document.getElementById("username").value.trim();
@@ -177,29 +170,9 @@ alert("Invalid mobile or password");
 
 }
 
-/* SEND LOGIN OTP */
-
 function sendLoginOTP(mobile){
 
 generatedOTP=Math.floor(100000+Math.random()*900000);
-
-    var token = "1xhtdh7bylh73iay";     
-    var instance = "instance164778"; 
-
-fetch(`https://api.ultramsg.com/${instance}/messages/chat`,{
-
-method:'POST',
-headers:{'Content-Type':'application/json'},
-
-body:JSON.stringify({
-token:token,
-to:mobile+"@c.us",
-body:"Your Login OTP is: "+generatedOTP
-})
-
-})
-.then(res=>res.json())
-.then(data=>{
 
 document.getElementById("otpContainer").style.display="flex";
 document.getElementById("resendContainer").style.display="flex";
@@ -210,11 +183,7 @@ boxes.forEach(b=>b.value="");
 
 boxes[0].focus();
 
-})
-
 }
-
-/* LOGIN OTP VERIFY */
 
 document.querySelectorAll("#otpContainer input").forEach((box,index,boxes)=>{
 
@@ -238,7 +207,6 @@ alert("Login Successful");
 alert("Wrong OTP");
 
 boxes.forEach(b=>b.value="");
-
 boxes[0].focus();
 
 }
@@ -249,17 +217,11 @@ boxes[0].focus();
 
 });
 
-/* RESEND LOGIN OTP */
-
 function resendOTP(){
 
-var mobile=document.getElementById("username").value;
-
-sendLoginOTP(mobile);
+sendLoginOTP();
 
 }
-
-/* SIGNUP */
 
 function signup(){
 
@@ -271,44 +233,12 @@ alert("Password not match");
 return;
 }
 
-sendSignupOTP();
-
-}
-
-/* SEND SIGNUP OTP */
-
-function sendSignupOTP(){
-
-var mobile=document.getElementById("signupMobile").value;
-
 signupGeneratedOTP=Math.floor(100000+Math.random()*900000);
-
-var token="YOUR_ULTRAMSG_TOKEN";
-var instance="YOUR_INSTANCE_ID";
-
-fetch(`https://api.ultramsg.com/${instance}/messages/chat`,{
-
-method:'POST',
-headers:{'Content-Type':'application/json'},
-
-body:JSON.stringify({
-token:token,
-to:mobile+"@c.us",
-body:"Your Signup OTP is: "+signupGeneratedOTP
-})
-
-})
-.then(res=>res.json())
-.then(data=>{
 
 document.getElementById("signupOtpContainer").style.display="flex";
 document.getElementById("signupResendContainer").style.display="flex";
 
-})
-
 }
-
-/* SIGNUP OTP VERIFY */
 
 document.querySelectorAll("#signupOtpContainer input").forEach((box,index,boxes)=>{
 
@@ -345,7 +275,6 @@ backLogin();
 alert("Wrong OTP");
 
 boxes.forEach(b=>b.value="");
-
 boxes[0].focus();
 
 }
@@ -356,15 +285,11 @@ boxes[0].focus();
 
 });
 
-/* RESEND SIGNUP OTP */
-
 function resendSignupOTP(){
 
-sendSignupOTP();
+signup();
 
 }
-
-/* FORM SWITCH */
 
 function openSignup(){
 
@@ -384,4 +309,3 @@ document.getElementById("loginForm").style.display="block";
 
 </body>
 </html>
-```
