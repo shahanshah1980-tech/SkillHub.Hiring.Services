@@ -5,75 +5,69 @@
 
 <style>
 body{
-    font-family:Arial;
-    background:#f2f2f2;
-    text-align:center;
-    margin-top:60px;
+font-family:Arial;
+background:#f2f2f2;
+text-align:center;
+margin-top:60px;
 }
 
 .title{
-    font-size:32px;
-    font-weight:bold;
-    color:#0078d7;
-    margin-bottom:25px;
+font-size:32px;
+font-weight:bold;
+color:#0078d7;
+margin-bottom:25px;
 }
 
 .container{
-    background:white;
-    width:360px;
-    margin:auto;
-    padding:30px;
-    border-radius:10px;
-    box-shadow:0 0 10px #ccc;
+background:white;
+width:360px;
+margin:auto;
+padding:30px;
+border-radius:10px;
+box-shadow:0 0 10px #ccc;
 }
 
 input{
-    width:90%;
-    padding:10px;
-    margin:10px;
-    font-size:16px;
+width:90%;
+padding:10px;
+margin:10px;
+font-size:16px;
 }
 
 .btns{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    margin-top:10px;
+display:flex;
+justify-content:center;
+gap:10px;
+margin-top:10px;
 }
 
 button{
-    padding:10px 20px;
-    font-size:16px;
-    background:#0078d7;
-    color:white;
-    border:none;
-    cursor:pointer;
-    border-radius:5px;
+padding:10px 20px;
+font-size:16px;
+background:#0078d7;
+color:white;
+border:none;
+cursor:pointer;
+border-radius:5px;
 }
 
-.signup{ background:#0078d7; }
-.back{ background:#ff9800; }
-.create{ background:#0078d7; }
-.cancel{ background:#0078d7; }
-
 .otp-container{
-    display:flex;
-    justify-content:center;
-    gap:4px;
-    margin-top:10px;
-    display:none;
+display:flex;
+justify-content:center;
+gap:6px;
+margin-top:10px;
+display:none;
 }
 
 .otp-box{
-    width:22px;
-    height:22px;
-    font-size:14px;
-    text-align:center;
-    padding:0;
+width:28px;
+height:28px;
+font-size:16px;
+text-align:center;
 }
 
 #signupForm{
-    display:none;
+display:none;
 }
 </style>
 
@@ -82,8 +76,8 @@ button{
 
 <h1 class="title">SkillHub & Hiring Services</h1>
 
-<!-- LOGIN FORM -->
 <div class="container" id="loginForm">
+
 <h2>Login</h2>
 
 <input type="text" id="username" placeholder="Username"><br>
@@ -91,35 +85,35 @@ button{
 
 <div class="otp-container" id="otpContainer">
 
-<input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" disabled onkeyup="move(this,0,event)">
-<input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" disabled onkeyup="move(this,1,event)">
-<input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" disabled onkeyup="move(this,2,event)">
-<input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" disabled onkeyup="move(this,3,event)">
-<input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" disabled onkeyup="move(this,4,event)">
-<input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" disabled onkeyup="move(this,5,event)">
+<input class="otp-box" maxlength="1" disabled onkeydown="move(this,0,event)">
+<input class="otp-box" maxlength="1" disabled onkeydown="move(this,1,event)">
+<input class="otp-box" maxlength="1" disabled onkeydown="move(this,2,event)">
+<input class="otp-box" maxlength="1" disabled onkeydown="move(this,3,event)">
+<input class="otp-box" maxlength="1" disabled onkeydown="move(this,4,event)">
+<input class="otp-box" maxlength="1" disabled onkeydown="move(this,5,event)">
 
 </div>
 
 <div class="btns">
 <button onclick="login()">Login</button>
-<button class="signup" onclick="openSignup()">Signup</button>
-</div>
+<button onclick="openSignup()">Signup</button>
 </div>
 
-<!-- SIGNUP FORM -->
+</div>
+
 <div class="container" id="signupForm">
 
 <h2>Create Account</h2>
 
 <input type="text" placeholder="Full Name"><br>
-<input type="text" placeholder="Mobile Number" id="signupMobile"><br>
+<input type="text" placeholder="Mobile Number"><br>
 <input type="text" placeholder="Username"><br>
 <input type="password" placeholder="Password"><br>
 <input type="password" placeholder="Confirm Password"><br>
 
 <div class="btns">
-<button class="create">Create Account</button>
-<button class="cancel" onclick="backLogin()">Cancel</button>
+<button>Create Account</button>
+<button onclick="backLogin()">Cancel</button>
 </div>
 
 </div>
@@ -127,9 +121,8 @@ button{
 <script>
 
 var generatedOTP;
-var otpEnabled = false;
+var otpEnabled=false;
 
-// LOGIN FUNCTION
 function login(){
 
 var user=document.getElementById("username").value;
@@ -140,117 +133,64 @@ alert("Please enter Username and Password");
 return;
 }
 
-// Generate OTP
 generatedOTP=Math.floor(100000 + Math.random()*900000);
 
-var message="Your SkillHub OTP is: "+generatedOTP;
-
-var token="1xhtdh7bylh73iay";
-var instance="instance164778";
-var phone="919918841855";
-
-fetch(`https://api.ultramsg.com/${instance}/messages/chat`,{
-
-method:'POST',
-
-headers:{
-'Content-Type':'application/json'
-},
-
-body:JSON.stringify({
-
-token:token,
-to:phone,
-body:message
-
-})
-
-})
-
-.then(response=>response.json())
-
-.then(data=>{
-
-alert("OTP sent via WhatsApp!");
+alert("Demo OTP: "+generatedOTP);
 
 document.getElementById("otpContainer").style.display="flex";
-
-otpEnabled=true;
 
 var boxes=document.getElementsByClassName("otp-box");
 
 for(var i=0;i<boxes.length;i++){
-
 boxes[i].disabled=false;
 boxes[i].value="";
-
 }
 
 boxes[0].focus();
-
-})
-
-.catch(error=>{
-
-alert("Failed to send OTP");
-
-});
+otpEnabled=true;
 
 }
 
-// OTP MOVE FUNCTION
 function move(field,index,event){
 
 if(!otpEnabled) return;
 
 var boxes=document.getElementsByClassName("otp-box");
 
-var key=event.key;
+if(event.key==="Enter"){
+event.preventDefault();
+if(index < boxes.length-1){
+boxes[index+1].focus();
+}
+return;
+}
 
-// BACKSPACE
-if(key==="Backspace"){
-
-if(field.value.length===0 && index>0){
-
+if(event.key==="Backspace"){
+if(field.value=="" && index>0){
 boxes[index-1].focus();
-
 }
-
 return;
-
 }
 
-// ENTER KEY
-if(key==="Enter"){
+setTimeout(function(){
 
-if(index < boxes.length-1){
-
+if(field.value.length===1 && index < boxes.length-1){
 boxes[index+1].focus();
+}
+
+checkOTP();
+
+},10);
 
 }
 
-return;
+function checkOTP(){
 
-}
-
-// NUMBER ENTER
-if(field.value.length===1){
-
-if(index < boxes.length-1){
-
-boxes[index+1].focus();
-
-}
-
-}
-
-// CHECK OTP
+var boxes=document.getElementsByClassName("otp-box");
 var entered="";
 
 for(var i=0;i<boxes.length;i++){
-
-entered+=boxes[i].value;
-
+entered += boxes[i].value;
 }
 
 if(entered.length===6){
@@ -258,33 +198,14 @@ if(entered.length===6){
 if(entered==generatedOTP){
 
 alert("Login Successful");
-
-for(var i=0;i<boxes.length;i++){
-
-boxes[i].value="";
-boxes[i].disabled=true;
-
-}
-
-document.getElementById("otpContainer").style.display="none";
-
-document.getElementById("username").value="";
-document.getElementById("password").value="";
-
-otpEnabled=false;
-
 window.location="dashboard.html";
 
-}
-
-else{
+}else{
 
 alert("Wrong OTP");
 
 for(var i=0;i<boxes.length;i++){
-
 boxes[i].value="";
-
 }
 
 boxes[0].focus();
@@ -295,20 +216,14 @@ boxes[0].focus();
 
 }
 
-// OPEN SIGNUP
 function openSignup(){
-
 document.getElementById("loginForm").style.display="none";
 document.getElementById("signupForm").style.display="block";
-
 }
 
-// BACK LOGIN
 function backLogin(){
-
 document.getElementById("signupForm").style.display="none";
 document.getElementById("loginForm").style.display="block";
-
 }
 
 </script>
