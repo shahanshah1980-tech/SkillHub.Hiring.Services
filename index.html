@@ -281,7 +281,7 @@ function setupOtp(otpContainerId, resendBtnId, sendOtpCallback, verifyCallback){
   const otpContainer = document.getElementById(otpContainerId);
   const otpBoxes = otpContainer.querySelectorAll('.otp-box');
   const resendBtn = document.getElementById(resendBtnId);
-  let countdown = 30;
+  let countdown = 60;
   let timer;
 
   otpBoxes.forEach((box, index)=>{
