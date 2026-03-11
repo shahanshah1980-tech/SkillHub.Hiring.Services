@@ -67,7 +67,7 @@ button:hover{
   background:#87cefa;
 }
 
-/* LOGIN PAGE BUTTON SIZE CONTROL */
+
 
 #loginForm .btns button:nth-child(1),
 #loginForm .btns button:nth-child(2),
@@ -79,7 +79,7 @@ width:80px;
 width:120px;
 }
 
-/* OTP DESIGN */
+
 
 .otp-container{
   display:none;
@@ -185,11 +185,11 @@ width:120px;
 
 <script>
 
-/* UltraMsg API */
+
 var token="1xhtdh7bylh73iay";
 var instance="instance164778";
 
-/* VARIABLES */
+
 var signupGeneratedOTP;
 var loginGeneratedOTP;
 var loginUser;
@@ -197,7 +197,7 @@ var loginUser;
 var timerInterval;
 var loginTimer;
 
-/* SEND WHATSAPP */
+
 function sendWhatsAppOTP(number,otp,message){
 fetch("https://api.ultramsg.com/"+instance+"/messages/chat",{
 method:"POST",
@@ -210,7 +210,7 @@ body:message+" "+otp
 })
 }
 
-/* SIGNUP */
+
 function signup(){
 
 var mobile=document.getElementById("signupMobile").value.trim();
@@ -247,7 +247,7 @@ document.getElementById("signupOtpContainer").style.display="flex";
 startTimer();
 }
 
-/* SAVE USER */
+
 function saveUser(){
 
 var userData={
@@ -268,7 +268,7 @@ alert("Signup Successful");
 backLogin();
 }
 
-/* LOGIN */
+
 function login(){
 
 var username=document.getElementById("username").value.trim();
@@ -294,7 +294,7 @@ document.getElementById("loginOtpContainer").style.display="flex";
 startLoginTimer();
 }
 
-/* NAVIGATION */
+
 function openSignup(){
 document.getElementById("loginForm").style.display="none";
 document.getElementById("signupForm").style.display="block";
