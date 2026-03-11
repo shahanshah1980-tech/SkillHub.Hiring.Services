@@ -3,115 +3,126 @@
 <head>
 <title>SkillHub Hiring Services</title>
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
 <style>
-
-body{
-  font-family:Arial;
-  background:linear-gradient(135deg,#e8f2ff,#ffffff);
-  text-align:center;
-  margin-top:60px;
-}
-
-.title{
-  font-size:34px;
-  font-weight:bold;
-  color:#0078d7;
-  margin-bottom:30px;
-}
-
-.container{
-  background:white;
-  width:420px;
-  margin:auto;
-  padding:30px;
-  border-radius:15px;
-  box-shadow:0 8px 25px rgba(0,0,0,0.1);
-}
-
-/* INPUT STYLE */
-
-input{
-  width:90%;
-  padding:12px 15px;
-  margin:10px;
-  font-size:16px;
-
-  border:1px solid #d0d7de;
-  border-radius:25px;
-
-  outline:none;
-
-  background:#f5f8ff;
-
-  box-shadow:0 3px 8px rgba(0,0,0,0.08);
-
-  transition:all 0.3s ease;
-}
-
-input:focus{
-  border-color:#0078d7;
-  background:#ffffff;
-
-  box-shadow:0 4px 12px rgba(0,120,215,0.25);
-}
-
-.error{
-  color:red;
-  font-size:14px;
-  text-align:left;
-  width:90%;
-  margin:auto;
-}
-
-/* BUTTONS */
-
-.btns{
-  display:flex;
-  justify-content:center;
-  gap:15px;
-  margin-top:30px;
-}
-
-button{
-  padding:10px 30px;
-  font-size:16px;
-  border:none;
-  border-radius:25px;
-  cursor:pointer;
-  color:white;
-
-  background:linear-gradient(135deg,#0078d7,#00b4ff);
-
+/* Body + Background */
+body {
+  margin:0;
+  font-family: Arial, sans-serif;
+  height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-
-  box-shadow:0 4px 10px rgba(0,0,0,0.2);
-  transition:all 0.3s ease;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  overflow: hidden;
+  position: relative;
 }
 
-button:hover{
-  transform:translateY(-2px);
-  box-shadow:0 6px 15px rgba(0,0,0,0.3);
-  background:linear-gradient(135deg,#005fa3,#0095d9);
+/* Abstract circles */
+body::before, body::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.2;
+}
+body::before {
+  width: 500px;
+  height: 500px;
+  background: #ffffff;
+  top: -100px;
+  left: -100px;
+}
+body::after {
+  width: 400px;
+  height: 400px;
+  background: #fffc;
+  bottom: -80px;
+  right: -80px;
 }
 
-button:active{
-  transform:scale(0.95);
+/* Glass container */
+.container {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 25px;
+  padding: 40px 30px;
+  width: 400px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  color: #fff;
+  text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
-#loginForm .btns button:nth-child(1),
-#loginForm .btns button:nth-child(2),
-#loginForm .btns button:nth-child(3){
-width:80px;
+.title {
+  font-size:32px;
+  font-weight:bold;
+  margin-bottom:30px;
+  color: #fff;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
 }
 
-#loginForm .btns button:nth-child(4){
-width:140px;
+/* Inputs with icons */
+.input-group {
+  position: relative;
+  margin: 15px 0;
+}
+.input-group input {
+  width: 100%;
+  padding: 12px 40px 12px 15px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+.input-group input:focus {
+  background: rgba(255,255,255,0.3);
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
+}
+.input-group i {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  opacity: 0.7;
 }
 
-/* OTP STYLE */
+/* Buttons */
+.btns {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+button {
+  padding: 12px 30px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  background: linear-gradient(135deg,#ff7eb3,#ff758c);
+  color: #fff;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+  background: linear-gradient(135deg,#ff758c,#ff7eb3);
+}
+button:active {
+  transform: scale(0.95);
+}
 
+/* OTP */
 .otp-container{
   display:none;
   justify-content:center;
@@ -119,118 +130,136 @@ width:140px;
   margin-top:15px;
   flex-wrap:wrap;
 }
-
 .otp-box{
-  width:30px;
-  height:30px;
+  width:40px;
+  height:40px;
   font-size:20px;
   text-align:center;
-  border:1px solid #ccc;
-  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.5);
+  border-radius:10px;
   outline:none;
-  margin:2px;
-  background:#f8fbff;
-  transition:all 0.2s;
+  margin: 5px;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  transition: all 0.2s ease;
 }
-
 .otp-box:focus{
-  border-color:#0078d7;
-  background:white;
-  box-shadow:0 3px 8px rgba(0,120,215,0.2);
+  border-color: #fff;
+  background: rgba(255,255,255,0.35);
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
 }
-
-.otp-container button{
-  height:30px;
-  padding:0 15px;
-  font-size:14px;
-  margin-left:10px;
-  margin-top:10px;
-}
-
-.timer{
+.timer {
   width:100%;
   margin-top:10px;
   font-size:14px;
-  color:#555;
+  color:#fff;
+  opacity:0.8;
 }
 
+.error{
+  color:#ff7070;
+  font-size:14px;
+  text-align:left;
+  width:100%;
+  margin:auto;
+}
+
+/* Signup form hidden initially */
+#signupForm{
+  display:none;
+}
 </style>
 </head>
-
 <body>
-
-<h1 class="title">SkillHub & Hiring Services</h1>
 
 <!-- LOGIN FORM -->
 <div class="container" id="loginForm">
-<h2>Login</h2>
+  <h1 class="title">SkillHub & Hiring Services</h1>
 
-<input type="text" id="username" placeholder="Username">
-<input type="password" id="password" placeholder="Password">
+  <div class="input-group">
+    <input type="text" id="username" placeholder="Username">
+    <i class="fa fa-user"></i>
+  </div>
 
-<div class="otp-container" id="loginOtpContainer">
-<input class="otp-box" maxlength="1">
-<input class="otp-box" maxlength="1">
-<input class="otp-box" maxlength="1">
-<input class="otp-box" maxlength="1">
-<input class="otp-box" maxlength="1">
-<input class="otp-box" maxlength="1">
+  <div class="input-group">
+    <input type="password" id="password" placeholder="Password">
+    <i class="fa fa-lock"></i>
+  </div>
 
-<div class="timer" id="loginOtpTimer">30 sec</div>
-<button class="resend" id="loginResendBtn" onclick="resendLoginOTP()" disabled>Resend OTP</button>
-</div>
+  <div class="otp-container" id="loginOtpContainer">
+    <input class="otp-box" maxlength="1">
+    <input class="otp-box" maxlength="1">
+    <input class="otp-box" maxlength="1">
+    <input class="otp-box" maxlength="1">
+    <input class="otp-box" maxlength="1">
+    <input class="otp-box" maxlength="1">
+    <div class="timer" id="loginOtpTimer">30 sec</div>
+    <button class="resend" id="loginResendBtn" onclick="resendLoginOTP()" disabled>Resend OTP</button>
+  </div>
 
-<div class="btns">
-<button onclick="login()">Login</button>
-<button onclick="openSignup()">Signup</button>
-<button onclick="openAdmin()">Admin</button>
-<button onclick="openAddWork()">Add Work</button>
-</div>
+  <div class="btns">
+    <button onclick="login()">Login</button>
+    <button onclick="openSignup()">Signup</button>
+    <button onclick="openAdmin()">Admin</button>
+    <button onclick="openAddWork()">Add Work</button>
+  </div>
 </div>
 
 <!-- SIGNUP FORM -->
-<div class="container" id="signupForm" style="display:none;">
-<h2>Create Account</h2>
+<div class="container" id="signupForm">
+  <h1 class="title">Create Account</h1>
 
-<input type="text" id="signupName" placeholder="Full Name">
-<input type="text" id="signupMobile" placeholder="Mobile Number">
-<div id="mobileError" class="error"></div>
+  <div class="input-group">
+    <input type="text" id="signupName" placeholder="Full Name">
+    <i class="fa fa-user"></i>
+  </div>
 
-<input type="text" id="signupUsername" placeholder="Username">
-<div id="usernameError" class="error"></div>
+  <div class="input-group">
+    <input type="text" id="signupMobile" placeholder="Mobile Number">
+    <i class="fa fa-phone"></i>
+  </div>
+  <div id="mobileError" class="error"></div>
 
-<input type="password" id="signupPassword" placeholder="Password">
-<input type="password" id="signupConfirmPassword" placeholder="Confirm Password">
+  <div class="input-group">
+    <input type="text" id="signupUsername" placeholder="Username">
+    <i class="fa fa-user"></i>
+  </div>
+  <div id="usernameError" class="error"></div>
 
-<div class="otp-container" id="signupOtpContainer">
-<input class="otp-box" maxlength="1">
-<input class="otp-box" maxlength="1">
-<input class="otp-box" maxlength="1">
-<input class="otp-box" maxlength="1">
-<input class="otp-box" maxlength="1">
-<input class="otp-box" maxlength="1">
+  <div class="input-group">
+    <input type="password" id="signupPassword" placeholder="Password">
+    <i class="fa fa-lock"></i>
+  </div>
 
-<div class="timer" id="otpTimer">30 sec</div>
-<button class="resend" id="resendBtn" onclick="resendOTP()" disabled>Resend OTP</button>
-</div>
+  <div class="input-group">
+    <input type="password" id="signupConfirmPassword" placeholder="Confirm Password">
+    <i class="fa fa-lock"></i>
+  </div>
 
-<div class="btns">
-<button onclick="signup()">Create Account</button>
-<button onclick="backLogin()">Cancel</button>
-</div>
+  <div class="otp-container" id="signupOtpContainer">
+    <input class="otp-box" maxlength="1">
+    <input class="otp-box" maxlength="1">
+    <input class="otp-box" maxlength="1">
+    <input class="otp-box" maxlength="1">
+    <input class="otp-box" maxlength="1">
+    <input class="otp-box" maxlength="1">
+    <div class="timer" id="otpTimer">30 sec</div>
+    <button class="resend" id="resendBtn" onclick="resendOTP()" disabled>Resend OTP</button>
+  </div>
+
+  <div class="btns">
+    <button onclick="signup()">Create Account</button>
+    <button onclick="backLogin()">Cancel</button>
+  </div>
 </div>
 
 <script>
-
 var token="1xhtdh7bylh73iay";
 var instance="instance164778";
 
 var signupGeneratedOTP;
 var loginGeneratedOTP;
 var loginUser;
-
-var timerInterval;
-var loginTimer;
 
 function sendWhatsAppOTP(number,otp,message){
 fetch("https://api.ultramsg.com/"+instance+"/messages/chat",{
@@ -245,82 +274,45 @@ body:message+" "+otp
 }
 
 function signup(){
-
 var mobile=document.getElementById("signupMobile").value.trim();
 var username=document.getElementById("signupUsername").value.trim();
 var pass=document.getElementById("signupPassword").value;
 var confirm=document.getElementById("signupConfirmPassword").value;
-
 document.getElementById("mobileError").innerHTML="";
 document.getElementById("usernameError").innerHTML="";
-
-if(pass!=confirm){
-alert("Password not match");
-return;
-}
-
+if(pass!=confirm){alert("Password not match");return;}
 var users=JSON.parse(localStorage.getItem("skillhub_users"))||[];
-
-if(users.some(u=>u.mobile===mobile)){
-document.getElementById("mobileError").innerHTML="Mobile already exists";
-return;
-}
-
-if(users.some(u=>u.username===username)){
-document.getElementById("usernameError").innerHTML="Username already exists";
-return;
-}
-
+if(users.some(u=>u.mobile===mobile)){document.getElementById("mobileError").innerHTML="Mobile already exists";return;}
+if(users.some(u=>u.username===username)){document.getElementById("usernameError").innerHTML="Username already exists";return;}
 signupGeneratedOTP=Math.floor(100000+Math.random()*900000);
-
 sendWhatsAppOTP(mobile,signupGeneratedOTP,"Your SkillHub Signup OTP is:");
-
 document.getElementById("signupOtpContainer").style.display="flex";
-
 }
 
 function saveUser(){
-
 var userData={
 fullname:document.getElementById("signupName").value,
 mobile:document.getElementById("signupMobile").value,
 username:document.getElementById("signupUsername").value,
 password:document.getElementById("signupPassword").value
 };
-
 var users=JSON.parse(localStorage.getItem("skillhub_users"))||[];
-
 users.push(userData);
-
 localStorage.setItem("skillhub_users",JSON.stringify(users));
-
 alert("Signup Successful");
-
 backLogin();
 }
 
 function login(){
-
 var username=document.getElementById("username").value.trim();
 var pass=document.getElementById("password").value.trim();
-
 var users=JSON.parse(localStorage.getItem("skillhub_users"))||[];
-
 var user=users.find(u=>u.username===username && u.password===pass);
-
-if(!user){
-alert("Invalid username or password");
-return;
-}
-
+if(!user){alert("Invalid username or password");return;}
 loginUser=user;
-
 loginGeneratedOTP=Math.floor(100000+Math.random()*900000);
-
 sendWhatsAppOTP(user.mobile,loginGeneratedOTP,"Your SkillHub Login OTP is:");
-
 document.getElementById("loginOtpContainer").style.display="flex";
-
 }
 
 function openSignup(){
@@ -333,13 +325,8 @@ document.getElementById("signupForm").style.display="none";
 document.getElementById("loginForm").style.display="block";
 }
 
-function openAdmin(){
-alert("Admin panel coming soon");
-}
-
-function openAddWork(){
-alert("Add Work page coming soon");
-}
+function openAdmin(){alert("Admin panel coming soon");}
+function openAddWork(){alert("Add Work page coming soon");}
 
 </script>
 
