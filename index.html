@@ -266,6 +266,13 @@ button:active {
   </div>
 </div>
 
+<!-- DASHBOARD -->
+<div class="container" id="dashboard" style="display:none;">
+  <h2>Welcome to SkillHub Dashboard</h2>
+  <p id="dashboardName"></p>
+  <button onclick="logout()">Logout</button>
+</div>
+
 <script>
 var token="1xhtdh7bylh73iay";
 var instance="instance164778";
@@ -286,7 +293,8 @@ function sendWhatsAppOTP(number,otp,message){
   })
 }
 
-function setupOtp(otpContainerId, resendBtnId, sendOtpCallback){
+// OTP setup function with auto-verify
+function setupOtp(otpContainerId, resendBtnId, sendOtpCallback, verifyCallback){
   const otpContainer = document.getElementById(otpContainerId);
   const otpBoxes = otpContainer.querySelectorAll('.otp-box');
   const resendBtn = document.getElementById(resendBtnId);
@@ -294,10 +302,16 @@ function setupOtp(otpContainerId, resendBtnId, sendOtpCallback){
   let timer;
 
   otpBoxes.forEach((box, index)=>{
+    box.value="";
     box.addEventListener('input', ()=>{
       box.value = box.value.replace(/[^0-9]/g,'');
       if(box.value.length === 1 && index < otpBoxes.length-1){
         otpBoxes[index+1].focus();
+      }
+      // Auto verify
+      let enteredOtp = Array.from(otpBoxes).map(b=>b.value).join('');
+      if(enteredOtp.length === otpBoxes.length && verifyCallback){
+        verifyCallback(enteredOtp);
       }
     });
     box.addEventListener('keydown', (e)=>{
@@ -344,6 +358,7 @@ function signup(){
   var users=JSON.parse(localStorage.getItem("skillhub_users"))||[];
   if(users.some(u=>u.mobile===mobile)){document.getElementById("mobileError").innerHTML="Mobile already exists";return;}
   if(users.some(u=>u.username===username)){document.getElementById("usernameError").innerHTML="Username already exists";return;}
+  
   signupGeneratedOTP=Math.floor(100000+Math.random()*900000);
   sendWhatsAppOTP(mobile,signupGeneratedOTP,"Your SkillHub Signup OTP is:");
   document.getElementById("signupOtpContainer").style.display="flex";
@@ -351,6 +366,11 @@ function signup(){
   setupOtp('signupOtpContainer','resendBtn', ()=>{
     signupGeneratedOTP=Math.floor(100000+Math.random()*900000);
     sendWhatsAppOTP(mobile,signupGeneratedOTP,"Your SkillHub Signup OTP is:");
+  }, (enteredOtp)=>{
+    if(enteredOtp==signupGeneratedOTP){
+      alert("Signup OTP Verified!");
+      saveUser();
+    }
   });
 }
 
@@ -382,6 +402,11 @@ function login(){
   setupOtp('loginOtpContainer','loginResendBtn', ()=>{
     loginGeneratedOTP=Math.floor(100000+Math.random()*900000);
     sendWhatsAppOTP(user.mobile,loginGeneratedOTP,"Your SkillHub Login OTP is:");
+  }, (enteredOtp)=>{
+    if(enteredOtp==loginGeneratedOTP){
+      alert("Login OTP Verified! Welcome "+loginUser.fullname);
+      showDashboard();
+    }
   });
 }
 
@@ -414,6 +439,21 @@ function togglePassword(inputId, icon){
     icon.classList.remove("fa-eye-slash");
     icon.classList.add("fa-eye");
   }
+}
+
+// Dashboard functions
+function showDashboard(){
+  document.getElementById("loginForm").style.display="none";
+  document.getElementById("signupForm").style.display="none";
+  document.getElementById("loginOtpContainer").style.display="none";
+  document.getElementById("signupOtpContainer").style.display="none";
+  document.getElementById("dashboard").style.display="block";
+  document.getElementById("dashboardName").innerText = "Hello, "+loginUser.fullname;
+}
+
+function logout(){
+  document.getElementById("dashboard").style.display="none";
+  backLogin();
 }
 </script>
 
