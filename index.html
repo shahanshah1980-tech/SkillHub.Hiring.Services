@@ -286,6 +286,53 @@ function sendWhatsAppOTP(number,otp,message){
   })
 }
 
+function setupOtp(otpContainerId, resendBtnId, sendOtpCallback){
+  const otpContainer = document.getElementById(otpContainerId);
+  const otpBoxes = otpContainer.querySelectorAll('.otp-box');
+  const resendBtn = document.getElementById(resendBtnId);
+  let countdown = 30;
+  let timer;
+
+  otpBoxes.forEach((box, index)=>{
+    box.addEventListener('input', ()=>{
+      box.value = box.value.replace(/[^0-9]/g,'');
+      if(box.value.length === 1 && index < otpBoxes.length-1){
+        otpBoxes[index+1].focus();
+      }
+    });
+    box.addEventListener('keydown', (e)=>{
+      if(e.key==='Backspace' && !box.value && index>0){
+        otpBoxes[index-1].focus();
+      }
+    });
+  });
+
+  function startTimer(){
+    resendBtn.disabled=true;
+    resendBtn.innerText=`Resend OTP (${countdown})`;
+    timer = setInterval(()=>{
+      countdown--;
+      resendBtn.innerText=`Resend OTP (${countdown})`;
+      if(countdown<=0){
+        clearInterval(timer);
+        resendBtn.disabled=false;
+        resendBtn.innerText="Resend OTP";
+        countdown=30;
+      }
+    },1000);
+  }
+
+  startTimer();
+
+  resendBtn.addEventListener('click', ()=>{
+    countdown=30;
+    startTimer();
+    if(sendOtpCallback) sendOtpCallback();
+  });
+
+  return otpBoxes;
+}
+
 function signup(){
   var mobile=document.getElementById("signupMobile").value.trim();
   var username=document.getElementById("signupUsername").value.trim();
@@ -300,6 +347,11 @@ function signup(){
   signupGeneratedOTP=Math.floor(100000+Math.random()*900000);
   sendWhatsAppOTP(mobile,signupGeneratedOTP,"Your SkillHub Signup OTP is:");
   document.getElementById("signupOtpContainer").style.display="flex";
+
+  setupOtp('signupOtpContainer','resendBtn', ()=>{
+    signupGeneratedOTP=Math.floor(100000+Math.random()*900000);
+    sendWhatsAppOTP(mobile,signupGeneratedOTP,"Your SkillHub Signup OTP is:");
+  });
 }
 
 function saveUser(){
@@ -326,6 +378,11 @@ function login(){
   loginGeneratedOTP=Math.floor(100000+Math.random()*900000);
   sendWhatsAppOTP(user.mobile,loginGeneratedOTP,"Your SkillHub Login OTP is:");
   document.getElementById("loginOtpContainer").style.display="flex";
+
+  setupOtp('loginOtpContainer','loginResendBtn', ()=>{
+    loginGeneratedOTP=Math.floor(100000+Math.random()*900000);
+    sendWhatsAppOTP(user.mobile,loginGeneratedOTP,"Your SkillHub Login OTP is:");
+  });
 }
 
 function openSignup(){
