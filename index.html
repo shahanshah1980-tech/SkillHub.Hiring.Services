@@ -6,8 +6,7 @@
 <style>
 body{
   font-family:Arial;
-  background:white;
-
+  background:#eaf6ff;
   text-align:center;
   margin-top:60px;
 }
@@ -24,8 +23,8 @@ body{
   width:420px;
   margin:auto;
   padding:30px;
-  border-radius:0px;
-  box-shadow:0 0 0px #ccc;
+  border-radius:10px;
+  box-shadow:0 0 10px #ccc;
 }
 
 input{
@@ -100,6 +99,7 @@ button:hover{
   padding:0 0px;
   font-size:14px;
   margin-left:0px;
+  margin-top:10px; /* Resend button thoda neeche */
 }
 </style>
 </head>
@@ -109,9 +109,7 @@ button:hover{
 <h1 class="title">SkillHub & Hiring Services</h1>
 
 <!-- LOGIN FORM -->
-
 <div class="container" id="loginForm">
-
 <h2>Login</h2>
 
 <input type="text" id="username" placeholder="Username">
@@ -133,13 +131,10 @@ button:hover{
   <button onclick="login()">Login</button>
   <button onclick="openSignup()">Signup</button>
 </div>
-
 </div>
 
 <!-- SIGNUP FORM -->
-
 <div class="container" id="signupForm" style="display:none;">
-
 <h2>Create Account</h2>
 
 <input type="text" id="signupName" placeholder="Full Name">
@@ -168,7 +163,6 @@ button:hover{
   <button onclick="signup()">Create Account</button>
   <button onclick="backLogin()">Cancel</button>
 </div>
-
 </div>
 
 <script>
