@@ -132,23 +132,23 @@ button:active {
 
 /* OTP updated: horizontal layout + resend on same line */
 .otp-container {
-  display: flex;
+  display: none;  /* hide initially */
   justify-content: center;
   align-items: center;
   margin-top: 15px;
-  flex-wrap: nowrap; /* wrap हटाया ताकि एक line में रहें */
-  gap: 10px;         /* OTP box और button के बीच spacing */
+  flex-wrap: nowrap;
+  gap: 10px;
 }
 
 .otp-container .resend {
   height: 40px;
   padding: 0 10px;
   font-size: 14px;
-  margin: 0;       /* margin top/left हटाया */
+  margin: 0;
 }
 
 .timer {
-  display: 60;  /* OTP timer नीचे नहीं दिखाना */
+  display: none;
 }
 
 .otp-box{
@@ -275,67 +275,71 @@ var loginGeneratedOTP;
 var loginUser;
 
 function sendWhatsAppOTP(number,otp,message){
-fetch("https://api.ultramsg.com/"+instance+"/messages/chat",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({
-token:token,
-to:number,
-body:message+" "+otp
-})
-})
+  fetch("https://api.ultramsg.com/"+instance+"/messages/chat",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      token:token,
+      to:number,
+      body:message+" "+otp
+    })
+  })
 }
 
 function signup(){
-var mobile=document.getElementById("signupMobile").value.trim();
-var username=document.getElementById("signupUsername").value.trim();
-var pass=document.getElementById("signupPassword").value;
-var confirm=document.getElementById("signupConfirmPassword").value;
-document.getElementById("mobileError").innerHTML="";
-document.getElementById("usernameError").innerHTML="";
-if(pass!=confirm){alert("Password not match");return;}
-var users=JSON.parse(localStorage.getItem("skillhub_users"))||[];
-if(users.some(u=>u.mobile===mobile)){document.getElementById("mobileError").innerHTML="Mobile already exists";return;}
-if(users.some(u=>u.username===username)){document.getElementById("usernameError").innerHTML="Username already exists";return;}
-signupGeneratedOTP=Math.floor(100000+Math.random()*900000);
-sendWhatsAppOTP(mobile,signupGeneratedOTP,"Your SkillHub Signup OTP is:");
-document.getElementById("signupOtpContainer").style.display="flex";
+  var mobile=document.getElementById("signupMobile").value.trim();
+  var username=document.getElementById("signupUsername").value.trim();
+  var pass=document.getElementById("signupPassword").value;
+  var confirm=document.getElementById("signupConfirmPassword").value;
+  document.getElementById("mobileError").innerHTML="";
+  document.getElementById("usernameError").innerHTML="";
+  if(pass!=confirm){alert("Password not match");return;}
+  var users=JSON.parse(localStorage.getItem("skillhub_users"))||[];
+  if(users.some(u=>u.mobile===mobile)){document.getElementById("mobileError").innerHTML="Mobile already exists";return;}
+  if(users.some(u=>u.username===username)){document.getElementById("usernameError").innerHTML="Username already exists";return;}
+  signupGeneratedOTP=Math.floor(100000+Math.random()*900000);
+  sendWhatsAppOTP(mobile,signupGeneratedOTP,"Your SkillHub Signup OTP is:");
+  document.getElementById("signupOtpContainer").style.display="flex";
 }
 
 function saveUser(){
-var userData={
-fullname:document.getElementById("signupName").value,
-mobile:document.getElementById("signupMobile").value,
-username:document.getElementById("signupUsername").value,
-password:document.getElementById("signupPassword").value
-};
-var users=JSON.parse(localStorage.getItem("skillhub_users"))||[];
-users.push(userData);
-localStorage.setItem("skillhub_users",JSON.stringify(users));
-alert("Signup Successful");
-backLogin();
+  var userData={
+    fullname:document.getElementById("signupName").value,
+    mobile:document.getElementById("signupMobile").value,
+    username:document.getElementById("signupUsername").value,
+    password:document.getElementById("signupPassword").value
+  };
+  var users=JSON.parse(localStorage.getItem("skillhub_users"))||[];
+  users.push(userData);
+  localStorage.setItem("skillhub_users",JSON.stringify(users));
+  alert("Signup Successful");
+  backLogin();
 }
 
 function login(){
-var username=document.getElementById("username").value.trim();
-var pass=document.getElementById("password").value.trim();
-var users=JSON.parse(localStorage.getItem("skillhub_users"))||[];
-var user=users.find(u=>u.username===username && u.password===pass);
-if(!user){alert("Invalid username or password");return;}
-loginUser=user;
-loginGeneratedOTP=Math.floor(100000+Math.random()*900000);
-sendWhatsAppOTP(user.mobile,loginGeneratedOTP,"Your SkillHub Login OTP is:");
-document.getElementById("loginOtpContainer").style.display="flex";
+  var username=document.getElementById("username").value.trim();
+  var pass=document.getElementById("password").value.trim();
+  var users=JSON.parse(localStorage.getItem("skillhub_users"))||[];
+  var user=users.find(u=>u.username===username && u.password===pass);
+  if(!user){alert("Invalid username or password");return;}
+  loginUser=user;
+  loginGeneratedOTP=Math.floor(100000+Math.random()*900000);
+  sendWhatsAppOTP(user.mobile,loginGeneratedOTP,"Your SkillHub Login OTP is:");
+  document.getElementById("loginOtpContainer").style.display="flex";
 }
 
 function openSignup(){
-document.getElementById("loginForm").style.display="none";
-document.getElementById("signupForm").style.display="block";
+  document.getElementById("loginForm").style.display="none";
+  document.getElementById("signupForm").style.display="block";
+  document.getElementById("signupOtpContainer").style.display="none";
+  document.getElementById("loginOtpContainer").style.display="none";
 }
 
 function backLogin(){
-document.getElementById("signupForm").style.display="none";
-document.getElementById("loginForm").style.display="block";
+  document.getElementById("signupForm").style.display="none";
+  document.getElementById("loginForm").style.display="block";
+  document.getElementById("loginOtpContainer").style.display="none";
+  document.getElementById("signupOtpContainer").style.display="none";
 }
 
 function openAdmin(){alert("Admin panel coming soon");}
