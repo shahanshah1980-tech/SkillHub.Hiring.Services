@@ -313,7 +313,7 @@ function setupOtp(otpContainerId, resendBtnId, sendOtpCallback, verifyCallback){
         clearInterval(timer);
         resendBtn.disabled=false;
         resendBtn.innerText="Resend OTP";
-        countdown=30;
+        countdown=60;
       }
     },1000);
   }
@@ -321,7 +321,7 @@ function setupOtp(otpContainerId, resendBtnId, sendOtpCallback, verifyCallback){
   startTimer();
 
   resendBtn.addEventListener('click', ()=>{
-    countdown=30;
+    countdown=60;
     startTimer();
     if(sendOtpCallback) sendOtpCallback();
   });
