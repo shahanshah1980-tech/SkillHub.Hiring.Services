@@ -10,13 +10,13 @@
 body {
   margin:0;
   font-family: Arial, sans-serif;
-  min-height:100vh;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
   background: linear-gradient(135deg, #00c6ff, #0072ff);
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
-  padding-top: 60px;
+  overflow: hidden;
+  position: relative;
 }
 
 /* Abstract circles */
@@ -66,8 +66,9 @@ body::after {
   box-shadow: 0 8px 30px rgba(0,0,0,0.2);
   color: #fff;
   text-align: center;
-  margin: 20px auto;
   position: relative;
+  z-index: 1;
+  margin-top: 120px; /* space for fixed title */
 }
 
 /* Inputs with icons */
@@ -169,6 +170,11 @@ button:active {
   width:100%;
   margin:auto;
 }
+
+/* Signup form hidden initially */
+#signupForm{
+  display:none;
+}
 #dashboard{
   display:none;
 }
@@ -205,7 +211,7 @@ button:active {
   </div>
 </div>
 
-<!-- SIGNUP FORM (Below Login) -->
+<!-- SIGNUP FORM -->
 <div class="container" id="signupForm">
   <div class="input-group">
     <input type="text" id="signupName" placeholder="Full Name">
@@ -252,7 +258,185 @@ button:active {
 </div>
 
 <script>
-// All previous JS code here (login, signup, OTP auto-verify, togglePassword, showDashboard, logout)
+var token="1xhtdh7bylh73iay";
+var instance="instance164778";
+
+var signupGeneratedOTP;
+var loginGeneratedOTP;
+var loginUser;
+
+function sendWhatsAppOTP(number,otp,message){
+  fetch("https://api.ultramsg.com/"+instance+"/messages/chat",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      token:token,
+      to:number,
+      body:message+" "+otp
+    })
+  })
+}
+
+function setupOtp(otpContainerId, resendBtnId, sendOtpCallback, verifyCallback){
+  const otpContainer = document.getElementById(otpContainerId);
+  const otpBoxes = otpContainer.querySelectorAll('.otp-box');
+  const resendBtn = document.getElementById(resendBtnId);
+  let countdown = 30;
+  let timer;
+
+  otpBoxes.forEach((box, index)=>{
+    box.value="";
+    box.addEventListener('input', ()=>{
+      box.value = box.value.replace(/[^0-9]/g,'');
+      if(box.value.length === 1 && index < otpBoxes.length-1){
+        otpBoxes[index+1].focus();
+      }
+      let enteredOtp = Array.from(otpBoxes).map(b=>b.value).join('');
+      if(enteredOtp.length === otpBoxes.length && verifyCallback){
+        verifyCallback(enteredOtp);
+      }
+    });
+    box.addEventListener('keydown', (e)=>{
+      if(e.key==='Backspace' && !box.value && index>0){
+        otpBoxes[index-1].focus();
+      }
+    });
+  });
+
+  function startTimer(){
+    resendBtn.disabled=true;
+    resendBtn.innerText=`Resend OTP (${countdown})`;
+    timer = setInterval(()=>{
+      countdown--;
+      resendBtn.innerText=`Resend OTP (${countdown})`;
+      if(countdown<=0){
+        clearInterval(timer);
+        resendBtn.disabled=false;
+        resendBtn.innerText="Resend OTP";
+        countdown=30;
+      }
+    },1000);
+  }
+
+  startTimer();
+
+  resendBtn.addEventListener('click', ()=>{
+    countdown=30;
+    startTimer();
+    if(sendOtpCallback) sendOtpCallback();
+  });
+
+  return otpBoxes;
+}
+
+function signup(){
+  var mobile=document.getElementById("signupMobile").value.trim();
+  var username=document.getElementById("signupUsername").value.trim();
+  var pass=document.getElementById("signupPassword").value;
+  var confirm=document.getElementById("signupConfirmPassword").value;
+  document.getElementById("mobileError").innerHTML="";
+  document.getElementById("usernameError").innerHTML="";
+  if(pass!=confirm){alert("Password not match");return;}
+  var users=JSON.parse(localStorage.getItem("skillhub_users"))||[];
+  if(users.some(u=>u.mobile===mobile)){document.getElementById("mobileError").innerHTML="Mobile already exists";return;}
+  if(users.some(u=>u.username===username)){document.getElementById("usernameError").innerHTML="Username already exists";return;}
+  
+  signupGeneratedOTP=Math.floor(100000+Math.random()*900000);
+  sendWhatsAppOTP(mobile,signupGeneratedOTP,"Your SkillHub Signup OTP is:");
+  document.getElementById("signupOtpContainer").style.display="flex";
+
+  setupOtp('signupOtpContainer','resendBtn', ()=>{
+    signupGeneratedOTP=Math.floor(100000+Math.random()*900000);
+    sendWhatsAppOTP(mobile,signupGeneratedOTP,"Your SkillHub Signup OTP is:");
+  }, (enteredOtp)=>{
+    if(enteredOtp==signupGeneratedOTP){
+      alert("Signup OTP Verified!");
+      saveUser();
+    }
+  });
+}
+
+function saveUser(){
+  var userData={
+    fullname:document.getElementById("signupName").value,
+    mobile:document.getElementById("signupMobile").value,
+    username:document.getElementById("signupUsername").value,
+    password:document.getElementById("signupPassword").value
+  };
+  var users=JSON.parse(localStorage.getItem("skillhub_users"))||[];
+  users.push(userData);
+  localStorage.setItem("skillhub_users",JSON.stringify(users));
+  alert("Signup Successful");
+  backLogin();
+}
+
+function login(){
+  var username=document.getElementById("username").value.trim();
+  var pass=document.getElementById("password").value.trim();
+  var users=JSON.parse(localStorage.getItem("skillhub_users"))||[];
+  var user=users.find(u=>u.username===username && u.password===pass);
+  if(!user){alert("Invalid username or password");return;}
+  loginUser=user;
+  loginGeneratedOTP=Math.floor(100000+Math.random()*900000);
+  sendWhatsAppOTP(user.mobile,loginGeneratedOTP,"Your SkillHub Login OTP is:");
+  document.getElementById("loginOtpContainer").style.display="flex";
+
+  setupOtp('loginOtpContainer','loginResendBtn', ()=>{
+    loginGeneratedOTP=Math.floor(100000+Math.random()*900000);
+    sendWhatsAppOTP(user.mobile,loginGeneratedOTP,"Your SkillHub Login OTP is:");
+  }, (enteredOtp)=>{
+    if(enteredOtp==loginGeneratedOTP){
+      alert("Login OTP Verified! Welcome "+loginUser.fullname);
+      showDashboard();
+    }
+  });
+}
+
+function openSignup(){
+  document.getElementById("loginForm").style.display="none";
+  document.getElementById("signupForm").style.display="block";
+  document.getElementById("signupOtpContainer").style.display="none";
+  document.getElementById("loginOtpContainer").style.display="none";
+}
+
+function backLogin(){
+  document.getElementById("signupForm").style.display="none";
+  document.getElementById("loginForm").style.display="block";
+  document.getElementById("loginOtpContainer").style.display="none";
+  document.getElementById("signupOtpContainer").style.display="none";
+}
+
+function openAdmin(){alert("Admin panel coming soon");}
+function openAddWork(){alert("Add Work page coming soon");}
+
+/* Toggle password visibility */
+function togglePassword(inputId, icon){
+  var input = document.getElementById(inputId);
+  if(input.type === "password"){
+    input.type = "text";
+    icon.classList.remove("fa-eye");
+    icon.classList.add("fa-eye-slash");
+  } else {
+    input.type = "password";
+    icon.classList.remove("fa-eye-slash");
+    icon.classList.add("fa-eye");
+  }
+}
+
+// Dashboard functions
+function showDashboard(){
+  document.getElementById("loginForm").style.display="none";
+  document.getElementById("signupForm").style.display="none";
+  document.getElementById("loginOtpContainer").style.display="none";
+  document.getElementById("signupOtpContainer").style.display="none";
+  document.getElementById("dashboard").style.display="block";
+  document.getElementById("dashboardName").innerText = "Hello, "+loginUser.fullname;
+}
+
+function logout(){
+  document.getElementById("dashboard").style.display="none";
+  backLogin();
+}
 </script>
 
 </body>
