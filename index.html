@@ -256,7 +256,14 @@ button:active {
   <p id="dashboardName"></p>
   <button onclick="logout()">Logout</button>
 </div>
+<!-- ADMIN PANEL -->
+<div class="container" id="adminPanel" style="display:none;">
+  <h2>Admin Panel</h2>
+  <p id="adminName">Welcome Admin</p>
 
+  <div class="btns">
+    <button onclick="backLogin()">Back</button>
+  </div>
 <script>
 var token="1xhtdh7bylh73iay";
 var instance="instance164778";
@@ -416,7 +423,8 @@ function openAdmin(){
   document.getElementById("signupOtpContainer").style.display="none";
 
   document.getElementById("adminPanel").style.display="block";
-  document.getElementById("adminPanel").innerText = "Hello, "+adminPanel.fullname;
+  document.getElementById("adminName").innerText ="Hello Admin";
+
 }
 function openAddWork(){alert("Add Work page coming soon");}
 
