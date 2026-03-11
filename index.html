@@ -406,7 +406,18 @@ function backLogin(){
   document.getElementById("signupOtpContainer").style.display="none";
 }
 
-function openAdmin(){alert("Admin panel coming soon");}
+function openAdmin(){
+
+  document.getElementById("loginForm").style.display="none";
+  document.getElementById("signupForm").style.display="none";
+  document.getElementById("dashboard").style.display="none";
+
+  document.getElementById("loginOtpContainer").style.display="none";
+  document.getElementById("signupOtpContainer").style.display="none";
+
+  document.getElementById("adminPanel").style.display="block";
+
+}
 function openAddWork(){alert("Add Work page coming soon");}
 
 /* Toggle password visibility */
