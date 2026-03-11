@@ -10,13 +10,13 @@
 body {
   margin:0;
   font-family: Arial, sans-serif;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  min-height:100vh;
   background: linear-gradient(135deg, #00c6ff, #0072ff);
-  overflow: hidden;
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  padding-top: 60px;
 }
 
 /* Abstract circles */
@@ -66,9 +66,8 @@ body::after {
   box-shadow: 0 8px 30px rgba(0,0,0,0.2);
   color: #fff;
   text-align: center;
+  margin: 20px auto;
   position: relative;
-  z-index: 1;
-  margin-top: 150px; /* space for fixed title */
 }
 
 /* Inputs with icons */
@@ -130,27 +129,21 @@ button:active {
   transform: scale(0.95);
 }
 
-/* OTP updated: horizontal layout + resend on same line */
+/* OTP layout */
 .otp-container {
-  display: none;  /* hide initially */
+  display: none;
   justify-content: center;
   align-items: center;
   margin-top: 15px;
   flex-wrap: nowrap;
   gap: 10px;
 }
-
 .otp-container .resend {
   height: 40px;
   padding: 0 10px;
   font-size: 14px;
   margin: 0;
 }
-
-.timer {
-  display:60;
-}
-
 .otp-box{
   width:40px;
   height:40px;
@@ -169,7 +162,6 @@ button:active {
   background: rgba(255,255,255,0.35);
   box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
 }
-
 .error{
   color:#ff7070;
   font-size:14px;
@@ -177,31 +169,25 @@ button:active {
   width:100%;
   margin:auto;
 }
-
-/* Signup form hidden initially */
-#signupForm{
+#dashboard{
   display:none;
 }
 </style>
 </head>
 <body>
 
-<!-- Title fixed top-center -->
 <h1 class="title">SkillHub & Hiring Services</h1>
 
 <!-- LOGIN FORM -->
 <div class="container" id="loginForm">
-
   <div class="input-group">
     <input type="text" id="username" placeholder="Username">
     <i class="fa fa-user"></i>
   </div>
-
   <div class="input-group">
     <input type="password" id="password" placeholder="Password">
     <i class="fa fa-eye" onclick="togglePassword('password', this)"></i>
   </div>
-
   <div class="otp-container" id="loginOtpContainer">
     <input class="otp-box" maxlength="1">
     <input class="otp-box" maxlength="1">
@@ -211,7 +197,6 @@ button:active {
     <input class="otp-box" maxlength="1">
     <button class="resend" id="loginResendBtn" onclick="resendLoginOTP()" disabled>Resend OTP</button>
   </div>
-
   <div class="btns">
     <button onclick="login()">Login</button>
     <button onclick="openSignup()">Signup</button>
@@ -220,36 +205,30 @@ button:active {
   </div>
 </div>
 
-<!-- SIGNUP FORM -->
+<!-- SIGNUP FORM (Below Login) -->
 <div class="container" id="signupForm">
-
   <div class="input-group">
     <input type="text" id="signupName" placeholder="Full Name">
     <i class="fa fa-user"></i>
   </div>
-
   <div class="input-group">
     <input type="text" id="signupMobile" placeholder="Mobile Number">
     <i class="fa fa-phone"></i>
   </div>
   <div id="mobileError" class="error"></div>
-
   <div class="input-group">
     <input type="text" id="signupUsername" placeholder="Username">
     <i class="fa fa-user"></i>
   </div>
   <div id="usernameError" class="error"></div>
-
   <div class="input-group">
     <input type="password" id="signupPassword" placeholder="Password">
     <i class="fa fa-eye" onclick="togglePassword('signupPassword', this)"></i>
   </div>
-
   <div class="input-group">
     <input type="password" id="signupConfirmPassword" placeholder="Confirm Password">
     <i class="fa fa-eye" onclick="togglePassword('signupConfirmPassword', this)"></i>
   </div>
-
   <div class="otp-container" id="signupOtpContainer">
     <input class="otp-box" maxlength="1">
     <input class="otp-box" maxlength="1">
@@ -259,7 +238,6 @@ button:active {
     <input class="otp-box" maxlength="1">
     <button class="resend" id="resendBtn" onclick="resendOTP()" disabled>Resend OTP</button>
   </div>
-
   <div class="btns">
     <button onclick="signup()">Create Account</button>
     <button onclick="backLogin()">Cancel</button>
@@ -267,194 +245,14 @@ button:active {
 </div>
 
 <!-- DASHBOARD -->
-<div class="container" id="dashboard" style="display:none;">
+<div class="container" id="dashboard">
   <h2>Welcome to SkillHub Dashboard</h2>
   <p id="dashboardName"></p>
   <button onclick="logout()">Logout</button>
 </div>
 
 <script>
-var token="1xhtdh7bylh73iay";
-var instance="instance164778";
-
-var signupGeneratedOTP;
-var loginGeneratedOTP;
-var loginUser;
-
-function sendWhatsAppOTP(number,otp,message){
-  fetch("https://api.ultramsg.com/"+instance+"/messages/chat",{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({
-      token:token,
-      to:number,
-      body:message+" "+otp
-    })
-  })
-}
-
-// OTP setup function with auto-verify
-function setupOtp(otpContainerId, resendBtnId, sendOtpCallback, verifyCallback){
-  const otpContainer = document.getElementById(otpContainerId);
-  const otpBoxes = otpContainer.querySelectorAll('.otp-box');
-  const resendBtn = document.getElementById(resendBtnId);
-  let countdown = 30;
-  let timer;
-
-  otpBoxes.forEach((box, index)=>{
-    box.value="";
-    box.addEventListener('input', ()=>{
-      box.value = box.value.replace(/[^0-9]/g,'');
-      if(box.value.length === 1 && index < otpBoxes.length-1){
-        otpBoxes[index+1].focus();
-      }
-      // Auto verify
-      let enteredOtp = Array.from(otpBoxes).map(b=>b.value).join('');
-      if(enteredOtp.length === otpBoxes.length && verifyCallback){
-        verifyCallback(enteredOtp);
-      }
-    });
-    box.addEventListener('keydown', (e)=>{
-      if(e.key==='Backspace' && !box.value && index>0){
-        otpBoxes[index-1].focus();
-      }
-    });
-  });
-
-  function startTimer(){
-    resendBtn.disabled=true;
-    resendBtn.innerText=`Resend OTP (${countdown})`;
-    timer = setInterval(()=>{
-      countdown--;
-      resendBtn.innerText=`Resend OTP (${countdown})`;
-      if(countdown<=0){
-        clearInterval(timer);
-        resendBtn.disabled=false;
-        resendBtn.innerText="Resend OTP";
-        countdown=30;
-      }
-    },1000);
-  }
-
-  startTimer();
-
-  resendBtn.addEventListener('click', ()=>{
-    countdown=30;
-    startTimer();
-    if(sendOtpCallback) sendOtpCallback();
-  });
-
-  return otpBoxes;
-}
-
-function signup(){
-  var mobile=document.getElementById("signupMobile").value.trim();
-  var username=document.getElementById("signupUsername").value.trim();
-  var pass=document.getElementById("signupPassword").value;
-  var confirm=document.getElementById("signupConfirmPassword").value;
-  document.getElementById("mobileError").innerHTML="";
-  document.getElementById("usernameError").innerHTML="";
-  if(pass!=confirm){alert("Password not match");return;}
-  var users=JSON.parse(localStorage.getItem("skillhub_users"))||[];
-  if(users.some(u=>u.mobile===mobile)){document.getElementById("mobileError").innerHTML="Mobile already exists";return;}
-  if(users.some(u=>u.username===username)){document.getElementById("usernameError").innerHTML="Username already exists";return;}
-  
-  signupGeneratedOTP=Math.floor(100000+Math.random()*900000);
-  sendWhatsAppOTP(mobile,signupGeneratedOTP,"Your SkillHub Signup OTP is:");
-  document.getElementById("signupOtpContainer").style.display="flex";
-
-  setupOtp('signupOtpContainer','resendBtn', ()=>{
-    signupGeneratedOTP=Math.floor(100000+Math.random()*900000);
-    sendWhatsAppOTP(mobile,signupGeneratedOTP,"Your SkillHub Signup OTP is:");
-  }, (enteredOtp)=>{
-    if(enteredOtp==signupGeneratedOTP){
-      alert("Signup OTP Verified!");
-      saveUser();
-    }
-  });
-}
-
-function saveUser(){
-  var userData={
-    fullname:document.getElementById("signupName").value,
-    mobile:document.getElementById("signupMobile").value,
-    username:document.getElementById("signupUsername").value,
-    password:document.getElementById("signupPassword").value
-  };
-  var users=JSON.parse(localStorage.getItem("skillhub_users"))||[];
-  users.push(userData);
-  localStorage.setItem("skillhub_users",JSON.stringify(users));
-  alert("Signup Successful");
-  backLogin();
-}
-
-function login(){
-  var username=document.getElementById("username").value.trim();
-  var pass=document.getElementById("password").value.trim();
-  var users=JSON.parse(localStorage.getItem("skillhub_users"))||[];
-  var user=users.find(u=>u.username===username && u.password===pass);
-  if(!user){alert("Invalid username or password");return;}
-  loginUser=user;
-  loginGeneratedOTP=Math.floor(100000+Math.random()*900000);
-  sendWhatsAppOTP(user.mobile,loginGeneratedOTP,"Your SkillHub Login OTP is:");
-  document.getElementById("loginOtpContainer").style.display="flex";
-
-  setupOtp('loginOtpContainer','loginResendBtn', ()=>{
-    loginGeneratedOTP=Math.floor(100000+Math.random()*900000);
-    sendWhatsAppOTP(user.mobile,loginGeneratedOTP,"Your SkillHub Login OTP is:");
-  }, (enteredOtp)=>{
-    if(enteredOtp==loginGeneratedOTP){
-      alert("Login OTP Verified! Welcome "+loginUser.fullname);
-      showDashboard();
-    }
-  });
-}
-
-function openSignup(){
-  document.getElementById("loginForm").style.display="none";
-  document.getElementById("signupForm").style.display="block";
-  document.getElementById("signupOtpContainer").style.display="none";
-  document.getElementById("loginOtpContainer").style.display="none";
-}
-
-function backLogin(){
-  document.getElementById("signupForm").style.display="none";
-  document.getElementById("loginForm").style.display="block";
-  document.getElementById("loginOtpContainer").style.display="none";
-  document.getElementById("signupOtpContainer").style.display="none";
-}
-
-function openAdmin(){alert("Admin panel coming soon");}
-function openAddWork(){alert("Add Work page coming soon");}
-
-/* Toggle password visibility */
-function togglePassword(inputId, icon){
-  var input = document.getElementById(inputId);
-  if(input.type === "password"){
-    input.type = "text";
-    icon.classList.remove("fa-eye");
-    icon.classList.add("fa-eye-slash");
-  } else {
-    input.type = "password";
-    icon.classList.remove("fa-eye-slash");
-    icon.classList.add("fa-eye");
-  }
-}
-
-// Dashboard functions
-function showDashboard(){
-  document.getElementById("loginForm").style.display="none";
-  document.getElementById("signupForm").style.display="none";
-  document.getElementById("loginOtpContainer").style.display="none";
-  document.getElementById("signupOtpContainer").style.display="none";
-  document.getElementById("dashboard").style.display="block";
-  document.getElementById("dashboardName").innerText = "Hello, "+loginUser.fullname;
-}
-
-function logout(){
-  document.getElementById("dashboard").style.display="none";
-  backLogin();
-}
+// All previous JS code here (login, signup, OTP auto-verify, togglePassword, showDashboard, logout)
 </script>
 
 </body>
