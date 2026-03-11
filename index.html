@@ -41,39 +41,39 @@ text-align:left;
 width:90%;
 margin:auto;
 }
-
-.btns{
-display:flex;
-justify-content:center;
-gap:10px;
-margin-top:30px;
-}
-
-button{
-padding:10px 30px;
-font-size:16px;
-background:#0078d7;
-color:white;
-border:none;
-border-radius:5px;
-cursor:pointer;
-}
-
 .otp-container{
 display:none;
-justify-content:center;
+justify-content:center; /* center OTP boxes */
 align-items:center;
 margin-top:15px;
 }
 
 .otp-box{
-width:30px;
+width:30px;          /* square size */
 height:30px;
-font-size:20px;
+font-size:20px;      /* readable */
 text-align:center;
-border:1px solid black;
-background:#fff;
-margin:2px;
+border:1px solid black; /* simple black border */
+border-radius:0px;    /* slight rounding */
+outline:none;
+padding:0;
+margin:0 0px;        /* small gap between boxes */
+background:#fff;      /* white background */
+box-shadow:none;      /* no shadow */
+transition:none;      /* no animation */
+}
+
+.otp-box:focus{
+border-color:black;   /* keep black border on focus */
+background:#fff;      /* stay white */
+box-shadow:none;      /* no glow */
+}
+
+.otp-container button{
+height:30px;
+padding:0 0px;
+font-size:14px;
+margin-left:0px;
 }
 
 .timer{
