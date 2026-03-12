@@ -68,7 +68,7 @@ body::after {
   text-align: center;
   position: relative;
   z-index: 1;
-  margin-top: 50px; /* space for fixed title */
+  margin-top: 120px; /* space for fixed title */
 }
 
 /* Form titles */
@@ -275,71 +275,11 @@ button:active {
 </div>
 
 <!-- ADMIN PANEL -->
-<div class="container" id="adminPanel" style="display:none; margin-top:10px; text-align:center;">
-
-  <h2 class="form-title">Hello Admin</h2>
-
-  <div class="input-group">
-    <input type="text" id="workerName" placeholder="Worker Full Name">
-    <i class="fa fa-user"></i>
-  </div>
-
-  <div class="input-group">
-    <input type="text" id="workerMobile" placeholder="Mobile Number">
-    <i class="fa fa-phone"></i>
-  </div>
-
-  <div class="input-group">
-    <input type="number" id="workerAge" placeholder="Age">
-    <i class="fa fa-calendar"></i>
-  </div>
-
-  <div class="input-group">
-    <input type="text" id="workerWork" placeholder="Work Type (Electrician / Plumber etc)">
-    <i class="fa fa-briefcase"></i>
-  </div>
-
-  <div class="input-group">
-    <input type="text" id="workerExperience" placeholder="Experience (Years)">
-    <i class="fa fa-star"></i>
-  </div>
-
-  <div class="input-group">
-    <input type="text" id="workerCity" placeholder="City / Area">
-    <i class="fa fa-location-dot"></i>
-  </div>
-
-  <div class="input-group">
-    <input type="text" id="workerCharge" placeholder="Charge (Per Hour / Work)">
-    <i class="fa fa-money-bill"></i>
-  </div>
-
-  <div class="input-group">
-    <input type="text" id="workerIdType" placeholder="ID Proof Type (Aadhar / Iqama / Passport)">
-    <i class="fa fa-id-card"></i>
-  </div>
-
-  <div class="input-group">
-    <input type="text" id="workerIdNumber" placeholder="ID Proof Number">
-    <i class="fa fa-id-badge"></i>
-  </div>
-
-  <!-- ID PROOF PHOTO UPLOAD -->
-  <div class="input-group">
-    <input type="file" id="workerIdPhoto" accept="image/*">
-    <i class="fa fa-id-card"></i>
-  </div>
-
-  <div class="input-group">
-    <input type="text" id="workerAddress" placeholder="Full Address">
-    <i class="fa fa-home"></i>
-  </div>
-
+<div class="container" id="adminPanel">
+  <h2 class="form-title" style="text-align:center;">Hello Admin</h2>
   <div class="btns">
-    <button onclick="saveWorker()">Save Worker</button>
     <button onclick="backLogin()">Back</button>
   </div>
-
 </div>
 
 <script>
