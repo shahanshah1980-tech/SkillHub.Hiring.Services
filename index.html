@@ -459,17 +459,18 @@ function backLogin(){
   document.getElementById("loginForm").style.display="block";
 }
 
-function openAdmin(){
-  document.getElementById("loginForm").style.display="none";
-  document.getElementById("signupForm").style.display="none";
-  document.getElementById("dashboard").style.display="none";
+function openAddWork(){
+  // Hide all other forms
+  document.getElementById("loginForm").style.display = "none";
+  document.getElementById("signupForm").style.display = "none";
+  document.getElementById("dashboard").style.display = "none";
+  document.getElementById("adminPanel").style.display = "none";
+  document.getElementById("loginOtpContainer").style.display = "none";
+  document.getElementById("signupOtpContainer").style.display = "none";
 
-  document.getElementById("loginOtpContainer").style.display="none";
-  document.getElementById("signupOtpContainer").style.display="none";
-
-  document.getElementById("adminPanel").style.display="block";
+  // Show Add Work form
+  document.getElementById("addWorkForm").style.display = "block";
 }
-
 function openAddWork(){
   // hide other forms
   document.getElementById("loginForm").style.display="none";
