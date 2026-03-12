@@ -281,7 +281,31 @@ button:active {
     <button onclick="backLogin()">Back</button>
   </div>
 </div>
-
+<!-- ADD WORK FORM -->
+<div class="container" id="addWorkForm">
+  <h2 class="form-title">Add Worker</h2>
+  <div class="input-group">
+    <input type="text" id="workerName" placeholder="Worker Name">
+    <i class="fa fa-user"></i>
+  </div>
+  <div class="input-group">
+    <input type="text" id="workerMobile" placeholder="Mobile Number">
+    <i class="fa fa-phone"></i>
+  </div>
+  <div class="input-group">
+    <input type="text" id="workerSkill" placeholder="Skill (Electrician, Plumber, etc.)">
+    <i class="fa fa-briefcase"></i>
+  </div>
+  <div class="input-group">
+    <input type="text" id="workerLocation" placeholder="Location">
+    <i class="fa fa-map-marker-alt"></i>
+  </div>
+  <!-- Add more fields if needed -->
+  <div class="btns">
+    <button onclick="saveWorker()">Save Worker</button>
+    <button onclick="backLogin()">Cancel</button>
+  </div>
+</div>
 <script>
 var token="1xhtdh7bylh73iay";
 var instance="instance164778";
