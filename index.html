@@ -407,12 +407,16 @@ function openSignup(){
 }
 
 function backLogin(){
+
+  document.getElementById("adminPanel").style.display="none";
   document.getElementById("signupForm").style.display="none";
-  document.getElementById("loginForm").style.display="block";
+  document.getElementById("dashboard").style.display="none";
+
   document.getElementById("loginOtpContainer").style.display="none";
   document.getElementById("signupOtpContainer").style.display="none";
-}
 
+  document.getElementById("loginForm").style.display="block";
+}
 function openAdmin(){
 
   document.getElementById("loginForm").style.display="none";
