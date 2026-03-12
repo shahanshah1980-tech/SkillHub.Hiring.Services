@@ -470,7 +470,36 @@ function openAdmin(){
   document.getElementById("adminPanel").style.display="block";
 }
 
-function openAddWork(){alert("Add Work page coming soon");}
+function openAddWork(){
+  // hide other forms
+  document.getElementById("loginForm").style.display="none";
+  document.getElementById("signupForm").style.display="none";
+  document.getElementById("dashboard").style.display="none";
+  document.getElementById("adminPanel").style.display="none";
+  document.getElementById("loginOtpContainer").style.display="none";
+  document.getElementById("signupOtpContainer").style.display="none";
+
+  // show Add Work form
+  document.getElementById("addWorkForm").style.display="block";
+}
+
+function saveWorker(){
+  var name = document.getElementById("workerName").value.trim();
+  var mobile = document.getElementById("workerMobile").value.trim();
+  var skill = document.getElementById("workerSkill").value.trim();
+  var location = document.getElementById("workerLocation").value.trim();
+
+  if(!name || !mobile || !skill || !location){
+    alert("Please fill all fields");
+    return;
+  }
+
+  var workers = JSON.parse(localStorage.getItem("skillhub_workers")) || [];
+  workers.push({name, mobile, skill, location});
+  localStorage.setItem("skillhub_workers", JSON.stringify(workers));
+  alert("Worker added successfully!");
+  backLogin();
+}
 
 /* Toggle password visibility */
 function togglePassword(inputId, icon){
