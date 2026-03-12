@@ -191,6 +191,9 @@ button:active {
 #adminPanel{
   display:none;
 }
+#addWorkForm{
+  display:none;
+}
 </style>
 </head>
 <body>
@@ -218,10 +221,10 @@ button:active {
     <button class="resend" id="loginResendBtn" onclick="resendLoginOTP()" disabled>Resend OTP</button>
   </div>
   <div class="btns">
-    <button onclick="login()">Login</button>
-    <button onclick="openSignup()">Signup</button>
-    <button onclick="openAdmin()">Admin</button>
-    <button onclick="openAddWork()">Add Work</button>
+    <button type="button" onclick="login()">Login</button>
+    <button type="button" onclick="openSignup()">Signup</button>
+    <button type="button" onclick="openAdmin()">Admin</button>
+    <button type="button" onclick="openAddWork()">Add Work</button>
   </div>
 </div>
 
@@ -260,8 +263,8 @@ button:active {
     <button class="resend" id="resendBtn" onclick="resendOTP()" disabled>Resend OTP</button>
   </div>
   <div class="btns">
-    <button onclick="signup()">Create Account</button>
-    <button onclick="backLogin()">Cancel</button>
+    <button type="button" onclick="signup()">Create Account</button>
+    <button type="button" onclick="backLogin()">Cancel</button>
   </div>
 </div>
 
@@ -270,7 +273,7 @@ button:active {
   <h2 class="form-title">Dashboard</h2>
   <p id="dashboardName"></p>
   <div class="btns">
-    <button onclick="logout()">Logout</button>
+    <button type="button" onclick="logout()">Logout</button>
   </div>
 </div>
 
@@ -278,9 +281,10 @@ button:active {
 <div class="container" id="adminPanel">
   <h2 class="form-title" style="text-align:center;">Hello Admin</h2>
   <div class="btns">
-    <button onclick="backLogin()">Back</button>
+    <button type="button" onclick="backLogin()">Back</button>
   </div>
 </div>
+
 <!-- ADD WORK FORM -->
 <div class="container" id="addWorkForm">
   <h2 class="form-title">Add Worker</h2>
@@ -300,12 +304,12 @@ button:active {
     <input type="text" id="workerLocation" placeholder="Location">
     <i class="fa fa-map-marker-alt"></i>
   </div>
-  <!-- Add more fields if needed -->
   <div class="btns">
-    <button onclick="saveWorker()">Save Worker</button>
-    <button onclick="backLogin()">Cancel</button>
+    <button type="button" onclick="saveWorker()">Save Worker</button>
+    <button type="button" onclick="backLogin()">Cancel</button>
   </div>
 </div>
+
 <script>
 var token="1xhtdh7bylh73iay";
 var instance="instance164778";
@@ -452,14 +456,15 @@ function backLogin(){
   document.getElementById("adminPanel").style.display="none";
   document.getElementById("signupForm").style.display="none";
   document.getElementById("dashboard").style.display="none";
+  document.getElementById("addWorkForm").style.display="none";
 
   document.getElementById("loginOtpContainer").style.display="none";
   document.getElementById("signupOtpContainer").style.display="none";
 
   document.getElementById("loginForm").style.display="block";
 }
+
 function openAddWork(){
-  // Hide all other forms
   document.getElementById("loginForm").style.display = "none";
   document.getElementById("signupForm").style.display = "none";
   document.getElementById("dashboard").style.display = "none";
@@ -467,7 +472,6 @@ function openAddWork(){
   document.getElementById("loginOtpContainer").style.display = "none";
   document.getElementById("signupOtpContainer").style.display = "none";
 
-  // Show Add Work form
   document.getElementById("addWorkForm").style.display = "block";
 }
 
@@ -489,7 +493,6 @@ function saveWorker(){
   backLogin();
 }
 
-/* Toggle password visibility */
 function togglePassword(inputId, icon){
   var input = document.getElementById(inputId);
   if(input.type === "password"){
@@ -502,6 +505,7 @@ function togglePassword(inputId, icon){
     icon.classList.add("fa-eye");
   }
 }
+
 
 // Dashboard functions
 function showDashboard(){
