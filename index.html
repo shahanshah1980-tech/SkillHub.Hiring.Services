@@ -284,44 +284,59 @@ button:active {
     <button type="button" onclick="backLogin()">Back</button>
   </div>
 </div>
-
-<!-- ADD WORK FORM -->
+<!-- ADD WORKER -->
 <style>
-input{
-  color:white;
+#addWorkForm input{
+  color: white;
+  background: transparent;
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 100%;
+}
+
+#addWorkForm input::placeholder{
+  color: white;
+}
+
+/* date icon color white */
+#addWorkForm input[type="date"]{
+  color: white;
 }
 </style>
-  
+
 <div class="container" id="addWorkForm">
   <h2 class="form-title">Add Worker</h2>
+
   <div class="input-group">
     <input type="text" id="workerName" placeholder="Full Name">
     <i class="fa fa-user"></i>
   </div>
-    <div class="input-group">
-    <input type="text" id="workerName" placeholder="Father Name">
+
+  <div class="input-group">
+    <input type="text" id="fatherName" placeholder="Father Name">
     <i class="fa fa-user"></i>
   </div>
-<div class="input-group">
-  <input type="date" id="workerDOB" placeholder="Date of Birth">
-  <i class="fa fa-calendar"></i>
-</div>
+
+  <div class="input-group">
+    <input type="date" id="workerDOB">
+    <i class="fa fa-calendar"></i>
+  </div>
+
   <div class="input-group">
     <input type="text" id="workerMobile" placeholder="Mobile Number">
     <i class="fa fa-phone"></i>
   </div>
+
   <div class="input-group">
     <input type="text" id="workerSkill" placeholder="Skill (Electrician, Plumber, etc.)">
     <i class="fa fa-briefcase"></i>
   </div>
+
   <div class="input-group">
     <input type="text" id="workerLocation" placeholder="Location">
     <i class="fa fa-map-marker-alt"></i>
   </div>
-  <div class="btns">
-    <button type="button" onclick="saveWorker()">Save Worker</button>
-    <button type="button" onclick="backLogin()">Cancel</button>
-  </div>
+
 </div>
 
 <script>
