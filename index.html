@@ -307,11 +307,11 @@ button{
 <input type="text" id="fatherName" placeholder="Father Name">
 </div>
 
-<!-- DOB textbox with date picker opening above -->
+<!-- DOB textbox with icon and picker on right side -->
 <div class="input-group" style="position:relative;">
     <input type="text" id="dobText" placeholder="Date of Birth" readonly onclick="openDOB()">
-    <i class="fa fa-calendar" onclick="openDOB()"></i>
-    <input type="date" id="dobPicker" style="position:absolute; left:0; top:-40px; opacity:0;" onchange="setDOB()">
+    <i class="fa fa-calendar" onclick="openDOB()" style="right:15px;"></i>
+    <input type="date" id="dobPicker" style="position:absolute; right:0; top:0; opacity:0;" onchange="setDOB()">
 </div>
 
 <div class="input-group">
