@@ -4,12 +4,13 @@
 <title>SkillHub Hiring Services</title>
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <style>
-
+/* =========================
+        GLOBAL STYLES
+   ========================= */
 body{
 margin:0;
 font-family:Arial;
@@ -21,7 +22,6 @@ background:linear-gradient(135deg,#00c6ff,#0072ff);
 overflow:hidden;
 position:relative;
 }
-
 body::before,
 body::after{
 content:"";
@@ -29,7 +29,6 @@ position:absolute;
 border-radius:50%;
 opacity:0.2;
 }
-
 body::before{
 width:500px;
 height:500px;
@@ -37,7 +36,6 @@ background:#fff;
 top:-100px;
 left:-100px;
 }
-
 body::after{
 width:400px;
 height:400px;
@@ -45,7 +43,6 @@ background:#fff;
 bottom:-80px;
 right:-80px;
 }
-
 .title{
 position:fixed;
 top:20px;
@@ -56,7 +53,6 @@ font-weight:bold;
 color:#fff;
 text-shadow:1px 1px 5px rgba(0,0,0,0.3);
 }
-
 .container{
 background:rgba(255,255,255,0.15);
 backdrop-filter:blur(15px);
@@ -67,18 +63,15 @@ color:#fff;
 text-align:center;
 margin-top:120px;
 }
-
 .form-title{
 font-size:24px;
 font-weight:bold;
 margin-bottom:20px;
 }
-
 .input-group{
 position:relative;
 margin:15px 0;
 }
-
 .input-group input{
 width:80%;
 padding:12px 40px 12px 15px;
@@ -89,7 +82,6 @@ font-size:16px;
 background:#fff;
 color:#000;
 }
-
 .input-group i{
 position:absolute;
 right:15px;
@@ -98,7 +90,6 @@ transform:translateY(-50%);
 cursor:pointer;
 color:#000;
 }
-
 .btns{
 display:flex;
 justify-content:center;
@@ -106,7 +97,6 @@ gap:15px;
 margin-top:25px;
 flex-wrap:wrap;
 }
-
 button{
 padding:12px 30px;
 border-radius:25px;
@@ -117,7 +107,6 @@ font-weight:bold;
 background:linear-gradient(135deg,#ff7eb3,#ff758c);
 color:#fff;
 }
-
 .otp-container{
 display:none;
 justify-content:center;
@@ -125,7 +114,6 @@ align-items:center;
 gap:10px;
 margin-top:15px;
 }
-
 .otp-box{
 width:40px;
 height:40px;
@@ -136,19 +124,16 @@ border:1px solid #000;
 background:#fff;
 color:#000;
 }
-
 .error{
 color:#ff7070;
 font-size:14px;
 }
-
 #signupForm,
 #dashboard,
 #adminPanel,
 #addWorkForm{
 display:none;
 }
-
 </style>
 </head>
 
@@ -156,18 +141,21 @@ display:none;
 
 <h1 class="title">SkillHub & Hiring Services</h1>
 
+<!-- =========================
+        LOGIN SECTION
+   ========================= -->
 <div class="container" id="loginForm">
 
 <h2 class="form-title">Login</h2>
 
 <div class="input-group">
-<input type="text" id="username" placeholder="Username">
+<input type="text" id="login_username" placeholder="Username">
 <i class="fa fa-user"></i>
 </div>
 
 <div class="input-group">
-<input type="password" id="password" placeholder="Password">
-<i class="fa fa-eye" onclick="togglePassword('password',this)"></i>
+<input type="password" id="login_password" placeholder="Password">
+<i class="fa fa-eye" onclick="app_togglePassword('login_password',this)"></i>
 </div>
 
 <div class="otp-container" id="loginOtpContainer">
@@ -185,7 +173,7 @@ display:none;
 
 <div class="btns">
 
-<button onclick="login()">Login</button>
+<button onclick="login_start()">Login</button>
 <button onclick="openSignup()">Signup</button>
 <button onclick="openAdmin()">Admin</button>
 <button onclick="openAddWork()">Add Work</button>
@@ -194,34 +182,37 @@ display:none;
 
 </div>
 
+<!-- =========================
+        SIGNUP SECTION
+   ========================= -->
 <div class="container" id="signupForm">
 
 <h2 class="form-title">Signup</h2>
 
 <div class="input-group">
-<input type="text" id="signupName" placeholder="Full Name">
+<input type="text" id="signup_name" placeholder="Full Name">
 </div>
 
 <div class="input-group">
-<input type="text" id="signupMobile" placeholder="Mobile Number">
+<input type="text" id="signup_mobile" placeholder="Mobile Number">
 </div>
 
 <div id="mobileError" class="error"></div>
 
 <div class="input-group">
-<input type="text" id="signupUsername" placeholder="Username">
+<input type="text" id="signup_username" placeholder="Username">
 </div>
 
 <div id="usernameError" class="error"></div>
 
 <div class="input-group">
-<input type="password" id="signupPassword" placeholder="Password">
-<i class="fa fa-eye" onclick="togglePassword('signupPassword',this)"></i>
+<input type="password" id="signup_password" placeholder="Password">
+<i class="fa fa-eye" onclick="app_togglePassword('signup_password',this)"></i>
 </div>
 
 <div class="input-group">
-<input type="password" id="signupConfirmPassword" placeholder="Confirm Password">
-<i class="fa fa-eye" onclick="togglePassword('signupConfirmPassword',this)"></i>
+<input type="password" id="signup_confirmPassword" placeholder="Confirm Password">
+<i class="fa fa-eye" onclick="app_togglePassword('signup_confirmPassword',this)"></i>
 </div>
 
 <div class="otp-container" id="signupOtpContainer">
@@ -239,13 +230,16 @@ display:none;
 
 <div class="btns">
 
-<button onclick="signup()">Create Account</button>
+<button onclick="signup_start()">Create Account</button>
 <button onclick="backLogin()">Cancel</button>
 
 </div>
 
 </div>
 
+<!-- =========================
+        DASHBOARD SECTION
+   ========================= -->
 <div class="container" id="dashboard">
 
 <h2 class="form-title">Dashboard</h2>
@@ -256,6 +250,9 @@ display:none;
 
 </div>
 
+<!-- =========================
+        ADMIN SECTION
+   ========================= -->
 <div class="container" id="adminPanel">
 
 <h2>Hello Admin</h2>
@@ -264,38 +261,41 @@ display:none;
 
 </div>
 
+<!-- =========================
+        ADD WORKER SECTION
+   ========================= -->
 <div class="container" id="addWorkForm">
 
 <h2 class="form-title">Add Worker</h2>
 
 <div class="input-group">
-<input type="text" id="workerName" placeholder="Full Name">
+<input type="text" id="worker_name" placeholder="Full Name">
 </div>
 
 <div class="input-group">
-<input type="text" id="fatherName" placeholder="Father Name">
+<input type="text" id="worker_father" placeholder="Father Name">
 </div>
 
 <div class="input-group">
-<input type="text" id="dobText" placeholder="Date of Birth">
+<input type="text" id="worker_dob" placeholder="Date of Birth">
 <i class="fa fa-calendar"></i>
 </div>
 
 <div class="input-group">
-<input type="text" id="workerMobile" placeholder="Mobile Number">
+<input type="text" id="worker_mobile" placeholder="Mobile Number">
 </div>
 
 <div class="input-group">
-<input type="text" id="workerSkill" placeholder="Skill">
+<input type="text" id="worker_skill" placeholder="Skill">
 </div>
 
 <div class="input-group">
-<input type="text" id="workerLocation" placeholder="Location">
+<input type="text" id="worker_location" placeholder="Location">
 </div>
 
 <div class="btns">
 
-<button onclick="saveWorker()">Submit</button>
+<button onclick="worker_save()">Submit</button>
 <button onclick="backLogin()">Back</button>
 
 </div>
@@ -303,8 +303,10 @@ display:none;
 </div>
 
 <script>
-
-flatpickr("#dobText", {
+/* =========================
+        FLATPICKR DOB
+   ========================= */
+flatpickr("#worker_dob", {
 dateFormat: "d/m/Y",
 allowInput: false,
 monthSelectorType: "dropdown",
@@ -313,6 +315,9 @@ defaultDate: "2000-01-01",
 position: "auto right"
 });
 
+/* =========================
+        GLOBAL VARIABLES
+   ========================= */
 var token="1xhtdh7bylh73iay";
 var instance="instance164778";
 
@@ -320,151 +325,111 @@ var signupGeneratedOTP;
 var loginGeneratedOTP;
 var loginUser;
 
-function sendWhatsAppOTP(number,otp,message){
-
-fetch("https://api.ultramsg.com/"+instance+"/messages/chat",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-
-token:token,
-to:number,
-body:message+" "+otp
-
-})
-
-})
-
+/* =========================
+        COMMON FUNCTIONS
+   ========================= */
+function app_togglePassword(id,icon){
+var input=document.getElementById(id);
+if(input.type==="password"){
+input.type="text";
+icon.classList.remove("fa-eye");
+icon.classList.add("fa-eye-slash");
+}else{
+input.type="password";
+icon.classList.remove("fa-eye-slash");
+icon.classList.add("fa-eye");
 }
-
-function openSignup(){
-
-loginForm.style.display="none";
-signupForm.style.display="block";
-
 }
 
 function backLogin(){
-
 loginForm.style.display="block";
 signupForm.style.display="none";
 dashboard.style.display="none";
 adminPanel.style.display="none";
 addWorkForm.style.display="none";
-
 }
 
-function openAdmin(){
+function sendWhatsAppOTP(number,otp,message){
+fetch("https://api.ultramsg.com/"+instance+"/messages/chat",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({token:token,to:number,body:message+" "+otp})
+})
+}
 
+/* =========================
+        LOGIN MODULE
+   ========================= */
+function login_start(){
+var users=JSON.parse(localStorage.getItem("users"))||[];
+var user=users.find(u=>u.username==login_username.value && u.password==login_password.value);
+if(!user){ alert("Invalid Login"); return; }
+loginUser=user;
+loginGeneratedOTP=Math.floor(100000+Math.random()*900000);
+sendWhatsAppOTP(user.mobile,loginGeneratedOTP,"Your SkillHub Login OTP is:");
+loginOtpContainer.style.display="flex";
+}
+
+/* =========================
+        SIGNUP MODULE
+   ========================= */
+function signup_start(){
+var mobile=signup_mobile.value.trim();
+var username=signup_username.value.trim();
+signupGeneratedOTP=Math.floor(100000+Math.random()*900000);
+sendWhatsAppOTP(mobile,signupGeneratedOTP,"Your SkillHub Signup OTP is:");
+signupOtpContainer.style.display="flex";
+}
+
+/* =========================
+        WORKER MODULE
+   ========================= */
+function worker_save(){
+var workers=JSON.parse(localStorage.getItem("workers"))||[];
+workers.push({
+name:worker_name.value,
+mobile:worker_mobile.value,
+skill:worker_skill.value,
+location:worker_location.value,
+dob:worker_dob.value
+});
+localStorage.setItem("workers",JSON.stringify(workers));
+alert("Worker Added");
+backLogin();
+}
+
+/* =========================
+        ADMIN MODULE
+   ========================= */
+function openAdmin(){
 loginForm.style.display="none";
 adminPanel.style.display="block";
-
 }
 
+/* =========================
+        ADD WORK FORM
+   ========================= */
 function openAddWork(){
-
 loginForm.style.display="none";
 addWorkForm.style.display="block";
-
-document.getElementById("dobText").value="";
-document.getElementById("dobText").placeholder="Date of Birth";
-
+worker_dob.value="";
+worker_dob.placeholder="Date of Birth";
 }
 
-function signup(){
-
-var mobile=signupMobile.value.trim();
-var username=signupUsername.value.trim();
-
-signupGeneratedOTP=Math.floor(100000+Math.random()*900000);
-
-sendWhatsAppOTP(mobile,signupGeneratedOTP,"Your SkillHub Signup OTP is:");
-
-signupOtpContainer.style.display="flex";
-
-}
-
-function login(){
-
-var users=JSON.parse(localStorage.getItem("users"))||[];
-
-var user=users.find(u=>u.username==username.value && u.password==password.value);
-
-if(!user){
-
-alert("Invalid Login");
-
-return;
-
-}
-
-loginUser=user;
-
-loginGeneratedOTP=Math.floor(100000+Math.random()*900000);
-
-sendWhatsAppOTP(user.mobile,loginGeneratedOTP,"Your SkillHub Login OTP is:");
-
-loginOtpContainer.style.display="flex";
-
-}
-
-function saveWorker(){
-
-var workers=JSON.parse(localStorage.getItem("workers"))||[];
-
-workers.push({
-
-name:workerName.value,
-mobile:workerMobile.value,
-skill:workerSkill.value,
-location:workerLocation.value,
-dob:dobText.value
-
-});
-
-localStorage.setItem("workers",JSON.stringify(workers));
-
-alert("Worker Added");
-
-backLogin();
-
-}
-
-function togglePassword(id,icon){
-
-var input=document.getElementById(id);
-
-if(input.type==="password"){
-
-input.type="text";
-
-icon.classList.remove("fa-eye");
-
-icon.classList.add("fa-eye-slash");
-
-}else{
-
-input.type="password";
-
-icon.classList.remove("fa-eye-slash");
-
-icon.classList.add("fa-eye");
-
-}
-
-}
-
+/* =========================
+        DASHBOARD MODULE
+   ========================= */
 function logout(){
-
 backLogin();
-
 }
 
+/* =========================
+        SIGNUP/LOGIN NAVIGATION
+   ========================= */
+function openSignup(){
+loginForm.style.display="none";
+signupForm.style.display="block";
+}
 </script>
 
 </body>
