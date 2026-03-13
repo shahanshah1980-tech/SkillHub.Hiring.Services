@@ -310,6 +310,7 @@ button:active {
     <button type="button" onclick="backLogin()">Back</button>
   </div>
 </div>
+  
 <!-- ADD WORKER -->
 <style>
 #addWorkForm input{
@@ -340,8 +341,8 @@ button:active {
 
   <!-- DOB -->
   <div class="input-group">
-    <input type="text" id="workerDOB" placeholder="Date of Birth"
-           onclick="this.type='date'" onchange="formatDate(this)">
+    <input type="text" id="dobText" placeholder="Date of Birth" readonly onclick="openPicker()">
+    <input type="date" id="dobPicker" style="display:none" onchange="setDate()">
     <i class="fa fa-calendar"></i>
   </div>
 
@@ -367,21 +368,22 @@ button:active {
 </div>
 
 <script>
-function formatDate(input){
-  let date = new Date(input.value);
-
-  let day = ("0" + date.getDate()).slice(-2);
-  let month = ("0" + (date.getMonth()+1)).slice(-2);
-  let year = date.getFullYear();
-
-  input.type="text";
-  input.value = day + "/" + month + "/" + year;
+function openPicker(){
+  document.getElementById("dobPicker").showPicker();
 }
-</script>  
 
-</div>
+function setDate(){
+  let date = document.getElementById("dobPicker").value;
+  let d = new Date(date);
 
-<script>
+  let day = ("0" + d.getDate()).slice(-2);
+  let month = ("0" + (d.getMonth()+1)).slice(-2);
+  let year = d.getFullYear();
+
+  document.getElementById("dobText").value = day + "/" + month + "/" + year;
+}
+</script>
+
 var token="1xhtdh7bylh73iay";
 var instance="instance164778";
 
