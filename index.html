@@ -343,7 +343,22 @@ button:active {
     <input type="text" id="fatherName" placeholder="Father Name">
     <i class="fa fa-user"></i>
   </div>
+<div class="input-group">
+  <input type="text" id="workerDOB" placeholder="Date of Birth" onclick="this.type='date'" onchange="formatDate(this)">
+  <i class="fa fa-calendar"></i>
+</div>
 
+<script>
+function formatDate(input){
+  let date = new Date(input.value);
+  let day = ("0" + date.getDate()).slice(-2);
+  let month = ("0" + (date.getMonth()+1)).slice(-2);
+  let year = date.getFullYear();
+
+  input.type="text";
+  input.value = day + "/" + month + "/" + year;
+}
+</script>
   <div class="input-group">
     <input type="date" id="workerDOB">
     <i class="fa fa-calendar"></i>
