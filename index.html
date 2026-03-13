@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,11 +7,9 @@
 
 <style>
 
-/* Body + Background */
-
 body{
 margin:0;
-font-family:Arial,sans-serif;
+font-family:Arial;
 height:100vh;
 display:flex;
 justify-content:center;
@@ -21,8 +18,6 @@ background:linear-gradient(135deg,#00c6ff,#0072ff);
 overflow:hidden;
 position:relative;
 }
-
-/* abstract shapes */
 
 body::before,
 body::after{
@@ -35,7 +30,7 @@ opacity:0.2;
 body::before{
 width:500px;
 height:500px;
-background:#ffffff;
+background:#fff;
 top:-100px;
 left:-100px;
 }
@@ -43,12 +38,10 @@ left:-100px;
 body::after{
 width:400px;
 height:400px;
-background:#ffffff;
+background:#fff;
 bottom:-80px;
 right:-80px;
 }
-
-/* title */
 
 .title{
 position:fixed;
@@ -59,10 +52,7 @@ font-size:32px;
 font-weight:bold;
 color:#fff;
 text-shadow:1px 1px 5px rgba(0,0,0,0.3);
-z-index:10;
 }
-
-/* container */
 
 .container{
 background:rgba(255,255,255,0.15);
@@ -72,19 +62,14 @@ padding:40px 30px;
 width:700px;
 color:#fff;
 text-align:center;
-position:relative;
 margin-top:120px;
 }
-
-/* form title */
 
 .form-title{
 font-size:24px;
 font-weight:bold;
 margin-bottom:20px;
 }
-
-/* inputs */
 
 .input-group{
 position:relative;
@@ -107,11 +92,8 @@ position:absolute;
 right:15px;
 top:50%;
 transform:translateY(-50%);
-color:#fff;
 cursor:pointer;
 }
-
-/* buttons */
 
 .btns{
 display:flex;
@@ -132,7 +114,29 @@ background:linear-gradient(135deg,#ff7eb3,#ff758c);
 color:#fff;
 }
 
-/* hide sections */
+.otp-container{
+display:none;
+justify-content:center;
+align-items:center;
+gap:10px;
+margin-top:15px;
+}
+
+.otp-box{
+width:40px;
+height:40px;
+font-size:20px;
+text-align:center;
+border-radius:10px;
+border:1px solid #fff;
+background:rgba(255,255,255,0.2);
+color:#fff;
+}
+
+.error{
+color:#ff7070;
+font-size:14px;
+}
 
 #signupForm,
 #dashboard,
@@ -140,8 +144,6 @@ color:#fff;
 #addWorkForm{
 display:none;
 }
-
-/* floating label */
 
 .floating-label{
 position:relative;
@@ -182,8 +184,6 @@ cursor:pointer;
 
 <h1 class="title">SkillHub & Hiring Services</h1>
 
-<!-- LOGIN -->
-
 <div class="container" id="loginForm">
 
 <h2 class="form-title">Login</h2>
@@ -198,21 +198,29 @@ cursor:pointer;
 <i class="fa fa-eye" onclick="togglePassword('password',this)"></i>
 </div>
 
+<div class="otp-container" id="loginOtpContainer">
+
+<input class="otp-box" maxlength="1">
+<input class="otp-box" maxlength="1">
+<input class="otp-box" maxlength="1">
+<input class="otp-box" maxlength="1">
+<input class="otp-box" maxlength="1">
+<input class="otp-box" maxlength="1">
+
+<button id="loginResendBtn" disabled>Resend</button>
+
+</div>
+
 <div class="btns">
 
 <button onclick="login()">Login</button>
-
 <button onclick="openSignup()">Signup</button>
-
 <button onclick="openAdmin()">Admin</button>
-
 <button onclick="openAddWork()">Add Work</button>
 
 </div>
 
 </div>
-
-<!-- SIGNUP -->
 
 <div class="container" id="signupForm">
 
@@ -223,12 +231,16 @@ cursor:pointer;
 </div>
 
 <div class="input-group">
-<input type="text" id="signupMobile" placeholder="Mobile">
+<input type="text" id="signupMobile" placeholder="Mobile Number">
 </div>
+
+<div id="mobileError" class="error"></div>
 
 <div class="input-group">
 <input type="text" id="signupUsername" placeholder="Username">
 </div>
+
+<div id="usernameError" class="error"></div>
 
 <div class="input-group">
 <input type="password" id="signupPassword" placeholder="Password">
@@ -240,17 +252,27 @@ cursor:pointer;
 <i class="fa fa-eye" onclick="togglePassword('signupConfirmPassword',this)"></i>
 </div>
 
+<div class="otp-container" id="signupOtpContainer">
+
+<input class="otp-box" maxlength="1">
+<input class="otp-box" maxlength="1">
+<input class="otp-box" maxlength="1">
+<input class="otp-box" maxlength="1">
+<input class="otp-box" maxlength="1">
+<input class="otp-box" maxlength="1">
+
+<button id="resendBtn" disabled>Resend OTP</button>
+
+</div>
+
 <div class="btns">
 
 <button onclick="signup()">Create Account</button>
-
 <button onclick="backLogin()">Cancel</button>
 
 </div>
 
 </div>
-
-<!-- DASHBOARD -->
 
 <div class="container" id="dashboard">
 
@@ -262,8 +284,6 @@ cursor:pointer;
 
 </div>
 
-<!-- ADMIN -->
-
 <div class="container" id="adminPanel">
 
 <h2>Hello Admin</h2>
@@ -271,8 +291,6 @@ cursor:pointer;
 <button onclick="backLogin()">Back</button>
 
 </div>
-
-<!-- ADD WORKER -->
 
 <div class="container" id="addWorkForm">
 
@@ -299,7 +317,7 @@ cursor:pointer;
 </div>
 
 <div class="input-group">
-<input type="text" id="workerMobile" placeholder="Mobile">
+<input type="text" id="workerMobile" placeholder="Mobile Number">
 </div>
 
 <div class="input-group">
@@ -322,189 +340,172 @@ cursor:pointer;
 
 <script>
 
-/* navigation */
+var token="1xhtdh7bylh73iay";
+var instance="instance164778";
+
+var signupGeneratedOTP;
+var loginGeneratedOTP;
+var loginUser;
+
+function sendWhatsAppOTP(number,otp,message){
+
+fetch("https://api.ultramsg.com/"+instance+"/messages/chat",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+token:token,
+to:number,
+body:message+" "+otp
+
+})
+
+})
+
+}
 
 function openSignup(){
 
-loginForm.style.display="none"
-
-signupForm.style.display="block"
+loginForm.style.display="none";
+signupForm.style.display="block";
 
 }
 
 function backLogin(){
 
-loginForm.style.display="block"
-
-signupForm.style.display="none"
-
-dashboard.style.display="none"
-
-adminPanel.style.display="none"
-
-addWorkForm.style.display="none"
+loginForm.style.display="block";
+signupForm.style.display="none";
+dashboard.style.display="none";
+adminPanel.style.display="none";
+addWorkForm.style.display="none";
 
 }
 
 function openAdmin(){
 
-loginForm.style.display="none"
-
-adminPanel.style.display="block"
+loginForm.style.display="none";
+adminPanel.style.display="block";
 
 }
 
 function openAddWork(){
 
-loginForm.style.display="none"
-
-addWorkForm.style.display="block"
+loginForm.style.display="none";
+addWorkForm.style.display="block";
 
 }
-
-/* signup */
 
 function signup(){
 
-let pass=signupPassword.value
+var mobile=signupMobile.value.trim();
+var username=signupUsername.value.trim();
 
-let confirm=signupConfirmPassword.value
+signupGeneratedOTP=Math.floor(100000+Math.random()*900000);
 
-if(pass!=confirm){
+sendWhatsAppOTP(mobile,signupGeneratedOTP,"Your SkillHub Signup OTP is:");
 
-alert("Password not match")
-
-return
-
-}
-
-let users=JSON.parse(localStorage.getItem("users"))||[]
-
-users.push({
-
-name:signupName.value,
-
-mobile:signupMobile.value,
-
-username:signupUsername.value,
-
-password:signupPassword.value
-
-})
-
-localStorage.setItem("users",JSON.stringify(users))
-
-alert("Signup Successful")
-
-backLogin()
+signupOtpContainer.style.display="flex";
 
 }
-
-/* login */
 
 function login(){
 
-let users=JSON.parse(localStorage.getItem("users"))||[]
+var users=JSON.parse(localStorage.getItem("users"))||[];
 
-let user=users.find(u=>u.username==username.value && u.password==password.value)
+var user=users.find(u=>u.username==username.value && u.password==password.value);
 
 if(!user){
 
-alert("Invalid Login")
+alert("Invalid Login");
 
-return
-
-}
-
-loginForm.style.display="none"
-
-dashboard.style.display="block"
-
-dashboardName.innerText="Hello "+user.name
+return;
 
 }
 
-/* logout */
+loginUser=user;
 
-function logout(){
+loginGeneratedOTP=Math.floor(100000+Math.random()*900000);
 
-backLogin()
+sendWhatsAppOTP(user.mobile,loginGeneratedOTP,"Your SkillHub Login OTP is:");
+
+loginOtpContainer.style.display="flex";
 
 }
-
-/* add worker */
 
 function saveWorker(){
 
-let workers=JSON.parse(localStorage.getItem("workers"))||[]
+var workers=JSON.parse(localStorage.getItem("workers"))||[];
 
 workers.push({
 
 name:workerName.value,
-
 mobile:workerMobile.value,
-
 skill:workerSkill.value,
-
 location:workerLocation.value,
-
 dob:dobText.value
 
-})
+});
 
-localStorage.setItem("workers",JSON.stringify(workers))
+localStorage.setItem("workers",JSON.stringify(workers));
 
-alert("Worker Added")
+alert("Worker Added");
 
-backLogin()
+backLogin();
 
 }
-
-/* password toggle */
 
 function togglePassword(id,icon){
 
-let input=document.getElementById(id)
+var input=document.getElementById(id);
 
 if(input.type==="password"){
 
-input.type="text"
+input.type="text";
 
-icon.classList.remove("fa-eye")
+icon.classList.remove("fa-eye");
 
-icon.classList.add("fa-eye-slash")
+icon.classList.add("fa-eye-slash");
 
 }else{
 
-input.type="password"
+input.type="password";
 
-icon.classList.remove("fa-eye-slash")
+icon.classList.remove("fa-eye-slash");
 
-icon.classList.add("fa-eye")
-
-}
+icon.classList.add("fa-eye");
 
 }
 
-/* DOB picker */
+}
 
 function openDOB(){
 
-document.getElementById("dobPicker").showPicker()
+document.getElementById("dobPicker").showPicker();
 
 }
 
 function setDOB(){
 
-let d=new Date(document.getElementById("dobPicker").value)
+var d=new Date(document.getElementById("dobPicker").value);
 
-let day=("0"+d.getDate()).slice(-2)
+var day=("0"+d.getDate()).slice(-2);
 
-let month=("0"+(d.getMonth()+1)).slice(-2)
+var month=("0"+(d.getMonth()+1)).slice(-2);
 
-let year=d.getFullYear()
+var year=d.getFullYear();
 
-document.getElementById("dobText").value=day+"/"+month+"/"+year
+document.getElementById("dobText").value=day+"/"+month+"/"+year;
+
+}
+
+function logout(){
+
+backLogin();
 
 }
 
@@ -512,3 +513,5 @@ document.getElementById("dobText").value=day+"/"+month+"/"+year
 
 </body>
 </html>
+
+
