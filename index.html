@@ -303,13 +303,14 @@ display:none;
 </div>
 
 <script>
+
 flatpickr("#dobText", {
-    dateFormat: "d/m/Y",
-    allowInput: false,
-    monthSelectorType: "dropdown",
-    yearSelectorType: "dropdown",
-    defaultDate: "2000-01-01",
-    position: "auto right"
+dateFormat: "d/m/Y",
+allowInput: false,
+monthSelectorType: "dropdown",
+yearSelectorType: "dropdown",
+defaultDate: "2000-01-01",
+position: "auto right"
 });
 
 var token="1xhtdh7bylh73iay";
@@ -369,6 +370,9 @@ function openAddWork(){
 
 loginForm.style.display="none";
 addWorkForm.style.display="block";
+
+document.getElementById("dobText").value="";
+document.getElementById("dobText").placeholder="Date of Birth";
 
 }
 
