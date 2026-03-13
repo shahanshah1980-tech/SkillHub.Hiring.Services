@@ -307,17 +307,12 @@ button{
 <input type="text" id="fatherName" placeholder="Father Name">
 </div>
 
-<div class="floating-label">
-
-<input type="text" id="dobText" placeholder=" " readonly onclick="openDOB()">
-
-<label>Date of Birth</label>
+<div class="input-group">
+<input type="text" id="dobText" placeholder="Date of Birth" readonly onclick="openDOB()">
+<i class="fa fa-calendar" onclick="openDOB()"></i>
+</div>
 
 <input type="date" id="dobPicker" style="display:none" onchange="setDOB()">
-
-<i class="fa fa-calendar" onclick="openDOB()"></i>
-
-</div>
 
 <div class="input-group">
 <input type="text" id="workerMobile" placeholder="Mobile Number">
@@ -334,7 +329,6 @@ button{
 <div class="btns">
 
 <button onclick="saveWorker()">Submit</button>
-
 <button onclick="backLogin()">Back</button>
 
 </div>
@@ -431,11 +425,11 @@ function openDOB(){
 }
 
 function setDOB(){
-    var d=new Date(document.getElementById("dobPicker").value);
-    var day=("0"+d.getDate()).slice(-2);
-    var month=("0"+(d.getMonth()+1)).slice(-2);
-    var year=d.getFullYear();
-    document.getElementById("dobText").value=day+"/"+month+"/"+year;
+    var d = new Date(document.getElementById("dobPicker").value);
+    var day = ("0"+d.getDate()).slice(-2);
+    var month = ("0"+(d.getMonth()+1)).slice(-2);
+    var year = d.getFullYear();
+    document.getElementById("dobText").value = day + "/" + month + "/" + year;
 }
 
 function logout(){
