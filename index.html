@@ -303,13 +303,12 @@ display:none;
 </div>
 
 <script>
-
 flatpickr("#dobText", {
     dateFormat: "d/m/Y",
-    maxDate: "today",
+    allowInput: false,
     monthSelectorType: "dropdown",
     yearSelectorType: "dropdown",
-    allowInput: false
+    defaultDate: "2000-01-01"
     position: "auto right"
 });
 
