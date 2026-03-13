@@ -307,12 +307,12 @@ button{
 <input type="text" id="fatherName" placeholder="Father Name">
 </div>
 
-<div class="input-group">
-<input type="text" id="dobText" placeholder="Date of Birth" readonly onclick="openDOB()">
-<i class="fa fa-calendar" onclick="openDOB()"></i>
+<!-- DOB textbox with date picker opening above -->
+<div class="input-group" style="position:relative;">
+    <input type="text" id="dobText" placeholder="Date of Birth" readonly onclick="openDOB()">
+    <i class="fa fa-calendar" onclick="openDOB()"></i>
+    <input type="date" id="dobPicker" style="position:absolute; left:0; top:-40px; opacity:0;" onchange="setDOB()">
 </div>
-
-<input type="date" id="dobPicker" style="display:none" onchange="setDOB()">
 
 <div class="input-group">
 <input type="text" id="workerMobile" placeholder="Mobile Number">
@@ -421,7 +421,9 @@ function togglePassword(id,icon){
 }
 
 function openDOB(){
-    document.getElementById("dobPicker").showPicker();
+    const picker = document.getElementById("dobPicker");
+    picker.focus();
+    picker.showPicker();
 }
 
 function setDOB(){
