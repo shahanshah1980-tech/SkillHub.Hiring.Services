@@ -63,12 +63,11 @@ body::after {
   border-radius: 25px;
   padding: 40px 30px;
   width: 700px;
-  
   color: #fff;
   text-align: center;
   position: relative;
   z-index: 1;
-  margin-top: 120px; /* space for fixed title */
+  margin-top: 120px;
 }
 
 /* Form titles */
@@ -194,6 +193,66 @@ button:active {
 #addWorkForm{
   display:none;
 }
+
+/* Login/Signup input overrides */
+#loginForm input, #signupForm input, #addWorkForm input{
+  color: white;
+  background: transparent;
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 100%;
+}
+#loginForm input::placeholder, #signupForm input::placeholder{
+  color: white;
+}
+
+/* Add Worker floating label */
+.floating-label {
+  position: relative;
+  width: 80%;
+  margin: 15px auto;
+}
+.floating-label input {
+  width: 100%;
+  padding: 15px 40px 15px 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  outline: none;
+  font-size: 16px;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+}
+.floating-label label {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  color: #fff;
+  font-size: 16px;
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: 0.2s ease all;
+  opacity: 0.7;
+}
+.floating-label input:focus + label,
+.floating-label input:not(:placeholder-shown) + label {
+  top: -8px;
+  font-size: 12px;
+  color: #fff;
+  opacity: 1;
+  background: rgba(0,0,0,0.2);
+  padding: 0 5px;
+  border-radius: 5px;
+}
+.floating-label i {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.8;
+}
 </style>
 </head>
 <body>
@@ -201,19 +260,6 @@ button:active {
 <h1 class="title">SkillHub & Hiring Services</h1>
 
 <!-- LOGIN FORM -->
-<style>
-#loginForm input{
-  color: white;
-  background: transparent;
-  border: 1px solid #ccc;
-  padding: 10px;
-  width: 100%;
-}
-
-#loginForm input::placeholder{
-  color: white;
-}
-</style>
 <div class="container" id="loginForm">
   <h2 class="form-title">Login</h2>
   <div class="input-group">
@@ -242,19 +288,6 @@ button:active {
 </div>
 
 <!-- SIGNUP FORM -->
-<style>
-#signupForm input{
-  color: white;
-  background: transparent;
-  border: 1px solid #ccc;
-  padding: 10px;
-  width: 100%;
-}
-
-#signupForm input::placeholder{
-  color: white;
-}
-</style>
 <div class="container" id="signupForm">
   <h2 class="form-title">Signup</h2>
   <div class="input-group">
@@ -310,135 +343,60 @@ button:active {
     <button type="button" onclick="backLogin()">Back</button>
   </div>
 </div>
-  
-<!-- ADD WORKER FORM CORRECTED -->
-<style>
-#addWorkForm input{
-  color: white;
-  background: transparent;
-  border: 1px solid #ccc;
-  padding: 12px 15px;
-  width: 100%;
-  border-radius: 10px;
-  font-size: 16px;
-}
 
-/* Floating label styling for DOB */
-.floating-label {
-  position: relative;
-  width: 80%;
-  margin: 15px auto;
-}
-
-.floating-label input {
-  width: 100%;
-  padding: 15px 40px 15px 15px; /* space for calendar icon */
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.5);
-  background: rgba(255,255,255,0.2);
-  color: #fff;
-  outline: none;
-  font-size: 16px;
-  box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.floating-label label {
-  position: absolute;
-  top: 50%;
-  left: 15px;
-  color: #fff;
-  font-size: 16px;
-  pointer-events: none;
-  transform: translateY(-50%);
-  transition: 0.2s ease all;
-  opacity: 0.7;
-}
-
-.floating-label input:focus + label,
-.floating-label input:not(:placeholder-shown) + label {
-  top: -8px;
-  font-size: 12px;
-  color: #fff;
-  opacity: 1;
-  background: rgba(0,0,0,0.2);
-  padding: 0 5px;
-  border-radius: 5px;
-}
-
-/* Calendar icon inside floating label */
-.floating-label i {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #fff;
-  cursor: pointer;
-  opacity: 0.8;
-}
-</style>
-
+<!-- ADD WORKER FORM -->
 <div class="container" id="addWorkForm">
   <h2 class="form-title">Add Worker</h2>
-
   <div class="input-group">
     <input type="text" id="workerName" placeholder="Full Name">
     <i class="fa fa-user"></i>
   </div>
-
   <div class="input-group">
     <input type="text" id="fatherName" placeholder="Father Name">
     <i class="fa fa-user"></i>
   </div>
-
-  <!-- Corrected DOB field with floating label -->
   <div class="input-group floating-label">
     <input type="text" id="dobText" placeholder=" " readonly onclick="openDOB()">
     <label for="dobText">Date of Birth</label>
     <input type="date" id="dobPicker" style="display:none" onchange="setDOB()">
     <i class="fa fa-calendar" onclick="openDOB()"></i>
   </div>
-
   <div class="input-group">
     <input type="text" id="workerMobile" placeholder="Mobile Number">
     <i class="fa fa-phone"></i>
   </div>
-
   <div class="input-group">
     <input type="text" id="workerSkill" placeholder="Skill (Electrician, Plumber, etc.)">
     <i class="fa fa-briefcase"></i>
   </div>
-
   <div class="input-group">
     <input type="text" id="workerLocation" placeholder="Location">
     <i class="fa fa-map-marker-alt"></i>
   </div>
-
   <div class="btns">
     <button type="button" onclick="saveWorker()">Submit</button>
     <button type="button" onclick="backLogin()">Back</button>
   </div>
 </div>
-
 <script>
+/* ===== DOB Picker ===== */
 function openDOB(){
   document.getElementById("dobPicker").showPicker();
 }
 
 function setDOB(){
   let date = document.getElementById("dobPicker").value;
-  if(!date) return; // prevent empty
+  if(!date) return;
   let d = new Date(date);
-
   let day = ("0"+d.getDate()).slice(-2);
   let month = ("0"+(d.getMonth()+1)).slice(-2);
   let year = d.getFullYear();
-
   document.getElementById("dobText").value = day + "/" + month + "/" + year;
 }
-<script>
+
+/* ===== WhatsApp OTP ===== */
 var token = "1xhtdh7bylh73iay";
 var instance = "instance164778";
-
 var signupGeneratedOTP;
 var loginGeneratedOTP;
 var loginUser;
@@ -447,14 +405,11 @@ function sendWhatsAppOTP(number, otp, message){
   fetch("https://api.ultramsg.com/"+instance+"/messages/chat",{
     method:"POST",
     headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({
-      token: token,
-      to: number,
-      body: message + " " + otp
-    })
+    body: JSON.stringify({ token: token, to: number, body: message + " " + otp })
   });
 }
 
+/* ===== OTP Setup ===== */
 function setupOtp(otpContainerId, resendBtnId, sendOtpCallback, verifyCallback){
   const otpContainer = document.getElementById(otpContainerId);
   const otpBoxes = otpContainer.querySelectorAll('.otp-box');
@@ -500,7 +455,7 @@ function setupOtp(otpContainerId, resendBtnId, sendOtpCallback, verifyCallback){
 
   resendBtn.addEventListener('click', ()=>{
     countdown = 60;
-    otpBoxes.forEach(box => box.value = ""); // clear old OTP
+    otpBoxes.forEach(box => box.value = "");
     startTimer();
     if(sendOtpCallback) sendOtpCallback();
   });
@@ -508,6 +463,7 @@ function setupOtp(otpContainerId, resendBtnId, sendOtpCallback, verifyCallback){
   return otpBoxes;
 }
 
+/* ===== SIGNUP ===== */
 function signup(){
   var mobile = document.getElementById("signupMobile").value.trim();
   var username = document.getElementById("signupUsername").value.trim();
@@ -560,6 +516,7 @@ function saveUser(){
   backLogin();
 }
 
+/* ===== LOGIN ===== */
 function login(){
   var username = document.getElementById("username").value.trim();
   var pass = document.getElementById("password").value.trim();
@@ -587,6 +544,7 @@ function login(){
   });
 }
 
+/* ===== NAVIGATION ===== */
 function openSignup(){
   document.getElementById("loginForm").style.display = "none";
   document.getElementById("signupForm").style.display = "block";
@@ -614,12 +572,13 @@ function openAddWork(){
   document.getElementById("addWorkForm").style.display = "block";
 }
 
+/* ===== ADD WORKER ===== */
 function saveWorker(){
   var name = document.getElementById("workerName").value.trim();
   var mobile = document.getElementById("workerMobile").value.trim();
   var skill = document.getElementById("workerSkill").value.trim();
   var location = document.getElementById("workerLocation").value.trim();
-  var dob = document.getElementById("dobText").value.trim(); // optional DOB
+  var dob = document.getElementById("dobText").value.trim();
 
   if(!name || !mobile || !skill || !location){
     alert("Please fill all fields");
@@ -633,6 +592,7 @@ function saveWorker(){
   backLogin();
 }
 
+/* ===== PASSWORD TOGGLE ===== */
 function togglePassword(inputId, icon){
   var input = document.getElementById(inputId);
   if(input.type === "password"){
@@ -646,6 +606,7 @@ function togglePassword(inputId, icon){
   }
 }
 
+/* ===== DASHBOARD ===== */
 function showDashboard(){
   document.getElementById("loginForm").style.display = "none";
   document.getElementById("signupForm").style.display = "none";
@@ -659,7 +620,15 @@ function logout(){
   document.getElementById("dashboard").style.display = "none";
   backLogin();
 }
-</script>
 
+/* ===== ADMIN PANEL ===== */
+function openAdmin(){
+  document.getElementById("loginForm").style.display = "none";
+  document.getElementById("signupForm").style.display = "none";
+  document.getElementById("dashboard").style.display = "none";
+  document.getElementById("addWorkForm").style.display = "none";
+  document.getElementById("adminPanel").style.display = "block";
+}
+</script>
 </body>
 </html>
