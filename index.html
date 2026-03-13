@@ -311,18 +311,16 @@ button:active {
   </div>
 </div>
   
-<!-- ADD WORKER FORM -->
+<!-- ADD WORKER FORM CORRECTED -->
 <style>
 #addWorkForm input{
   color: white;
   background: transparent;
   border: 1px solid #ccc;
-  padding: 10px;
+  padding: 12px 15px;
   width: 100%;
-}
-
-#addWorkForm input::placeholder{
-  color: white;
+  border-radius: 10px;
+  font-size: 16px;
 }
 
 /* Floating label styling for DOB */
@@ -334,7 +332,7 @@ button:active {
 
 .floating-label input {
   width: 100%;
-  padding: 15px 15px 15px 15px;
+  padding: 15px 40px 15px 15px; /* space for calendar icon */
   border-radius: 10px;
   border: 1px solid rgba(255,255,255,0.5);
   background: rgba(255,255,255,0.2);
@@ -366,6 +364,17 @@ button:active {
   padding: 0 5px;
   border-radius: 5px;
 }
+
+/* Calendar icon inside floating label */
+.floating-label i {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.8;
+}
 </style>
 
 <div class="container" id="addWorkForm">
@@ -381,12 +390,12 @@ button:active {
     <i class="fa fa-user"></i>
   </div>
 
-  <!-- DOB with floating label -->
+  <!-- Corrected DOB field with floating label -->
   <div class="input-group floating-label">
     <input type="text" id="dobText" placeholder=" " readonly onclick="openDOB()">
     <label for="dobText">Date of Birth</label>
     <input type="date" id="dobPicker" style="display:none" onchange="setDOB()">
-    <i class="fa fa-calendar"></i>
+    <i class="fa fa-calendar" onclick="openDOB()"></i>
   </div>
 
   <div class="input-group">
@@ -417,7 +426,7 @@ function openDOB(){
 
 function setDOB(){
   let date = document.getElementById("dobPicker").value;
-  if(!date) return;
+  if(!date) return; // prevent empty
   let d = new Date(date);
 
   let day = ("0"+d.getDate()).slice(-2);
