@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,629 +7,509 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
 <style>
+
 /* Body + Background */
-body {
-  margin:0;
-  font-family: Arial, sans-serif;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background: linear-gradient(135deg, #00c6ff, #0072ff);
-  overflow: hidden;
-  position: relative;
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#00c6ff,#0072ff);
+overflow:hidden;
+position:relative;
 }
 
-/* Abstract circles */
-body::before, body::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0.2;
-}
-body::before {
-  width: 500px;
-  height: 500px;
-  background: #ffffff;
-  top: -100px;
-  left: -100px;
-}
-body::after {
-  width: 400px;
-  height: 400px;
-  background: #fffc;
-  bottom: -80px;
-  right: -80px;
+/* abstract shapes */
+
+body::before,
+body::after{
+content:"";
+position:absolute;
+border-radius:50%;
+opacity:0.2;
 }
 
-/* Title fixed top-center */
-.title {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size:32px;
-  font-weight:bold;
-  color: #fff;
-  text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
-  z-index: 10;
-  text-align: center;
+body::before{
+width:500px;
+height:500px;
+background:#ffffff;
+top:-100px;
+left:-100px;
 }
 
-/* Glass container */
-.container {
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border-radius: 25px;
-  padding: 40px 30px;
-  width: 700px;
-  color: #fff;
-  text-align: center;
-  position: relative;
-  z-index: 1;
-  margin-top: 120px;
+body::after{
+width:400px;
+height:400px;
+background:#ffffff;
+bottom:-80px;
+right:-80px;
 }
 
-/* Form titles */
+/* title */
+
+.title{
+position:fixed;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+font-size:32px;
+font-weight:bold;
+color:#fff;
+text-shadow:1px 1px 5px rgba(0,0,0,0.3);
+z-index:10;
+}
+
+/* container */
+
+.container{
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(15px);
+border-radius:25px;
+padding:40px 30px;
+width:700px;
+color:#fff;
+text-align:center;
+position:relative;
+margin-top:120px;
+}
+
+/* form title */
+
 .form-title{
-  text-align:center;
-  color:#fff;
-  font-size:24px;
-  font-weight:bold;
-  margin-bottom:20px;
+font-size:24px;
+font-weight:bold;
+margin-bottom:20px;
 }
 
-/* Inputs with icons */
-.input-group {
-  position: relative;
-  margin: 15px 0;
-}
-.input-group input {
-  width: 80%;
-  padding: 12px 40px 12px 15px;
-  border-radius: 20px;
-  border: none;
-  outline: none;
-  font-size: 16px;
-  background: rgba(255,255,255,0.2);
-  color: #fff;
-  box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
-  transition: all 0.3s ease;
-}
-.input-group input:focus {
-  background: rgba(255,255,255,0.3);
-  box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
-}
-.input-group i {
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #fff;
-  opacity: 0.7;
-  cursor: pointer;
+/* inputs */
+
+.input-group{
+position:relative;
+margin:15px 0;
 }
 
-/* Buttons */
-.btns {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 25px;
-  flex-wrap: wrap;
-}
-button {
-  padding: 12px 30px;
-  border-radius: 25px;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  background: linear-gradient(135deg,#ff7eb3,#ff758c);
-  color: #fff;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-}
-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.3);
-  background: linear-gradient(135deg,#ff758c,#ff7eb3);
-}
-button:active {
-  transform: scale(0.95);
+.input-group input{
+width:80%;
+padding:12px 40px 12px 15px;
+border-radius:20px;
+border:none;
+outline:none;
+font-size:16px;
+background:rgba(255,255,255,0.2);
+color:#fff;
 }
 
-/* OTP layout */
-.otp-container {
-  display: none;
-  justify-content: center;
-  align-items: center;
-  margin-top: 15px;
-  flex-wrap: nowrap;
-  gap: 10px;
-}
-.otp-container .resend {
-  height: 40px;
-  padding: 0 10px;
-  font-size: 14px;
-  margin: 0;
-}
-.otp-box{
-  width:40px;
-  height:40px;
-  font-size:20px;
-  text-align:center;
-  border:1px solid rgba(255,255,255,0.5);
-  border-radius:10px;
-  outline:none;
-  margin: 0;
-  background: rgba(255,255,255,0.2);
-  color: #fff;
-  transition: all 0.2s ease;
-}
-.otp-box:focus{
-  border-color: #fff;
-  background: rgba(255,255,255,0.35);
-  box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
-}
-.error{
-  color:#ff7070;
-  font-size:14px;
-  text-align:left;
-  width:100%;
-  margin:auto;
+.input-group i{
+position:absolute;
+right:15px;
+top:50%;
+transform:translateY(-50%);
+color:#fff;
+cursor:pointer;
 }
 
-/* Signup form hidden initially */
-#signupForm{
-  display:none;
+/* buttons */
+
+.btns{
+display:flex;
+justify-content:center;
+gap:15px;
+margin-top:25px;
+flex-wrap:wrap;
 }
-#dashboard{
-  display:none;
+
+button{
+padding:12px 30px;
+border-radius:25px;
+border:none;
+cursor:pointer;
+font-size:16px;
+font-weight:bold;
+background:linear-gradient(135deg,#ff7eb3,#ff758c);
+color:#fff;
 }
-#adminPanel{
-  display:none;
-}
+
+/* hide sections */
+
+#signupForm,
+#dashboard,
+#adminPanel,
 #addWorkForm{
-  display:none;
+display:none;
 }
 
-/* Login/Signup input overrides */
-#loginForm input, #signupForm input, #addWorkForm input{
-  color: white;
-  background: transparent;
-  border: 1px solid #ccc;
-  padding: 10px;
-  width: 100%;
-}
-#loginForm input::placeholder, #signupForm input::placeholder{
-  color: white;
+/* floating label */
+
+.floating-label{
+position:relative;
+width:80%;
+margin:15px auto;
 }
 
-/* Add Worker floating label */
-.floating-label {
-  position: relative;
-  width: 80%;
-  margin: 15px auto;
+.floating-label input{
+width:100%;
+padding:15px;
+border-radius:10px;
+border:1px solid rgba(255,255,255,0.5);
+background:rgba(255,255,255,0.2);
+color:#fff;
 }
-.floating-label input {
-  width: 100%;
-  padding: 15px 40px 15px 15px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.5);
-  background: rgba(255,255,255,0.2);
-  color: #fff;
-  outline: none;
-  font-size: 16px;
-  box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+
+.floating-label label{
+position:absolute;
+top:50%;
+left:15px;
+transform:translateY(-50%);
+font-size:16px;
+opacity:0.7;
 }
-.floating-label label {
-  position: absolute;
-  top: 50%;
-  left: 15px;
-  color: #fff;
-  font-size: 16px;
-  pointer-events: none;
-  transform: translateY(-50%);
-  transition: 0.2s ease all;
-  opacity: 0.7;
+
+.floating-label i{
+position:absolute;
+right:10px;
+top:50%;
+transform:translateY(-50%);
+cursor:pointer;
 }
-.floating-label input:focus + label,
-.floating-label input:not(:placeholder-shown) + label {
-  top: -8px;
-  font-size: 12px;
-  color: #fff;
-  opacity: 1;
-  background: rgba(0,0,0,0.2);
-  padding: 0 5px;
-  border-radius: 5px;
-}
-.floating-label i {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #fff;
-  cursor: pointer;
-  opacity: 0.8;
-}
+
 </style>
 </head>
+
 <body>
 
 <h1 class="title">SkillHub & Hiring Services</h1>
 
-<!-- LOGIN FORM -->
+<!-- LOGIN -->
+
 <div class="container" id="loginForm">
-  <h2 class="form-title">Login</h2>
-  <div class="input-group">
-    <input type="text" id="username" placeholder="Username">
-    <i class="fa fa-user"></i>
-  </div>
-  <div class="input-group">
-    <input type="password" id="password" placeholder="Password">
-    <i class="fa fa-eye" onclick="togglePassword('password', this)"></i>
-  </div>
-  <div class="otp-container" id="loginOtpContainer">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <button class="resend" id="loginResendBtn" onclick="resendLoginOTP()" disabled>Resend OTP</button>
-  </div>
-  <div class="btns">
-    <button type="button" onclick="login()">Login</button>
-    <button type="button" onclick="openSignup()">Signup</button>
-    <button type="button" onclick="openAdmin()">Admin</button>
-    <button type="button" onclick="openAddWork()">Add Work</button>
-  </div>
+
+<h2 class="form-title">Login</h2>
+
+<div class="input-group">
+<input type="text" id="username" placeholder="Username">
+<i class="fa fa-user"></i>
 </div>
 
-<!-- SIGNUP FORM -->
+<div class="input-group">
+<input type="password" id="password" placeholder="Password">
+<i class="fa fa-eye" onclick="togglePassword('password',this)"></i>
+</div>
+
+<div class="btns">
+
+<button onclick="login()">Login</button>
+
+<button onclick="openSignup()">Signup</button>
+
+<button onclick="openAdmin()">Admin</button>
+
+<button onclick="openAddWork()">Add Work</button>
+
+</div>
+
+</div>
+
+<!-- SIGNUP -->
+
 <div class="container" id="signupForm">
-  <h2 class="form-title">Signup</h2>
-  <div class="input-group">
-    <input type="text" id="signupName" placeholder="Full Name">
-    <i class="fa fa-user"></i>
-  </div>
-  <div class="input-group">
-    <input type="text" id="signupMobile" placeholder="Mobile Number">
-    <i class="fa fa-phone"></i>
-  </div>
-  <div id="mobileError" class="error"></div>
-  <div class="input-group">
-    <input type="text" id="signupUsername" placeholder="Username">
-    <i class="fa fa-user"></i>
-  </div>
-  <div id="usernameError" class="error"></div>
-  <div class="input-group">
-    <input type="password" id="signupPassword" placeholder="Password">
-    <i class="fa fa-eye" onclick="togglePassword('signupPassword', this)"></i>
-  </div>
-  <div class="input-group">
-    <input type="password" id="signupConfirmPassword" placeholder="Confirm Password">
-    <i class="fa fa-eye" onclick="togglePassword('signupConfirmPassword', this)"></i>
-  </div>
-  <div class="otp-container" id="signupOtpContainer">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <button class="resend" id="resendBtn" onclick="resendOTP()" disabled>Resend OTP</button>
-  </div>
-  <div class="btns">
-    <button type="button" onclick="signup()">Create Account</button>
-    <button type="button" onclick="backLogin()">Cancel</button>
-  </div>
+
+<h2 class="form-title">Signup</h2>
+
+<div class="input-group">
+<input type="text" id="signupName" placeholder="Full Name">
+</div>
+
+<div class="input-group">
+<input type="text" id="signupMobile" placeholder="Mobile">
+</div>
+
+<div class="input-group">
+<input type="text" id="signupUsername" placeholder="Username">
+</div>
+
+<div class="input-group">
+<input type="password" id="signupPassword" placeholder="Password">
+<i class="fa fa-eye" onclick="togglePassword('signupPassword',this)"></i>
+</div>
+
+<div class="input-group">
+<input type="password" id="signupConfirmPassword" placeholder="Confirm Password">
+<i class="fa fa-eye" onclick="togglePassword('signupConfirmPassword',this)"></i>
+</div>
+
+<div class="btns">
+
+<button onclick="signup()">Create Account</button>
+
+<button onclick="backLogin()">Cancel</button>
+
+</div>
+
 </div>
 
 <!-- DASHBOARD -->
+
 <div class="container" id="dashboard">
-  <h2 class="form-title">Dashboard</h2>
-  <p id="dashboardName"></p>
-  <div class="btns">
-    <button type="button" onclick="logout()">Logout</button>
-  </div>
+
+<h2 class="form-title">Dashboard</h2>
+
+<p id="dashboardName"></p>
+
+<button onclick="logout()">Logout</button>
+
 </div>
 
-<!-- ADMIN PANEL -->
+<!-- ADMIN -->
+
 <div class="container" id="adminPanel">
-  <h2 class="form-title" style="text-align:center;">Hello Admin</h2>
-  <div class="btns">
-    <button type="button" onclick="backLogin()">Back</button>
-  </div>
+
+<h2>Hello Admin</h2>
+
+<button onclick="backLogin()">Back</button>
+
 </div>
 
-<!-- ADD WORKER FORM -->
+<!-- ADD WORKER -->
+
 <div class="container" id="addWorkForm">
-  <h2 class="form-title">Add Worker</h2>
-  <div class="input-group">
-    <input type="text" id="workerName" placeholder="Full Name">
-    <i class="fa fa-user"></i>
-  </div>
-  <div class="input-group">
-    <input type="text" id="fatherName" placeholder="Father Name">
-    <i class="fa fa-user"></i>
-  </div>
-  <div class="input-group floating-label">
-    <input type="text" id="dobText" placeholder=" " readonly onclick="openDOB()">
-    <label for="dobText">Date of Birth</label>
-    <input type="date" id="dobPicker" style="display:none" onchange="setDOB()">
-    <i class="fa fa-calendar" onclick="openDOB()"></i>
-  </div>
-  <div class="input-group">
-    <input type="text" id="workerMobile" placeholder="Mobile Number">
-    <i class="fa fa-phone"></i>
-  </div>
-  <div class="input-group">
-    <input type="text" id="workerSkill" placeholder="Skill (Electrician, Plumber, etc.)">
-    <i class="fa fa-briefcase"></i>
-  </div>
-  <div class="input-group">
-    <input type="text" id="workerLocation" placeholder="Location">
-    <i class="fa fa-map-marker-alt"></i>
-  </div>
-  <div class="btns">
-    <button type="button" onclick="saveWorker()">Submit</button>
-    <button type="button" onclick="backLogin()">Back</button>
-  </div>
+
+<h2 class="form-title">Add Worker</h2>
+
+<div class="input-group">
+<input type="text" id="workerName" placeholder="Full Name">
 </div>
+
+<div class="input-group">
+<input type="text" id="fatherName" placeholder="Father Name">
+</div>
+
+<div class="floating-label">
+
+<input type="text" id="dobText" placeholder=" " readonly onclick="openDOB()">
+
+<label>Date of Birth</label>
+
+<input type="date" id="dobPicker" style="display:none" onchange="setDOB()">
+
+<i class="fa fa-calendar" onclick="openDOB()"></i>
+
+</div>
+
+<div class="input-group">
+<input type="text" id="workerMobile" placeholder="Mobile">
+</div>
+
+<div class="input-group">
+<input type="text" id="workerSkill" placeholder="Skill">
+</div>
+
+<div class="input-group">
+<input type="text" id="workerLocation" placeholder="Location">
+</div>
+
+<div class="btns">
+
+<button onclick="saveWorker()">Submit</button>
+
+<button onclick="backLogin()">Back</button>
+
+</div>
+
+</div>
+
 <script>
-/* ===== DOB Picker ===== */
-function openDOB(){
-  document.getElementById("dobPicker").showPicker();
-}
 
-function setDOB(){
-  let date = document.getElementById("dobPicker").value;
-  if(!date) return;
-  let d = new Date(date);
-  let day = ("0"+d.getDate()).slice(-2);
-  let month = ("0"+(d.getMonth()+1)).slice(-2);
-  let year = d.getFullYear();
-  document.getElementById("dobText").value = day + "/" + month + "/" + year;
-}
+/* navigation */
 
-/* ===== WhatsApp OTP ===== */
-var token = "1xhtdh7bylh73iay";
-var instance = "instance164778";
-var signupGeneratedOTP;
-var loginGeneratedOTP;
-var loginUser;
-
-function sendWhatsAppOTP(number, otp, message){
-  fetch("https://api.ultramsg.com/"+instance+"/messages/chat",{
-    method:"POST",
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({ token: token, to: number, body: message + " " + otp })
-  });
-}
-
-/* ===== OTP Setup ===== */
-function setupOtp(otpContainerId, resendBtnId, sendOtpCallback, verifyCallback){
-  const otpContainer = document.getElementById(otpContainerId);
-  const otpBoxes = otpContainer.querySelectorAll('.otp-box');
-  const resendBtn = document.getElementById(resendBtnId);
-  let countdown = 60;
-  let timer;
-
-  otpBoxes.forEach((box, index)=>{
-    box.value="";
-    box.addEventListener('input', ()=>{
-      box.value = box.value.replace(/[^0-9]/g,'');
-      if(box.value.length === 1 && index < otpBoxes.length-1){
-        otpBoxes[index+1].focus();
-      }
-      let enteredOtp = Array.from(otpBoxes).map(b=>b.value).join('');
-      if(enteredOtp.length === otpBoxes.length && verifyCallback){
-        verifyCallback(enteredOtp);
-      }
-    });
-    box.addEventListener('keydown', (e)=>{
-      if(e.key==='Backspace' && !box.value && index>0){
-        otpBoxes[index-1].focus();
-      }
-    });
-  });
-
-  function startTimer(){
-    resendBtn.disabled = true;
-    resendBtn.innerText = `Resend OTP (${countdown})`;
-    timer = setInterval(()=>{
-      countdown--;
-      resendBtn.innerText = `Resend OTP (${countdown})`;
-      if(countdown <= 0){
-        clearInterval(timer);
-        resendBtn.disabled = false;
-        resendBtn.innerText = "Resend OTP";
-        countdown = 60;
-      }
-    }, 1000);
-  }
-
-  startTimer();
-
-  resendBtn.addEventListener('click', ()=>{
-    countdown = 60;
-    otpBoxes.forEach(box => box.value = "");
-    startTimer();
-    if(sendOtpCallback) sendOtpCallback();
-  });
-
-  return otpBoxes;
-}
-
-/* ===== SIGNUP ===== */
-function signup(){
-  var mobile = document.getElementById("signupMobile").value.trim();
-  var username = document.getElementById("signupUsername").value.trim();
-  var pass = document.getElementById("signupPassword").value;
-  var confirm = document.getElementById("signupConfirmPassword").value;
-  document.getElementById("mobileError").innerHTML = "";
-  document.getElementById("usernameError").innerHTML = "";
-
-  if(pass != confirm){
-    alert("Password not match");
-    return;
-  }
-
-  var users = JSON.parse(localStorage.getItem("skillhub_users")) || [];
-  if(users.some(u => u.mobile === mobile)){
-    document.getElementById("mobileError").innerHTML = "Mobile already exists";
-    return;
-  }
-  if(users.some(u => u.username === username)){
-    document.getElementById("usernameError").innerHTML = "Username already exists";
-    return;
-  }
-
-  signupGeneratedOTP = Math.floor(100000 + Math.random()*900000);
-  sendWhatsAppOTP(mobile, signupGeneratedOTP, "Your SkillHub Signup OTP is:");
-  document.getElementById("signupOtpContainer").style.display = "flex";
-
-  setupOtp('signupOtpContainer','resendBtn', ()=>{
-    signupGeneratedOTP = Math.floor(100000 + Math.random()*900000);
-    sendWhatsAppOTP(mobile, signupGeneratedOTP, "Your SkillHub Signup OTP is:");
-  }, (enteredOtp)=>{
-    if(enteredOtp == signupGeneratedOTP){
-      alert("Signup OTP Verified!");
-      saveUser();
-    }
-  });
-}
-
-function saveUser(){
-  var userData = {
-    fullname: document.getElementById("signupName").value,
-    mobile: document.getElementById("signupMobile").value,
-    username: document.getElementById("signupUsername").value,
-    password: document.getElementById("signupPassword").value
-  };
-  var users = JSON.parse(localStorage.getItem("skillhub_users")) || [];
-  users.push(userData);
-  localStorage.setItem("skillhub_users", JSON.stringify(users));
-  alert("Signup Successful");
-  backLogin();
-}
-
-/* ===== LOGIN ===== */
-function login(){
-  var username = document.getElementById("username").value.trim();
-  var pass = document.getElementById("password").value.trim();
-  var users = JSON.parse(localStorage.getItem("skillhub_users")) || [];
-  var user = users.find(u => u.username === username && u.password === pass);
-
-  if(!user){
-    alert("Invalid username or password");
-    return;
-  }
-
-  loginUser = user;
-  loginGeneratedOTP = Math.floor(100000 + Math.random()*900000);
-  sendWhatsAppOTP(user.mobile, loginGeneratedOTP, "Your SkillHub Login OTP is:");
-  document.getElementById("loginOtpContainer").style.display = "flex";
-
-  setupOtp('loginOtpContainer','loginResendBtn', ()=>{
-    loginGeneratedOTP = Math.floor(100000 + Math.random()*900000);
-    sendWhatsAppOTP(user.mobile, loginGeneratedOTP, "Your SkillHub Login OTP is:");
-  }, (enteredOtp)=>{
-    if(enteredOtp == loginGeneratedOTP){
-      alert("Login OTP Verified! Welcome " + loginUser.fullname);
-      showDashboard();
-    }
-  });
-}
-
-/* ===== NAVIGATION ===== */
 function openSignup(){
-  document.getElementById("loginForm").style.display = "none";
-  document.getElementById("signupForm").style.display = "block";
-  document.getElementById("signupOtpContainer").style.display = "none";
-  document.getElementById("loginOtpContainer").style.display = "none";
+
+loginForm.style.display="none"
+
+signupForm.style.display="block"
+
 }
 
 function backLogin(){
-  document.getElementById("adminPanel").style.display = "none";
-  document.getElementById("signupForm").style.display = "none";
-  document.getElementById("dashboard").style.display = "none";
-  document.getElementById("addWorkForm").style.display = "none";
-  document.getElementById("loginOtpContainer").style.display = "none";
-  document.getElementById("signupOtpContainer").style.display = "none";
-  document.getElementById("loginForm").style.display = "block";
+
+loginForm.style.display="block"
+
+signupForm.style.display="none"
+
+dashboard.style.display="none"
+
+adminPanel.style.display="none"
+
+addWorkForm.style.display="none"
+
+}
+
+function openAdmin(){
+
+loginForm.style.display="none"
+
+adminPanel.style.display="block"
+
 }
 
 function openAddWork(){
-  document.getElementById("loginForm").style.display = "none";
-  document.getElementById("signupForm").style.display = "none";
-  document.getElementById("dashboard").style.display = "none";
-  document.getElementById("adminPanel").style.display = "none";
-  document.getElementById("loginOtpContainer").style.display = "none";
-  document.getElementById("signupOtpContainer").style.display = "none";
-  document.getElementById("addWorkForm").style.display = "block";
+
+loginForm.style.display="none"
+
+addWorkForm.style.display="block"
+
 }
 
-/* ===== ADD WORKER ===== */
-function saveWorker(){
-  var name = document.getElementById("workerName").value.trim();
-  var mobile = document.getElementById("workerMobile").value.trim();
-  var skill = document.getElementById("workerSkill").value.trim();
-  var location = document.getElementById("workerLocation").value.trim();
-  var dob = document.getElementById("dobText").value.trim();
+/* signup */
 
-  if(!name || !mobile || !skill || !location){
-    alert("Please fill all fields");
-    return;
-  }
+function signup(){
 
-  var workers = JSON.parse(localStorage.getItem("skillhub_workers")) || [];
-  workers.push({name, mobile, skill, location, dob});
-  localStorage.setItem("skillhub_workers", JSON.stringify(workers));
-  alert("Worker added successfully!");
-  backLogin();
+let pass=signupPassword.value
+
+let confirm=signupConfirmPassword.value
+
+if(pass!=confirm){
+
+alert("Password not match")
+
+return
+
 }
 
-/* ===== PASSWORD TOGGLE ===== */
-function togglePassword(inputId, icon){
-  var input = document.getElementById(inputId);
-  if(input.type === "password"){
-    input.type = "text";
-    icon.classList.remove("fa-eye");
-    icon.classList.add("fa-eye-slash");
-  } else {
-    input.type = "password";
-    icon.classList.remove("fa-eye-slash");
-    icon.classList.add("fa-eye");
-  }
+let users=JSON.parse(localStorage.getItem("users"))||[]
+
+users.push({
+
+name:signupName.value,
+
+mobile:signupMobile.value,
+
+username:signupUsername.value,
+
+password:signupPassword.value
+
+})
+
+localStorage.setItem("users",JSON.stringify(users))
+
+alert("Signup Successful")
+
+backLogin()
+
 }
 
-/* ===== DASHBOARD ===== */
-function showDashboard(){
-  document.getElementById("loginForm").style.display = "none";
-  document.getElementById("signupForm").style.display = "none";
-  document.getElementById("loginOtpContainer").style.display = "none";
-  document.getElementById("signupOtpContainer").style.display = "none";
-  document.getElementById("dashboard").style.display = "block";
-  document.getElementById("dashboardName").innerText = "Hello, " + loginUser.fullname;
+/* login */
+
+function login(){
+
+let users=JSON.parse(localStorage.getItem("users"))||[]
+
+let user=users.find(u=>u.username==username.value && u.password==password.value)
+
+if(!user){
+
+alert("Invalid Login")
+
+return
+
 }
+
+loginForm.style.display="none"
+
+dashboard.style.display="block"
+
+dashboardName.innerText="Hello "+user.name
+
+}
+
+/* logout */
 
 function logout(){
-  document.getElementById("dashboard").style.display = "none";
-  backLogin();
+
+backLogin()
+
 }
 
-/* ===== ADMIN PANEL ===== */
-function openAdmin(){
-  document.getElementById("loginForm").style.display = "none";
-  document.getElementById("signupForm").style.display = "none";
-  document.getElementById("dashboard").style.display = "none";
-  document.getElementById("addWorkForm").style.display = "none";
-  document.getElementById("adminPanel").style.display = "block";
+/* add worker */
+
+function saveWorker(){
+
+let workers=JSON.parse(localStorage.getItem("workers"))||[]
+
+workers.push({
+
+name:workerName.value,
+
+mobile:workerMobile.value,
+
+skill:workerSkill.value,
+
+location:workerLocation.value,
+
+dob:dobText.value
+
+})
+
+localStorage.setItem("workers",JSON.stringify(workers))
+
+alert("Worker Added")
+
+backLogin()
+
 }
+
+/* password toggle */
+
+function togglePassword(id,icon){
+
+let input=document.getElementById(id)
+
+if(input.type==="password"){
+
+input.type="text"
+
+icon.classList.remove("fa-eye")
+
+icon.classList.add("fa-eye-slash")
+
+}else{
+
+input.type="password"
+
+icon.classList.remove("fa-eye-slash")
+
+icon.classList.add("fa-eye")
+
+}
+
+}
+
+/* DOB picker */
+
+function openDOB(){
+
+document.getElementById("dobPicker").showPicker()
+
+}
+
+function setDOB(){
+
+let d=new Date(document.getElementById("dobPicker").value)
+
+let day=("0"+d.getDate()).slice(-2)
+
+let month=("0"+(d.getMonth()+1)).slice(-2)
+
+let year=d.getFullYear()
+
+document.getElementById("dobText").value=day+"/"+month+"/"+year
+
+}
+
 </script>
+
 </body>
 </html>
+```
