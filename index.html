@@ -297,8 +297,8 @@ display:none;
 </div>
 
 <div class="input-group">
-<input type="text" id="worker_location" placeholder="Location">
-<i class="fa fa-map-marker-alt"></i>        
+<input type="text" id="worker_address" placeholder="Address">
+<i class="fa fa-address"></i>        
 </div>
 
 <div class="btns">
@@ -419,7 +419,7 @@ workers.push({
 name:worker_name.value,
 mobile:worker_mobile.value,
 skill:worker_skill.value,
-location:worker_location.value,
+location:worker_address.value,
 dob:worker_dob.value
 });
 localStorage.setItem("workers",JSON.stringify(workers));
