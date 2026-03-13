@@ -341,8 +341,8 @@ button:active {
 
   <!-- DOB -->
   <div class="input-group">
-    <input type="text" id="dobText" placeholder="Date of Birth" readonly onclick="openPicker()">
-    <input type="date" id="dobPicker" style="display:none" onchange="setDate()">
+    <input type="text" id="dobText" placeholder="Date of Birth" readonly onclick="openDOB()">
+    <input type="date" id="dobPicker" style="display:none" onchange="setDOB()">
     <i class="fa fa-calendar"></i>
   </div>
 
@@ -368,16 +368,16 @@ button:active {
 </div>
 
 <script>
-function openPicker(){
+function openDOB(){
   document.getElementById("dobPicker").showPicker();
 }
 
-function setDate(){
+function setDOB(){
   let date = document.getElementById("dobPicker").value;
   let d = new Date(date);
 
-  let day = ("0" + d.getDate()).slice(-2);
-  let month = ("0" + (d.getMonth()+1)).slice(-2);
+  let day = ("0"+d.getDate()).slice(-2);
+  let month = ("0"+(d.getMonth()+1)).slice(-2);
   let year = d.getFullYear();
 
   document.getElementById("dobText").value = day + "/" + month + "/" + year;
