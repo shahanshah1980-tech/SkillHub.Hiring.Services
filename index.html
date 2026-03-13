@@ -349,12 +349,33 @@ icon.classList.add("fa-eye");
 }
 }
 
-function backLogin(){
-loginForm.style.display="block";
-signupForm.style.display="none";
-dashboard.style.display="none";
-adminPanel.style.display="none";
-addWorkForm.style.display="none";
+function backLogin() {
+    // Reset signup form first
+    resetSignupForm();
+
+    // Show login form and hide others
+    loginForm.style.display = "block";
+    signupForm.style.display = "none";
+    dashboard.style.display = "none";
+    adminPanel.style.display = "none";
+    addWorkForm.style.display = "none";
+}
+
+// Function to reset signup form fields
+function resetSignupForm() {
+    // Clear input values
+    document.getElementById("signupName").value = "";
+    document.getElementById("signupMobile").value = "";
+    document.getElementById("signupUsername").value = "";
+    document.getElementById("signup_password").value = "";
+    document.getElementById("signup_confirmPassword").value = "";
+
+    // Hide OTP container
+    document.getElementById("signupOtpContainer").style.display = "none";
+
+    // Reset error messages
+    document.getElementById("mobileError").innerText = "";
+    document.getElementById("usernameError").innerText = "";
 }
 
 function sendWhatsAppOTP(number,otp,message){
