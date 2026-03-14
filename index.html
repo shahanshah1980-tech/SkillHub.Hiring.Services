@@ -67,7 +67,7 @@ background:#fff;color:#000;}
 /* Gender icons styling */
 .input-group.radio-group {
   display: flex;
-  gap: 30px;
+  gap: 30px; /* space between each radio+icon */
   align-items: center;
   justify-content: center;
   margin: 15px 0;
@@ -76,19 +76,49 @@ background:#fff;color:#000;}
 .input-group.radio-group label {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 8px;      /* space between radio button circle and icon */
   cursor: pointer;
-  font-size: 24px;
+  font-size: 24px; /* icon size */
 }
 
+/* Make radio button round */
+.input-group.radio-group input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%; /* makes circle */
+  border: 2px solid #000; /* border color */
+  background-color: #fff; /* default background */
+  cursor: pointer;
+  -webkit-appearance: none; /* remove default styles */
+  appearance: none;
+  outline: none;
+  position: relative;
+}
+
+/* Show black dot when selected */
+.input-group.radio-group input[type="radio"]:checked::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #000; /* black fill */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Icon color */
 .input-group.radio-group i {
   color: #000;
   transition: color 0.3s;
 }
 
+/* Optional: highlight icon when selected */
 .input-group.radio-group input[type="radio"]:checked + i {
   color: #ff758c;
 }
+
 
 </style>
 </head>
