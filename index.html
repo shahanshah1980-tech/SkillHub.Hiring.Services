@@ -72,7 +72,10 @@ margin-bottom:20px;
 position:relative;
 margin:15px 0;
 }
-.input-group input{
+
+/* Updated input and dropdown to match style */
+.input-group input,
+.input-group select{
 width:80%;
 padding:12px 40px 12px 15px;
 border-radius:20px;
@@ -81,7 +84,11 @@ outline:none;
 font-size:16px;
 background:#fff;
 color:#000;
+appearance:none;
+-webkit-appearance:none;
+-moz-appearance:none;
 }
+
 .input-group i{
 position:absolute;
 right:15px;
@@ -90,6 +97,7 @@ transform:translateY(-50%);
 cursor:pointer;
 color:#000;
 }
+
 .btns{
 display:flex;
 justify-content:center;
@@ -264,56 +272,57 @@ display:none;
 
 </div>
 
-<!-- ADD WORKER SECTION -->
-        
+<!-- =========================
+        ADD WORKER SECTION
+   ========================= -->
 <div class="container" id="addWorkForm">
 
-  <h2 class="form-title">Add Worker</h2>
+<h2 class="form-title">Add Worker</h2>
 
-  <div class="input-group">
-    <input type="text" id="worker_name" placeholder="Full Name">
-    <i class="fa fa-user"></i>        
-  </div>
+<div class="input-group">
+<input type="text" id="worker_name" placeholder="Full Name">
+<i class="fa fa-user"></i>        
+</div>
 
-  <div class="input-group">
-    <input type="text" id="worker_father" placeholder="Father Name">
-    <i class="fa fa-user"></i>        
-  </div>
+<div class="input-group">
+<input type="text" id="worker_father" placeholder="Father Name">
+<i class="fa fa-user"></i>        
+</div>
 
-  <div class="input-group">
-    <input type="text" id="worker_dob" placeholder="Date of Birth">
-    <i class="fa fa-calendar"></i>
-  </div>
+<div class="input-group">
+<input type="text" id="worker_dob" placeholder="Date of Birth">
+<i class="fa fa-calendar"></i>
+</div>
 
-  <div class="input-group">
-    <input type="text" id="worker_mobile" placeholder="Mobile Number">
-    <i class="fa fa-phone"></i>        
-  </div>
+<div class="input-group">
+<input type="text" id="worker_mobile" placeholder="Mobile Number">
+<i class="fa fa-phone"></i>        
+</div>
 
-  <!-- DROPDOWN -->
-        
-  <div class="input-group">
-    <select id="service_type">
-      <option value="">Select any one</option>
-      <option value="worker">Worker</option>
-      <option value="ride">Book Ride</option>
-    </select>
-  </div>
-        
-  <div class="input-group">
-    <input type="text" id="worker_address" placeholder="Address">
-    <i class="fa fa-map-marker-alt"></i>        
-  </div>
+<!-- DROPDOWN -->
+<div class="input-group">
+<select id="service_type">
+<option value="">Select any one</option>
+<option value="worker">Worker</option>
+<option value="ride">Book Ride</option>
+</select>
+<i class="fa fa-caret-down"></i>
+</div>
 
-  <div class="btns">
-    <button onclick="worker_save()">Submit</button>
-    <button onclick="backLogin()">Back</button>
-  </div>
+<div class="input-group">
+<input type="text" id="worker_address" placeholder="Address">
+<i class="fa fa-map-marker-alt"></i>        
+</div>
+
+<div class="btns">
+<button onclick="worker_save()">Submit</button>
+<button onclick="backLogin()">Back</button>
+</div>
 
 </div>
 
 <script>
-        
+
 /* =========================
         FLATPICKR DOB
    ========================= */
@@ -353,10 +362,7 @@ icon.classList.add("fa-eye");
 }
 
 function backLogin() {
-    // Reset signup form first
     resetSignupForm();
-
-    // Show login form and hide others
     loginForm.style.display = "block";
     signupForm.style.display = "none";
     dashboard.style.display = "none";
@@ -364,19 +370,13 @@ function backLogin() {
     addWorkForm.style.display = "none";
 }
 
-// Function to reset signup form fields
 function resetSignupForm() {
-    // Clear input values
     document.getElementById("signupName").value = "";
     document.getElementById("signupMobile").value = "";
     document.getElementById("signupUsername").value = "";
     document.getElementById("signup_password").value = "";
     document.getElementById("signup_confirmPassword").value = "";
-
-    // Hide OTP container
     document.getElementById("signupOtpContainer").style.display = "none";
-
-    // Reset error messages
     document.getElementById("mobileError").innerText = "";
     document.getElementById("usernameError").innerText = "";
 }
@@ -422,9 +422,9 @@ workers.push({
 name:worker_name.value,
 mobile:worker_mobile.value,
 skill: [
-document.getElementById("worker_skill1").value,
-document.getElementById("worker_skill2").value,
-document.getElementById("worker_skill3").value
+document.getElementById("worker_skill1")?.value,
+document.getElementById("worker_skill2")?.value,
+document.getElementById("worker_skill3")?.value
 ],
 location:worker_address.value,
 dob:worker_dob.value
@@ -466,6 +466,7 @@ function openSignup(){
 loginForm.style.display="none";
 signupForm.style.display="block";
 }
+
 </script>
 
 </body>
