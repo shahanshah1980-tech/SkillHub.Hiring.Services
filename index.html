@@ -360,12 +360,11 @@ display:none;
 
 <!-- DROPDOWNS -->
 
-<div class="input-group input-group-flex">        
-<select id="main_type" class="small-dropdown" onchange="toggleServiceType()">
-<option value="" selected hidden>Select Any One</option>
+<select id="main_type" class="small-dropdown" required>
+<option value="" disabled selected>Select Any One</option>
 <option value="workers">Workers</option>
 <option value="ride">Ride Type</option>
-</select>     
+</select>
 
   <select id="service_type2" class="small-dropdown">
     <option value="">Select Skill 2</option>
