@@ -351,13 +351,14 @@ display:none;
 </div>
 
 <!-- DROPDOWNS -->
-<div class="input-group input-group-flex">
-  <select id="service_type1" class="small-dropdown">
-    <option value="">Select Skill 1</option>
-    <option value="plumber">Plumber</option>
-    <option value="electrician">Electrician</option>
-    <option value="mason">Mason</option>
-  </select>
+
+ <div class="input-group">
+<select id="main_type" onchange="toggleServiceType()">
+<option value="">Select Any One</option>
+<option value="workers">Workers</option>
+<option value="ride">Ride Type</option>
+</select>       
+
   <select id="service_type2" class="small-dropdown">
     <option value="">Select Skill 2</option>
     <option value="plumber">Plumber</option>
