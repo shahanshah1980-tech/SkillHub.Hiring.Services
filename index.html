@@ -77,7 +77,7 @@ margin:15px 0;
 .input-group input,
 .input-group select{
 width:80%;
-padding:12px 40px 12px 15px;
+padding:12px 40px 12px 25px; /* Left padding updated for all textboxes */
 border-radius:20px;
 border:none;
 outline:none;
@@ -87,6 +87,7 @@ color:#000;
 appearance:none;
 -webkit-appearance:none;
 -moz-appearance:none;
+box-sizing:border-box;
 }
 
 /* =========================
@@ -95,11 +96,11 @@ appearance:none;
 .input-group-flex {
   display: flex;
   gap: 14px;
-  margin-left: 42px; /* jitna right shift chahiye, utna pixel adjust karein */
+  margin-left: 42px;
 }
 
 .small-dropdown {
-  width: 200px !important;  /* Change this to adjust dropdown width */
+  width: 200px !important;
   padding: 12px 15px;
   border-radius: 20px;
   border: none;
@@ -199,15 +200,18 @@ display:none;
   background: transparent;
 }
 
-.input-group {
-  position: relative;
+/* =========================
+        RADIO BUTTON + ONE LINE
+========================= */
+.input-group.radio-group{
   display: flex;
   align-items: center;
   gap: 20px;
+  position: relative;
   margin: 15px 0;
 }
 
-.input-group label {
+.input-group.radio-group label{
   display: flex;
   align-items: center;
   gap: 5px;
@@ -215,22 +219,21 @@ display:none;
   cursor: pointer;
 }
 
-.input-group input[type="radio"] {
+.input-group.radio-group input[type="radio"]{
   width: auto;       /* browser default */
   height: auto;      /* browser default */
-  accent-color: black; /* black dot on select */
-  -webkit-appearance: radio;  /* force round radio */
-  -moz-appearance: radio;     /* Firefox */
-  appearance: radio;          /* standard */
+  accent-color: black; /* center dot black */
+  -webkit-appearance: radio;
+  -moz-appearance: radio;
+  appearance: radio;
 }
 
-.input-group i {
-  position: absolute;
-  right: 15px;
-  color: #000;
-  font-size: 18px;
+.input-group.radio-group i{
+  position:absolute;
+  right:15px;
+  font-size:18px;
+  color:#000;
 }
-        
 </style>
 </head>
 
@@ -381,7 +384,7 @@ display:none;
 <i class="fa fa-calendar"></i>
 </div>
 
-<div class="input-group">
+<div class="input-group radio-group">
   <label>
     <input type="radio" name="worker_gender" value="male"> Male
   </label>
@@ -391,7 +394,7 @@ display:none;
   <label>
     <input type="radio" name="worker_gender" value="other"> Other
   </label>
-  
+  <i class="fa fa-venus-mars"></i>
 </div>
         
 <div class="input-group">
@@ -540,7 +543,8 @@ document.getElementById("service_type2")?.value,
 document.getElementById("service_type3")?.value
 ],
 location:worker_address?.value,
-dob:worker_dob.value
+dob:worker_dob.value,
+gender: document.querySelector('input[name="worker_gender"]:checked')?.value || ''
 });
 localStorage.setItem("workers",JSON.stringify(workers));
 alert("Worker Added");
