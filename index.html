@@ -261,9 +261,8 @@ display:none;
 
 </div>
 
-<!-- =========================
-        ADMIN SECTION
-   ========================= -->
+<!-- ADMIN SECTION -->
+        
 <div class="container" id="adminPanel">
 
 <h2>Hello Admin</h2>
@@ -272,9 +271,8 @@ display:none;
 
 </div>
 
-<!-- =========================
-        ADD WORKER SECTION
-   ========================= -->
+<!-- ADD WORKER SECTION -->
+  
 <div class="container" id="addWorkForm">
 
 <h2 class="form-title">Add Worker</h2>
@@ -295,29 +293,31 @@ display:none;
 </div>
 
 <div class="input-group">
-<input type="text" id="worker_mobile" placeholder="Mobile Number">
-<i class="fa fa-phone"></i>        
+  <input type="text" id="worker_mobile" placeholder="Mobile Number">
+  <i class="fa fa-phone"></i>        
 </div>
 
 <!-- DROPDOWN -->
-<div class="input-group">
-<select id="service_type">
-<option value="">Select any one</option>
-<option value="worker">Worker</option>
-<option value="ride">Book Ride</option>
-</select>
-</div>
-
-<div class="input-group">
-<input type="text" id="worker_address" placeholder="Address">
-<i class="fa fa-map-marker-alt"></i>        
-</div>
-
-<div class="btns">
-<button onclick="worker_save()">Submit</button>
-<button onclick="backLogin()">Back</button>
-</div>
-
+        
+<div class="input-group" style="display:flex; justify-content:space-between; gap:10px;">
+  <select id="service_type1">
+    <option value="">Select Skill 1</option>
+    <option value="plumber">Plumber</option>
+    <option value="electrician">Electrician</option>
+    <option value="mason">Mason</option>
+  </select>
+  <select id="service_type2">
+    <option value="">Select Skill 2</option>
+    <option value="plumber">Plumber</option>
+    <option value="electrician">Electrician</option>
+    <option value="mason">Mason</option>
+  </select>
+  <select id="service_type3">
+    <option value="">Select Skill 3</option>
+    <option value="plumber">Plumber</option>
+    <option value="electrician">Electrician</option>
+    <option value="mason">Mason</option>
+  </select>
 </div>
 
 <script>
