@@ -68,7 +68,7 @@ background:#fff;color:#000;}
 
 .input-group.radio-group {
   display: flex;
-  gap: 30px; /* space between each radio+icon */
+  gap: 30px; /* space between each option */
   align-items: center;
   justify-content: center;
   margin: 15px 0;
@@ -77,19 +77,38 @@ background:#fff;color:#000;}
 .input-group.radio-group label {
   display: flex;
   align-items: center;
-  gap: 5px;   /* space between radio circle and icon */
+  gap: 8px;      /* space between radio button and icon */
   cursor: pointer;
 }
 
+/* Standard round radio button */
 .input-group.radio-group input[type="radio"] {
-  width: 20px;  /* size of radio button */
+  width: 20px;
   height: 20px;
-  border-radius: 50%; /* round */
+  border-radius: 50%;  /* round shape */
+  border: 2px solid #000; /* black border */
+  appearance: none;       /* remove default styling */
   cursor: pointer;
+  position: relative;
+  background-color: #fff; /* white background */
 }
 
+/* Black dot when selected */
+.input-group.radio-group input[type="radio"]:checked::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background-color: #000; /* black dot */
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Icon next to the radio button */
 .input-group.radio-group i {
-  font-size: 20px; /* icon size */
+  font-size: 24px; /* icon size */
   color: #000;     /* always black */
 }
 
