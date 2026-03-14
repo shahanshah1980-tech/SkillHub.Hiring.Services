@@ -66,9 +66,10 @@ background:#fff;color:#000;}
 
 /* Gender icons styling */
 
+/* Layout */
 .input-group.radio-group {
   display: flex;
-  gap: 30px; /* space between each label */
+  gap: 30px; /* space between each option */
   align-items: center;
   justify-content: center;
   margin: 15px 0;
@@ -77,38 +78,41 @@ background:#fff;color:#000;}
 .input-group.radio-group label {
   display: flex;
   align-items: center;
-  gap: 5px;      /* small space between radio button and its icon */
+  gap: 8px; /* space between circle and icon */
   cursor: pointer;
 }
 
-/* Round radio button with black dot when selected */
+/* Hide the real radio */
 .input-group.radio-group input[type="radio"] {
+  display: none;
+}
+
+/* Custom round circle */
+.custom-radio {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: 2px solid #000;
-  appearance: none;
+  border: 2px solid #000; /* black border */
   position: relative;
   background-color: #fff;
-  cursor: pointer;
 }
 
 /* Black dot when selected */
-.input-group.radio-group input[type="radio"]:checked::after {
+.input-group.radio-group input[type="radio"]:checked + .custom-radio::after {
   content: "";
   width: 12px;
   height: 12px;
-  background-color: #000;
   border-radius: 50%;
+  background-color: #000;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-/* Icon right next to the radio button */
+/* Icon next to the circle */
 .input-group.radio-group i {
-  font-size: 20px;
+  font-size: 24px;
   color: #000; /* always black */
 }
 
@@ -238,16 +242,19 @@ background:#fff;color:#000;}
 <div class="input-group radio-group">
   <label>
     <input type="radio" name="worker_gender" value="male">
+    <span class="custom-radio"></span>
     <i class="fa fa-male"></i>
   </label>
 
   <label>
     <input type="radio" name="worker_gender" value="female">
+    <span class="custom-radio"></span>
     <i class="fa fa-female"></i>
   </label>
 
   <label>
     <input type="radio" name="worker_gender" value="other">
+    <span class="custom-radio"></span>
     <i class="fa fa-genderless"></i>
   </label>
 </div>
