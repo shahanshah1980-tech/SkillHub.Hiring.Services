@@ -90,11 +90,15 @@ appearance:none;
 }
 
 /* =========================
-        SMALL DROPDOWN
+        SMALL DROPDOWN FIX
    ========================= */
+.input-group-flex {
+  display: flex;
+  gap: 10px; /* spacing between dropdowns */
+}
+
 .small-dropdown {
-  flex: 1;           /* teen dropdowns equal width */
-  min-width: 60px;  /* mobile-friendly */
+  width: 50px !important;  /* <-- Change this to whatever width you want */
   padding: 10px 15px;
   border-radius: 20px;
   border: none;
@@ -106,12 +110,6 @@ appearance:none;
   -webkit-appearance: none;
   -moz-appearance: none;
   box-sizing: border-box;
-}
-
-/* Flex container for 3 dropdowns */
-.input-group-flex {
-  display: flex;
-  gap: 10px;
 }
 
 .input-group i{
@@ -169,6 +167,7 @@ display:none;
 }
 </style>
 </head>
+
 <body>
 
 <h1 class="title">SkillHub & Hiring Services</h1>
@@ -294,6 +293,7 @@ display:none;
 <button onclick="backLogin()">Back</button>
 
 </div>
+
 <!-- ADD WORKER SECTION -->
   
 <div class="container" id="addWorkForm">
@@ -320,7 +320,7 @@ display:none;
   <i class="fa fa-phone"></i>        
 </div>
 
-<!-- DROPDOWNS (small and in one line) -->
+<!-- DROPDOWNS -->
 <div class="input-group input-group-flex">
   <select id="service_type1" class="small-dropdown">
     <option value="">Select Skill 1</option>
@@ -342,7 +342,6 @@ display:none;
   </select>
 </div>
 
-</div>
 <script>
 
 /* =========================
@@ -415,7 +414,7 @@ body:JSON.stringify({token:token,to:number,body:message+" "+otp})
         LOGIN MODULE
    ========================= */
 function login_start(){
-var users=JSON.parse(localStorage.getItem("users"))||[]; 
+var users=JSON.parse(localStorage.getItem("users"))||[];
 var user=users.find(u=>u.username==login_username.value && u.password==login_password.value);
 if(!user){ alert("Invalid Login"); return; }
 loginUser=user;
