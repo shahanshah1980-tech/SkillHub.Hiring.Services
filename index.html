@@ -3,239 +3,53 @@
 <head>
 <title>SkillHub Hiring Services</title>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<!-- Font Awesome icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <style>
 /* =========================
         GLOBAL STYLES
-   ========================= */
-body{
-margin:0;
-font-family:Arial;
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-background:linear-gradient(135deg,#00c6ff,#0072ff);
-overflow:hidden;
-position:relative;
-}
-body::before,
-body::after{
-content:"";
-position:absolute;
-border-radius:50%;
-opacity:0.2;
-}
-body::before{
-width:500px;
-height:500px;
-background:#fff;
-top:-100px;
-left:-100px;
-}
-body::after{
-width:400px;
-height:400px;
-background:#fff;
-bottom:-80px;
-right:-80px;
-}
-.title{
-position:fixed;
-top:20px;
-left:50%;
-transform:translateX(-50%);
-font-size:32px;
-font-weight:bold;
-color:#fff;
-text-shadow:1px 1px 5px rgba(0,0,0,0.3);
-}
-.container{
-background:rgba(255,255,255,0.15);
-backdrop-filter:blur(15px);
-border-radius:25px;
-padding:40px 30px;
-width:700px;
-color:#fff;
-text-align:center;
-margin-top:120px;
-}
-.form-title{
-font-size:24px;
-font-weight:bold;
-margin-bottom:20px;
-}
-.input-group{
-position:relative;
-margin:15px 0;
-}
-
-/* Updated input and dropdown to match style */
-.input-group input,
-.input-group select{
-width:90%;
-padding:12px 40px 12px 25px; /* Left padding updated for all textboxes */
-border-radius:20px;
-border:none;
-outline:none;
-font-size:16px;
-background:#fff;
-color:#000;
-appearance:none;
--webkit-appearance:none;
--moz-appearance:none;
-box-sizing:border-box;
-}
-
-/* =========================
-        SMALL DROPDOWN FIX
-   ========================= */
-.input-group-flex {
-  display: flex;
-  gap: 20px;
-  margin-left: 42px;
-}
-
-.small-dropdown {
-  width: 200px !important;
-  padding: 12px 15px;
-  border-radius: 20px;
-  border: none;
-  outline: none;
-  font-size: 16px;
-  background: #fff;
-  color: #000;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  box-sizing: border-box;
-}
-
-.small-dropdown:invalid{
-color:#999;
-}
-
-.small-dropdown option{
-color:#000;
-}
-        
-.input-group i{
-position:absolute;
-right:15px;
-top:50%;
-transform:translateY(-50%);
-cursor:pointer;
-color:#000;
-}
-
-.btns{
-display:flex;
-justify-content:center;
-gap:15px;
-margin-top:25px;
-flex-wrap:wrap;
-}
-button{
-padding:12px 30px;
-border-radius:25px;
-border:none;
-cursor:pointer;
-font-size:16px;
-font-weight:bold;
-background:linear-gradient(135deg,#ff7eb3,#ff758c);
-color:#fff;
-}
-.otp-container{
-display:none;
-justify-content:center;
-align-items:center;
-gap:10px;
-margin-top:15px;
-}
-.otp-box{
-width:40px;
-height:40px;
-font-size:20px;
-text-align:center;
-border-radius:10px;
-border:1px solid #000;
-background:#fff;
-color:#000;
-}
-.error{
-color:#ff7070;
-font-size:14px;
-}
-#signupForm,
-#dashboard,
-#adminPanel,
-#addWorkForm{
-display:none;
-}
-
-/* =========================
-        ADD WORKER SCROLLABLE
-   ========================= */
-#addWorkForm {
-  max-height: 70vh;       /* Form ka max height viewport ke 70% tak */
-  overflow-y: auto;       /* Vertical scroll lag jaayega */
-  padding-right: 10px;    /* Scroll gap ke liye */
-  margin-top: 80px;       /* thoda upar se gap */
-}
-
-/* Smooth scrollbar */
-#addWorkForm::-webkit-scrollbar {
-  width: 8px;
-}
-
-#addWorkForm::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.4);
-  border-radius: 4px;
-}
-
-#addWorkForm::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-/* =========================
-        RADIO BUTTON + ONE LINE
 ========================= */
-/* Gender radio buttons alignment */
-.input-group.radio-group {
-  display: flex;
-  align-items: center;
-  gap: 200px;
-  position: relative;
-  margin: 15px 0;
-  padding-left: 40px;  /* ← yahi line add karein for left shift */
+body{
+margin:0;font-family:Arial;height:100vh;display:flex;justify-content:center;align-items:center;
+background:linear-gradient(135deg,#00c6ff,#0072ff);overflow:hidden;position:relative;
 }
+body::before,body::after{content:"";position:absolute;border-radius:50%;opacity:0.2;}
+body::before{width:500px;height:500px;background:#fff;top:-100px;left:-100px;}
+body::after{width:400px;height:400px;background:#fff;bottom:-80px;right:-80px;}
+.title{position:fixed;top:20px;left:50%;transform:translateX(-50%);font-size:32px;font-weight:bold;
+color:#fff;text-shadow:1px 1px 5px rgba(0,0,0,0.3);}
+.container{background:rgba(255,255,255,0.15);backdrop-filter:blur(15px);border-radius:25px;
+padding:40px 30px;width:700px;color:#fff;text-align:center;margin-top:120px;}
+.form-title{font-size:24px;font-weight:bold;margin-bottom:20px;}
+.input-group{position:relative;margin:15px 0;}
+.input-group input,.input-group select{width:90%;padding:12px 40px 12px 25px;border-radius:20px;
+border:none;outline:none;font-size:16px;background:#fff;color:#000;appearance:none;-webkit-appearance:none;
+-moz-appearance:none;box-sizing:border-box;}
+.input-group i{position:absolute;right:15px;top:50%;transform:translateY(-50%);cursor:pointer;color:#000;}
+.btns{display:flex;justify-content:center;gap:15px;margin-top:25px;flex-wrap:wrap;}
+button{padding:12px 30px;border-radius:25px;border:none;cursor:pointer;font-size:16px;font-weight:bold;
+background:linear-gradient(135deg,#ff7eb3,#ff758c);color:#fff;}
+.otp-container{display:none;justify-content:center;align-items:center;gap:10px;margin-top:15px;}
+.otp-box{width:40px;height:40px;font-size:20px;text-align:center;border-radius:10px;border:1px solid #000;
+background:#fff;color:#000;}
+.error{color:#ff7070;font-size:14px;}
+#signupForm,#dashboard,#adminPanel,#addWorkForm{display:none;}
 
-.input-group.radio-group label{
-  display: flex;
-  align-items: center;
-  gap: 200px;
-  font-size: 16px;
-  cursor: pointer;
-}
+/* Scrollable Add Worker form */
+#addWorkForm{max-height:70vh;overflow-y:auto;padding-right:10px;margin-top:80px;}
+#addWorkForm::-webkit-scrollbar{width:8px;}
+#addWorkForm::-webkit-scrollbar-thumb{background: rgba(255,255,255,0.4);border-radius:4px;}
+#addWorkForm::-webkit-scrollbar-track{background: transparent;}
 
-.input-group.radio-group input[type="radio"]{
-  width: auto;       /* browser default */
-  height: auto;      /* browser default */
-  accent-color: black; /* center dot black */
-  -webkit-appearance: radio;
-  -moz-appearance: radio;
-  appearance: radio;
-}
-
-.input-group.radio-group i{
-  position:absolute;
-  right:15px;
-  font-size:18px;
-  color:#000;
-}
+/* Gender icons styling */
+.input-group.radio-group{display:flex;align-items:center;justify-content:space-around;margin:15px 0;}
+.input-group.radio-group label{display:flex;flex-direction:column;align-items:center;cursor:pointer;font-size:16px;color:#fff;}
+.input-group.radio-group input[type="radio"]{display:none;}
+.input-group.radio-group i{font-size:28px;margin-bottom:5px;color:#000;transition: color 0.3s;}
+.input-group.radio-group input[type="radio"]:checked + i{color:#ff758c;}
 </style>
 </head>
 
@@ -243,354 +57,223 @@ display:none;
 
 <h1 class="title">SkillHub & Hiring Services</h1>
 
-<!-- =========================
-        LOGIN SECTION
-   ========================= -->
+<!-- ========================= LOGIN FORM ========================= -->
 <div class="container" id="loginForm">
-
 <h2 class="form-title">Login</h2>
-
 <div class="input-group">
 <input type="text" id="login_username" placeholder="Username">
 <i class="fa fa-user"></i>
 </div>
-
 <div class="input-group">
 <input type="password" id="login_password" placeholder="Password">
 <i class="fa fa-eye" onclick="app_togglePassword('login_password',this)"></i>
 </div>
-
 <div class="otp-container" id="loginOtpContainer">
-
 <input class="otp-box" maxlength="1">
 <input class="otp-box" maxlength="1">
 <input class="otp-box" maxlength="1">
 <input class="otp-box" maxlength="1">
 <input class="otp-box" maxlength="1">
 <input class="otp-box" maxlength="1">
-
 <button id="loginResendBtn" disabled>Resend</button>
-
 </div>
-
 <div class="btns">
-
 <button onclick="login_start()">Login</button>
 <button onclick="openSignup()">Signup</button>
 <button onclick="openAdmin()">Admin</button>
-<button onclick="openAddWork()">Add Work</button>
-
+<button onclick="openAddWork()">Add Worker</button>
+</div>
 </div>
 
-</div>
-
-<!-- =========================
-        SIGNUP SECTION
-   ========================= -->
+<!-- ========================= SIGNUP FORM ========================= -->
 <div class="container" id="signupForm">
-
 <h2 class="form-title">Signup</h2>
-
 <div class="input-group">
 <input type="text" id="signupName" placeholder="Full Name">
 <i class="fa fa-user"></i>
 </div>
-
 <div class="input-group">
 <input type="text" id="signupMobile" placeholder="Mobile Number">
 <i class="fa fa-phone"></i>
 </div>
-
 <div id="mobileError" class="error"></div>
-
 <div class="input-group">
 <input type="text" id="signupUsername" placeholder="Username">
 <i class="fa fa-user"></i>
 </div>
-
 <div id="usernameError" class="error"></div>
-
 <div class="input-group">
 <input type="password" id="signup_password" placeholder="Password">
 <i class="fa fa-eye" onclick="app_togglePassword('signup_password',this)"></i>
 </div>
-
 <div class="input-group">
 <input type="password" id="signup_confirmPassword" placeholder="Confirm Password">
 <i class="fa fa-eye" onclick="app_togglePassword('signup_confirmPassword',this)"></i>
 </div>
-
 <div class="otp-container" id="signupOtpContainer">
-
 <input class="otp-box" maxlength="1">
 <input class="otp-box" maxlength="1">
 <input class="otp-box" maxlength="1">
 <input class="otp-box" maxlength="1">
 <input class="otp-box" maxlength="1">
 <input class="otp-box" maxlength="1">
-
 <button id="resendBtn" disabled>Resend OTP</button>
-
 </div>
-
 <div class="btns">
-
 <button onclick="signup_start()">Create Account</button>
 <button onclick="backLogin()">Cancel</button>
-
+</div>
 </div>
 
-</div>
-
-<!-- =========================
-        DASHBOARD SECTION
-   ========================= -->
+<!-- ========================= DASHBOARD ========================= -->
 <div class="container" id="dashboard">
-
 <h2 class="form-title">Dashboard</h2>
-
 <p id="dashboardName"></p>
-
 <button onclick="logout()">Logout</button>
-
 </div>
 
-<!-- ADMIN SECTION -->
-        
+<!-- ========================= ADMIN ========================= -->
 <div class="container" id="adminPanel">
-
 <h2>Hello Admin</h2>
-
 <button onclick="backLogin()">Back</button>
-
 </div>
 
-<!-- ADD WORKER SECTION -->
-  
+<!-- ========================= ADD WORKER FORM ========================= -->
 <div class="container" id="addWorkForm">
-
 <h2 class="form-title">Add Worker</h2>
 
 <div class="input-group">
 <input type="text" id="worker_name" placeholder="Full Name">
 <i class="fa fa-user"></i>        
 </div>
-
 <div class="input-group">
 <input type="text" id="worker_father" placeholder="Father Name">
 <i class="fa fa-user"></i>        
 </div>
-
 <div class="input-group">
 <input type="text" id="worker_dob" placeholder="Date of Birth">
 <i class="fa fa-calendar"></i>
 </div>
 
+<!-- Gender Icons -->
 <div class="input-group radio-group">
-  <label>
-    <input type="radio" name="worker_gender" value="male">
-    <i class="fa-solid fa-mars" title="Male"></i>
-  </label>
-
-  <label>
-    <input type="radio" name="worker_gender" value="female">
-    <i class="fa-solid fa-venus" title="Female"></i>
-  </label>
-
-  <label>
-    <input type="radio" name="worker_gender" value="other">
-    <i class="fa-solid fa-genderless" title="Other"></i>
-  </label>
-</div>
-        
-<div class="input-group">
-  <input type="text" id="worker_mobile" placeholder="Mobile Number">
-  <i class="fa fa-phone"></i>        
+<label><input type="radio" name="worker_gender" value="male"><i class="fa-solid fa-mars"></i>Male</label>
+<label><input type="radio" name="worker_gender" value="female"><i class="fa-solid fa-venus"></i>Female</label>
+<label><input type="radio" name="worker_gender" value="other"><i class="fa-solid fa-genderless"></i>Other</label>
 </div>
 
 <div class="input-group">
-  <input type="text" id="worker_address" placeholder="Address">
-  <i class="fa fa-home"></i>
+<input type="text" id="worker_mobile" placeholder="Mobile Number">
+<i class="fa fa-phone"></i>        
+</div>
+<div class="input-group">
+<input type="text" id="worker_address" placeholder="Address">
+<i class="fa fa-home"></i>
 </div>
 
-<!-- DROPDOWNS -->
-
+<!-- Dropdowns -->
 <select id="main_type" class="small-dropdown" required>
 <option value="" disabled selected>Select Any One</option>
 <option value="workers">Workers</option>
 <option value="ride">Ride Type</option>
 </select>
+<select id="service_type2" class="small-dropdown">
+<option value="">Select Skill 2</option>
+<option value="plumber">Plumber</option>
+<option value="electrician">Electrician</option>
+<option value="mason">Mason</option>
+</select>
+<select id="service_type3" class="small-dropdown">
+<option value="">Select Skill 3</option>
+<option value="plumber">Plumber</option>
+<option value="electrician">Electrician</option>
+<option value="mason">Mason</option>
+</select>
 
-  <select id="service_type2" class="small-dropdown">
-    <option value="">Select Skill 2</option>
-    <option value="plumber">Plumber</option>
-    <option value="electrician">Electrician</option>
-    <option value="mason">Mason</option>
-  </select>
-  <select id="service_type3" class="small-dropdown">
-    <option value="">Select Skill 3</option>
-    <option value="plumber">Plumber</option>
-    <option value="electrician">Electrician</option>
-    <option value="mason">Mason</option>
-  </select>
-        
 <div class="btns">
-
-<button onclick="worker_save()">Submit</button>
+<button onclick="worker_save()">Submit Worker</button>
 <button onclick="backLogin()">Back</button>
-
+<button onclick="sendWorkerOTP()">Send OTP via WhatsApp</button>
+<button onclick="sendWhatsAppWorker()">Send Message via Web</button>
 </div>
-
 </div>
 
 <script>
+// ========================= FLATPICKR
+flatpickr("#worker_dob",{dateFormat:"d/m/Y",allowInput:false,monthSelectorType:"dropdown",
+yearSelectorType:"dropdown",defaultDate:"2000-01-01",position:"auto right"});
 
-/* =========================
-        FLATPICKR DOB
-   ========================= */
-flatpickr("#worker_dob", {
-dateFormat: "d/m/Y",
-allowInput: false,
-monthSelectorType: "dropdown",
-yearSelectorType: "dropdown",
-defaultDate: "2000-01-01",
-position: "auto right"
-});
-
-/* =========================
-        GLOBAL VARIABLES
-   ========================= */
-var token="1xhtdh7bylh73iay";
-var instance="instance164778";
-
-var signupGeneratedOTP;
-var loginGeneratedOTP;
-var loginUser;
-
-/* =========================
-        COMMON FUNCTIONS
-   ========================= */
+// ========================= PASSWORD TOGGLE
 function app_togglePassword(id,icon){
 var input=document.getElementById(id);
-if(input.type==="password"){
-input.type="text";
-icon.classList.remove("fa-eye");
-icon.classList.add("fa-eye-slash");
-}else{
-input.type="password";
-icon.classList.remove("fa-eye-slash");
-icon.classList.add("fa-eye");
-}
+if(input.type==="password"){input.type="text";icon.classList.remove("fa-eye");icon.classList.add("fa-eye-slash");}
+else{input.type="password";icon.classList.remove("fa-eye-slash");icon.classList.add("fa-eye");}
 }
 
-function backLogin() {
-    resetSignupForm();
-    loginForm.style.display = "block";
-    signupForm.style.display = "none";
-    dashboard.style.display = "none";
-    adminPanel.style.display = "none";
-    addWorkForm.style.display = "none";
-}
+// ========================= NAVIGATION
+function backLogin(){resetSignupForm();loginForm.style.display="block";signupForm.style.display="none";
+dashboard.style.display="none";adminPanel.style.display="none";addWorkForm.style.display="none";}
+function resetSignupForm(){document.getElementById("signupName").value="";
+document.getElementById("signupMobile").value="";document.getElementById("signupUsername").value="";
+document.getElementById("signup_password").value="";document.getElementById("signup_confirmPassword").value="";
+document.getElementById("signupOtpContainer").style.display="none";document.getElementById("mobileError").innerText="";
+document.getElementById("usernameError").innerText="";}
 
-function resetSignupForm() {
-    document.getElementById("signupName").value = "";
-    document.getElementById("signupMobile").value = "";
-    document.getElementById("signupUsername").value = "";
-    document.getElementById("signup_password").value = "";
-    document.getElementById("signup_confirmPassword").value = "";
-    document.getElementById("signupOtpContainer").style.display = "none";
-    document.getElementById("mobileError").innerText = "";
-    document.getElementById("usernameError").innerText = "";
-}
-
-function sendWhatsAppOTP(number,otp,message){
-fetch("https://api.ultramsg.com/"+instance+"/messages/chat",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({token:token,to:number,body:message+" "+otp})
-})
-}
-
-/* =========================
-        LOGIN MODULE
-   ========================= */
-function login_start(){
-var users=JSON.parse(localStorage.getItem("users"))||[]; 
-var user=users.find(u=>u.username==login_username.value && u.password==login_password.value);
-if(!user){ alert("Invalid Login"); return; }
-loginUser=user;
-loginGeneratedOTP=Math.floor(100000+Math.random()*900000);
-sendWhatsAppOTP(user.mobile,loginGeneratedOTP,"Your SkillHub Login OTP is:");
-loginOtpContainer.style.display="flex";
-}
-
-/* =========================
-        SIGNUP MODULE
-   ========================= */
-function signup_start(){
-var mobile=signupMobile.value.trim();
-var username=signupUsername.value.trim();
-signupGeneratedOTP=Math.floor(100000+Math.random()*900000);
-sendWhatsAppOTP(mobile,signupGeneratedOTP,"Your SkillHub Signup OTP is:");
-signupOtpContainer.style.display="flex";
-}
-
-/* =========================
-        WORKER MODULE
-   ========================= */
+// ========================= WORKER SAVE
 function worker_save(){
 var workers=JSON.parse(localStorage.getItem("workers"))||[];
 workers.push({
 name:worker_name.value,
 mobile:worker_mobile.value,
-skill: [
-document.getElementById("service_type1")?.value,
+skill:[document.getElementById("service_type1")?.value,
 document.getElementById("service_type2")?.value,
-document.getElementById("service_type3")?.value
-],
+document.getElementById("service_type3")?.value],
 location:worker_address?.value,
 dob:worker_dob.value,
 gender: document.querySelector('input[name="worker_gender"]:checked')?.value || ''
 });
 localStorage.setItem("workers",JSON.stringify(workers));
-alert("Worker Added");
-backLogin();
+alert("Worker Added");backLogin();
 }
 
-/* =========================
-        ADMIN MODULE
-   ========================= */
-function openAdmin(){
-loginForm.style.display="none";
-adminPanel.style.display="block";
+// ========================= ULTRAMSG OTP SEND
+var token="1xhtdh7bylh73iay";
+var instance="instance164778";
+function generateOTP(){return Math.floor(100000+Math.random()*900000);}
+function sendWorkerOTP(){
+var number=worker_mobile.value.trim();
+if(!number){alert("Enter mobile number first!"); return;}
+var otp=generateOTP();
+localStorage.setItem("lastWorkerOTP",otp);
+var message="Your SkillHub OTP is: "+otp;
+fetch("https://api.ultramsg.com/"+instance+"/messages/chat",{
+method:"POST",headers:{"Content-Type":"application/json"},
+body:JSON.stringify({token:token,to:number,body:message})
+}).then(res=>res.json()).then(data=>{console.log("OTP sent:",data);alert("OTP sent via WhatsApp!");})
+.catch(err=>{console.error(err);alert("Failed to send OTP!");});
 }
 
-/* =========================
-        ADD WORK FORM
-   ========================= */
-function openAddWork(){
-loginForm.style.display="none";
-addWorkForm.style.display="block";
-worker_dob.value="";
-worker_dob.placeholder="Date of Birth";
+// ========================= MANUAL WHATSAPP WEB
+function sendWhatsAppWorker(){
+var number=worker_mobile.value.trim();
+var gender=document.querySelector('input[name="worker_gender"]:checked')?.value||''; 
+var name=worker_name.value;
+if(!number || !name || !gender){alert("Please fill name, mobile and select gender first!"); return;}
+var msg=`Hello ${name}, Gender: ${gender}, Your registration is complete.`;
+var url=`https://wa.me/${number}?text=${encodeURIComponent(msg)}`;
+window.open(url,"_blank");
 }
 
-/* =========================
-        DASHBOARD MODULE
-   ========================= */
-function logout(){
-backLogin();
-}
+// ========================= NAVIGATION FUNCTIONS
+function openAddWork(){loginForm.style.display="none";addWorkForm.style.display="block";worker_dob.value="";worker_dob.placeholder="Date of Birth";}
+function openSignup(){loginForm.style.display="none";signupForm.style.display="block";}
+function openAdmin(){loginForm.style.display="none";adminPanel.style.display="block";}
+function logout(){backLogin();}
 
-/* =========================
-        SIGNUP/LOGIN NAVIGATION
-   ========================= */
-function openSignup(){
-loginForm.style.display="none";
-signupForm.style.display="block";
-}
+// ========================= LOGIN / SIGNUP (placeholder)
+function login_start(){alert("Login logic goes here");}
+function signup_start(){alert("Signup logic goes here");}
 
 </script>
-
 </body>
 </html>
