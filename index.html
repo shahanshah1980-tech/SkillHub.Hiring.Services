@@ -94,13 +94,13 @@ appearance:none;
    ========================= */
 .input-group-flex {
   display: flex;
-  gap: 7px;
-  margin-left: 42px; /* jitna right shift chahiye, utna pixel adjust karein */
+  gap: 10px;              /* spacing between dropdowns */
+  justify-content: flex-start;  /* Adjust here to shift right if needed */
 }
 
 .small-dropdown {
-  width: 200px !important;  /* <-- Change this to whatever width you want */
-  padding: 38px 15px;
+  width: 100px !important;  /* Change this to adjust dropdown width */
+  padding: 10px 15px;
   border-radius: 20px;
   border: none;
   outline: none;
@@ -166,6 +166,30 @@ font-size:14px;
 #addWorkForm{
 display:none;
 }
+
+/* =========================
+        ADD WORKER SCROLLABLE
+   ========================= */
+#addWorkForm {
+  max-height: 80vh;        /* max height of form */
+  overflow-y: auto;        /* vertical scroll */
+  padding-right: 10px;     /* scroll gap */
+}
+
+/* Smooth scrollbar */
+#addWorkForm::-webkit-scrollbar {
+  width: 6px;
+}
+
+#addWorkForm::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+  border-radius: 3px;
+}
+
+#addWorkForm::-webkit-scrollbar-track {
+  background: transparent;
+}
+
 </style>
 </head>
 
@@ -321,6 +345,11 @@ display:none;
   <i class="fa fa-phone"></i>        
 </div>
 
+<div class="input-group">
+  <input type="text" id="worker_address" placeholder="Address">
+  <i class="fa fa-home"></i>
+</div>
+
 <!-- DROPDOWNS -->
 <div class="input-group input-group-flex">
   <select id="service_type1" class="small-dropdown">
@@ -342,10 +371,7 @@ display:none;
     <option value="mason">Mason</option>
   </select>
 </div>
-<div class="input-group">
-  <input type="text" id="worker_address" placeholder="Address">
-  <i class="fa fa-home"></i>
-</div>
+
 <script>
 
 /* =========================
