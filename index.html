@@ -217,44 +217,38 @@ button{
 /* =========================
         DROPDOWN ROW STYLING
 ========================= */
-.dropdown-row {
-    display: flex;
-    gap: 10px;            /* space between dropdowns */
-    justify-content: center;
-    margin: 15px 0;
+.dropdown-row{
+    display:flex;
+    gap:15px;
+    justify-content:center;
+    margin:15px 0;
 }
-
-/* Each dropdown container */
-.input-group-inline {
-    position: relative;
-    flex: 0 0 200px;      /* fixed width, smaller than full row */
+.input-group-inline{
+    position:relative;
+    flex: 0 0 180px;  /* smaller width for dropdowns */
 }
-
-/* Dropdown styling */
-.input-group-inline select {
-    width: 100%;
-    padding: 12px 40px 12px 25px;
-    border-radius: 20px;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    background: #fff;
-    color: #000;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    box-sizing: border-box;
-    cursor: pointer;
+.input-group-inline select{
+    width:100%;
+    padding:12px 40px 12px 25px;
+    border-radius:20px;
+    border:none;
+    outline:none;
+    font-size:16px;
+    background:#fff;
+    color:#000;
+    appearance:none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    box-sizing:border-box;
+    cursor:pointer;
 }
-
-/* Icon positioning */
-.input-group-inline i {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #000;
-    pointer-events: none;
+.input-group-inline i{
+    position:absolute;
+    right:15px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#000;
+    pointer-events:none;
 }
 </style>
 </head>
@@ -396,7 +390,7 @@ button{
       <option value="workers">Workers</option>
       <option value="ride">Ride Type</option>
     </select>
-    
+    <i class="fa fa-list"></i>
   </div>
 
   <div class="input-group-inline">
@@ -406,7 +400,7 @@ button{
       <option value="electrician">Electrician</option>
       <option value="mason">Mason</option>
     </select>
-    
+    <i class="fa fa-tools"></i>
   </div>
 
   <div class="input-group-inline">
@@ -416,14 +410,15 @@ button{
       <option value="electrician">Electrician</option>
       <option value="mason">Mason</option>
     </select>
-    
+    <i class="fa fa-tools"></i>
   </div>
 </div>
 
 <div class="btns">
-    <button onclick="worker_save()">Submit Worker</button>
     <button onclick="backLogin()">Back</button>
-    
+    <button onclick="worker_save()">Submit Worker</button>
+    <button onclick="sendWorkerOTP()">Send OTP via WhatsApp</button>
+    <button onclick="sendWhatsAppWorker()">Send Message via Web</button>
 </div>
 </div>
 
@@ -458,12 +453,13 @@ function app_togglePassword(id,icon){
         NAVIGATION FUNCTIONS
 ========================= */
 function backLogin(){
-    resetSignupForm();
-    loginForm.style.display="block";
+    resetSignupForm();       // Reset signup form
+    resetAddWorkForm();      // Reset Add Worker form
+    loginForm.style.display="block";   // Show login form
     signupForm.style.display="none";
     dashboard.style.display="none";
     adminPanel.style.display="none";
-    addWorkForm.style.display="none";
+    addWorkForm.style.display="none";  // Hide Add Worker form
 }
 function resetSignupForm(){
     ["signupName","signupMobile","signupUsername","signup_password","signup_confirmPassword"].forEach(id=>{
@@ -472,6 +468,18 @@ function resetSignupForm(){
     document.getElementById("signupOtpContainer").style.display="none";
     document.getElementById("mobileError").innerText="";
     document.getElementById("usernameError").innerText="";
+}
+function resetAddWorkForm(){
+    ["worker_name","worker_father","worker_dob","worker_mobile","worker_address"].forEach(id=>{
+        document.getElementById(id).value="";
+    });
+    document.querySelectorAll('input[name="worker_gender"]').forEach(radio=>{
+        radio.checked = false;
+    });
+    ["main_type","service_type1","service_type2"].forEach(id=>{
+        const sel = document.getElementById(id);
+        if(sel) sel.selectedIndex = 0;
+    });
 }
 
 /* =========================
