@@ -173,17 +173,16 @@ button{
     background: transparent;
 }
 
-/* Gender radio line like image */
-.radio-group{
+/* Fix radio row layout */
+.input-group.radio-group{
     display:flex;
-    justify-content:space-around;
+    justify-content:space-between;
     align-items:center;
-    margin:20px 0;
     width:90%;
-    margin-left:auto;
-    margin-right:auto;
+    margin:20px auto;
 }
 
+/* Each gender option */
 .gender-option{
     display:flex;
     align-items:center;
@@ -191,19 +190,22 @@ button{
     cursor:pointer;
 }
 
+/* Hide original radio */
 .gender-option input{
     display:none;
 }
 
+/* Circle design */
 .radio-circle{
-    width:24px;
-    height:24px;
+    width:26px;
+    height:26px;
     border-radius:50%;
     background:#fff;
-    border:3px solid #d9d9d9;
+    border:3px solid #e0e0e0;
     position:relative;
 }
 
+/* Selected dot */
 .gender-option input:checked + .radio-circle::after{
     content:"";
     width:12px;
@@ -216,6 +218,7 @@ button{
     transform:translate(-50%,-50%);
 }
 
+/* Gender icon */
 .gender-option i{
     font-size:24px;
     color:#000;
