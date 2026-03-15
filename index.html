@@ -345,23 +345,34 @@ button{
     <i class="fa fa-home"></i>
 </div>
 
-<select id="main_type" required>
-    <option value="" disabled selected>Select Any One</option>
-    <option value="workers">Workers</option>
-    <option value="ride">Ride Type</option>
-</select>
-<select id="service_type1">
-    <option value="">Select Skill 1</option>
-    <option value="plumber">Plumber</option>
-    <option value="electrician">Electrician</option>
-    <option value="mason">Mason</option>
-</select>
-<select id="service_type2">
-    <option value="">Select Skill 2</option>
-    <option value="plumber">Plumber</option>
-    <option value="electrician">Electrician</option>
-    <option value="mason">Mason</option>
-</select>
+<div class="input-group">
+    <select id="main_type" required>
+        <option value="" disabled selected>Select Any One</option>
+        <option value="workers">Workers</option>
+        <option value="ride">Ride Type</option>
+    </select>
+    <i class="fa fa-list"></i>
+</div>
+
+<div class="input-group">
+    <select id="service_type1">
+        <option value="">Select Skill 1</option>
+        <option value="plumber">Plumber</option>
+        <option value="electrician">Electrician</option>
+        <option value="mason">Mason</option>
+    </select>
+    <i class="fa fa-tools"></i>
+</div>
+
+<div class="input-group">
+    <select id="service_type2">
+        <option value="">Select Skill 2</option>
+        <option value="plumber">Plumber</option>
+        <option value="electrician">Electrician</option>
+        <option value="mason">Mason</option>
+    </select>
+    <i class="fa fa-tools"></i>
+</div>
 
 <div class="btns">
     <button onclick="worker_save()">Submit Worker</button>
