@@ -391,12 +391,13 @@ button{
     <input type="text" id="worker_mobile" placeholder="Mobile Number">
     <i class="fa fa-phone"></i>
 </div>
+
 <div class="input-group">
     <input type="text" id="worker_address" placeholder="Address">
     <i class="fa fa-home"></i>
 </div>
 
-<!-- ========================= DROPDOWN ROW ========================= -->
+<!-- Move DROPDOWN ROW here, just above Address -->
 <div class="dropdown-row">
   <div class="input-group-inline">
     <select id="main_type" required>
@@ -424,7 +425,7 @@ button{
     </select>
   </div>
 </div>
-
+        
 <div class="btns">
     <button onclick="worker_save()">Submit Worker</button>
     <button onclick="backLogin()">Back</button>
