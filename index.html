@@ -3,17 +3,11 @@
 <head>
 <title>SkillHub Hiring Services</title>
 
-<!-- =========================
-        EXTERNAL LIBRARIES
-========================= -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <style>
-/* =========================
-        GLOBAL STYLES
-========================= */
 body{
     margin:0;
     font-family:Arial;
@@ -45,8 +39,6 @@ body::after{
     bottom:-80px;
     right:-80px;
 }
-
-/* Title/header styling */
 .title{
     position:fixed;
     top:20px;
@@ -57,8 +49,6 @@ body::after{
     color:#fff;
     text-shadow:1px 1px 5px rgba(0,0,0,0.3);
 }
-
-/* Container for forms */
 .container{
     background:rgba(255,255,255,0.15);
     backdrop-filter:blur(15px);
@@ -69,15 +59,11 @@ body::after{
     text-align:center;
     margin-top:120px;
 }
-
-/* Form title styling */
 .form-title{
     font-size:24px;
     font-weight:bold;
     margin-bottom:20px;
 }
-
-/* Input fields styling */
 .input-group{
     position:relative;
     margin:15px 0;
@@ -105,8 +91,6 @@ body::after{
     cursor:pointer;
     color:#000;
 }
-
-/* Buttons container */
 .btns{
     display:flex;
     justify-content:center;
@@ -124,8 +108,6 @@ button{
     background:linear-gradient(135deg,#ff7eb3,#ff758c);
     color:#fff;
 }
-
-/* OTP box container */
 .otp-container{
     display:none;
     justify-content:center;
@@ -143,19 +125,13 @@ button{
     background:#fff;
     color:#000;
 }
-
-/* Error messages */
 .error{
     color:#ff7070;
     font-size:14px;
 }
-
-/* Hide forms by default */
 #signupForm, #dashboard, #adminPanel, #addWorkForm{
     display:none;
 }
-
-/* Scrollable Add Worker form */
 #addWorkForm{
     max-height:70vh;
     overflow-y:auto;
@@ -172,31 +148,23 @@ button{
 #addWorkForm::-webkit-scrollbar-track{
     background: transparent;
 }
-
-/* Fix radio row layout */
 .input-group.radio-group{
     display:flex;
     justify-content:space-between;
     align-items:center;
     width:93%;
     margin:20px auto; 
-    padding-left:20px;            /* left se extra spacing */    
+    padding-left:20px;    
 }
-
-/* Each gender option */
 .gender-option{
     display:flex;
     align-items:center;
     gap:10px;
     cursor:pointer;
 }
-
-/* Hide original radio */
 .gender-option input{
     display:none;
 }
-
-/* Circle design */
 .radio-circle{
     width:26px;
     height:26px;
@@ -205,8 +173,6 @@ button{
     border:3px solid #e0e0e0;
     position:relative;
 }
-
-/* Selected dot */
 .gender-option input:checked + .radio-circle::after{
     content:"";
     width:12px;
@@ -218,15 +184,10 @@ button{
     left:50%;
     transform:translate(-50%,-50%);
 }
-
-/* Gender icon */
 .gender-option i{
     font-size:24px;
     color:#000;
 }
-/* =========================
-        DROPDOWN ROW STYLING
-========================= */
 .dropdown-row{
     display:flex;
     gap:30px;
@@ -235,7 +196,7 @@ button{
 }
 .input-group-inline{
     position:relative;
-    flex: 0 0 180px;  /* smaller width for dropdowns */
+    flex: 0 0 180px;
 }
 .input-group-inline select{
     width:110%;
@@ -262,12 +223,10 @@ button{
 }
 </style>
 </head>
-
 <body>
 
 <h1 class="title">SkillHub & Hiring Services</h1>
 
-<!-- ========================= LOGIN FORM ========================= -->
 <div class="container" id="loginForm">
 <h2 class="form-title">Login</h2>
 <div class="input-group">
@@ -295,7 +254,6 @@ button{
 </div>
 </div>
 
-<!-- ========================= SIGNUP FORM ========================= -->
 <div class="container" id="signupForm">
 <h2 class="form-title">Signup</h2>
 <div class="input-group">
@@ -335,23 +293,19 @@ button{
 </div>
 </div>
 
-<!-- ========================= DASHBOARD ========================= -->
 <div class="container" id="dashboard">
 <h2 class="form-title">Dashboard</h2>
 <p id="dashboardName"></p>
 <button onclick="logout()">Logout</button>
 </div>
 
-<!-- ========================= ADMIN PANEL ========================= -->
 <div class="container" id="adminPanel">
 <h2>Hello Admin</h2>
 <button onclick="backLogin()">Back</button>
 </div>
 
-<!-- ========================= ADD WORKER FORM ========================= -->
 <div class="container" id="addWorkForm">
 <h2 class="form-title">Add Worker</h2>
-
 <div class="input-group">
     <input type="text" id="worker_name" placeholder="Full Name">
     <i class="fa fa-user"></i>
@@ -364,40 +318,27 @@ button{
     <input type="text" id="worker_dob" placeholder="Date of Birth">
     <i class="fa fa-calendar"></i>
 </div>
-
 <div class="input-group radio-group">
-
 <label class="gender-option">
 <input type="radio" name="worker_gender" value="male">
 <span class="radio-circle"></span>
 <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" width="24">
 </label>
-
 <label class="gender-option">
 <input type="radio" name="worker_gender" value="female">
 <span class="radio-circle"></span>
 <img src="https://cdn-icons-png.flaticon.com/512/4140/4140051.png" width="24">
 </label>
-
 <label class="gender-option">
 <input type="radio" name="worker_gender" value="other">
 <span class="radio-circle"></span>
 <img src="https://cdn-icons-png.flaticon.com/512/1077/1077063.png" width="24">
 </label>
-
 </div>
-        
 <div class="input-group">
     <input type="text" id="worker_mobile" placeholder="Mobile Number">
     <i class="fa fa-phone"></i>
 </div>
-
-<div class="input-group">
-    <input type="text" id="worker_address" placeholder="Address">
-    <i class="fa fa-home"></i>
-</div>
-
-<!-- Move DROPDOWN ROW here, just above Address -->
 <div class="dropdown-row">
   <div class="input-group-inline">
     <select id="main_type" required>
@@ -406,7 +347,6 @@ button{
       <option value="ride">Ride Type</option>
     </select>
   </div>
-
   <div class="input-group-inline">
     <select id="service_type1">
       <option value="">Select Skill 1</option>
@@ -415,7 +355,6 @@ button{
       <option value="mason">Mason</option>
     </select>
   </div>
-
   <div class="input-group-inline">
     <select id="service_type2">
       <option value="">Select Skill 2</option>
@@ -425,7 +364,10 @@ button{
     </select>
   </div>
 </div>
-        
+<div class="input-group">
+    <input type="text" id="worker_address" placeholder="Address">
+    <i class="fa fa-home"></i>
+</div>
 <div class="btns">
     <button onclick="worker_save()">Submit Worker</button>
     <button onclick="backLogin()">Back</button>
@@ -433,9 +375,6 @@ button{
 </div>
 
 <script>
-/* =========================
-        FLATPICKR - DOB DATE PICKER
-========================= */
 flatpickr("#worker_dob",{
     dateFormat:"d/m/Y",
     allowInput:false,
@@ -444,10 +383,6 @@ flatpickr("#worker_dob",{
     defaultDate:"2000-01-01",
     position:"auto right"
 });
-
-/* =========================
-        PASSWORD VISIBILITY TOGGLE
-========================= */
 function app_togglePassword(id,icon){
     var input=document.getElementById(id);
     if(input.type==="password"){
@@ -459,17 +394,21 @@ function app_togglePassword(id,icon){
     }
 }
 
-/* =========================
-        NAVIGATION FUNCTIONS
-========================= */
+/* ========== VARIABLES FOR FORMS ========== */
+var loginForm=document.getElementById("loginForm");
+var signupForm=document.getElementById("signupForm");
+var dashboard=document.getElementById("dashboard");
+var adminPanel=document.getElementById("adminPanel");
+var addWorkForm=document.getElementById("addWorkForm");
+
 function backLogin(){
-    resetSignupForm();       // Reset signup form
-    resetAddWorkForm();      // Reset Add Worker form
-    loginForm.style.display="block";   // Show login form
+    resetSignupForm();
+    resetAddWorkForm();
+    loginForm.style.display="block";
     signupForm.style.display="none";
     dashboard.style.display="none";
     adminPanel.style.display="none";
-    addWorkForm.style.display="none";  // Hide Add Worker form
+    addWorkForm.style.display="none";
 }
 function resetSignupForm(){
     ["signupName","signupMobile","signupUsername","signup_password","signup_confirmPassword"].forEach(id=>{
@@ -492,21 +431,22 @@ function resetAddWorkForm(){
     });
 }
 
-/* =========================
-        SAVE WORKER TO LOCAL STORAGE
-========================= */
+/* ========== SAVE WORKER ========== */
 function worker_save(){
     var workers=JSON.parse(localStorage.getItem("workers"))||[];
+    var worker_name_el=document.getElementById("worker_name");
+    var worker_mobile_el=document.getElementById("worker_mobile");
+    var worker_dob_el=document.getElementById("worker_dob");
+    var worker_address_el=document.getElementById("worker_address");
     workers.push({
-        name:worker_name.value,
-        mobile:worker_mobile.value,
+        name:worker_name_el.value,
+        mobile:worker_mobile_el.value,
         skill:[
             document.getElementById("service_type1")?.value,
-            document.getElementById("service_type2")?.value,
-            document.getElementById("service_type3")?.value
+            document.getElementById("service_type2")?.value
         ],
-        location:worker_address?.value,
-        dob:worker_dob.value,
+        location:worker_address_el?.value,
+        dob:worker_dob_el.value,
         gender: document.querySelector('input[name="worker_gender"]:checked')?.value || ''
     });
     localStorage.setItem("workers",JSON.stringify(workers));
@@ -514,14 +454,12 @@ function worker_save(){
     backLogin();
 }
 
-/* =========================
-        SEND OTP VIA ULTRAMSG API
-========================= */
+/* ========== OTP / WhatsApp ========== */
 var token="1xhtdh7bylh73iay";
 var instance="instance164778";
 function generateOTP(){ return Math.floor(100000+Math.random()*900000);}
 function sendWorkerOTP(){
-    var number=worker_mobile.value.trim();
+    var number=document.getElementById("worker_mobile").value.trim();
     if(!number){ alert("Enter mobile number first!"); return;}
     var otp=generateOTP();
     localStorage.setItem("lastWorkerOTP",otp);
@@ -534,36 +472,21 @@ function sendWorkerOTP(){
       .then(data=>{ console.log("OTP sent:",data); alert("OTP sent via WhatsApp!"); })
       .catch(err=>{ console.error(err); alert("Failed to send OTP!"); });
 }
-
-/* =========================
-        SEND WHATSAPP MESSAGE MANUALLY
-========================= */
 function sendWhatsAppWorker(){
-    var number=worker_mobile.value.trim();
+    var number=document.getElementById("worker_mobile").value.trim();
     var gender=document.querySelector('input[name="worker_gender"]:checked')?.value||''; 
-    var name=worker_name.value;
+    var name=document.getElementById("worker_name").value;
     if(!number || !name || !gender){ alert("Please fill name, mobile and select gender first!"); return;}
     var msg=`Hello ${name}, Gender: ${gender}, Your registration is complete.`;
     var url=`https://wa.me/${number}?text=${encodeURIComponent(msg)}`;
     window.open(url,"_blank");
 }
 
-/* =========================
-        FORM NAVIGATION
-========================= */
-function openAddWork(){
-    loginForm.style.display="none";
-    addWorkForm.style.display="block";
-    worker_dob.value="";
-    worker_dob.placeholder="Date of Birth";
-}
+/* ========== NAVIGATION ========== */
+function openAddWork(){ loginForm.style.display="none"; addWorkForm.style.display="block"; worker_dob.value=""; worker_dob.placeholder="Date of Birth";}
 function openSignup(){ loginForm.style.display="none"; signupForm.style.display="block";}
 function openAdmin(){ loginForm.style.display="none"; adminPanel.style.display="block";}
 function logout(){ backLogin();}
-
-/* =========================
-        PLACEHOLDER LOGIN / SIGNUP LOGIC
-========================= */
 function login_start(){ alert("Login logic goes here"); }
 function signup_start(){ alert("Signup logic goes here"); }
 
