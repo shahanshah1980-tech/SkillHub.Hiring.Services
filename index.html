@@ -69,34 +69,36 @@ background:#fff;color:#000;}
 .radio-group{
 display:flex;
 justify-content:center;
-gap:120px;
-margin:15px 0;
+align-items:center;
+gap:140px;
+margin:20px 0;
 }
 
-/* layout */
-.gender-box{
+/* each option */
+.gender-option{
 display:flex;
 align-items:center;
-gap:10px;
+gap:12px;
 cursor:pointer;
 }
 
-/* hide original radio */
-.gender-box input{
+/* hide real radio */
+.gender-option input{
 display:none;
 }
 
-/* white circle */
+/* outer circle */
 .radio-circle{
-width:20px;
-height:20px;
+width:22px;
+height:22px;
 border-radius:50%;
 background:#fff;
 position:relative;
+box-shadow:0 0 4px rgba(0,0,0,0.2);
 }
 
 /* black dot when selected */
-.gender-box input:checked + .radio-circle::after{
+.gender-option input:checked + .radio-circle::after{
 content:"";
 width:12px;
 height:12px;
@@ -109,8 +111,8 @@ transform:translate(-50%,-50%);
 }
 
 /* icons */
-.gender-box i{
-font-size:24px;
+.gender-option i{
+font-size:26px;
 color:#000;
 }
 </style>
