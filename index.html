@@ -216,38 +216,57 @@ button{
 }
 
 /* DROPDOWNS for skills */
-.dropdown-row{
-    display:flex;
-    gap:30px;
-    justify-content:center;
-    margin:15px 0;
+.dropdown-row {
+    display: flex;                  /* inline row */
+    gap: 15px;                      /* spacing between dropdowns */
+    justify-content: flex-start;    /* align to left */
+    align-items: center;            /* vertical alignment */
+    margin: 0;
+    padding: 0;
 }
-.input-group-inline{
-    position:relative;
-    flex: 0 0 150px; /* chhota width, pehle 180px tha */
+
+/* Each dropdown inline */
+.input-group-inline {
+    position: relative;
+    flex: 1;                        /* equal width for all three */
+    min-width: 120px;               /* optional minimum width */
 }
-.input-group-inline select{
-    width:120%;         /* 110% se 100% kar diya */
-    padding: 15px;
-    border-radius:20px;
-    border:none;
-    outline:none;
-    font-size:16px;
-    background:#fff;
-    color:#000;
-    appearance:none;
-    -webkit-appearance:none;
-    -moz-appearance:none;
-    box-sizing:border-box;
-    cursor:pointer;
+
+/* Styling the select dropdown */
+.input-group-inline select {
+    width: 100%;
+    padding: 12px 35px 12px 12px; /* top right bottom left */
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background: #fff;
+    color: #000;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    text-indent: 0px; 
+    transition: all 0.3s ease;
 }
-.input-group-inline i{
-    position:absolute;
-    right:15px;
-    top:50%;
-    transform:translateY(-50%);
-    color:#000;
-    pointer-events:none;
+
+/* Optional: custom arrow */
+.input-group-inline::after {
+    content: "\25BC"; /* down arrow */
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #555;
+    font-size: 16px;
+}
+
+/* Hover/focus effect */
+.input-group-inline select:hover,
+.input-group-inline select:focus {
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
 }
 </style>
 </head>
