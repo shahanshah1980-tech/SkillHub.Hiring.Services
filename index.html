@@ -216,9 +216,10 @@ button{
 }
 
 /* DROPDOWNS for skills */
+/* Container row */
 .dropdown-row {
     display: flex;                  /* inline row */
-    gap: 15px;                      /* spacing between dropdowns */
+    gap: 5px;                       /* gap reduce from 15px -> 5px */
     justify-content: flex-start;    /* align to left */
     align-items: center;            /* vertical alignment */
     margin: 0;
@@ -232,10 +233,10 @@ button{
     min-width: 120px;               /* optional minimum width */
 }
 
-/* Styling the select dropdown */
+/* Select styling remains same */
 .input-group-inline select {
-    width: 90%;
-    padding: 12px 30px 12px 25px; /* top right bottom left */
+    width: 100%;
+    padding: 12px 35px 12px 12px; 
     border-radius: 20px;
     border: none;
     outline: none;
@@ -248,12 +249,11 @@ button{
     box-sizing: border-box;
     cursor: pointer;
     text-indent: 0px; 
-    transition: all 0.3s ease;
 }
 
 /* Optional: custom arrow */
 .input-group-inline::after {
-    content: "\25BC"; /* down arrow */
+    content: "\25BC"; 
     position: absolute;
     right: 12px;
     top: 50%;
@@ -261,12 +261,6 @@ button{
     pointer-events: none;
     color: #555;
     font-size: 16px;
-}
-
-/* Hover/focus effect */
-.input-group-inline select:hover,
-.input-group-inline select:focus {
-    box-shadow: 0 0 5px rgba(0,0,0,0.2);
 }
 </style>
 </head>
