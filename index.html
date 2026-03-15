@@ -3,11 +3,15 @@
 <head>
 <title>SkillHub Hiring Services</title>
 
+<!-- Font Awesome for icons -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+<!-- Flatpickr CSS for date picker -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<!-- Flatpickr JS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <style>
+/* BODY: gradient background, center content, full viewport */
 body{
     margin:0;
     font-family:Arial;
@@ -19,6 +23,8 @@ body{
     overflow:hidden;
     position:relative;
 }
+
+/* Decorative circles in background */
 body::before, body::after{
     content:"";
     position:absolute;
@@ -39,6 +45,8 @@ body::after{
     bottom:-80px;
     right:-80px;
 }
+
+/* TITLE: fixed at top */
 .title{
     position:fixed;
     top:20px;
@@ -49,6 +57,8 @@ body::after{
     color:#fff;
     text-shadow:1px 1px 5px rgba(0,0,0,0.3);
 }
+
+/* CONTAINER: glass effect for forms */
 .container{
     background:rgba(255,255,255,0.15);
     backdrop-filter:blur(15px);
@@ -59,11 +69,15 @@ body::after{
     text-align:center;
     margin-top:120px;
 }
+
+/* FORM TITLES */
 .form-title{
     font-size:24px;
     font-weight:bold;
     margin-bottom:20px;
 }
+
+/* INPUT GROUPS: spacing and icon positioning */
 .input-group{
     position:relative;
     margin:15px 0;
@@ -91,6 +105,8 @@ body::after{
     cursor:pointer;
     color:#000;
 }
+
+/* BUTTONS: general style for all buttons */
 .btns{
     display:flex;
     justify-content:center;
@@ -108,6 +124,8 @@ button{
     background:linear-gradient(135deg,#ff7eb3,#ff758c);
     color:#fff;
 }
+
+/* OTP BOX: hidden by default */
 .otp-container{
     display:none;
     justify-content:center;
@@ -125,13 +143,19 @@ button{
     background:#fff;
     color:#000;
 }
+
+/* ERROR MESSAGES */
 .error{
     color:#ff7070;
     font-size:14px;
 }
+
+/* HIDE FORMS INITIALLY */
 #signupForm, #dashboard, #adminPanel, #addWorkForm{
     display:none;
 }
+
+/* SCROLLING for add worker form */
 #addWorkForm{
     max-height:70vh;
     overflow-y:auto;
@@ -148,6 +172,8 @@ button{
 #addWorkForm::-webkit-scrollbar-track{
     background: transparent;
 }
+
+/* GENDER RADIO BUTTONS styling */
 .input-group.radio-group{
     display:flex;
     justify-content:space-between;
@@ -188,6 +214,8 @@ button{
     font-size:24px;
     color:#000;
 }
+
+/* DROPDOWNS for skills */
 .dropdown-row{
     display:flex;
     gap:30px;
@@ -225,8 +253,10 @@ button{
 </head>
 <body>
 
+<!-- PAGE TITLE -->
 <h1 class="title">SkillHub & Hiring Services</h1>
 
+<!-- LOGIN FORM -->
 <div class="container" id="loginForm">
 <h2 class="form-title">Login</h2>
 <div class="input-group">
@@ -254,6 +284,7 @@ button{
 </div>
 </div>
 
+<!-- SIGNUP FORM -->
 <div class="container" id="signupForm">
 <h2 class="form-title">Signup</h2>
 <div class="input-group">
@@ -293,17 +324,20 @@ button{
 </div>
 </div>
 
+<!-- DASHBOARD -->
 <div class="container" id="dashboard">
 <h2 class="form-title">Dashboard</h2>
 <p id="dashboardName"></p>
 <button onclick="logout()">Logout</button>
 </div>
 
+<!-- ADMIN PANEL -->
 <div class="container" id="adminPanel">
 <h2>Hello Admin</h2>
 <button onclick="backLogin()">Back</button>
 </div>
 
+<!-- ADD WORKER FORM -->
 <div class="container" id="addWorkForm">
 <h2 class="form-title">Add Worker</h2>
 <div class="input-group">
@@ -375,6 +409,7 @@ button{
 </div>
 
 <script>
+/* Date picker for DOB */
 flatpickr("#worker_dob",{
     dateFormat:"d/m/Y",
     allowInput:false,
@@ -383,6 +418,8 @@ flatpickr("#worker_dob",{
     defaultDate:"2000-01-01",
     position:"auto right"
 });
+
+/* Toggle password visibility */
 function app_togglePassword(id,icon){
     var input=document.getElementById(id);
     if(input.type==="password"){
@@ -394,13 +431,14 @@ function app_togglePassword(id,icon){
     }
 }
 
-/* ========== VARIABLES FOR FORMS ========== */
+/* Form references */
 var loginForm=document.getElementById("loginForm");
 var signupForm=document.getElementById("signupForm");
 var dashboard=document.getElementById("dashboard");
 var adminPanel=document.getElementById("adminPanel");
 var addWorkForm=document.getElementById("addWorkForm");
 
+/* Back to login */
 function backLogin(){
     resetSignupForm();
     resetAddWorkForm();
@@ -410,6 +448,8 @@ function backLogin(){
     adminPanel.style.display="none";
     addWorkForm.style.display="none";
 }
+
+/* Reset signup form inputs */
 function resetSignupForm(){
     ["signupName","signupMobile","signupUsername","signup_password","signup_confirmPassword"].forEach(id=>{
         document.getElementById(id).value="";
@@ -418,6 +458,8 @@ function resetSignupForm(){
     document.getElementById("mobileError").innerText="";
     document.getElementById("usernameError").innerText="";
 }
+
+/* Reset add worker form */
 function resetAddWorkForm(){
     ["worker_name","worker_father","worker_dob","worker_mobile","worker_address"].forEach(id=>{
         document.getElementById(id).value="";
@@ -431,7 +473,7 @@ function resetAddWorkForm(){
     });
 }
 
-/* ========== SAVE WORKER ========== */
+/* Save worker to localStorage */
 function worker_save(){
     var workers=JSON.parse(localStorage.getItem("workers"))||[];
     var worker_name_el=document.getElementById("worker_name");
@@ -454,7 +496,7 @@ function worker_save(){
     backLogin();
 }
 
-/* ========== OTP / WhatsApp ========== */
+/* OTP & WhatsApp logic */
 var token="1xhtdh7bylh73iay";
 var instance="instance164778";
 function generateOTP(){ return Math.floor(100000+Math.random()*900000);}
@@ -482,14 +524,14 @@ function sendWhatsAppWorker(){
     window.open(url,"_blank");
 }
 
-/* ========== NAVIGATION ========== */
+/* Navigation functions */
 function openAddWork(){ loginForm.style.display="none"; addWorkForm.style.display="block"; worker_dob.value=""; worker_dob.placeholder="Date of Birth";}
 function openSignup(){ loginForm.style.display="none"; signupForm.style.display="block";}
 function openAdmin(){ loginForm.style.display="none"; adminPanel.style.display="block";}
 function logout(){ backLogin();}
 function login_start(){ alert("Login logic goes here"); }
 function signup_start(){ alert("Signup logic goes here"); }
-
 </script>
+
 </body>
 </html>
