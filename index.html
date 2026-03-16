@@ -216,29 +216,42 @@ button{
 }
 
 /* DROPDOWNS for skills */
-.dropdown-row{
-    display:flex;
-    gap:10px;
-    justify-content:center;
-    align-items:center;
+
+.dropdown-row {
+    display: flex;
+    gap: 5px;                       /* dropdown ke bich ka gap */
+    justify-content: flex-start;    
+    align-items: center;            
+    margin: 0;
+    padding: 0;
 }
 
-/* First dropdown thoda right */
-.input-group-inline:first-child{
-    margin-left:15px;
+/* Each dropdown inline */
+.input-group-inline {
+    position: relative;
+    flex: 1;                        
+    min-width: 120px;               
 }
 
-/* Middle dropdown same position */
-.input-group-inline:nth-child(2){
-    margin:0;
+/* Select styling */
+.input-group-inline select {
+    width: 100%;
+    padding: 12px 35px 12px 12px; 
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background: #fff;
+    color: #000;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    text-indent: 0px; 
 }
 
-/* Third dropdown thoda left */
-.input-group-inline:last-child{
-    margin-right:15px;
-}
-
-/* Optional: custom arrow */
+/* Custom arrow */
 .input-group-inline::after {
     content: "\25BC"; 
     position: absolute;
@@ -248,6 +261,16 @@ button{
     pointer-events: none;
     color: #555;
     font-size: 16px;
+}
+
+/* First dropdown thoda right */
+.dropdown-row .input-group-inline:first-child {
+    margin-left: 10px;
+}
+
+/* Third dropdown thoda left */
+.dropdown-row .input-group-inline:last-child {
+    margin-right: 10px;
 }
 </style>
 </head>
