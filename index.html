@@ -216,39 +216,26 @@ button{
 }
 
 /* DROPDOWNS for skills */
-/* Container row */
-.dropdown-row {
-    display: flex;                  /* inline row */
-    gap: 5px;                       /* gap reduce from 15px -> 5px */
-    justify-content: flex-start;    /* align to left */
-    align-items: center;            /* vertical alignment */
-    margin: 0;
-    padding: 0;
+.dropdown-row{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    align-items:center;
 }
 
-/* Each dropdown inline */
-.input-group-inline {
-    position: relative;
-    flex: 1;                        /* equal width for all three */
-   
+/* First dropdown thoda right */
+.input-group-inline:first-child{
+    margin-left:15px;
 }
 
-/* Select styling remains same */
-.input-group-inline select {
-    width: 86%;
-    padding: 12px 10px 12px 15px; 
-    border-radius: 20px;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    background: #fff;
-    color: #000;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    box-sizing: border-box;
-    cursor: pointer;
-    text-indent: 0px; 
+/* Middle dropdown same position */
+.input-group-inline:nth-child(2){
+    margin:0;
+}
+
+/* Third dropdown thoda left */
+.input-group-inline:last-child{
+    margin-right:15px;
 }
 
 /* Optional: custom arrow */
