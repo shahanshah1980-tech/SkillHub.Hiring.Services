@@ -275,6 +275,15 @@ button{
 /* Select Any One ka color */
 .dropdown-row select option:first-child {
     color: #888;
+}  
+/* Default select text color grey for placeholder */
+.input-group-inline select {
+    color: #888;   /* default placeholder color */
+}
+
+/* Jab user koi option select kare to text black ho jaye */
+.input-group-inline select:not(:placeholder-shown) {
+    color: #000;
 }    
 </style>
 </head>
