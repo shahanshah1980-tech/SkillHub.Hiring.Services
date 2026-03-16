@@ -406,21 +406,26 @@ button{
         <input type="text" id="worker_address" placeholder="Address">
         <i class="fa fa-home"></i>
     </div>
-    <div class="dropdown-row">
-        <div class="input-group-inline">
-            <select id="main_type" required>
-                <option value="" disabled selected>Select Any One</option>
-                <option value="workers">Workers</option>
-                <option value="ride">Vehicle Type</option>
-            </select>
-        </div>
-        <div class="input-group-inline">
-            <select id="service_type1">
-                <option value="">Select Skill 1</option>
-                <option value="plumber">Plumber</option>
-                <option value="electrician">Electrician</option>
-                <option value="mason">Mason</option>
-            </select>
+<div class="dropdown-row">
+    <!-- Pehla dropdown -->
+    <div class="input-group-inline">
+        <select id="categorySelect">
+            <option value="">Select any one</option>
+            <option value="workers">Workers</option>
+            <option value="vehicle">Vehicle Type</option>
+        </select>
+    </div>
+
+    <!-- Dusra dropdown (initially hidden) -->
+    <div class="input-group-inline" id="subCategoryDiv" style="display:none;">
+        <select id="subCategorySelect">
+            <option value="">Select any one</option>
+        </select>
+    </div>
+
+    <!-- Textbox -->
+    <input type="text" id="vehicle_number" placeholder="Vehicle Number" style="display:none;">
+</div>
     </div>
     <input type="text" id="vehicle_number" placeholder="Vehicle Number">
 </div>
