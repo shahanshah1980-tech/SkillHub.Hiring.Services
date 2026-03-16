@@ -446,6 +446,22 @@ button{
 </div>
 
 <script>
+
+document.querySelectorAll('.input-group-inline select').forEach(select => {
+    // Initial color
+    if(select.value === "") select.style.color = "#888";
+    
+    // On change event
+    select.addEventListener('change', function() {
+        if(this.value === "") {
+            this.style.color = "#888"; // placeholder
+        } else {
+            this.style.color = "#000"; // selected option
+        }
+    });
+});
+   
+    
 /* Date picker for DOB */
 flatpickr("#worker_dob",{
     dateFormat:"d/m/Y",
