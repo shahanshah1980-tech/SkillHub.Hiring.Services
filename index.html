@@ -421,214 +421,105 @@ button{
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
-const workersList = [
-    "Labour","Helper","Mason","Steel Fixer","Shuttering Carpenter","Carpenter",
-    "Wood Carpenter","Furniture Carpenter","Interior Carpenter","Tile Fixer",
-    "Marble Fixer","Granite Fixer","Wall Painter","Spray Painter","POP Worker",
-    "Plaster Worker","Gypsum Worker","False Ceiling Worker","Waterproofing Worker",
-    "Roofing Worker","Demolition Worker","Electrician","Industrial Electrician",
-    "AC Mechanic","AC Technician","Refrigerator Mechanic","Washing Machine Mechanic",
-    "Generator Mechanic","Lift Technician","Pump Mechanic","Motor Winder","PC Mechanic",
-    "Laptop Mechanic","Computer Hardware Technician","Printer Technician","CCTV Technician",
-    "Network Technician","Mobile Repair Technician","LED TV Technician","Solar Technician",
-    "Welder","Gas Welder","Arc Welder","Steel Fabricator","Aluminium Fabricator",
-    "Iron Worker","Grill Maker","Gate Fabricator","Plumber","Pipe Fitter",
-    "Sanitary Fitter","Water Tank Cleaner","Drainage Worker","Furniture Maker",
-    "Wood Polisher","Modular Kitchen Installer","Curtain Fitter","Wallpaper Installer",
-    "Glass Fitter","Door Window Fitter","Gardener","Landscaper","Pest Control Worker",
-    "Cleaning Worker","House Keeping","Security Helper"
-];
-
+/* Worker & Vehicle Lists */
+const workersList = ["Labour","Helper","Mason","Steel Fixer","Shuttering Carpenter","Carpenter","Wood Carpenter","Furniture Carpenter","Interior Carpenter","Tile Fixer","Marble Fixer","Granite Fixer","Wall Painter","Spray Painter","POP Worker","Plaster Worker","Gypsum Worker","False Ceiling Worker","Waterproofing Worker","Roofing Worker","Demolition Worker","Electrician","Industrial Electrician","AC Mechanic","AC Technician","Refrigerator Mechanic","Washing Machine Mechanic","Generator Mechanic","Lift Technician","Pump Mechanic","Motor Winder","PC Mechanic","Laptop Mechanic","Computer Hardware Technician","Printer Technician","CCTV Technician","Network Technician","Mobile Repair Technician","LED TV Technician","Solar Technician","Welder","Gas Welder","Arc Welder","Steel Fabricator","Aluminium Fabricator","Iron Worker","Grill Maker","Gate Fabricator","Plumber","Pipe Fitter","Sanitary Fitter","Water Tank Cleaner","Drainage Worker","Furniture Maker","Wood Polisher","Modular Kitchen Installer","Curtain Fitter","Wallpaper Installer","Glass Fitter","Door Window Fitter","Gardener","Landscaper","Pest Control Worker","Cleaning Worker","House Keeping","Security Helper"];
 const vehicleList = ["Taxi","Bike","Tempo","Bus","Truck","All Vehicles"];
 
+/* Dropdown elements */
 const categorySelect = document.getElementById("categorySelect");
 const subCategoryDiv = document.getElementById("subCategoryDiv");
 const subCategorySelect = document.getElementById("subCategorySelect");
 const vehicleNumber = document.getElementById("vehicle_number");
 
-// First dropdown change
+/* Category dropdown change */
 categorySelect.addEventListener("change", function() {
     const value = this.value;
     subCategorySelect.innerHTML = '<option value="">Select any one</option>';
     vehicleNumber.style.display = "none";
 
-    if (value === "workers") {
+    if(value==="workers"){
         workersList.forEach(worker => {
             const option = document.createElement("option");
             option.value = worker;
             option.text = worker;
             subCategorySelect.appendChild(option);
         });
-        subCategoryDiv.style.display = "flex";
-    } else if (value === "vehicle") {
+        subCategoryDiv.style.display="flex";
+    } else if(value==="vehicle"){
         vehicleList.forEach(vehicle => {
             const option = document.createElement("option");
             option.value = vehicle;
             option.text = vehicle;
             subCategorySelect.appendChild(option);
         });
-        subCategoryDiv.style.display = "flex";
+        subCategoryDiv.style.display="flex";
     } else {
-        subCategoryDiv.style.display = "none";
+        subCategoryDiv.style.display="none";
     }
 });
 
-// Second dropdown change
+/* Subcategory dropdown change */
 subCategorySelect.addEventListener("change", function() {
-    if (categorySelect.value === "vehicle" && this.value !== "") {
-        vehicleNumber.style.display = "block";
+    if(categorySelect.value==="vehicle" && this.value!==""){
+        vehicleNumber.style.display="block";
     } else {
-        vehicleNumber.style.display = "none";
+        vehicleNumber.style.display="none";
     }
 });
-</script>
 
-    
-/* DROPDOWN COLOR LOGIC */
-document.querySelectorAll('.input-group-inline select').forEach(select => {
-    // Initial color on page load
-    if(select.value === "") {
-        select.style.color = "#888"; // placeholder grey
-    } else {
-        select.style.color = "#000"; // selected option black
-    }
-
-    // Change color when user selects an option
-    select.addEventListener('change', function() {
-        if(this.value === "") {
-            this.style.color = "#888"; // placeholder grey
-        } else {
-            this.style.color = "#000"; // selected option black
-        }
+/* Dropdown color logic */
+document.querySelectorAll('.input-group-inline select').forEach(select=>{
+    select.style.color = select.value==="" ? "#888" : "#000";
+    select.addEventListener('change', function(){
+        this.style.color = this.value==="" ? "#888" : "#000";
     });
 });
 
-/* Date picker for DOB */
+/* Date picker */
 flatpickr("#worker_dob",{
     dateFormat:"d/m/Y",
     allowInput:false,
-    monthSelectorType:"dropdown",
-    yearSelectorType:"dropdown",
-    defaultDate:"2000-01-01",
-    position:"auto right"
+    defaultDate:"2000-01-01"
 });
 
-/* Toggle password visibility */
-function app_togglePassword(id,icon){
-    var input=document.getElementById(id);
-    if(input.type==="password"){
-        input.type="text";
-        icon.classList.replace("fa-eye","fa-eye-slash");
-    } else {
-        input.type="password";
-        icon.classList.replace("fa-eye-slash","fa-eye");
-    }
-}
-
-/* Form references */
-var loginForm=document.getElementById("loginForm");
-var signupForm=document.getElementById("signupForm");
-var dashboard=document.getElementById("dashboard");
-var adminPanel=document.getElementById("adminPanel");
-var addWorkForm=document.getElementById("addWorkForm");
-
-/* Back to login */
-function backLogin(){
-    resetSignupForm();
-    resetAddWorkForm(); // resets inputs + dropdown colors
-    loginForm.style.display="block";
-    signupForm.style.display="none";
-    dashboard.style.display="none";
-    adminPanel.style.display="none";
-    addWorkForm.style.display="none";
-}
-
-/* Reset signup form inputs */
-function resetSignupForm(){
-    ["signupName","signupMobile","signupUsername","signup_password","signup_confirmPassword"].forEach(id=>{
-        document.getElementById(id).value="";
-    });
-    document.getElementById("signupOtpContainer").style.display="none";
-    document.getElementById("mobileError").innerText="";
-    document.getElementById("usernameError").innerText="";
-}
-
-/* Reset add worker form */
+/* Form functions */
 function resetAddWorkForm(){
     ["worker_name","worker_father","worker_dob","worker_mobile","worker_address"].forEach(id=>{
         document.getElementById(id).value="";
     });
-    document.querySelectorAll('input[name="worker_gender"]').forEach(radio=>{
-        radio.checked = false;
-    });
-    ["main_type","service_type1","service_type2"].forEach(id=>{
-        const sel = document.getElementById(id);
-        if(sel){
-            sel.selectedIndex = 0;       // Reset first option
-            sel.style.color = "#888";    // placeholder grey
-        }
-    });
+    document.querySelectorAll('input[name="worker_gender"]').forEach(radio=>radio.checked=false);
+    categorySelect.selectedIndex=0;
+    categorySelect.style.color="#888";
+    subCategorySelect.selectedIndex=0;
+    subCategorySelect.style.color="#888";
+    subCategoryDiv.style.display="none";
+    vehicleNumber.style.display="none";
 }
-/* Save worker to localStorage */
+
+function backLogin(){ resetAddWorkForm(); alert("Back to login"); }
+
+/* Save worker */
 function worker_save(){
     var workers=JSON.parse(localStorage.getItem("workers"))||[];
-    var worker_name_el=document.getElementById("worker_name");
-    var worker_mobile_el=document.getElementById("worker_mobile");
-    var worker_dob_el=document.getElementById("worker_dob");
-    var worker_address_el=document.getElementById("worker_address");
     workers.push({
-        name:worker_name_el.value,
-        mobile:worker_mobile_el.value,
-        skill:[
-            document.getElementById("service_type1")?.value,
-            document.getElementById("service_type2")?.value
-        ],
-        location:worker_address_el?.value,
-        dob:worker_dob_el.value,
-        gender: document.querySelector('input[name="worker_gender"]:checked')?.value || ''
+        name: document.getElementById("worker_name").value,
+        father: document.getElementById("worker_father").value,
+        dob: document.getElementById("worker_dob").value,
+        gender: document.querySelector('input[name="worker_gender"]:checked')?.value || '',
+        mobile: document.getElementById("worker_mobile").value,
+        email: document.getElementById("worker_email").value,
+        address: document.getElementById("worker_address").value,
+        category: categorySelect.value,
+        subCategory: subCategorySelect.value,
+        vehicleNumber: vehicleNumber.value
     });
     localStorage.setItem("workers",JSON.stringify(workers));
-    alert("Worker Added");
-    backLogin();
+    alert("Worker Added!");
+    resetAddWorkForm();
 }
-
-/* OTP & WhatsApp logic */
-var token="1xhtdh7bylh73iay";
-var instance="instance164778";
-function generateOTP(){ return Math.floor(100000+Math.random()*900000);}
-function sendWorkerOTP(){
-    var number=document.getElementById("worker_mobile").value.trim();
-    if(!number){ alert("Enter mobile number first!"); return;}
-    var otp=generateOTP();
-    localStorage.setItem("lastWorkerOTP",otp);
-    var message="Your SkillHub OTP is: "+otp;
-    fetch(`https://api.ultramsg.com/${instance}/messages/chat`,{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({token:token,to:number,body:message})
-    }).then(res=>res.json())
-      .then(data=>{ console.log("OTP sent:",data); alert("OTP sent via WhatsApp!"); })
-      .catch(err=>{ console.error(err); alert("Failed to send OTP!"); });
-}
-function sendWhatsAppWorker(){
-    var number=document.getElementById("worker_mobile").value.trim();
-    var gender=document.querySelector('input[name="worker_gender"]:checked')?.value||'';
-    var name=document.getElementById("worker_name").value;
-    if(!number || !name || !gender){ alert("Please fill name, mobile and select gender first!"); return;}
-    var msg=`Hello ${name}, Gender: ${gender}, Your registration is complete.`;
-    var url=`https://wa.me/${number}?text=${encodeURIComponent(msg)}`;
-    window.open(url,"_blank");
-}
-
-/* Navigation functions */
-function openAddWork(){ loginForm.style.display="none"; addWorkForm.style.display="block"; worker_dob.value=""; worker_dob.placeholder="Date of Birth";}
-function openSignup(){ loginForm.style.display="none"; signupForm.style.display="block";}
-function openAdmin(){ loginForm.style.display="none"; adminPanel.style.display="block";}
-function logout(){ backLogin();}
-function login_start(){ alert("Login logic goes here"); }
-function signup_start(){ alert("Signup logic goes here"); }
-
 </script>
+
 </body>
 </html>
