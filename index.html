@@ -5,8 +5,10 @@
 
 <!-- Font Awesome for icons -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+
 <!-- Flatpickr CSS for date picker -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
 <!-- Flatpickr JS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
@@ -82,8 +84,7 @@ body::after{
     position:relative;
     margin:15px 0;
 }
-.input-group input,
-.input-group select{
+.input-group input, .input-group select{
     width:90%;
     padding:12px 40px 12px 25px;
     border-radius:20px;
@@ -179,8 +180,8 @@ button{
     justify-content:space-between;
     align-items:center;
     width:93%;
-    margin:20px auto; 
-    padding-left:20px;    
+    margin:20px auto;
+    padding-left:20px;
 }
 .gender-option{
     display:flex;
@@ -216,12 +217,11 @@ button{
 }
 
 /* DROPDOWNS for skills */
-
 .dropdown-row {
     display: flex;
-    gap: 3px;                       /* dropdown ke bich ka gap */
-    justify-content: flex-start;    
-    align-items: center;            
+    gap: 3px;
+    justify-content: flex-start;
+    align-items: center;
     margin: 0;
     padding: 0;
 }
@@ -229,31 +229,31 @@ button{
 /* Each dropdown inline */
 .input-group-inline {
     position: relative;
-    flex: 1;                        
-    min-width: 120px;               
+    flex: 1;
+    min-width: 120px;
 }
 
 /* Select styling */
 .input-group-inline select {
     width: 90%;
-    padding: 12px 35px 12px 12px; 
+    padding: 12px 35px 12px 12px;
     border-radius: 20px;
     border: none;
     outline: none;
     font-size: 16px;
     background: #fff;
-    color: #000;
+    color: #888; /* default placeholder color */
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
     box-sizing: border-box;
     cursor: pointer;
-    text-indent: 0px; 
+    text-indent: 0px;
 }
 
 /* Custom arrow */
 .input-group-inline::after {
-    content: "\25BC"; 
+    content: "\25BC";
     position: absolute;
     right: 12px;
     top: 50%;
@@ -272,196 +272,178 @@ button{
 .dropdown-row .input-group-inline:last-child {
     margin-right: 22px;
 }
-
-/* Default select text color grey for placeholder */
-.input-group-inline select {
-    color: #888;   /* default placeholder color */
-}
-
-/* Jab user koi option select kare to text black ho jaye */
-.input-group-inline select:not(:placeholder-shown) {
-    color: #000;
-}    
 </style>
 </head>
 <body>
 
-<!-- PAGE TITLE -->
 <h1 class="title">SkillHub & Hiring Services</h1>
 
 <!-- LOGIN FORM -->
 <div class="container" id="loginForm">
-<h2 class="form-title">Login</h2>
-<div class="input-group">
-    <input type="text" id="login_username" placeholder="Username">
-    <i class="fa fa-user"></i>
-</div>
-<div class="input-group">
-    <input type="password" id="login_password" placeholder="Password">
-    <i class="fa fa-eye" onclick="app_togglePassword('login_password',this)"></i>
-</div>
-<div class="otp-container" id="loginOtpContainer">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <button id="loginResendBtn" disabled>Resend</button>
-</div>
-<div class="btns">
-    <button onclick="login_start()">Login</button>
-    <button onclick="openSignup()">Signup</button>
-    <button onclick="openAdmin()">Admin</button>
-    <button onclick="openAddWork()">Add Worker</button>
-</div>
+    <h2 class="form-title">Login</h2>
+    <div class="input-group">
+        <input type="text" id="login_username" placeholder="Username">
+        <i class="fa fa-user"></i>
+    </div>
+    <div class="input-group">
+        <input type="password" id="login_password" placeholder="Password">
+        <i class="fa fa-eye" onclick="app_togglePassword('login_password',this)"></i>
+    </div>
+    <div class="otp-container" id="loginOtpContainer">
+        <input class="otp-box" maxlength="1">
+        <input class="otp-box" maxlength="1">
+        <input class="otp-box" maxlength="1">
+        <input class="otp-box" maxlength="1">
+        <input class="otp-box" maxlength="1">
+        <input class="otp-box" maxlength="1">
+        <button id="loginResendBtn" disabled>Resend</button>
+    </div>
+    <div class="btns">
+        <button onclick="login_start()">Login</button>
+        <button onclick="openSignup()">Signup</button>
+        <button onclick="openAdmin()">Admin</button>
+        <button onclick="openAddWork()">Add Worker</button>
+    </div>
 </div>
 
 <!-- SIGNUP FORM -->
 <div class="container" id="signupForm">
-<h2 class="form-title">Signup</h2>
-<div class="input-group">
-    <input type="text" id="signupName" placeholder="Full Name">
-    <i class="fa fa-user"></i>
-</div>
-<div class="input-group">
-    <input type="text" id="signupMobile" placeholder="Mobile Number">
-    <i class="fa fa-phone"></i>
-</div>
-<div id="mobileError" class="error"></div>
-<div class="input-group">
-    <input type="text" id="signupUsername" placeholder="Username">
-    <i class="fa fa-user"></i>
-</div>
-<div id="usernameError" class="error"></div>
-<div class="input-group">
-    <input type="password" id="signup_password" placeholder="Password">
-    <i class="fa fa-eye" onclick="app_togglePassword('signup_password',this)"></i>
-</div>
-<div class="input-group">
-    <input type="password" id="signup_confirmPassword" placeholder="Confirm Password">
-    <i class="fa fa-eye" onclick="app_togglePassword('signup_confirmPassword',this)"></i>
-</div>
-<div class="otp-container" id="signupOtpContainer">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <input class="otp-box" maxlength="1">
-    <button id="resendBtn" disabled>Resend OTP</button>
-</div>
-<div class="btns">
-    <button onclick="signup_start()">Create Account</button>
-    <button onclick="backLogin()">Cancel</button>
-</div>
+    <h2 class="form-title">Signup</h2>
+    <div class="input-group">
+        <input type="text" id="signupName" placeholder="Full Name">
+        <i class="fa fa-user"></i>
+    </div>
+    <div class="input-group">
+        <input type="text" id="signupMobile" placeholder="Mobile Number">
+        <i class="fa fa-phone"></i>
+    </div>
+    <div id="mobileError" class="error"></div>
+    <div class="input-group">
+        <input type="text" id="signupUsername" placeholder="Username">
+        <i class="fa fa-user"></i>
+    </div>
+    <div id="usernameError" class="error"></div>
+    <div class="input-group">
+        <input type="password" id="signup_password" placeholder="Password">
+        <i class="fa fa-eye" onclick="app_togglePassword('signup_password',this)"></i>
+    </div>
+    <div class="input-group">
+        <input type="password" id="signup_confirmPassword" placeholder="Confirm Password">
+        <i class="fa fa-eye" onclick="app_togglePassword('signup_confirmPassword',this)"></i>
+    </div>
+    <div class="otp-container" id="signupOtpContainer">
+        <input class="otp-box" maxlength="1">
+        <input class="otp-box" maxlength="1">
+        <input class="otp-box" maxlength="1">
+        <input class="otp-box" maxlength="1">
+        <input class="otp-box" maxlength="1">
+        <input class="otp-box" maxlength="1">
+        <button id="resendBtn" disabled>Resend OTP</button>
+    </div>
+    <div class="btns">
+        <button onclick="signup_start()">Create Account</button>
+        <button onclick="backLogin()">Cancel</button>
+    </div>
 </div>
 
 <!-- DASHBOARD -->
 <div class="container" id="dashboard">
-<h2 class="form-title">Dashboard</h2>
-<p id="dashboardName"></p>
-<button onclick="logout()">Logout</button>
+    <h2 class="form-title">Dashboard</h2>
+    <p id="dashboardName"></p>
+    <button onclick="logout()">Logout</button>
 </div>
 
 <!-- ADMIN PANEL -->
 <div class="container" id="adminPanel">
-<h2>Hello Admin</h2>
-<button onclick="backLogin()">Back</button>
+    <h2>Hello Admin</h2>
+    <button onclick="backLogin()">Back</button>
 </div>
 
 <!-- ADD WORKER FORM -->
 <div class="container" id="addWorkForm">
-<h2 class="form-title">Add Worker</h2>
-<div class="input-group">
-    <input type="text" id="worker_name" placeholder="Full Name">
-    <i class="fa fa-user"></i>
-</div>
-<div class="input-group">
-    <input type="text" id="worker_father" placeholder="Father Name">
-    <i class="fa fa-user"></i>
-</div>
-<div class="input-group">
-    <input type="text" id="worker_dob" placeholder="Date of Birth">
-    <i class="fa fa-calendar"></i>
-</div>
-<div class="input-group radio-group">
-<label class="gender-option">
-<input type="radio" name="worker_gender" value="male">
-<span class="radio-circle"></span>
-<img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" width="24">
-</label>
-<label class="gender-option">
-<input type="radio" name="worker_gender" value="female">
-<span class="radio-circle"></span>
-<img src="https://cdn-icons-png.flaticon.com/512/4140/4140051.png" width="24">
-</label>
-<label class="gender-option">
-<input type="radio" name="worker_gender" value="other">
-<span class="radio-circle"></span>
-<img src="https://cdn-icons-png.flaticon.com/512/1077/1077063.png" width="24">
-</label>
-</div>
-<div class="input-group">
-    <input type="text" id="worker_mobile" placeholder="Mobile Number">
-    <i class="fa fa-phone"></i>
-</div>
-<div class="input-group">
-    <input type="email" id="worker_email" placeholder="Email Address">
-    <i class="fa fa-envelope"></i>
-</div>  
-<div class="input-group">
-    <input type="text" id="worker_address" placeholder="Address">
-    <i class="fa fa-home"></i>
-</div>    
-<div class="dropdown-row">
-  <div class="input-group-inline">
-    <select id="main_type" required>
-      <option value="" disabled selected>Select Any One</option>
-      <option value="workers">Workers</option>
-      <option value="ride">Ride Type</option>
-    </select>
-  </div>
-  <div class="input-group-inline">
-    <select id="service_type1">
-      <option value="">Select Skill 1</option>
-      <option value="plumber">Plumber</option>
-      <option value="electrician">Electrician</option>
-      <option value="mason">Mason</option>
-    </select>
-  </div>
-  <div class="input-group-inline">
-    <select id="service_type2">
-      <option value="">Select Skill 2</option>
-      <option value="plumber">Plumber</option>
-      <option value="electrician">Electrician</option>
-      <option value="mason">Mason</option>
-    </select>
-  </div>
-</div>
-<div class="btns">
-    <button onclick="worker_save()">Submit Worker</button>
-    <button onclick="backLogin()">Back</button>
-</div>
+    <h2 class="form-title">Add Worker</h2>
+    <div class="input-group">
+        <input type="text" id="worker_name" placeholder="Full Name">
+        <i class="fa fa-user"></i>
+    </div>
+    <div class="input-group">
+        <input type="text" id="worker_father" placeholder="Father Name">
+        <i class="fa fa-user"></i>
+    </div>
+    <div class="input-group">
+        <input type="text" id="worker_dob" placeholder="Date of Birth">
+        <i class="fa fa-calendar"></i>
+    </div>
+    <div class="input-group radio-group">
+        <label class="gender-option">
+            <input type="radio" name="worker_gender" value="male">
+            <span class="radio-circle"></span>
+            <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" width="24">
+        </label>
+        <label class="gender-option">
+            <input type="radio" name="worker_gender" value="female">
+            <span class="radio-circle"></span>
+            <img src="https://cdn-icons-png.flaticon.com/512/4140/4140051.png" width="24">
+        </label>
+        <label class="gender-option">
+            <input type="radio" name="worker_gender" value="other">
+            <span class="radio-circle"></span>
+            <img src="https://cdn-icons-png.flaticon.com/512/1077/1077063.png" width="24">
+        </label>
+    </div>
+    <div class="input-group">
+        <input type="text" id="worker_mobile" placeholder="Mobile Number">
+        <i class="fa fa-phone"></i>
+    </div>
+    <div class="input-group">
+        <input type="email" id="worker_email" placeholder="Email Address">
+        <i class="fa fa-envelope"></i>
+    </div>
+    <div class="input-group">
+        <input type="text" id="worker_address" placeholder="Address">
+        <i class="fa fa-home"></i>
+    </div>
+    <div class="dropdown-row">
+        <div class="input-group-inline">
+            <select id="main_type" required>
+                <option value="" disabled selected>Select Any One</option>
+                <option value="workers">Workers</option>
+                <option value="ride">Ride Type</option>
+            </select>
+        </div>
+        <div class="input-group-inline">
+            <select id="service_type1">
+                <option value="">Select Skill 1</option>
+                <option value="plumber">Plumber</option>
+                <option value="electrician">Electrician</option>
+                <option value="mason">Mason</option>
+            </select>
+        </div>
+        <div class="input-group-inline">
+            <select id="service_type2">
+                <option value="">Select Skill 2</option>
+                <option value="plumber">Plumber</option>
+                <option value="electrician">Electrician</option>
+                <option value="mason">Mason</option>
+            </select>
+        </div>
+    </div>
+    <div class="btns">
+        <button onclick="worker_save()">Submit Worker</button>
+        <button onclick="backLogin()">Back</button>
+    </div>
 </div>
 
 <script>
-
+/* DROPDOWN COLOR LOGIC */
 document.querySelectorAll('.input-group-inline select').forEach(select => {
-    // Initial color
-    if(select.value === "") select.style.color = "#888";
-    
-    // On change event
+    if(select.value === "") select.style.color = "#888"; // placeholder
     select.addEventListener('change', function() {
-        if(this.value === "") {
-            this.style.color = "#888"; // placeholder
-        } else {
-            this.style.color = "#000"; // selected option
-        }
+        if(this.value === "") this.style.color = "#888";
+        else this.style.color = "#000";
     });
 });
-   
-    
+
 /* Date picker for DOB */
 flatpickr("#worker_dob",{
     dateFormat:"d/m/Y",
@@ -494,7 +476,7 @@ var addWorkForm=document.getElementById("addWorkForm");
 /* Back to login */
 function backLogin(){
     resetSignupForm();
-    resetAddWorkForm();
+    resetAddWorkForm(); // resets inputs + dropdown colors
     loginForm.style.display="block";
     signupForm.style.display="none";
     dashboard.style.display="none";
@@ -522,7 +504,10 @@ function resetAddWorkForm(){
     });
     ["main_type","service_type1","service_type2"].forEach(id=>{
         const sel = document.getElementById(id);
-        if(sel) sel.selectedIndex = 0;
+        if(sel){
+            sel.selectedIndex = 0;       // Reset to first option
+            sel.style.color = "#888";    // Reset placeholder color
+        }
     });
 }
 
@@ -569,7 +554,7 @@ function sendWorkerOTP(){
 }
 function sendWhatsAppWorker(){
     var number=document.getElementById("worker_mobile").value.trim();
-    var gender=document.querySelector('input[name="worker_gender"]:checked')?.value||''; 
+    var gender=document.querySelector('input[name="worker_gender"]:checked')?.value||'';
     var name=document.getElementById("worker_name").value;
     if(!number || !name || !gender){ alert("Please fill name, mobile and select gender first!"); return;}
     var msg=`Hello ${name}, Gender: ${gender}, Your registration is complete.`;
@@ -584,7 +569,7 @@ function openAdmin(){ loginForm.style.display="none"; adminPanel.style.display="
 function logout(){ backLogin();}
 function login_start(){ alert("Login logic goes here"); }
 function signup_start(){ alert("Signup logic goes here"); }
-</script>
 
+</script>
 </body>
 </html>
