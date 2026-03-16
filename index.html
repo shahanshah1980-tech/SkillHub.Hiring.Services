@@ -256,9 +256,10 @@ button{
 
 /* textbox (NO arrow) */
 #vehicle_number{
-    flex: 0 0 70px;       /* chhoti width (120px) */
-    margin-left: 5px;      /* thoda left shift */
-    padding: 12px 12px;
+    width: 70px;           /* fixed width */
+    flex: 0 0 auto;        /* flex grow/shrink disable */
+    margin-left: 5px;      /* thoda gap left */
+    padding: 12px 8px;     /* padding kam karke width fit kiya */
     border-radius: 20px;
     border: none;
     outline: none;
