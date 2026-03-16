@@ -215,21 +215,26 @@ button{
     font-size:24px;
     color:#000;
 }
-
+/* DROPDOWNS for skills */
 .dropdown-row {
     display: flex;
-    gap: 10px;           /* teeno ke beech barabar gap */
-    align-items: center;
+    gap: 10px;                 /* gap between fields */
+    width: 100%;               /* address textbox ka parent width */
+    box-sizing: border-box;
 }
 
-/* Dropdowns */
+/* Teeno fields equal width (gap consider karte hue) */
+.dropdown-row > * {
+    flex: 1;                   /* equal flex */
+}
+
+/* Dropdown styling */
 .input-group-inline {
     position: relative;
-    flex: 1;             /* teeno equal width ke liye */
 }
 
 .input-group-inline select {
-    width: 90%;
+    width: 100%;
     padding: 12px 35px 12px 12px;
     border-radius: 20px;
     border: none;
@@ -237,13 +242,10 @@ button{
     font-size: 16px;
     background: #fff;
     appearance: none;
+    box-sizing: border-box;
 }
-/* First dropdown thoda right */
-    
-.dropdown-row .input-group-inline:first-child {
-    margin-left: 25px;
-}
-/* Arrow only for dropdown */
+
+/* Arrow for dropdown */
 .input-group-inline::after {
     content: "\25BC";
     position: absolute;
@@ -254,12 +256,9 @@ button{
     color: #555;
 }
 
-/* textbox (NO arrow) */
-#vehicle_number{
-    width: 70px;           /* fixed width */
-    flex: 0 0 auto;        /* flex grow/shrink disable */
-    margin-left: 5px;      /* thoda gap left */
-    padding: 12px 8px;     /* padding kam karke width fit kiya */
+/* Textbox styling */
+#vehicle_number {
+    padding: 12px 12px;
     border-radius: 20px;
     border: none;
     outline: none;
