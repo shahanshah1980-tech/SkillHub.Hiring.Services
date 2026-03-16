@@ -435,12 +435,23 @@ button{
 </div>
 
 <script>
-/* DROPDOWN COLOR LOGIC */
+    
 /* DROPDOWN COLOR LOGIC */
 document.querySelectorAll('.input-group-inline select').forEach(select => {
-    // Always keep black text
+    // Initial color on page load
+    if(select.value === "") {
+        select.style.color = "#888"; // placeholder grey
+    } else {
+        select.style.color = "#000"; // selected option black
+    }
+
+    // Change color when user selects an option
     select.addEventListener('change', function() {
-        this.style.color = "#000";
+        if(this.value === "") {
+            this.style.color = "#888"; // placeholder grey
+        } else {
+            this.style.color = "#000"; // selected option black
+        }
     });
 });
 
@@ -505,12 +516,11 @@ function resetAddWorkForm(){
     ["main_type","service_type1","service_type2"].forEach(id=>{
         const sel = document.getElementById(id);
         if(sel){
-            sel.selectedIndex = 0;       // Reset to first option
-            sel.style.color = "#000";    // Reset placeholder color
+            sel.selectedIndex = 0;       // Reset first option
+            sel.style.color = "#888";    // placeholder grey
         }
     });
 }
-
 /* Save worker to localStorage */
 function worker_save(){
     var workers=JSON.parse(localStorage.getItem("workers"))||[];
