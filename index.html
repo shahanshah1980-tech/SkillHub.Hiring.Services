@@ -426,6 +426,74 @@ button{
     <!-- Textbox (initially hidden) -->
     <input type="text" id="vehicle_number" placeholder="Enter Vehicle Number" style="display:none;">
 </div>
+            const workersList = [
+          "Labour","Helper","Mason","Steel Fixer","Shuttering Carpenter","Carpenter",
+          "Wood Carpenter","Furniture Carpenter","Interior Carpenter","Tile Fixer",
+          "Marble Fixer","Granite Fixer","Wall Painter","Spray Painter","POP Worker",
+          "Plaster Worker","Gypsum Worker","False Ceiling Worker","Waterproofing Worker",
+          "Roofing Worker","Demolition Worker","Electrician","Industrial Electrician",
+          "AC Mechanic","AC Technician","Refrigerator Mechanic","Washing Machine Mechanic",
+          "Generator Mechanic","Lift Technician","Pump Mechanic","Motor Winder","PC Mechanic",
+          "Laptop Mechanic","Computer Hardware Technician","Printer Technician","CCTV Technician",
+          "Network Technician","Mobile Repair Technician","LED TV Technician","Solar Technician",
+          "Welder","Gas Welder","Arc Welder","Steel Fabricator","Aluminium Fabricator",
+          "Iron Worker","Grill Maker","Gate Fabricator","Plumber","Pipe Fitter",
+          "Sanitary Fitter","Water Tank Cleaner","Drainage Worker","Furniture Maker",
+          "Wood Polisher","Modular Kitchen Installer","Curtain Fitter","Wallpaper Installer",
+          "Glass Fitter","Door Window Fitter","Gardener","Landscaper","Pest Control Worker",
+          "Cleaning Worker","House Keeping","Security Helper"
+        ];
+
+        const vehicleList = ["Taxi","Bike","Tempo","Bus","Truck","All Vehicles"];
+
+        const categorySelect = document.getElementById("categorySelect");
+        const subCategoryDiv = document.getElementById("subCategoryDiv");
+        const subCategorySelect = document.getElementById("subCategorySelect");
+        const vehicleNumber = document.getElementById("vehicle_number");
+
+        // Pehla dropdown select
+        categorySelect.addEventListener("change", function() {
+            const value = this.value;
+
+            // Clear previous options
+            subCategorySelect.innerHTML = '<option value="">Select any one</option>';
+
+            vehicleNumber.style.display = "none"; // hide textbox initially
+
+            if (value === "workers") {
+                workersList.forEach(worker => {
+                    const option = document.createElement("option");
+                    option.value = worker;
+                    option.text = worker;
+                    subCategorySelect.appendChild(option);
+                });
+                subCategoryDiv.style.display = "flex"; // show second dropdown
+            } else if (value === "vehicle") {
+                vehicleList.forEach(vehicle => {
+                    const option = document.createElement("option");
+                    option.value = vehicle;
+                    option.text = vehicle;
+                    subCategorySelect.appendChild(option);
+                });
+                subCategoryDiv.style.display = "flex"; // show second dropdown
+            } else {
+                subCategoryDiv.style.display = "none";
+            }
+        });
+
+        // Dusra dropdown select
+        subCategorySelect.addEventListener("change", function() {
+            const category = categorySelect.value;
+            const selected = this.value;
+
+            // Show textbox ONLY if vehicle category selected
+            if (category === "vehicle" && selected !== "") {
+                vehicleNumber.style.display = "block"; // show textbox
+                vehicleNumber.placeholder = "Enter Vehicle Number";
+            } else {
+                vehicleNumber.style.display = "none";  // hide textbox
+            }
+        });
     </div>
     <input type="text" id="vehicle_number" placeholder="Vehicle Number">
 </div>
