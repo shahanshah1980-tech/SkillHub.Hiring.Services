@@ -242,7 +242,7 @@ button{
     outline: none;
     font-size: 16px;
     background: #fff;
-    color: #888; /* default placeholder color */
+    color: #000; /* default placeholder color */
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -436,11 +436,11 @@ button{
 
 <script>
 /* DROPDOWN COLOR LOGIC */
+/* DROPDOWN COLOR LOGIC */
 document.querySelectorAll('.input-group-inline select').forEach(select => {
-    if(select.value === "") select.style.color = "#888"; // placeholder
+    // Always keep black text
     select.addEventListener('change', function() {
-        if(this.value === "") this.style.color = "#888";
-        else this.style.color = "#000";
+        this.style.color = "#000";
     });
 });
 
@@ -506,7 +506,7 @@ function resetAddWorkForm(){
         const sel = document.getElementById(id);
         if(sel){
             sel.selectedIndex = 0;       // Reset to first option
-            sel.style.color = "#888";    // Reset placeholder color
+            sel.style.color = "#000";    // Reset placeholder color
         }
     });
 }
