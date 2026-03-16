@@ -216,42 +216,30 @@ button{
     color:#000;
 }
 
-/* DROPDOWNS for skills */
 .dropdown-row {
     display: flex;
-    gap: 3px;
-    justify-content: flex-start;
+    gap: 10px;           /* teeno ke beech barabar gap */
     align-items: center;
-    margin: 0;
-    padding: 0;
 }
 
-/* Each dropdown inline */
+/* Dropdowns */
 .input-group-inline {
     position: relative;
-    flex: 1;
-    
+    flex: 1;             /* teeno equal width ke liye */
 }
 
-/* Select styling */
 .input-group-inline select {
-    width: 80%;
+    width: 100%;
     padding: 12px 35px 12px 12px;
     border-radius: 20px;
     border: none;
     outline: none;
     font-size: 16px;
     background: #fff;
-    color: #000; /* default placeholder color */
     appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    box-sizing: border-box;
-    cursor: pointer;
-    text-indent: 0px;
 }
 
-/* Custom arrow */
+/* Arrow only for dropdown */
 .input-group-inline::after {
     content: "\25BC";
     position: absolute;
@@ -259,19 +247,11 @@ button{
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
-    color: #555;
-    font-size: 16px;
-}
-
-/* First dropdown thoda right */
-    
-.dropdown-row .input-group-inline:first-child {
-    margin-left: 12px;
 }
 
 /* textbox (NO arrow) */
 #vehicle_number{
-    width: 140px;        /* textbox chhota ho jayega */
+    flex: 1;             /* equal width jaise dropdown */
     padding: 12px 12px;
     border-radius: 20px;
     border: none;
