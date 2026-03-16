@@ -13,83 +13,67 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <style>
-/* BODY */
-body{
+/* =================================================
+   BODY & BACKGROUND
+   ================================================= */
+body {
     margin:0;
-    font-family:Arial;
+    font-family: Arial, sans-serif;
     height:100vh;
     display:flex;
     justify-content:center;
-    align-items:center;
+    align-items:flex-start;
     background:linear-gradient(135deg,#00c6ff,#0072ff);
-    overflow:hidden;
-    position:relative;
+    overflow:auto;
+    padding-top:60px; /* for fixed title */
 }
-body::before, body::after{
-    content:"";
-    position:absolute;
-    border-radius:50%;
-    opacity:0.2;
-}
-body::before{
-    width:500px;
-    height:500px;
-    background:#fff;
-    top:-100px;
-    left:-100px;
-}
-body::after{
-    width:400px;
-    height:400px;
-    background:#fff;
-    bottom:-80px;
-    right:-80px;
-}
-/* TITLE */
-.title{
+
+/* TITLE BAR */
+.title {
     position:fixed;
-    top:20px;
+    top:10px;
     left:50%;
     transform:translateX(-50%);
-    font-size:32px;
-    font-weight:bold;
+    font-size:28px;
     color:#fff;
-    text-shadow:1px 1px 5px rgba(0,0,0,0.3);
+    font-weight:bold;
 }
-/* CONTAINER */
-.container{
-    background:rgba(255,255,255,0.15);
-    backdrop-filter:blur(15px);
-    border-radius:25px;
-    padding:40px 30px;
+
+/* FORM CONTAINERS */
+.container {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(15px);
+    border-radius: 25px;
+    padding: 30px 20px;
     width:700px;
     color:#fff;
     text-align:center;
-    margin-top:120px;
+    margin-bottom:50px;
 }
-/* FORM TITLES */
-.form-title{
-    font-size:24px;
+
+/* FORM HEADERS */
+.form-title {
+    font-size:22px;
     font-weight:bold;
     margin-bottom:20px;
 }
+
 /* INPUT GROUPS */
-.input-group{
+.input-group {
     position:relative;
-    margin:15px 0;
+    margin:12px 0;
 }
-.input-group input, .input-group select{
+.input-group input, .input-group select {
     width:90%;
-    padding:12px 40px 12px 25px;
+    padding:12px 35px;
     border-radius:20px;
     border:none;
     outline:none;
     font-size:16px;
     background:#fff;
     color:#000;
-    box-sizing:border-box;
 }
-.input-group i{
+.input-group i {
     position:absolute;
     right:15px;
     top:50%;
@@ -97,33 +81,34 @@ body::after{
     cursor:pointer;
     color:#000;
 }
+
 /* BUTTONS */
-.btns{
+.btns {
     display:flex;
     justify-content:center;
     gap:15px;
-    margin-top:25px;
+    margin-top:15px;
     flex-wrap:wrap;
 }
-button{
-    padding:12px 30px;
+button {
+    padding:10px 25px;
     border-radius:25px;
     border:none;
     cursor:pointer;
-    font-size:16px;
+    font-size:15px;
     font-weight:bold;
     background:linear-gradient(135deg,#ff7eb3,#ff758c);
     color:#fff;
 }
-/* OTP BOX */
-.otp-container{
-    display:none;
+
+/* OTP INPUT */
+.otp-container {
+    display:flex;
     justify-content:center;
-    align-items:center;
     gap:10px;
-    margin-top:15px;
+    margin-top:10px;
 }
-.otp-box{
+.otp-box {
     width:40px;
     height:40px;
     font-size:20px;
@@ -133,51 +118,40 @@ button{
     background:#fff;
     color:#000;
 }
+
 /* ERROR MESSAGES */
-.error{
+.error {
     color:#ff7070;
     font-size:14px;
 }
-/* HIDE FORMS INITIALLY */
-#signupForm, #dashboard, #adminPanel, #addWorkForm{
+
+/* HIDE ALL FORMS INITIALLY */
+#signupForm, #dashboard, #adminPanel, #addWorkForm {
     display:none;
 }
-/* SCROLLING for add worker form */
-#addWorkForm{
+
+/* SCROLLBAR for add worker form */
+#addWorkForm {
     max-height:70vh;
     overflow-y:auto;
-    padding-right:10px;
-    margin-top:80px;
 }
-#addWorkForm::-webkit-scrollbar{
-    width:8px;
-}
-#addWorkForm::-webkit-scrollbar-thumb{
-    background: rgba(255,255,255,0.4);
-    border-radius:4px;
-}
-#addWorkForm::-webkit-scrollbar-track{
-    background: transparent;
-}
-/* GENDER RADIO BUTTONS styling */
-.input-group.radio-group{
+
+/* RADIO BUTTONS for Gender */
+.input-group.radio-group {
     display:flex;
     justify-content:space-between;
     align-items:center;
     width:93%;
     margin:20px auto;
-    padding-left:20px;
 }
-.gender-option{
+.gender-option {
     display:flex;
     align-items:center;
     gap:10px;
     cursor:pointer;
 }
-.gender-option input{
-    display:none;
-}
-.radio-circle{
+.gender-option input { display:none; }
+.radio-circle {
     width:26px;
     height:26px;
     border-radius:50%;
@@ -185,7 +159,7 @@ button{
     border:3px solid #e0e0e0;
     position:relative;
 }
-.gender-option input:checked + .radio-circle::after{
+.gender-option input:checked + .radio-circle::after {
     content:"";
     width:12px;
     height:12px;
@@ -196,56 +170,41 @@ button{
     left:50%;
     transform:translate(-50%,-50%);
 }
-/* DROPDOWNS */
+
+/* DROPDOWN ROWS */
 .dropdown-row {
-    display: flex;
-    gap: 10px;
-    width: 95%;
-    box-sizing: border-box;
+    display:flex;
+    gap:10px;
+    width:95%;
+    box-sizing:border-box;
+    margin:10px auto;
 }
-.dropdown-row > * {
-    flex: 1;
-}
-.input-group-inline {
-    position: relative;
-}
+.dropdown-row > * { flex:1; }
 .input-group-inline select {
-    width: 95%;
-    padding: 12px 35px 12px 12px;
-    border-radius: 20px;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    background: #fff;
-    box-sizing: border-box;
+    width:95%;
+    padding:12px;
+    border-radius:20px;
+    border:none;
+    outline:none;
+    font-size:16px;
+    background:#fff;
 }
-/* Arrow for dropdown */
-.input-group-inline::after {
-    content: "\25BC";
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    color: #555;
-}
-/* Textbox styling */
 #vehicle_number {
-    padding: 12px 12px;
-    border-radius: 20px;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    background: #fff;
-    box-sizing: border-box;
+    padding:12px;
+    border-radius:20px;
+    border:none;
+    outline:none;
+    font-size:16px;
+    background:#fff;
 }
 </style>
 </head>
 <body>
 
+<!-- ================= TITLE ================= -->
 <h1 class="title">SkillHub & Hiring Services</h1>
 
-<!-- LOGIN FORM -->
+<!-- ================= LOGIN FORM ================= -->
 <div class="container" id="loginForm">
     <h2 class="form-title">Login</h2>
     <div class="input-group">
@@ -256,15 +215,6 @@ button{
         <input type="password" id="login_password" placeholder="Password">
         <i class="fa fa-eye" onclick="app_togglePassword('login_password',this)"></i>
     </div>
-    <div class="otp-container" id="loginOtpContainer">
-        <input class="otp-box" maxlength="1">
-        <input class="otp-box" maxlength="1">
-        <input class="otp-box" maxlength="1">
-        <input class="otp-box" maxlength="1">
-        <input class="otp-box" maxlength="1">
-        <input class="otp-box" maxlength="1">
-        <button id="loginResendBtn" disabled>Resend</button>
-    </div>
     <div class="btns">
         <button onclick="login_start()">Login</button>
         <button onclick="openSignup()">Signup</button>
@@ -273,7 +223,7 @@ button{
     </div>
 </div>
 
-<!-- SIGNUP FORM -->
+<!-- ================= SIGNUP FORM ================= -->
 <div class="container" id="signupForm">
     <h2 class="form-title">Signup</h2>
     <div class="input-group">
@@ -298,350 +248,26 @@ button{
         <input type="password" id="signup_confirmPassword" placeholder="Confirm Password">
         <i class="fa fa-eye" onclick="app_togglePassword('signup_confirmPassword',this)"></i>
     </div>
-    <div class="otp-container" id="signupOtpContainer">
-        <input class="otp-box" maxlength="1">
-        <input class="otp-box" maxlength="1">
-        <input class="otp-box" maxlength="1">
-        <input class="otp-box" maxlength="1">
-        <input class="otp-box" maxlength="1">
-        <input class="otp-box" maxlength="1">
-        <button id="resendBtn" disabled>Resend OTP</button>
-    </div>
     <div class="btns">
         <button onclick="signup_start()">Create Account</button>
         <button onclick="backLogin()">Cancel</button>
     </div>
 </div>
 
-<!-- DASHBOARD -->
+<!-- ================= DASHBOARD ================= -->
 <div class="container" id="dashboard">
     <h2 class="form-title">Dashboard</h2>
     <p id="dashboardName"></p>
     <button onclick="logout()">Logout</button>
 </div>
 
-<!-- ADMIN PANEL -->
+<!-- ================= ADMIN PANEL ================= -->
 <div class="container" id="adminPanel">
     <h2>Hello Admin</h2>
     <button onclick="backLogin()">Back</button>
 </div>
 
-<!-- ADD WORKER FORM -->
-<div class="container" id="addWorkForm">
-    <h2 class="form-title">Add Worker</h2>
-    <div class="input-group">
-        <input type="text" id="worker_name" placeholder="Full Name">
-        <i class="fa fa-user"></i>
-    </div>
-    <div class="input-group">
-        <input type="text" id="worker_father" placeholder="Father Name">
-        <i class="fa fa-user"></i>
-    </div>
-    <div class="input-group">
-        <input type="text" id="worker_dob" placeholder="Date of Birth">
-        <i class="fa fa-calendar"></i>
-    </div>
-    <div class="input-group radio-group">
-        <label class="gender-option">
-            <input type="radio" name="worker_gender" value="male">
-            <span class="radio-circle"></span>
-            <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" width="24">
-        </label>
-        <label class="gender-option">
-            <input type="radio" name="worker_gender" value="female">
-            <span class="radio-circle"></span>
-            <img src="https://cdn-icons-png.flaticon.com/512/4140/4140051.png" width="24">
-        </label>
-        <label class="gender-option">
-            <input type="radio" name="worker_gender" value="other">
-            <span class="radio-circle"></span>
-            <img src="https://cdn-icons-png.flaticon.com/512/1077/1077063.png" width="24">
-        </label>
-    </div>
-    <div class="input-group">
-        <input type="text" id="worker_mobile" placeholder="Mobile Number">
-        <i class="fa fa-phone"></i>
-    </div>
-    <div class="input-group">
-        <input type="email" id="worker_email" placeholder="Email Address">
-        <i class="fa fa-envelope"></i>
-    </div>
-    <div class="input-group">
-        <input type="text" id="worker_address" placeholder="Address">
-        <i class="fa fa-home"></i>
-    </div>
-    <div class="dropdown-row">
-        <div class="input-group-inline">
-            <select id="main_type" required>
-                <option value="" disabled selected>Select Any One</option>
-                <option value="workers">Workers</option>
-                <option value="ride">Ride Type</option>
-            </select>
-        </div>
-        <div class="input-group-inline">
-            <select id="service_type1">
-                <option value="">Select Skill 1</option>
-                <option value="plumber">Plumber</option>
-                <option value="electrician">Electrician</option>
-                <option value="mason">Mason</option>
-            </select>
-        </div>
-        <input type="text" id="vehicle_number" placeholder="Vehicle Number">
-    </div>
-    <div class="btns">
-        <button onclick="worker_save()">Submit Worker</button>
-        <button onclick="backLogin()">Back</button>
-        <button onclick="sendWhatsAppWorker()">Send WhatsApp</button>
-    </div>
-</div>
-<script>
-/* DROPDOWN COLOR LOGIC */
-document.querySelectorAll('.input-group-inline select').forEach(select => {
-    if(select.value === "") select.style.color = "#888";
-    else select.style.color = "#000";
-    select.addEventListener('change', function() {
-        this.style.color = (this.value === "") ? "#888" : "#000";
-    });
-});
-
-/* DATE PICKER */
-flatpickr("#worker_dob",{
-    dateFormat:"d/m/Y",
-    allowInput:false,
-    monthSelectorType:"dropdown",
-    yearSelectorType:"dropdown",
-    defaultDate:"2000-01-01",
-    position:"auto right"
-});
-
-/* PASSWORD TOGGLE */
-function app_togglePassword(id,icon){
-    var input=document.getElementById(id);
-    if(input.type==="password"){
-        input.type="text";
-        icon.classList.replace("fa-eye","fa-eye-slash");
-    } else {
-        input.type="password";
-        icon.classList.replace("fa-eye-slash","fa-eye");
-    }
-}
-
-/* FORM REFERENCES */
-var loginForm=document.getElementById("loginForm");
-var signupForm=document.getElementById("signupForm");
-var dashboard=document.getElementById("dashboard");
-var adminPanel=document.getElementById("adminPanel");
-var addWorkForm=document.getElementById("addWorkForm");
-
-/* BACK TO LOGIN */
-function backLogin(){
-    resetSignupForm();
-    resetAddWorkForm();
-    loginForm.style.display="block";
-    signupForm.style.display="none";
-    dashboard.style.display="none";
-    adminPanel.style.display="none";
-    addWorkForm.style.display="none";
-}
-
-/* RESET SIGNUP FORM */
-function resetSignupForm(){
-    ["signupName","signupMobile","signupUsername","signup_password","signup_confirmPassword"].forEach(id=>{
-        document.getElementById(id).value="";
-    });
-    document.getElementById("signupOtpContainer").style.display="none";
-    document.getElementById("mobileError").innerText="";
-    document.getElementById("usernameError").innerText="";
-}
-
-/* RESET ADD WORKER FORM */
-function resetAddWorkForm(){
-    ["worker_name","worker_father","worker_dob","worker_mobile","worker_address","vehicle_number"].forEach(id=>{
-        document.getElementById(id).value="";
-    });
-    document.querySelectorAll('input[name="worker_gender"]').forEach(radio=>radio.checked=false);
-    ["main_type","service_type1"].forEach(id=>{
-        const sel=document.getElementById(id);
-        if(sel){ sel.selectedIndex=0; sel.style.color="#888"; }
-    });
-}
-
-/* SAVE WORKER */
-function worker_save(){
-    var workers=JSON.parse(localStorage.getItem("workers"))||[];
-    var name=document.getElementById("worker_name").value;
-    var mobile=document.getElementById("worker_mobile").value;
-    var dob=document.getElementById("worker_dob").value;
-    var address=document.getElementById("worker_address").value;
-    var gender=document.querySelector('input[name="worker_gender"]:checked')?.value || '';
-    var skill1=document.getElementById("service_type1")?.value || '';
-    var type=document.getElementById("main_type")?.value || '';
-    var vehicle=document.getElementById("vehicle_number")?.value || '';
-
-    if(!name || !mobile){ alert("Please fill Name and Mobile!"); return; }
-
-    workers.push({name,mobile,dob,address,gender,skill:[skill1],type,vehicle});
-    localStorage.setItem("workers",JSON.stringify(workers));
-    alert("Worker Added Successfully!");
-}
-
-/* ULTRAMSG API CONFIG */
-var token = "1xhtdh7bylh73iay";     
-var instance = "instance164778";
-
-/* GENERATE OTP */
-function generateOTP(){ return Math.floor(100000 + Math.random()*900000); }
-
-/* SEND WORKER OTP */
-function sendWorkerOTP(){
-    var number=document.getElementById("worker_mobile").value.trim();
-    if(!number){ alert("Enter Mobile Number first!"); return; }
-
-    var otp = generateOTP();
-    localStorage.setItem("lastWorkerOTP", otp);
-    var message = "Your SkillHub OTP is: " + otp;
-
-    fetch(`https://api.ultramsg.com/${instance}/messages/chat`, {
-        method: "POST",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({token:token, to:number, body:message})
-    })
-    .then(res => res.json())
-    .then(data => {
-        console.log("OTP sent:", data);
-        alert("OTP sent via WhatsApp!");
-    })
-    .catch(err => {
-        console.error(err);
-        alert("Failed to send OTP!");
-    });
-}
-
-/* SEND WHATSAPP CONFIRMATION */
-function sendWhatsAppWorker(){
-    var number=document.getElementById("worker_mobile").value.trim();
-    var name=document.getElementById("worker_name").value;
-    var gender=document.querySelector('input[name="worker_gender"]:checked')?.value || '';
-    if(!number || !name || !gender){ alert("Please fill Name, Mobile, and select Gender!"); return; }
-    var msg=`Hello ${name}, Gender: ${gender}, Your registration is complete.`;
-    var url=`https://wa.me/${number}?text=${encodeURIComponent(msg)}`;
-    window.open(url,"_blank");
-}
-
-/* NAVIGATION FUNCTIONS */
-function openAddWork(){ 
-    loginForm.style.display="none"; 
-    addWorkForm.style.display="block"; 
-    document.getElementById("worker_dob").value=""; 
-}
-function openSignup(){ loginForm.style.display="none"; signupForm.style.display="block";}
-function openAdmin(){ loginForm.style.display="none"; adminPanel.style.display="block";}
-function logout(){ backLogin();}
-
-/* LOGIN/SIGNUP STUBS */
-function login_start(){ alert("Login logic goes here"); }
-function signup_start(){ alert("Signup logic goes here"); }
-</script>
-<!DOCTYPE html>
-<html>
-<head>
-<title>SkillHub Hiring Services</title>
-
-<!-- Font Awesome for icons -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-
-<!-- Flatpickr CSS for date picker -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
-<!-- Flatpickr JS -->
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-<style>
-body{
-    margin:0;
-    font-family:Arial;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-    background:linear-gradient(135deg,#00c6ff,#0072ff);
-    overflow:auto;
-    padding-top:60px;
-}
-.title{
-    position:fixed;
-    top:10px;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:28px;
-    color:#fff;
-    font-weight:bold;
-}
-.container{
-    background:rgba(255,255,255,0.15);
-    backdrop-filter:blur(15px);
-    border-radius:25px;
-    padding:30px 20px;
-    width:700px;
-    color:#fff;
-    text-align:center;
-    margin-bottom:50px;
-}
-.form-title{font-size:22px; font-weight:bold; margin-bottom:20px;}
-.input-group{position:relative; margin:12px 0;}
-.input-group input, .input-group select{
-    width:90%;
-    padding:12px 35px;
-    border-radius:20px;
-    border:none;
-    outline:none;
-    font-size:16px;
-    background:#fff;
-    color:#000;
-}
-.input-group i{position:absolute; right:15px; top:50%; transform:translateY(-50%); cursor:pointer; color:#000;}
-.btns{display:flex; justify-content:center; gap:15px; margin-top:15px; flex-wrap:wrap;}
-button{padding:10px 25px; border-radius:25px; border:none; cursor:pointer; font-size:15px; font-weight:bold; background:linear-gradient(135deg,#ff7eb3,#ff758c); color:#fff;}
-.otp-container{display:flex; justify-content:center; gap:10px; margin-top:10px;}
-.otp-box{width:40px; height:40px; font-size:20px; text-align:center; border-radius:10px; border:1px solid #000; background:#fff; color:#000;}
-.error{color:#ff7070; font-size:14px;}
-#signupForm, #dashboard, #adminPanel, #addWorkForm{display:none;}
-#addWorkForm{max-height:70vh; overflow-y:auto;}
-.input-group.radio-group{display:flex; justify-content:space-between; align-items:center; width:93%; margin:20px auto;}
-.gender-option{display:flex; align-items:center; gap:10px; cursor:pointer;}
-.gender-option input{display:none;}
-.radio-circle{width:26px; height:26px; border-radius:50%; background:#fff; border:3px solid #e0e0e0; position:relative;}
-.gender-option input:checked + .radio-circle::after{content:""; width:12px; height:12px; background:#000; border-radius:50%; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);}
-.dropdown-row{display:flex; gap:10px; width:95%; box-sizing:border-box; margin:10px auto;}
-.dropdown-row > *{flex:1;}
-.input-group-inline select{width:95%; padding:12px; border-radius:20px; border:none; outline:none; font-size:16px; background:#fff;}
-#vehicle_number{padding:12px; border-radius:20px; border:none; outline:none; font-size:16px; background:#fff;}
-</style>
-</head>
-<body>
-
-<h1 class="title">SkillHub & Hiring Services</h1>
-
-<!-- LOGIN FORM -->
-<div class="container" id="loginForm">
-    <h2 class="form-title">Login</h2>
-    <div class="input-group">
-        <input type="text" id="login_username" placeholder="Username">
-        <i class="fa fa-user"></i>
-    </div>
-    <div class="input-group">
-        <input type="password" id="login_password" placeholder="Password">
-        <i class="fa fa-eye" onclick="app_togglePassword('login_password',this)"></i>
-    </div>
-    <div class="btns">
-        <button onclick="login_start()">Login</button>
-        <button onclick="openSignup()">Signup</button>
-        <button onclick="openAdmin()">Admin</button>
-        <button onclick="openAddWork()">Add Worker</button>
-    </div>
-</div>
-
-<!-- ADD WORKER FORM -->
+<!-- ================= ADD WORKER FORM ================= -->
 <div class="container" id="addWorkForm">
     <h2 class="form-title">Add Worker</h2>
     <div class="input-group">
@@ -712,17 +338,7 @@ button{padding:10px 25px; border-radius:25px; border:none; cursor:pointer; font-
 </div>
 
 <script>
-/* DROPDOWN COLOR LOGIC */
-document.querySelectorAll('.input-group-inline select').forEach(select => {
-    if(select.value === "") select.style.color="#888";
-    else select.style.color="#000";
-    select.addEventListener('change',function(){
-        this.style.color=(this.value==="")?"#888":"#000";
-    });
-});
-
-/* DOB PICKER */
-flatpickr("#worker_dob",{dateFormat:"d/m/Y",allowInput:false,monthSelectorType:"dropdown",yearSelectorType:"dropdown",defaultDate:"2000-01-01"});
+/* ================= JS FUNCTIONS ================= */
 
 /* PASSWORD TOGGLE */
 function app_togglePassword(id,icon){
@@ -731,24 +347,64 @@ function app_togglePassword(id,icon){
     else{ input.type="password"; icon.classList.replace("fa-eye-slash","fa-eye"); }
 }
 
-/* FORM REFS */
+/* FLATPICKR DOB PICKER */
+flatpickr("#worker_dob",{
+    dateFormat:"d/m/Y",
+    allowInput:false,
+    monthSelectorType:"dropdown",
+    yearSelectorType:"dropdown",
+    defaultDate:"2000-01-01"
+});
+
+/* FORM ELEMENTS */
 var loginForm=document.getElementById("loginForm");
+var signupForm=document.getElementById("signupForm");
+var dashboard=document.getElementById("dashboard");
+var adminPanel=document.getElementById("adminPanel");
 var addWorkForm=document.getElementById("addWorkForm");
 
-/* NAVIGATION */
-function openAddWork(){ loginForm.style.display="none"; addWorkForm.style.display="block"; }
-function openSignup(){ loginForm.style.display="none"; }
-function openAdmin(){ loginForm.style.display="none"; }
-function backLogin(){ resetAddWorkForm(); loginForm.style.display="block"; addWorkForm.style.display="none"; }
+/* ================= NAVIGATION FUNCTIONS ================= */
+function openSignup(){
+    hideAllForms();
+    signupForm.style.display="block";
+}
+function openAddWork(){
+    hideAllForms();
+    addWorkForm.style.display="block";
+}
+function openAdmin(){
+    hideAllForms();
+    adminPanel.style.display="block";
+}
+function backLogin(){
+    hideAllForms();
+    loginForm.style.display="block";
+    resetAddWorkForm();
+    resetSignupForm();
+}
+function logout(){
+    backLogin();
+}
 
-/* RESET ADD WORKER FORM */
+/* HIDE ALL FORMS HELPER */
+function hideAllForms(){
+    [loginForm,signupForm,dashboard,adminPanel,addWorkForm].forEach(f=>f.style.display="none");
+}
+
+/* ================= RESET FUNCTIONS ================= */
 function resetAddWorkForm(){
     ["worker_name","worker_father","worker_dob","worker_mobile","worker_address","vehicle_number"].forEach(id=>document.getElementById(id).value="");
     document.querySelectorAll('input[name="worker_gender"]').forEach(r=>r.checked=false);
-    ["main_type","service_type1"].forEach(id=>{const sel=document.getElementById(id); if(sel){sel.selectedIndex=0; sel.style.color="#888";}});
+    ["main_type","service_type1"].forEach(id=>{
+        const sel=document.getElementById(id);
+        if(sel){ sel.selectedIndex=0; sel.style.color="#888"; }
+    });
+}
+function resetSignupForm(){
+    ["signupName","signupMobile","signupUsername","signup_password","signup_confirmPassword"].forEach(id=>document.getElementById(id).value="");
 }
 
-/* SAVE WORKER */
+/* ================= WORKER FUNCTIONS ================= */
 function worker_save(){
     var workers=JSON.parse(localStorage.getItem("workers"))||[];
     var name=document.getElementById("worker_name").value;
@@ -768,14 +424,12 @@ function worker_save(){
     alert("Worker Added!");
 }
 
-/* ULTRAMSG CONFIG */
+/* GENERATE OTP */
+function generateOTP(){ return Math.floor(100000 + Math.random()*900000); }
+
+/* SEND OTP VIA ULTRAMSG API */
 var token="1xhtdh7bylh73iay";
 var instance="instance164778";
-
-/* GENERATE OTP */
-function generateOTP(){ return Math.floor(100000+Math.random()*900000); }
-
-/* SEND WORKER OTP */
 function sendWorkerOTP(){
     var number=document.getElementById("worker_mobile").value.trim();
     if(!number){ alert("Enter Mobile!"); return; }
@@ -791,7 +445,7 @@ function sendWorkerOTP(){
       .catch(err=>{ console.error(err); alert("Failed to send OTP!"); });
 }
 
-/* SEND WHATSAPP */
+/* SEND WHATSAPP MESSAGE */
 function sendWhatsAppWorker(){
     var number=document.getElementById("worker_mobile").value.trim();
     var name=document.getElementById("worker_name").value;
@@ -800,6 +454,11 @@ function sendWhatsAppWorker(){
     var msg=`Hello ${name}, Gender: ${gender}, Your registration is complete.`;
     window.open(`https://wa.me/${number}?text=${encodeURIComponent(msg)}`,"_blank");
 }
+
+/* ================= LOGIN/SIGNUP PLACEHOLDER ================= */
+function login_start(){ alert("Login logic goes here"); }
+function signup_start(){ alert("Signup logic goes here"); }
 </script>
+
 </body>
 </html>
