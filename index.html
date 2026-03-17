@@ -193,6 +193,36 @@ button{
         <button onclick="openAddWork()">Add Worker</button>
     </div>
 </div>
+<!-- SIGNUP FORM -->
+<div class="container" id="signupForm">
+    <h2 class="form-title">Signup</h2>
+    <div class="input-group">
+        <input type="text" id="signupName" placeholder="Full Name">
+        <i class="fa fa-user"></i>
+    </div>
+    <div class="input-group">
+        <input type="text" id="signupMobile" placeholder="Mobile Number">
+        <i class="fa fa-phone"></i>
+    </div>
+    <div id="mobileError" class="error"></div>
+    <div class="input-group">
+        <input type="text" id="signupUsername" placeholder="Username">
+        <i class="fa fa-user"></i>
+    </div>
+    <div id="usernameError" class="error"></div>
+    <div class="input-group">
+        <input type="password" id="signup_password" placeholder="Password">
+        <i class="fa fa-eye" onclick="app_togglePassword('signup_password',this)"></i>
+    </div>
+    <div class="input-group">
+        <input type="password" id="signup_confirmPassword" placeholder="Confirm Password">
+        <i class="fa fa-eye" onclick="app_togglePassword('signup_confirmPassword',this)"></i>
+    </div>
+    <div class="btns">
+        <button onclick="signup_start()">Create Account</button>
+        <button onclick="backLogin()">Cancel</button>
+    </div>
+</div>
 
 <!-- ADD WORKER -->
 <div class="container" id="addWorkForm">
