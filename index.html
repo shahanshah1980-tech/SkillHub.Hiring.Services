@@ -114,13 +114,22 @@ button{
     align-items: center;
 }
 .dropdown-row > * { flex: 1; }
-.dropdown-row select,
-.dropdown-row input {
-    padding: 12px;
-    border-radius: 20px;
-    border: none;
-    font-size: 16px;
+.dropdown-row select {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+
+    appearance: none;           /* Chrome, Safari */
+    -webkit-appearance: none;   /* Safari */
+    -moz-appearance: none;      /* Firefox */
+
     background: #fff;
+    cursor: pointer;
+}
+
+/* ✅ IE / Edge (old) arrow hide */
+.dropdown-row select::-ms-expand {
+    display: none;
 }
 #service_type1, #vehicle_number{visibility:hidden;}
 </style>
