@@ -388,15 +388,48 @@ var addWorkForm=document.getElementById("addWorkForm");
 /* ================= NAVIGATION FIX ================= */
 function hideAllForms(){ [loginForm,signupForm,dashboard,adminPanel,addWorkForm].forEach(f=>f.style.display="none"); }
 function openSignup(){ hideAllForms(); signupForm.style.display="block"; }
-function openAddWork(){ 
-    hideAllForms(); 
-    addWorkForm.style.display="block"; 
-    toggleWorkerFields(); 
-}
+function openAddWork(){ hideAllForms(); addWorkForm.style.display="block"; }
 function openAdmin(){ hideAllForms(); adminPanel.style.display="block"; }
 function backLogin(){ hideAllForms(); loginForm.style.display="block"; resetAddWorkForm(); resetSignupForm(); }
 function logout(){ backLogin(); }
+function toggleWorkerFields() {
+    var mainType = document.getElementById("main_type").value;
+    var skillDropdown = document.getElementById("service_type1");
+    var vehicleBox = document.getElementById("vehicle_number");
 
+    skillDropdown.innerHTML = "";
+
+    if(mainType === "workers") {
+        skillDropdown.style.visibility = "visible"; // dropdown show
+        vehicleBox.style.visibility = "hidden";    // textbox hide
+
+        var workers = ["Labour","Helper","Mason","Electrician","Plumber","Carpenter"];
+        skillDropdown.innerHTML = "<option value=''>Select Any One</option>";
+        workers.forEach(function(item){
+            var option = document.createElement("option");
+            option.value = item;
+            option.text = item;
+            skillDropdown.appendChild(option);
+        });
+    }
+    else if(mainType === "vehicle") {
+        skillDropdown.style.visibility = "visible"; // dropdown show
+        vehicleBox.style.visibility = "visible";    // textbox show
+
+        var vehicles = ["Bike","Scooter","Truck","Taxi"];
+        skillDropdown.innerHTML = "<option value=''>Select Vehicle Type</option>";
+        vehicles.forEach(function(item){
+            var option = document.createElement("option");
+            option.value = item;
+            option.text = item;
+            skillDropdown.appendChild(option);
+        });
+    }
+    else {
+        skillDropdown.style.visibility = "hidden";
+        vehicleBox.style.visibility = "hidden";
+    }
+}
 /* RESET FORMS */
 function resetAddWorkForm(){ ["worker_name","worker_father","worker_dob","worker_mobile","worker_address","vehicle_number"].forEach(id=>document.getElementById(id).value=""); document.querySelectorAll('input[name="worker_gender"]').forEach(r=>r.checked=false); ["main_type","service_type1"].forEach(id=>{const sel=document.getElementById(id); if(sel){sel.selectedIndex=0; sel.style.color="#888";}}); }
 function resetSignupForm(){ ["signupName","signupMobile","signupUsername","signup_password","signup_confirmPassword"].forEach(id=>document.getElementById(id).value=""); }
