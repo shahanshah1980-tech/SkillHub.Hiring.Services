@@ -83,23 +83,25 @@ visibility:hidden;
 .gender-option input{display:none;}
 .radio-circle{width:26px; height:26px; border-radius:50%; background:#fff; border:3px solid #e0e0e0; position:relative;}
 .gender-option input:checked + .radio-circle::after{content:""; width:12px; height:12px; background:#000; border-radius:50%; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);}
+
+/* DROPDOWN */
 .dropdown-row {
     display: flex;       /* ek line me elements */
-    gap: 10px;           /* elements ke beech gap */
+    gap: 10px;           /* dropdown aur textbox ke beech gap */
     width: 95%;
     margin: 10px auto;
-    align-items: center; /* vertical alignment */
+    align-items: center; /* vertically center alignment */
 }
 
 .dropdown-row > * {
     flex: 1;       /* equal width */
-    min-width: 0;  /* overflow fix */
+    min-width: 0;  /* text overflow fix */
 }
 
-/* initially hide */
+/* Initially hide second dropdown & vehicle textbox */
 #service_type1,
 #vehicle_number {
-    visibility: hidden;
+    visibility: hidden; /* space rahega, element hidden */
 }
 
 /* INPUT GROUP INLINE */
