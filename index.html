@@ -193,9 +193,18 @@ button{
 <div class="container" id="addWorkForm">
 <h2 class="form-title">Add Worker</h2>
 
-<div class="input-group"><input type="text" id="worker_name" placeholder="Full Name"></div>
-    <i class="fa fa-user"></i>
-    <div class="input-group"><input type="text" id="worker_dob" placeholder="Date of Birth"></div>
+    <div class="input-group">
+        <input type="text" id="worker_name" placeholder="Full Name">
+        <i class="fa fa-user"></i>
+    </div>
+    <div class="input-group">
+        <input type="text" id="worker_father" placeholder="Father Name">
+        <i class="fa fa-user"></i>
+    </div>
+    <div class="input-group">
+        <input type="text" id="worker_dob" placeholder="Date of Birth">
+        <i class="fa fa-calendar"></i>
+    </div>
 
     <!-- GENDER -->
     <div class="input-group radio-group">
@@ -213,7 +222,19 @@ button{
         </label>
     </div>
 
-    <div class="input-group"><input type="text" id="worker_mobile" placeholder="Mobile"></div>
+   
+    <div class="input-group">
+        <input type="text" id="worker_mobile" placeholder="Mobile Number">
+        <i class="fa fa-phone"></i>
+    </div>
+        <div class="input-group">
+        <input type="email" id="worker_email" placeholder="Email Address">
+        <i class="fa fa-envelope"></i>
+    </div>
+        <div class="input-group">
+        <input type="text" id="worker_address" placeholder="Address">
+        <i class="fa fa-home"></i>
+    </div>
 
     <div class="dropdown-row">
         <select id="main_type" onchange="toggleWorkerFields()">
@@ -227,7 +248,7 @@ button{
     </div>
 
     <div class="btns">
-        <button onclick="sendWorkerOTP()">Send OTP</button>
+       
         <button onclick="worker_save()">Submit</button>
         <button onclick="backLogin()">Back</button>
     </div>
