@@ -371,30 +371,6 @@ else if(mainType==="vehicle"){
 skillDropdown.style.display="block";
 vehicleBox.style.display="block";
 
-var vehicles=[
-
-"Bike",
-"Scooter",
-"Auto Rickshaw",
-"E-Rickshaw",
-"Tempo",
-"Pickup",
-"Mini Truck",
-"Truck",
-"Taxi",
-"Cab",
-"Van",
-"Bus",
-"School Bus",
-"Tourist Bus",
-"Ambulance",
-"Tractor",
-"JCB",
-"Crane",
-"Loader",
-"Dumper"
-
-];
 
 skillDropdown.innerHTML="<option value=''>Select Vehicle Type</option>";
 
@@ -473,7 +449,11 @@ function toggleWorkerFields() {
         skillDropdown.style.visibility = "visible";
         vehicleBox.style.visibility = "visible";
 
-        var vehicles = ["Bike","Scooter","Truck","Taxi"];
+        var vehicles = [
+    "Bike","Scooter","Auto Rickshaw","E-Rickshaw","Tempo","Pickup",
+    "Mini Truck","Truck","Taxi","Cab","Van","Bus","School Bus",
+    "Tourist Bus","Ambulance","Tractor","JCB","Crane","Loader","Dumper"
+];
         skillDropdown.innerHTML = "<option value=''>Select Vehicle Type</option>";
         vehicles.forEach(function(item){
             var option = document.createElement("option");
