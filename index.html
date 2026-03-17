@@ -86,22 +86,34 @@ visibility:hidden;
 
 /* DROPDOWN */
 .dropdown-row {
-    display: flex;       /* ek line me elements */
-    gap: 10px;           /* dropdown aur textbox ke beech gap */
+    display: flex;
+    gap: 10px;
     width: 95%;
     margin: 10px auto;
-    align-items: center; /* vertically center alignment */
+    align-items: center;
 }
 
 .dropdown-row > * {
-    flex: 1;       /* equal width */
-    min-width: 0;  /* text overflow fix */
+    flex: 1;
+    min-width: 0;
+}
+
+.dropdown-row select,
+.dropdown-row input {
+    padding: 12px 15px;
+    border-radius: 20px;
+    border: none;
+    font-size: 16px;
+    outline: none;
+    background: #fff;
+    color: #000;
+    box-sizing: border-box;
 }
 
 /* Initially hide second dropdown & vehicle textbox */
 #service_type1,
 #vehicle_number {
-    visibility: hidden; /* space rahega, element hidden */
+    visibility: hidden;
 }
 
 /* INPUT GROUP INLINE */
