@@ -83,10 +83,32 @@ visibility:hidden;
 .gender-option input{display:none;}
 .radio-circle{width:26px; height:26px; border-radius:50%; background:#fff; border:3px solid #e0e0e0; position:relative;}
 .gender-option input:checked + .radio-circle::after{content:""; width:12px; height:12px; background:#000; border-radius:50%; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);}
-.dropdown-row{display:flex; gap:10px; width:95%; box-sizing:border-box; margin:10px auto;}
-.dropdown-row > *{flex:1;}
+/* DROPDOWN ROW (flex) */
+.dropdown-row{
+    display:flex;
+    gap:10px;
+    width:95%;
+    box-sizing:border-box;
+    margin:10px auto;
+    align-items:center;
+}
+
+.dropdown-row > *{
+    flex:1;
+    min-width:0;
+}
+
+/* INPUT GROUP INLINE */
 .input-group-inline select{width:95%; padding:12px; border-radius:20px; border:none; outline:none; font-size:16px; background:#fff;}
+
+/* VEHICLE NUMBER */
 #vehicle_number{padding:12px; border-radius:20px; border:none; outline:none; font-size:16px; background:#fff;}
+
+/* INITIAL HIDE */
+#service_type1,
+#vehicle_number{
+    visibility:hidden;
+}
 </style>
 </head>
 <body>
