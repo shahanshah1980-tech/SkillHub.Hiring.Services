@@ -143,12 +143,22 @@ button{
 
 /* IE arrow hide */
 .dropdown-row select::-ms-expand {
-    display: none;
+    display: visible;
 }
 
-#service_type1, #vehicle_number{visibility:hidden;}
-</style>
-</head>
+#vehicle_number {
+    border: none;          /* border remove */
+    outline: none;         /* focus outline remove */
+    box-shadow: none;      /* shadow remove */
+    border-radius: 20px;   /* rounded corners */
+    padding: 12px;         /* same as dropdown/input */
+    font-size: 16px;       /* same font size */
+    background: #fff;      /* white background */
+    color: #888;           /* default gray */
+    width: 100%;
+    box-sizing: border-box;
+    cursor: text;
+}
 
 <body>
 
