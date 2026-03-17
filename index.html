@@ -422,8 +422,8 @@ function toggleWorkerFields() {
     skillDropdown.innerHTML = "";
 
     if(mainType === "workers") {
-        skillDropdown.style.visibility = "visible"; // dropdown show
-        vehicleBox.style.visibility = "hidden";    // textbox hide
+        skillDropdown.style.visibility = "visible";
+        vehicleBox.style.visibility = "hidden";
 
         var workers = ["Labour","Helper","Mason","Electrician","Plumber","Carpenter"];
         skillDropdown.innerHTML = "<option value=''>Select Any One</option>";
@@ -435,8 +435,8 @@ function toggleWorkerFields() {
         });
     }
     else if(mainType === "vehicle") {
-        skillDropdown.style.visibility = "visible"; // dropdown show
-        vehicleBox.style.visibility = "visible";    // textbox show
+        skillDropdown.style.visibility = "visible";
+        vehicleBox.style.visibility = "visible";
 
         var vehicles = ["Bike","Scooter","Truck","Taxi"];
         skillDropdown.innerHTML = "<option value=''>Select Vehicle Type</option>";
@@ -452,6 +452,9 @@ function toggleWorkerFields() {
         vehicleBox.style.visibility = "hidden";
     }
 }
+// Initial hide when form opens
+window.onload = toggleWorkerFields;
+    
 /* RESET FORMS */
 function resetAddWorkForm(){ ["worker_name","worker_father","worker_dob","worker_mobile","worker_address","vehicle_number"].forEach(id=>document.getElementById(id).value=""); document.querySelectorAll('input[name="worker_gender"]').forEach(r=>r.checked=false); ["main_type","service_type1"].forEach(id=>{const sel=document.getElementById(id); if(sel){sel.selectedIndex=0; sel.style.color="#888";}}); }
 function resetSignupForm(){ ["signupName","signupMobile","signupUsername","signup_password","signup_confirmPassword"].forEach(id=>document.getElementById(id).value=""); }
