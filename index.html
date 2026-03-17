@@ -228,20 +228,22 @@ visibility:hidden;
         <input type="text" id="worker_address" placeholder="Address">
         <i class="fa fa-home"></i>
     </div>
-    <div class="dropdown-row">
-        <div class="input-group-inline">
- <select id="main_type" onchange="toggleWorkerFields()">
-<option value="">Select Any One</option>
-<option value="workers">Workers</option>
-<option value="vehicle">Vehicle Type</option>
-</select>
-            
-<select id="service_type1">
-<option value="">Select Any One</option>
-</select>
-        </div>
-        <input type="text" id="vehicle_number" placeholder="Vehicle Number">
-    </div>
+<div class="dropdown-row">
+    <!-- First dropdown -->
+    <select id="main_type" onchange="toggleWorkerFields()">
+        <option value="">Select Any One</option>
+        <option value="workers">Workers</option>
+        <option value="vehicle">Vehicle Type</option>
+    </select>
+
+    <!-- Second dropdown -->
+    <select id="service_type1">
+        <option value="">Select Any One</option>
+    </select>
+
+    <!-- Vehicle textbox -->
+    <input type="text" id="vehicle_number" placeholder="Vehicle Number">
+</div>
     <div class="btns">
         <button onclick="worker_save()">Submit Worker</button>
         <button onclick="sendWorkerOTP()">Send OTP</button>
