@@ -108,13 +108,23 @@ button{
 
 /* DROPDOWN FIX */
 .dropdown-row {
-    display:flex;
-    gap:10px;
-    width:95%;
-    margin:10px auto;
+    display: flex;
+    gap: 10px;
+    width: 95%;               /* row width */
+    margin: 10px auto;
+    justify-content: flex-start; /* left align */
+    align-items: center;      /* vertically center items */
 }
+
 #main_type {
-    flex: 0 0 250px;  /* yahan 150px ki jagah apni marzi se width de sakte ho */
+    flex: 0 0 150px;          /* pehla dropdown fixed width */
+}
+
+#service_type1,
+#vehicle_number {
+    flex: 1;                  /* baaki space fill */
+    visibility: visible;       /* ensure visible */
+    display: block;           /* ensure block element for flex */
 }
 .dropdown-row select {
     border: none;
