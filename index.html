@@ -115,24 +115,23 @@ button{
 }
 
 .dropdown-row select {
-    border: none;              /* border remove */
-    outline: none;             /* focus outline remove */
-    box-shadow: none;          /* shadow remove */
+    border: none;
+    outline: none;
+    box-shadow: none;
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
     
-    padding: 12px;             /* same as input */
-    border-radius: 20px;       /* same as input */
-    font-size: 16px;           /* same as input */
-    background: #fff;          /* same as input */
-    color: #888;               /* default gray */
-    width: 100%;               /* fill space */
+    padding: 12px;
+    border-radius: 20px;
+    font-size: 16px;
+    background: #fff;
+    color: #888;
+    width: 100%;
     box-sizing: border-box;
     cursor: pointer;
 }
 
-/* Dropdown option text color */
 .dropdown-row select option {
     color: #000;
 }
@@ -141,24 +140,23 @@ button{
     color: #888;
 }
 
-/* IE arrow hide */
 .dropdown-row select::-ms-expand { display: block; }
-}
 
 #vehicle_number {
-    border: none;          /* border remove */
-    outline: none;         /* focus outline remove */
-    box-shadow: none;      /* shadow remove */
-    border-radius: 20px;   /* rounded corners */
-    padding: 12px;         /* same as dropdown/input */
-    font-size: 16px;       /* same font size */
-    background: #fff;      /* white background */
-    color: #888;           /* default gray */
+    border: none;
+    outline: none;
+    box-shadow: none;
+    border-radius: 20px;
+    padding: 12px;
+    font-size: 16px;
+    background: #fff;
+    color: #888;
     width: 100%;
     box-sizing: border-box;
     cursor: text;
 }
-
+</style>
+</head>
 <body>
 
 <h1 class="title">SkillHub & Hiring Services</h1>
@@ -211,8 +209,8 @@ button{
             <option value="vehicle">Vehicle</option>
         </select>
 
-        <select id="service_type1"></select>
-        <input type="text" id="vehicle_number" placeholder="Vehicle No">
+        <select id="service_type1" style="visibility:hidden"></select>
+        <input type="text" id="vehicle_number" placeholder="Vehicle No" style="visibility:hidden">
     </div>
 
     <div class="btns">
@@ -223,7 +221,6 @@ button{
 </div>
 
 <script>
-
 /* ULTRAMSG */
 var token="1xhtdh7bylh73iay";
 var instance="instance164778";
@@ -247,7 +244,6 @@ function toggleWorkerFields(){
         vehicle.style.visibility="hidden";
 
         var list=["Labour","Helper","Mason","Electrician"];
-
         skill.innerHTML="<option value=''>Select Any One</option>";
         list.forEach(i=>{
             var opt=document.createElement("option");
@@ -261,7 +257,6 @@ function toggleWorkerFields(){
         vehicle.style.visibility="visible";
 
         var list=["Bike","Car","Truck"];
-
         skill.innerHTML="<option value=''>Select Vehicle</option>";
         list.forEach(i=>{
             var opt=document.createElement("option");
@@ -331,7 +326,6 @@ function openAddWork(){
 function backLogin(){
     location.reload();
 }
-
 </script>
 
 </body>
