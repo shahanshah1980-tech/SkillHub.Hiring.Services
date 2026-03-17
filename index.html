@@ -50,14 +50,14 @@ body{
     background:#fff;
     color:#000;
 }
-/* SIRF YEH LINE ADD KI HAI TAKE ICON DIKHE */
+/* SIRF ICON FIX */
 .input-group i{
     position:absolute;
     right:15px;
     top:50%;
     transform:translateY(-50%);
     cursor:pointer;
-    color: #888;  /* icon visible */
+    color: #888;
 }
 
 .btns{
@@ -188,39 +188,29 @@ button{
         <i class="fa fa-eye" onclick="app_togglePassword('login_password',this)"></i>
     </div>
     <div class="btns">
-        <button onclick="openLogin()">Login</button>
         <button onclick="openSignup()">Signup</button>
         <button onclick="openAddWork()">Add Worker</button>
     </div>
 </div>
-<!-- SIGNUP FORM -->
+
+<!-- SIGNUP -->
 <div class="container" id="signupForm">
     <h2 class="form-title">Signup</h2>
     <div class="input-group">
-        <input type="text" id="signupName" placeholder="Full Name">
+        <input type="text" id="signup_name" placeholder="Full Name">
         <i class="fa fa-user"></i>
     </div>
     <div class="input-group">
-        <input type="text" id="signupMobile" placeholder="Mobile Number">
-        <i class="fa fa-phone"></i>
+        <input type="email" id="signup_email" placeholder="Email">
+        <i class="fa fa-envelope"></i>
     </div>
-    <div id="mobileError" class="error"></div>
-    <div class="input-group">
-        <input type="text" id="signupUsername" placeholder="Username">
-        <i class="fa fa-user"></i>
-    </div>
-    <div id="usernameError" class="error"></div>
     <div class="input-group">
         <input type="password" id="signup_password" placeholder="Password">
         <i class="fa fa-eye" onclick="app_togglePassword('signup_password',this)"></i>
     </div>
-    <div class="input-group">
-        <input type="password" id="signup_confirmPassword" placeholder="Confirm Password">
-        <i class="fa fa-eye" onclick="app_togglePassword('signup_confirmPassword',this)"></i>
-    </div>
     <div class="btns">
-        <button onclick="signup_start()">Create Account</button>
-        <button onclick="backLogin()">Cancel</button>
+        <button onclick="backLogin()">Back</button>
+        <button onclick="signupSave()">Signup</button>
     </div>
 </div>
 
@@ -367,7 +357,7 @@ function sendWorkerOTP(){
     alert("OTP Sent");
 }
 
-/* SAVE */
+/* SAVE WORKER */
 function worker_save(){
     var name=document.getElementById("worker_name").value;
     var mobile=document.getElementById("worker_mobile").value;
@@ -386,14 +376,40 @@ function worker_save(){
     location.reload();
 }
 
-/* NAV */
-function openSignup(){}
+/* SAVE SIGNUP */
+function signupSave(){
+    var name=document.getElementById("signup_name").value;
+    var email=document.getElementById("signup_email").value;
+    var password=document.getElementById("signup_password").value;
+
+    if(!name || !email || !password){
+        alert("Fill all fields");
+        return;
+    }
+
+    var users = JSON.parse(localStorage.getItem("users")) || [];
+    users.push({name,email,password});
+    localStorage.setItem("users",JSON.stringify(users));
+
+    alert("Signup Successful");
+    backLogin();
+}
+
+/* NAVIGATION */
+function openSignup(){
+    document.getElementById("loginForm").style.display = "none";
+    document.getElementById("signupForm").style.display = "block";
+}
+
 function openAddWork(){
     document.getElementById("loginForm").style.display="none";
     document.getElementById("addWorkForm").style.display="block";
 }
+
 function backLogin(){
-    location.reload();
+    document.getElementById("loginForm").style.display="block";
+    document.getElementById("signupForm").style.display="none";
+    document.getElementById("addWorkForm").style.display="none";
 }
 </script>
 
