@@ -50,13 +50,16 @@ body{
     background:#fff;
     color:#000;
 }
+/* SIRF YEH LINE ADD KI HAI TAKE ICON DIKHE */
 .input-group i{
     position:absolute;
     right:15px;
     top:50%;
     transform:translateY(-50%);
     cursor:pointer;
+    color: #888;  /* icon visible */
 }
+
 .btns{
     display:flex;
     justify-content:center;
@@ -110,21 +113,21 @@ button{
 .dropdown-row {
     display: flex;
     gap: 10px;
-    width: 100%;               /* row width */
+    width: 100%;               
     margin: 10px auto;
-    justify-content: flex-start; /* left align */
-    align-items: center;      /* vertically center items */
+    justify-content: flex-start; 
+    align-items: center;      
 }
 
 #main_type {
-    flex: 0 0 250px;          /* pehla dropdown fixed width */
+    flex: 0 0 250px;          
 }
 
 #service_type1,
 #vehicle_number {
-    flex: 1;                  /* baaki space fill */
-    visibility: visible;       /* ensure visible */
-    display: block;           /* ensure block element for flex */
+    flex: 1;                  
+    visibility: visible;       
+    display: block;           
 }
 .dropdown-row select {
     border: none;
