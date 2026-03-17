@@ -113,6 +113,10 @@ visibility:hidden;
 select option[value=""] {
     color: #888;   /* gray color */
 }
+/* Jab user select kare, selected option black ho */
+select {
+    color: #000;   /* black color for selected value */
+}    
 /* Initially hide second dropdown & vehicle textbox */
 #service_type1,
 #vehicle_number {
@@ -284,77 +288,6 @@ if(mainType==="workers"){
 
 skillDropdown.style.display="block";
 vehicleBox.style.display="none";
-
-var workers=[
-
-"Labour",
-"Helper",
-"Mason",
-"Steel Fixer",
-"Shuttering Carpenter",
-"Carpenter",
-"Wood Carpenter",
-"Furniture Carpenter",
-"Interior Carpenter",
-"Tile Fixer",
-"Marble Fixer",
-"Granite Fixer",
-"Wall Painter",
-"Spray Painter",
-"POP Worker",
-"Plaster Worker",
-"Gypsum Worker",
-"False Ceiling Worker",
-"Waterproofing Worker",
-"Roofing Worker",
-"Demolition Worker",
-"Electrician",
-"Industrial Electrician",
-"AC Mechanic",
-"AC Technician",
-"Refrigerator Mechanic",
-"Washing Machine Mechanic",
-"Generator Mechanic",
-"Lift Technician",
-"Pump Mechanic",
-"Motor Winder",
-"PC Mechanic",
-"Laptop Mechanic",
-"Computer Hardware Technician",
-"Printer Technician",
-"CCTV Technician",
-"Network Technician",
-"Mobile Repair Technician",
-"LED TV Technician",
-"Solar Technician",
-"Welder",
-"Gas Welder",
-"Arc Welder",
-"Steel Fabricator",
-"Aluminium Fabricator",
-"Iron Worker",
-"Grill Maker",
-"Gate Fabricator",
-"Plumber",
-"Pipe Fitter",
-"Sanitary Fitter",
-"Water Tank Cleaner",
-"Drainage Worker",
-"Furniture Maker",
-"Wood Polisher",
-"Modular Kitchen Installer",
-"Curtain Fitter",
-"Wallpaper Installer",
-"Glass Fitter",
-"Door Window Fitter",
-"Gardener",
-"Landscaper",
-"Pest Control Worker",
-"Cleaning Worker",
-"House Keeping",
-"Security Helper"
-
-];
 
 skillDropdown.innerHTML="<option value=''>Select Any One</option>";
 
