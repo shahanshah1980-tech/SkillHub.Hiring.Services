@@ -384,7 +384,11 @@ var addWorkForm=document.getElementById("addWorkForm");
 /* ================= NAVIGATION FIX ================= */
 function hideAllForms(){ [loginForm,signupForm,dashboard,adminPanel,addWorkForm].forEach(f=>f.style.display="none"); }
 function openSignup(){ hideAllForms(); signupForm.style.display="block"; }
-function openAddWork(){ hideAllForms(); addWorkForm.style.display="block"; }
+function openAddWork(){ 
+    hideAllForms(); 
+    addWorkForm.style.display="block"; 
+    toggleWorkerFields(); 
+}
 function openAdmin(){ hideAllForms(); adminPanel.style.display="block"; }
 function backLogin(){ hideAllForms(); loginForm.style.display="block"; resetAddWorkForm(); resetSignupForm(); }
 function logout(){ backLogin(); }
