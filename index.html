@@ -118,10 +118,68 @@ button{
     color:#fff;
 }
 
-/* HIDDEN */
-#vehicle_no{
-    display:none;
+/* DROPDOWN FIX */
+.dropdown-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;               
+    margin: 10px auto;
+    justify-content: flex-start; 
+    align-items: center;      
 }
+
+#main_type {
+    flex: 0 0 250px;          
+}
+
+#service_type1,
+#vehicle_number {
+    flex: 1;                  
+    visibility: visible;       
+    display: block;           
+}
+.dropdown-row select {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    
+    padding: 12px;
+    border-radius: 20px;
+    font-size: 16px;
+    background: #fff;
+    color: #888;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.dropdown-row select option {
+    color: #000;
+}
+
+.dropdown-row select option[value=""] {
+    color: #888;
+}
+
+.dropdown-row select::-ms-expand { display: block; }
+
+#vehicle_number {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    border-radius: 20px;
+    padding: 12px;
+    font-size: 16px;
+    background: #fff;
+    color: #888;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: text;
+}
+
 </style>
 </head>
 
