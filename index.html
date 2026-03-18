@@ -213,11 +213,8 @@ button{
 
 <script>
 function updateSelectColor(el){
-    if(el.value === ""){
-        el.classList.remove("active");
-    } else {
-        el.classList.add("active");
-    }
+    if(el.value === ""){ el.classList.remove("active"); } 
+    else { el.classList.add("active"); }
 }
 
 function toggleFields(){
@@ -232,19 +229,13 @@ function toggleFields(){
     if(type === "worker"){
         skill.style.visibility = "visible";
         vehicle.style.visibility = "hidden";
-
-        ["Labour","Helper","Mason","Electrician"].forEach(i=>{
-            skill.add(new Option(i,i));
-        });
+        ["Labour","Helper","Mason","Electrician"].forEach(i=>{ skill.add(new Option(i,i)); });
     }
     else if(type === "vehicle"){
         skill.style.visibility = "visible";
         vehicle.style.visibility = "visible";
         row.classList.add("show-all");
-
-        ["Bike","Car","Truck"].forEach(i=>{
-            skill.add(new Option(i,i));
-        });
+        ["Bike","Car","Truck"].forEach(i=>{ skill.add(new Option(i,i)); });
     }
     else{
         skill.style.visibility = "hidden";
@@ -258,30 +249,18 @@ function saveWorker(){
     let gender = document.querySelector('input[name="gender"]:checked');
     let type = document.getElementById("service_type").value;
 
-    if(!name || !mobile || !gender || !type){
-        alert("Please fill all required fields");
-        return;
-    }
+    if(!name || !mobile || !gender || !type){ alert("Please fill all required fields"); return; }
 
     let workers = JSON.parse(localStorage.getItem("workers")) || [];
-
-    workers.push({
-        name,
-        mobile,
-        gender: gender.value,
-        type
-    });
-
+    workers.push({ name, mobile, gender: gender.value, type });
     localStorage.setItem("workers", JSON.stringify(workers));
 
     alert("Worker Saved Successfully");
 }
 
-function resetForm(){
-    location.reload();
-}
+function resetForm(){ location.reload(); }
 
-/* ✅ FINAL FIXED DATE PICKER */
+/* ✅ DATEPICKER FIXED – Month dropdown + Year editable */
 flatpickr("#worker_dob", {
     clickOpens: false,
     position: "auto right",
@@ -291,8 +270,7 @@ flatpickr("#worker_dob", {
     minDate: "1950-01-01",
     maxDate: "today",
     disableMobile: true,
-
-    onReady: function(selectedDates, dateStr, instance) {
+    onReady: function(selectedDates, dateStr, instance){
         let yearInput = instance.currentYearElement;
         yearInput.type = "number";
         yearInput.min = 1950;
@@ -301,7 +279,7 @@ flatpickr("#worker_dob", {
     }
 });
 
-document.getElementById("dob_icon").addEventListener("click", function() {
+document.getElementById("dob_icon").addEventListener("click", function(){
     document.getElementById("worker_dob")._flatpickr.open();
 });
 </script>
