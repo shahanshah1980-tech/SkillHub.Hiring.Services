@@ -50,7 +50,7 @@ body{
     color:#888;
 }
 
-/* ROW GROUP (MAIN FIX) */
+/* ROW GROUP */
 .row-group{
     display:flex;
     gap:10px;
@@ -67,12 +67,15 @@ body{
     flex:0.8;
 }
 
-/* VEHICLE HIDDEN */
+/* HIDE BY DEFAULT */
+#worker_skill{
+    display:none;
+}
 #vehicle_no{
     display:none;
 }
 
-/* WHEN 3 FIELD (VEHICLE MODE) */
+/* WHEN 3 FIELD */
 .row-group.three #worker_type{
     flex:0.7;
 }
@@ -92,6 +95,14 @@ body{
     border-radius:20px;
     outline:none;
     font-size:14px;
+}
+
+/* SELECT COLOR */
+select{
+    color:gray;
+}
+select.active{
+    color:black;
 }
 
 /* GENDER */
@@ -189,14 +200,14 @@ button{
     <!-- ROW GROUP -->
     <div class="row-group" id="rowGroup">
 
-        <select id="worker_type" onchange="toggleFields()">
-            <option value="">Select Type</option>
+        <select id="worker_type" onchange="toggleFields(); updateSelectColor(this)">
+            <option value="" disabled selected>Select Type</option>
             <option value="worker">Worker</option>
             <option value="vehicle">Vehicle</option>
         </select>
 
-        <select id="worker_skill">
-            <option value="">Select Skill</option>
+        <select id="worker_skill" onchange="updateSelectColor(this)">
+            <option value="" disabled selected>Select Skill</option>
         </select>
 
         <input type="text" id="vehicle_no" placeholder="Vehicle No">
@@ -212,17 +223,28 @@ button{
 
 <script>
 
-/* TOGGLE LOGIC */
+/* COLOR CHANGE */
+function updateSelectColor(el){
+    if(el.value === ""){
+        el.classList.remove("active");
+    } else {
+        el.classList.add("active");
+    }
+}
+
+/* TOGGLE */
 function toggleFields(){
     let type = document.getElementById("worker_type").value;
     let skill = document.getElementById("worker_skill");
     let vehicle = document.getElementById("vehicle_no");
     let row = document.getElementById("rowGroup");
 
-    skill.innerHTML = "<option value=''>Select</option>";
+    skill.innerHTML = "<option value='' disabled selected>Select Skill</option>";
 
     if(type === "worker"){
         row.classList.remove("three");
+
+        skill.style.display = "block";
         vehicle.style.display = "none";
 
         ["Labour","Helper","Mason","Electrician"].forEach(i=>{
@@ -231,6 +253,8 @@ function toggleFields(){
     }
     else if(type === "vehicle"){
         row.classList.add("three");
+
+        skill.style.display = "block";
         vehicle.style.display = "block";
 
         ["Bike","Car","Truck"].forEach(i=>{
@@ -239,6 +263,8 @@ function toggleFields(){
     }
     else{
         row.classList.remove("three");
+
+        skill.style.display = "none";
         vehicle.style.display = "none";
     }
 }
