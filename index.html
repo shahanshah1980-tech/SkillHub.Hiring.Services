@@ -203,11 +203,13 @@ button{
         <input type="text" id="vehicle_number" placeholder="Vehicle No">
     </div>
     <div class="input-group">
-        <select id="service_subtype" onchange="updateSelectColor(this)">
-            <option value="" selected>Select Sub Type</option>
-            <option value="Sub Option 1">Sub Option 1</option>
-            <option value="Sub Option 2">Sub Option 2</option>
+        <select id="service_type" onchange="toggleFields(); updateSelectColor(this)">
+            <option value="" selected>Select any one</option>
+            <option value="Adharcard">Adhar Card</option>
+            <option value="Passport">Passport</option>
+            <option value="DL">DL</option>           
         </select>
+
     </div>
     <div class="button-group">
         <button onclick="saveWorker()">Submit</button>
