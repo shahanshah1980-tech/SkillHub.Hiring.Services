@@ -34,7 +34,7 @@ body{
     width:90%;
     padding:12px 40px 12px 15px;
     border:none;
-    border-radius:20px;
+    border-radius:50px; /* fully rounded */
     outline:none;
     cursor: pointer;
     background:#fff;
@@ -66,6 +66,7 @@ body{
 .dropdown-row > * {
     flex: 1;
     min-width: 0;
+    border-radius:50px; /* fully rounded for select/input inside row */
 }
 select option[value=""] {
     color: #888;
@@ -120,7 +121,7 @@ select option[value=""] {
 button{
     padding:10px 25px;
     border:none;
-    border-radius:25px;
+    border-radius:50px; /* fully rounded buttons */
     font-weight:bold;
     cursor:pointer;
     background:linear-gradient(135deg,#ff7eb3,#ff758c);
