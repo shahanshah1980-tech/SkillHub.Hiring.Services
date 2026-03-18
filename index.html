@@ -281,15 +281,22 @@ function resetForm(){
     location.reload();
 }
 
+/* ✅ FIXED DATE PICKER */
 flatpickr("#worker_dob", {
     clickOpens: false,
     position: "auto right",
     allowInput: false,
     dateFormat: "d/m/Y",
     monthSelectorType: "dropdown",
-    yearSelectorType: "dropdown",
     minDate: "1950-01-01",
-    maxDate: "today"
+    maxDate: "today",
+    onReady: function(selectedDates, dateStr, instance) {
+        const yearInput = instance.currentYearElement;
+        yearInput.type = "number";
+        yearInput.min = 1950;
+        yearInput.max = new Date().getFullYear();
+        yearInput.style.width = "80px";
+    }
 });
 
 document.getElementById("dob_icon").addEventListener("click", function() {
