@@ -48,6 +48,7 @@ body{
     top:50%;
     transform:translateY(-50%);
     color:#888;
+    cursor:pointer;
 }
 
 /* DROPDOWN ROW */
@@ -177,8 +178,8 @@ button{
     </div>
 
     <div class="input-group">
-        <input type="text" id="worker_dob" placeholder="Date of Birth">
-        <i class="fa fa-calendar"></i>
+        <input type="date" id="worker_dob" placeholder="Date of Birth">
+        <i class="fa fa-calendar" onclick="document.getElementById('worker_dob').showPicker ? document.getElementById('worker_dob').showPicker() : document.getElementById('worker_dob').focus();"></i>
     </div>
     
     <!-- GENDER -->
