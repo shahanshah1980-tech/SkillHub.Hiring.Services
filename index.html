@@ -13,10 +13,8 @@ body{
     margin:0;
     font-family:Arial;
     background:linear-gradient(135deg,#00c6ff,#0072ff);
-    overflow: hidden; /* body scroll disable */
+    overflow: hidden;
 }
-
-/* CONTAINER */
 .worker-container{
     background:rgba(255,255,255,0.15);
     backdrop-filter:blur(15px);
@@ -25,17 +23,14 @@ body{
     width:700px;
     text-align:center;
     color:#fff;
-    margin: 20px auto; /* horizontally center */
-    height: 70vh;         /* fixed height for scrollable form */
-    overflow-y: auto;     /* scroll inside container only */
+    margin: 20px auto;
+    height: 70vh;
+    overflow-y: auto;
 }
-
-/* INPUT GROUP */
 .input-group{
     position:relative;
     margin:12px 0;
 }
-
 .input-group input{
     width:90%;
     padding:12px 40px 12px 15px;
@@ -44,8 +39,6 @@ body{
     outline:none;
     cursor: pointer;
 }
-
-/* ICON */
 .input-group i{
     position:absolute;
     right:15px;
@@ -54,22 +47,18 @@ body{
     color:#888;
     cursor: pointer;
 }
-
-/* DROPDOWN ROW */
 .dropdown-row {
     display: flex;
     gap: 10px;
-    width: 98%;            
-    max-width:98%;          
-    margin: 10px auto;      
+    width: 98%;
+    max-width:98%;
+    margin: 10px auto;
     align-items: center;
 }
-
 .dropdown-row > * {
     flex: 1;
     min-width: 0;
 }
-
 .dropdown-row select,
 .dropdown-row input {
     padding: 12px 15px;
@@ -78,50 +67,37 @@ body{
     font-size: 16px;
     outline: none;
     background: #fff;
-    color: #888; 
+    color: #888;
     box-sizing: border-box;
 }
-
-/* Dropdown default option gray */
 select option[value=""] {
     color: #888;
 }
-
-/* Selected option black */
 select.active {
     color: #000;
 }
-
-/* Initially hide second dropdown & vehicle textbox */
 #service_type1,
 #vehicle_number {
     visibility: hidden;
 }
-
-/* When both visible, equal width and fit inside row */
 .dropdown-row.show-all > * {
     flex: 1;
     visibility: visible;
 }
-
-/* GENDER */
 .gender-box{
     display:flex;
     justify-content:space-around;
     margin:15px 0;
 }
-
 .gender-option{
     display:flex;
     align-items:center;
     gap:8px;
     cursor:pointer;
 }
-
 .gender-option input{
     display:none;
 }
-
 .radio-circle{
     width:22px;
     height:22px;
@@ -130,7 +106,6 @@ select.active {
     border:2px solid #ccc;
     position:relative;
 }
-
 .gender-option input:checked + .radio-circle::after{
     content:"";
     width:10px;
@@ -142,15 +117,12 @@ select.active {
     left:50%;
     transform:translate(-50%,-50%);
 }
-
-/* BUTTONS */
 .button-group{
     display:flex;
     justify-content:center;
     gap:15px;
     margin-top:20px;
 }
-
 button{
     padding:10px 25px;
     border:none;
@@ -165,7 +137,6 @@ button{
 
 <body>
 
-<!-- Top visible title -->
 <h1 style="text-align:center; color:white; margin-top:20px; margin-bottom:20px;">SkillHub Hiring Services</h1>
 
 <div class="worker-container">
@@ -181,13 +152,11 @@ button{
         <i class="fa fa-user"></i>
     </div>
 
-    <!-- Date of Birth with right-side datepicker -->
     <div class="input-group">
         <input type="text" id="worker_dob" placeholder="Date of Birth" readonly>
         <i class="fa fa-calendar" id="dob_icon"></i>
     </div>
     
-    <!-- GENDER -->
     <div class="gender-box">
         <label class="gender-option">
             <input type="radio" name="gender" value="male">
@@ -220,7 +189,6 @@ button{
         <i class="fa fa-home"></i>
     </div>
     
-    <!-- DROPDOWN ROW -->
     <div class="dropdown-row" id="dropdownRow">
         <select id="service_type" onchange="toggleFields(); updateSelectColor(this)">
             <option value="" selected>Select Type</option>
@@ -235,18 +203,15 @@ button{
         <input type="text" id="vehicle_number" placeholder="Vehicle No">
     </div>
 
-    <!-- BUTTONS -->
     <div class="button-group">
         <button onclick="saveWorker()">Submit</button>
         <button onclick="resetForm()">Reset</button>
     </div>
 </div>
 
-<!-- Flatpickr JS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <script>
-/* COLOR CHANGE */
 function updateSelectColor(el){
     if(el.value === ""){
         el.classList.remove("active");
@@ -255,7 +220,6 @@ function updateSelectColor(el){
     }
 }
 
-/* TOGGLE LOGIC */
 function toggleFields(){
     let type = document.getElementById("service_type").value;
     let skill = document.getElementById("service_type1");
@@ -276,7 +240,7 @@ function toggleFields(){
     else if(type === "vehicle"){
         skill.style.visibility = "visible";
         vehicle.style.visibility = "visible";
-        row.classList.add("show-all"); // apply equal width
+        row.classList.add("show-all");
 
         ["Bike","Car","Truck"].forEach(i=>{
             skill.add(new Option(i,i));
@@ -288,7 +252,6 @@ function toggleFields(){
     }
 }
 
-/* SAVE */
 function saveWorker(){
     let name = document.getElementById("worker_name").value;
     let mobile = document.getElementById("worker_mobile").value;
@@ -314,19 +277,18 @@ function saveWorker(){
     alert("Worker Saved Successfully");
 }
 
-/* RESET */
 function resetForm(){
     location.reload();
 }
 
-/* Flatpickr for DOB */
+/* ✅ ONLY CHANGE HERE */
 flatpickr("#worker_dob", {
-    clickOpens: false,          // open only on icon click
-    position: "auto right",     // opens to the right
-    allowInput: false
+    clickOpens: false,
+    position: "auto right",
+    allowInput: false,
+    dateFormat: "d/m/Y"
 });
 
-// Open datepicker on icon click
 document.getElementById("dob_icon").addEventListener("click", function() {
     document.getElementById("worker_dob")._flatpickr.open();
 });
