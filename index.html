@@ -22,7 +22,7 @@ body{
     backdrop-filter:blur(15px);
     padding:30px;
     border-radius:25px;
-    width:400px;
+    width:700px;
     text-align:center;
     color:#fff;
 }
@@ -51,26 +51,48 @@ body{
     color:#888;
 }
 
-/* GENDER */
+/* GENDER BOX */
 .gender-box{
     display:flex;
     justify-content:space-around;
     margin:15px 0;
 }
-.gender-box label{
+
+/* OPTION */
+.gender-option{
+    display:flex;
+    align-items:center;
+    gap:8px;
     cursor:pointer;
+    font-size:15px;
 }
 
-/* BUTTON */
-button{
-    margin-top:10px;
-    padding:10px 20px;
-    border:none;
-    border-radius:20px;
-    background:#ff758c;
-    color:#fff;
-    cursor:pointer;
-    font-weight:bold;
+/* HIDE DEFAULT RADIO */
+.gender-option input{
+    display:none;
+}
+
+/* CIRCLE */
+.radio-circle{
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    background:#fff;
+    border:2px solid #ccc;
+    position:relative;
+}
+
+/* BLACK DOT WHEN SELECTED */
+.gender-option input:checked + .radio-circle::after{
+    content:"";
+    width:10px;
+    height:10px;
+    background:#000;
+    border-radius:50%;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
 }
 </style>
 </head>
@@ -90,11 +112,22 @@ button{
         <i class="fa fa-phone"></i>
     </div>
 
-    <!-- GENDER -->
-    <div class="gender-box">
-        <label><input type="radio" name="gender" value="male"> Male</label>
-        <label><input type="radio" name="gender" value="female"> Female</label>
-    </div>
+<div class="gender-box">
+    <label class="gender-option">
+        <input type="radio" name="gender" value="male">
+        <span class="radio-circle"></span> Male
+    </label>
+
+    <label class="gender-option">
+        <input type="radio" name="gender" value="female">
+        <span class="radio-circle"></span> Female
+    </label>
+
+    <label class="gender-option">
+        <input type="radio" name="gender" value="other">
+        <span class="radio-circle"></span> Other
+    </label>
+</div>
 
     <!-- TYPE -->
     <select id="worker_type" onchange="toggleFields()">
