@@ -210,6 +210,7 @@ button{
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/index.js"></script>
 
 <script>
 function updateSelectColor(el){
@@ -260,22 +261,23 @@ function saveWorker(){
 
 function resetForm(){ location.reload(); }
 
-/* ✅ FINAL SCROLLABLE YEAR DROPDOWN FIX ±100 years */
+/* ✅ DATEPICKER FIXED – Month dropdown + Scrollable Year Dropdown ±100 years */
 const currentYear = new Date().getFullYear();
 flatpickr("#worker_dob", {
     clickOpens: false,
     allowInput: false,
     dateFormat: "d/m/Y",
-    disableMobile: true,
     monthSelectorType: "dropdown",
-    yearSelectorType: "dropdown",
+    disableMobile: true,
     minDate: new Date(currentYear - 100,0,1),
     maxDate: new Date(currentYear + 100,11,31),
-    onReady: function(selectedDates, dateStr, instance) {
-        // Make year dropdown scrollable
-        const yearInput = instance.yearElement;
-        yearInput.setAttribute("size", 10); // dropdown shows 10 years at a time
-    }
+    plugins: [
+        new monthSelectPlugin({
+            shorthand: false,
+            dateFormat: "d/m/Y",
+            altFormat: "F Y"
+        })
+    ]
 });
 
 document.getElementById("dob_icon").addEventListener("click", function(){
