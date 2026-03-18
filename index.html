@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Add Worker</title>
+<title>SkillHub Hiring Services</title>
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
 
@@ -54,8 +54,8 @@ body{
 .dropdown-row {
     display: flex;
     gap: 10px;
-    width: 98%;            /* same width as mobile input */
-    max-width:98%;          /* ensure fit */
+    width: 90%;            /* same width as mobile input */
+    max-width:90%;          /* ensure fit */
     margin: 10px auto;      /* center alignment */
     align-items: center;
 }
@@ -167,17 +167,12 @@ button{
         <input type="text" id="worker_name" placeholder="Full Name">
         <i class="fa fa-user"></i>
     </div>
-    
-    <div class="input-group">
-        <input type="text" id="worker_father" placeholder="Father Name">
-        <i class="fa fa-user"></i>
-    </div>
 
     <div class="input-group">
-        <input type="text" id="worker_dob" placeholder="Date of Birth">
-        <i class="fa fa-calendar"></i>
+        <input type="text" id="worker_mobile" placeholder="Mobile Number">
+        <i class="fa fa-phone"></i>
     </div>
-    
+
     <!-- GENDER -->
     <div class="gender-box">
         <label class="gender-option">
@@ -195,22 +190,7 @@ button{
             <span class="radio-circle"></span> Other
         </label>
     </div>
-    
-    <div class="input-group">
-        <input type="text" id="worker_mobile" placeholder="Mobile Number">
-        <i class="fa fa-phone"></i>
-    </div> 
 
-        <div class="input-group">
-        <input type="email" id="worker_email" placeholder="Email Address">
-        <i class="fa fa-envelope"></i>
-    </div>
-
-        <div class="input-group">
-        <input type="text" id="worker_address" placeholder="Address">
-        <i class="fa fa-home"></i>
-    </div>
-    
     <!-- DROPDOWN ROW -->
     <div class="dropdown-row" id="dropdownRow">
         <select id="service_type" onchange="toggleFields(); updateSelectColor(this)">
