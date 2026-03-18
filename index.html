@@ -22,7 +22,7 @@ body{
     backdrop-filter:blur(15px);
     padding:30px;
     border-radius:25px;
-    width:700px;
+    width:550px;
     text-align:center;
     color:#fff;
 }
@@ -34,7 +34,7 @@ body{
 }
 
 .input-group input{
-    width:93%;
+    width:100%;
     padding:12px 40px 12px 15px;
     border:none;
     border-radius:20px;
@@ -44,21 +44,54 @@ body{
 /* ICON */
 .input-group i{
     position:absolute;
-    right:5px;
+    right:15px;
     top:50%;
     transform:translateY(-50%);
     color:#888;
 }
 
-/* SELECT */
-.worker-container select{
-    width:100%;
-    margin:10px 0;
+/* ROW GROUP (MAIN FIX) */
+.row-group{
+    display:flex;
+    gap:10px;
+    margin-top:10px;
+}
+
+/* DEFAULT (2 FIELD MODE) */
+.row-group select{
+    flex:1;
+}
+
+/* TYPE FIX WIDTH */
+#worker_type{
+    flex:0.8;
+}
+
+/* VEHICLE HIDDEN */
+#vehicle_no{
+    display:none;
+}
+
+/* WHEN 3 FIELD (VEHICLE MODE) */
+.row-group.three #worker_type{
+    flex:0.7;
+}
+.row-group.three #worker_skill{
+    flex:1;
+}
+.row-group.three #vehicle_no{
+    flex:1;
+    display:block;
+}
+
+/* COMMON FIELD STYLE */
+.row-group select,
+.row-group input{
     padding:12px;
     border:none;
     border-radius:20px;
     outline:none;
-    color:#888;
+    font-size:14px;
 }
 
 /* GENDER */
@@ -117,69 +150,6 @@ button{
     background:linear-gradient(135deg,#ff7eb3,#ff758c);
     color:#fff;
 }
-
-/* DROPDOWN FIX */
-.dropdown-row {
-    display: flex;
-    gap: 10px;
-    width: 100%;               
-    margin: 10px auto;
-    justify-content: flex-start; 
-    align-items: center;      
-}
-
-#main_type {
-    flex: 0 0 250px;          
-}
-
-#service_type1,
-#vehicle_number {
-    flex: 1;                  
-    visibility: visible;       
-    display: block;           
-}
-.dropdown-row select {
-    border: none;
-    outline: none;
-    box-shadow: none;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    
-    padding: 12px;
-    border-radius: 20px;
-    font-size: 16px;
-    background: #fff;
-    color: #888;
-    width: 100%;
-    box-sizing: border-box;
-    cursor: pointer;
-}
-
-.dropdown-row select option {
-    color: #000;
-}
-
-.dropdown-row select option[value=""] {
-    color: #888;
-}
-
-.dropdown-row select::-ms-expand { display: block; }
-
-#vehicle_number {
-    border: none;
-    outline: none;
-    box-shadow: none;
-    border-radius: 20px;
-    padding: 12px;
-    font-size: 16px;
-    background: #fff;
-    color: #888;
-    width: 100%;
-    box-sizing: border-box;
-    cursor: text;
-}
-
 </style>
 </head>
 
@@ -216,20 +186,22 @@ button{
         </label>
     </div>
 
-    <!-- TYPE -->
-    <select id="worker_type" onchange="toggleFields()">
-        <option value="">Select Type</option>
-        <option value="worker">Worker</option>
-        <option value="vehicle">Vehicle</option>
-    </select>
+    <!-- ROW GROUP -->
+    <div class="row-group" id="rowGroup">
 
-    <!-- SKILL -->
-    <select id="worker_skill">
-        <option value="">Select Skill</option>
-    </select>
+        <select id="worker_type" onchange="toggleFields()">
+            <option value="">Select Type</option>
+            <option value="worker">Worker</option>
+            <option value="vehicle">Vehicle</option>
+        </select>
 
-    <!-- VEHICLE -->
-    <input type="text" id="vehicle_no" placeholder="Vehicle Number">
+        <select id="worker_skill">
+            <option value="">Select Skill</option>
+        </select>
+
+        <input type="text" id="vehicle_no" placeholder="Vehicle No">
+
+    </div>
 
     <!-- BUTTONS -->
     <div class="button-group">
@@ -240,31 +212,37 @@ button{
 
 <script>
 
-/* TOGGLE */
+/* TOGGLE LOGIC */
 function toggleFields(){
     let type = document.getElementById("worker_type").value;
     let skill = document.getElementById("worker_skill");
     let vehicle = document.getElementById("vehicle_no");
+    let row = document.getElementById("rowGroup");
 
     skill.innerHTML = "<option value=''>Select</option>";
 
     if(type === "worker"){
+        row.classList.remove("three");
         vehicle.style.display = "none";
 
         ["Labour","Helper","Mason","Electrician"].forEach(i=>{
-            let opt = new Option(i,i);
-            skill.add(opt);
+            skill.add(new Option(i,i));
         });
     }
     else if(type === "vehicle"){
+        row.classList.add("three");
         vehicle.style.display = "block";
 
         ["Bike","Car","Truck"].forEach(i=>{
-            let opt = new Option(i,i);
-            skill.add(opt);
+            skill.add(new Option(i,i));
         });
     }
+    else{
+        row.classList.remove("three");
+        vehicle.style.display = "none";
+    }
 }
+
 /* SAVE */
 function saveWorker(){
     let name = document.getElementById("worker_name").value;
