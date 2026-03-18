@@ -281,7 +281,7 @@ function resetForm(){
     location.reload();
 }
 
-/* ✅ FIXED DATE PICKER */
+/* ✅ FINAL FIXED DATE PICKER */
 flatpickr("#worker_dob", {
     clickOpens: false,
     position: "auto right",
@@ -290,12 +290,14 @@ flatpickr("#worker_dob", {
     monthSelectorType: "dropdown",
     minDate: "1950-01-01",
     maxDate: "today",
+    disableMobile: true,
+
     onReady: function(selectedDates, dateStr, instance) {
-        const yearInput = instance.currentYearElement;
+        let yearInput = instance.currentYearElement;
         yearInput.type = "number";
         yearInput.min = 1950;
         yearInput.max = new Date().getFullYear();
-        yearInput.style.width = "80px";
+        yearInput.step = 1;
     }
 });
 
