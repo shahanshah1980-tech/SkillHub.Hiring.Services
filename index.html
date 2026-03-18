@@ -11,10 +11,9 @@ body{
     font-family:Arial;
     display:flex;
     justify-content:center;
-    align-items:flex-start;   /* top aligned */
+    align-items:center;
     height:100vh;
     background:linear-gradient(135deg,#00c6ff,#0072ff);
-    padding-top:50px;         /* form pushed down from top */
 }
 
 /* CONTAINER */
@@ -161,6 +160,9 @@ button{
 
 <body>
 
+<!-- Top visible title -->
+<h1 style="text-align:center; color:white; margin-bottom:20px;">SkillHub Hiring Services</h1>
+
 <div class="worker-container">
     <h2>Add Worker</h2>
 
@@ -202,12 +204,12 @@ button{
         <i class="fa fa-phone"></i>
     </div> 
 
-        <div class="input-group">
+    <div class="input-group">
         <input type="email" id="worker_email" placeholder="Email Address">
         <i class="fa fa-envelope"></i>
     </div>
 
-        <div class="input-group">
+    <div class="input-group">
         <input type="text" id="worker_address" placeholder="Address">
         <i class="fa fa-home"></i>
     </div>
