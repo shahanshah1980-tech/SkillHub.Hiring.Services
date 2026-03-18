@@ -35,9 +35,9 @@ body{
 #vehicle_number {
     width:98%;
     height:50px; /* fixed uniform height */
-    padding:0 15px; /* remove vertical padding to prevent height change */
+    padding:0 15px; 
     border:none;
-    border-radius:50px; /* fully rounded */
+    border-radius:50px; 
     outline:none;
     cursor: pointer;
     background:#fff;
@@ -46,7 +46,7 @@ body{
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    box-sizing: border-box; /* ensures height does not grow with padding */
+    box-sizing: border-box; 
 }
 .input-group select.active {
     color: #000; /* black when selected */
@@ -73,9 +73,6 @@ body{
     height:50px; /* uniform height */
     border-radius:50px; /* fully rounded */
     box-sizing: border-box; /* fixed height */
-}
-select option[value=""] {
-    color: #888;
 }
 #service_type1,
 #vehicle_number {
@@ -230,8 +227,10 @@ button{
 function updateSelectColor(el){
     if(el.value === ""){ 
         el.classList.remove("active"); 
+        el.style.color = "#888";
     } else { 
         el.classList.add("active"); 
+        el.style.color = "#000";
     }
 }
 
