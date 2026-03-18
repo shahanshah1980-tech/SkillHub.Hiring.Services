@@ -260,7 +260,7 @@ function saveWorker(){
 
 function resetForm(){ location.reload(); }
 
-/* ✅ DATEPICKER FIXED – Month dropdown + Year range ±100 from current */
+/* ✅ DATEPICKER FIXED – Month dropdown + Year scrollable dropdown ±100 years */
 const currentYear = new Date().getFullYear();
 flatpickr("#worker_dob", {
     clickOpens: false,
@@ -268,16 +268,10 @@ flatpickr("#worker_dob", {
     allowInput: false,
     dateFormat: "d/m/Y",
     monthSelectorType: "dropdown",
+    yearSelectorType: "dropdown",
     minDate: new Date(currentYear - 100,0,1),
     maxDate: new Date(currentYear + 100,11,31),
-    disableMobile: true,
-    onReady: function(selectedDates, dateStr, instance){
-        let yearInput = instance.currentYearElement;
-        yearInput.type = "number";
-        yearInput.min = currentYear - 100;
-        yearInput.max = currentYear + 100;
-        yearInput.step = 1;
-    }
+    disableMobile: true
 });
 
 document.getElementById("dob_icon").addEventListener("click", function(){
