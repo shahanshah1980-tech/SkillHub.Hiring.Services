@@ -4,18 +4,16 @@
 <title>SkillHub Hiring Services</title>
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-
-<!-- Flatpickr CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 <style>
-body{
+body {
     margin:0;
     font-family:Arial;
     background:linear-gradient(135deg,#00c6ff,#0072ff);
     overflow: hidden;
 }
-.worker-container{
+.worker-container {
     background:rgba(255,255,255,0.15);
     backdrop-filter:blur(15px);
     padding:30px;
@@ -23,83 +21,83 @@ body{
     width:700px;
     text-align:center;
     color:#fff;
-    margin: 20px auto;
-    height: 70vh;
-    overflow-y: auto;
+    margin:20px auto;
+    height:70vh;
+    overflow-y:auto;
 }
-.input-group{
+.input-group {
     position:relative;
     margin:12px 0;
 }
 .input-group input,
-.input-group select{
+.input-group select {
     width:90%;
     padding:12px 40px 12px 15px;
     border:none;
     border-radius:20px;
     outline:none;
-    cursor: pointer;
+    cursor:pointer;
 }
-.input-group i{
+.input-group i {
     position:absolute;
     right:15px;
     top:50%;
     transform:translateY(-50%);
     color:#888;
-    cursor: pointer;
+    cursor:pointer;
 }
 .dropdown-row {
-    display: flex;
-    gap: 10px;
-    width: 98%;
+    display:flex;
+    gap:10px;
+    width:98%;
     max-width:98%;
-    margin: 10px auto;
-    align-items: center;
+    margin:10px auto;
+    align-items:center;
 }
 .dropdown-row > * {
-    flex: 1;
-    min-width: 0;
+    flex:1;
+    min-width:0;
 }
 .dropdown-row select,
 .dropdown-row input {
-    padding: 12px 15px;
-    border-radius: 20px;
-    border: none;
-    font-size: 16px;
-    outline: none;
-    background: #fff;
-    color: #888;
-    box-sizing: border-box;
+    padding:12px 15px;
+    border-radius:20px;
+    border:none;
+    font-size:16px;
+    outline:none;
+    background:#fff;
+    color:#888;
+    box-sizing:border-box;
 }
 select option[value=""] {
-    color: #888;
+    color:#888;
 }
 select.active {
-    color: #000;
+    color:#000;
 }
 #service_type1,
 #vehicle_number {
-    visibility: hidden;
+    visibility:hidden;
 }
 .dropdown-row.show-all > * {
-    flex: 1;
-    visibility: visible;
+    flex:1;
+    visibility:visible;
 }
-.gender-box{
+.gender-box {
     display:flex;
     justify-content:space-around;
     margin:15px 0;
 }
-.gender-option{
+.gender-option {
     display:flex;
     align-items:center;
     gap:8px;
     cursor:pointer;
 }
-.gender-option input{
+.gender-option input {
     display:none;
 }
-.radio-circle{
+.radio-circle {
     width:22px;
     height:22px;
     border-radius:50%;
@@ -107,7 +105,7 @@ select.active {
     border:2px solid #ccc;
     position:relative;
 }
-.gender-option input:checked + .radio-circle::after{
+.gender-option input:checked + .radio-circle::after {
     content:"";
     width:10px;
     height:10px;
@@ -118,13 +116,13 @@ select.active {
     left:50%;
     transform:translate(-50%,-50%);
 }
-.button-group{
+.button-group {
     display:flex;
     justify-content:center;
     gap:15px;
     margin-top:20px;
 }
-button{
+button {
     padding:10px 25px;
     border:none;
     border-radius:25px;
@@ -138,7 +136,7 @@ button{
 
 <body>
 
-<h1 style="text-align:center; color:white; margin-top:20px; margin-bottom:20px;">SkillHub Hiring Services</h1>
+<h1 style="text-align:center; color:white; margin:20px 0;">SkillHub Hiring Services</h1>
 
 <div class="worker-container">
     <h2>Add Worker</h2>
@@ -190,7 +188,6 @@ button{
         <i class="fa fa-home"></i>
     </div>
     
-    <!-- First Dropdown -->
     <div class="input-group">
         <select id="service_type" onchange="toggleFields(); updateSelectColor(this)">
             <option value="" selected>Select any one</option>
@@ -199,7 +196,6 @@ button{
         </select>
     </div>
 
-    <!-- Second dropdown + vehicle number row (unchanged) -->
     <div class="dropdown-row" id="dropdownRow">
         <select id="service_type1" onchange="updateSelectColor(this)">
             <option value="" selected>Select any one</option>
@@ -207,14 +203,15 @@ button{
 
         <input type="text" id="vehicle_number" placeholder="Vehicle No">
     </div>
-    <!-- ✅ Subtype dropdown: bilkul first dropdown ke neeche -->
+
     <div class="input-group">
         <select id="service_subtype" onchange="updateSelectColor(this)">
-            <option value="" selected>Select any one</option>
+            <option value="" selected>Select Sub Type</option>
             <option value="Sub Option 1">Sub Option 1</option>
             <option value="Sub Option 2">Sub Option 2</option>
         </select>
     </div>
+
     <div class="button-group">
         <button onclick="saveWorker()">Submit</button>
         <button onclick="resetForm()">Reset</button>
@@ -225,8 +222,7 @@ button{
 
 <script>
 function updateSelectColor(el){
-    if(el.value === ""){ el.classList.remove("active"); } 
-    else { el.classList.add("active"); }
+    el.classList.toggle("active", el.value !== "");
 }
 
 function toggleFields(){
@@ -241,32 +237,31 @@ function toggleFields(){
     if(type === "worker"){
         skill.style.visibility = "visible";
         vehicle.style.visibility = "hidden";
-        [ "Labour","Helper","Mason","Steel Fixer","Shuttering Carpenter",
-    "Carpenter","Wood Carpenter","Furniture Carpenter","Interior Carpenter",
-    "Tile Fixer","Marble Fixer","Granite Fixer","Wall Painter","Spray Painter",
-    "POP Worker","Plaster Worker","Gypsum Worker","False Ceiling Worker",
-    "Waterproofing Worker","Roofing Worker","Demolition Worker","Electrician",
-    "Industrial Electrician","AC Mechanic","AC Technician","Refrigerator Mechanic",
-    "Washing Machine Mechanic","Generator Mechanic","Lift Technician","Pump Mechanic",
-    "Motor Winder","PC Mechanic","Laptop Mechanic","Computer Hardware Technician",
-    "Printer Technician","CCTV Technician","Network Technician","Mobile Repair Technician",
-    "LED TV Technician","Solar Technician","Welder","Gas Welder","Arc Welder",
-    "Steel Fabricator","Aluminium Fabricator","Iron Worker","Grill Maker",
-    "Gate Fabricator","Plumber","Pipe Fitter","Sanitary Fitter","Water Tank Cleaner",
-    "Drainage Worker","Furniture Maker","Wood Polisher","Modular Kitchen Installer",
-    "Curtain Fitter","Wallpaper Installer","Glass Fitter","Door Window Fitter",
-    "Gardener","Landscaper","Pest Control Worker","Cleaning Worker","House Keeping",
-    "Security Helper"].forEach(i=>{ skill.add(new Option(i,i)); });
+        ["Labour","Helper","Mason","Steel Fixer","Shuttering Carpenter",
+        "Carpenter","Wood Carpenter","Furniture Carpenter","Interior Carpenter",
+        "Tile Fixer","Marble Fixer","Granite Fixer","Wall Painter","Spray Painter",
+        "POP Worker","Plaster Worker","Gypsum Worker","False Ceiling Worker",
+        "Waterproofing Worker","Roofing Worker","Demolition Worker","Electrician",
+        "Industrial Electrician","AC Mechanic","AC Technician","Refrigerator Mechanic",
+        "Washing Machine Mechanic","Generator Mechanic","Lift Technician","Pump Mechanic",
+        "Motor Winder","PC Mechanic","Laptop Mechanic","Computer Hardware Technician",
+        "Printer Technician","CCTV Technician","Network Technician","Mobile Repair Technician",
+        "LED TV Technician","Solar Technician","Welder","Gas Welder","Arc Welder",
+        "Steel Fabricator","Aluminium Fabricator","Iron Worker","Grill Maker",
+        "Gate Fabricator","Plumber","Pipe Fitter","Sanitary Fitter","Water Tank Cleaner",
+        "Drainage Worker","Furniture Maker","Wood Polisher","Modular Kitchen Installer",
+        "Curtain Fitter","Wallpaper Installer","Glass Fitter","Door Window Fitter",
+        "Gardener","Landscaper","Pest Control Worker","Cleaning Worker","House Keeping",
+        "Security Helper"].forEach(i => skill.add(new Option(i,i)));
     }
     else if(type === "vehicle"){
         skill.style.visibility = "visible";
         vehicle.style.visibility = "visible";
         row.classList.add("show-all");
-        [ "Bike","Scooter","Auto Rickshaw","E-Rickshaw","Tempo","Pickup",
-    "Mini Truck","Truck","Taxi","Cab","Van","Bus","School Bus",
-    "Tourist Bus","Ambulance","Tractor","JCB","Crane","Loader","Dumper"].forEach(i=>{ skill.add(new Option(i,i)); });
-    }
-    else{
+        ["Bike","Scooter","Auto Rickshaw","E-Rickshaw","Tempo","Pickup",
+        "Mini Truck","Truck","Taxi","Cab","Van","Bus","School Bus",
+        "Tourist Bus","Ambulance","Tractor","JCB","Crane","Loader","Dumper"].forEach(i => skill.add(new Option(i,i)));
+    } else {
         skill.style.visibility = "hidden";
         vehicle.style.visibility = "hidden";
     }
@@ -278,7 +273,10 @@ function saveWorker(){
     let gender = document.querySelector('input[name="gender"]:checked');
     let type = document.getElementById("service_type").value;
 
-    if(!name || !mobile || !gender || !type){ alert("Please fill all required fields"); return; }
+    if(!name || !mobile || !gender || !type){
+        alert("Please fill all required fields");
+        return;
+    }
 
     let workers = JSON.parse(localStorage.getItem("workers")) || [];
     workers.push({ name, mobile, gender: gender.value, type });
