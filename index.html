@@ -1,417 +1,185 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>SkillHub Hiring Services</title>
+<title>Add Worker</title>
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <style>
 body{
     margin:0;
     font-family:Arial;
-    height:100vh;
     display:flex;
     justify-content:center;
-    align-items:flex-start;
+    align-items:center;
+    height:100vh;
     background:linear-gradient(135deg,#00c6ff,#0072ff);
-    overflow:auto;
-    padding-top:120px;
 }
-.title{
-    position:fixed;
-    top:10px;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:28px;
-    color:#fff;
-    font-weight:bold;
-}
-.container{
+
+/* CONTAINER */
+.worker-container{
     background:rgba(255,255,255,0.15);
     backdrop-filter:blur(15px);
+    padding:30px;
     border-radius:25px;
-    padding:30px 20px;
-    width:700px;
-    color:#fff;
+    width:400px;
     text-align:center;
-    margin-bottom:50px;
-}
-.form-title{font-size:22px; font-weight:bold; margin-bottom:20px;}
-.input-group{position:relative; margin:12px 0;}
-.input-group input, .input-group select{
-    width:90%;
-    padding:12px 35px;
-    border-radius:20px;
-    border:none;
-    outline:none;
-    font-size:16px;
-    background:#fff;
-    color:#000;
-}
-/* SIRF ICON FIX */
-.input-group i{
-    position:absolute;
-    right:15px;
-    top:50%;
-    transform:translateY(-50%);
-    cursor:pointer;
-    color: #888;
-}
-
-.btns{
-    display:flex;
-    justify-content:center;
-    gap:15px;
-    margin-top:15px;
-    flex-wrap:wrap;
-}
-button{
-    padding:10px 25px;
-    border-radius:25px;
-    border:none;
-    cursor:pointer;
-    font-size:15px;
-    font-weight:bold;
-    background:linear-gradient(135deg,#ff7eb3,#ff758c);
     color:#fff;
 }
-#signupForm, #dashboard, #adminPanel, #addWorkForm{display:none;}
-#addWorkForm{max-height:70vh; overflow-y:auto;}
 
-.input-group.radio-group{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    width:93%;
-    margin:20px auto;
+/* INPUT */
+.worker-container input,
+.worker-container select{
+    width:90%;
+    margin:10px 0;
+    padding:12px;
+    border:none;
+    border-radius:20px;
+    outline:none;
+    font-size:15px;
 }
-.gender-option{display:flex; align-items:center; gap:10px; cursor:pointer;}
-.gender-option input{display:none;}
-.radio-circle{
-    width:26px;
-    height:26px;
-    border-radius:50%;
-    background:#fff;
-    border:3px solid #e0e0e0;
+
+/* ICON INPUT */
+.input-group{
     position:relative;
 }
-.gender-option input:checked + .radio-circle::after{
-    content:"";
-    width:12px;
-    height:12px;
-    background:#000;
-    border-radius:50%;
+.input-group i{
     position:absolute;
+    right:20px;
     top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
+    transform:translateY(-50%);
+    color:#888;
 }
 
-/* DROPDOWN FIX */
-.dropdown-row {
-    display: flex;
-    gap: 10px;
-    width: 100%;               
-    margin: 10px auto;
-    justify-content: flex-start; 
-    align-items: center;      
+/* GENDER */
+.gender-box{
+    display:flex;
+    justify-content:space-around;
+    margin:15px 0;
+}
+.gender-box label{
+    cursor:pointer;
 }
 
-#main_type {
-    flex: 0 0 250px;          
-}
-
-#service_type1,
-#vehicle_number {
-    flex: 1;                  
-    visibility: visible;       
-    display: block;           
-}
-.dropdown-row select {
-    border: none;
-    outline: none;
-    box-shadow: none;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    
-    padding: 12px;
-    border-radius: 20px;
-    font-size: 16px;
-    background: #fff;
-    color: #888;
-    width: 100%;
-    box-sizing: border-box;
-    cursor: pointer;
-}
-
-.dropdown-row select option {
-    color: #000;
-}
-
-.dropdown-row select option[value=""] {
-    color: #888;
-}
-
-.dropdown-row select::-ms-expand { display: block; }
-
-#vehicle_number {
-    border: none;
-    outline: none;
-    box-shadow: none;
-    border-radius: 20px;
-    padding: 12px;
-    font-size: 16px;
-    background: #fff;
-    color: #888;
-    width: 100%;
-    box-sizing: border-box;
-    cursor: text;
+/* BUTTON */
+button{
+    margin-top:10px;
+    padding:10px 20px;
+    border:none;
+    border-radius:20px;
+    background:#ff758c;
+    color:#fff;
+    cursor:pointer;
+    font-weight:bold;
 }
 </style>
 </head>
+
 <body>
 
-<h1 class="title">SkillHub & Hiring Services</h1>
-
-<!-- LOGIN -->
-<div class="container" id="loginForm">
-    <h2 class="form-title">Login</h2>
-    <div class="input-group">
-        <input type="text" id="worker_name" placeholder="User name">
-        <i class="fa fa-user"></i>
-    </div>
-    <div class="input-group">
-        <input type="password" id="login_password" placeholder="Password">
-        <i class="fa fa-eye" onclick="app_togglePassword('login_password',this)"></i>
-    </div>
-    <div class="btns">
-        <button onclick="openDashboard()">Login</button>
-        <button onclick="openAddWork()">Add Worker</button>
-        <button onclick="openNewuser()">New User</button>
-    </div>
-</div>
-
-<!-- SIGNUP -->
-<div class="container" id="signupForm">
-    <h2 class="form-title">Signup</h2>
-    <div class="input-group">
-        <input type="text" id="signup_name" placeholder="Full Name">
-        <i class="fa fa-user"></i>
-    </div>
-    <div class="input-group">
-        <input type="email" id="signup_email" placeholder="Email">
-        <i class="fa fa-envelope"></i>
-    </div>
-    <div class="input-group">
-        <input type="password" id="signup_password" placeholder="Password">
-        <i class="fa fa-eye" onclick="app_togglePassword('signup_password',this)"></i>
-    </div>
-    <div class="btns">
-        <button onclick="backLogin()">Back</button>
-        <button onclick="signupSave()">Signup</button>
-    </div>
-</div>
-
-<!-- ADD WORKER -->
-<div class="container" id="addWorkForm">
-<h2 class="form-title">Add Worker</h2>
+<div class="worker-container">
+    <h2>Add Worker</h2>
 
     <div class="input-group">
         <input type="text" id="worker_name" placeholder="Full Name">
         <i class="fa fa-user"></i>
     </div>
-    <div class="input-group">
-        <input type="text" id="worker_father" placeholder="Father Name">
-        <i class="fa fa-user"></i>
-    </div>
-    <div class="input-group">
-        <input type="text" id="worker_dob" placeholder="Date of Birth">
-        <i class="fa fa-calendar"></i>
-    </div>
 
-    <!-- GENDER -->
-    <div class="input-group radio-group">
-        <label class="gender-option">
-            <input type="radio" name="worker_gender" value="male">
-            <span class="radio-circle"></span> Male
-        </label>
-        <label class="gender-option">
-            <input type="radio" name="worker_gender" value="female">
-            <span class="radio-circle"></span> Female
-        </label>
-        <label class="gender-option">
-            <input type="radio" name="worker_gender" value="other">
-            <span class="radio-circle"></span> Other
-        </label>
-    </div>
-
-   
     <div class="input-group">
         <input type="text" id="worker_mobile" placeholder="Mobile Number">
         <i class="fa fa-phone"></i>
     </div>
-        <div class="input-group">
-        <input type="email" id="worker_email" placeholder="Email Address">
-        <i class="fa fa-envelope"></i>
-    </div>
-        <div class="input-group">
-        <input type="text" id="worker_address" placeholder="Address">
-        <i class="fa fa-home"></i>
+
+    <!-- GENDER -->
+    <div class="gender-box">
+        <label><input type="radio" name="gender" value="male"> Male</label>
+        <label><input type="radio" name="gender" value="female"> Female</label>
     </div>
 
-    <div class="dropdown-row">
-        <select id="main_type" onchange="toggleWorkerFields()">
-            <option value="">Select Any One</option>
-            <option value="workers">Workers</option>
-            <option value="vehicle">Vehicle</option>
-        </select>
+    <!-- TYPE -->
+    <select id="worker_type" onchange="toggleFields()">
+        <option value="">Select Type</option>
+        <option value="worker">Worker</option>
+        <option value="vehicle">Vehicle</option>
+    </select>
 
-        <select id="service_type1" style="visibility:hidden"></select>
-        <input type="text" id="vehicle_number" placeholder="Vehicle No" style="visibility:hidden">
-    </div>
+    <!-- SKILL -->
+    <select id="worker_skill">
+        <option value="">Select Skill</option>
+    </select>
 
-    <div class="btns">
-       
-        <button onclick="worker_save()">Submit</button>
-        <button onclick="backLogin()">Back</button>
-    </div>
+    <!-- VEHICLE -->
+    <input type="text" id="vehicle_no" placeholder="Vehicle Number" style="display:none">
+
+    <button onclick="saveWorker()">Submit</button>
 </div>
 
 <script>
-/* ULTRAMSG */
-var token="1xhtdh7bylh73iay";
-var instance="instance164778";
 
-/* PASSWORD */
-function app_togglePassword(id,icon){
-    var input=document.getElementById(id);
-    input.type = input.type==="password" ? "text" : "password";
-}
+/* TOGGLE FIELDS */
+function toggleFields(){
+    let type = document.getElementById("worker_type").value;
+    let skill = document.getElementById("worker_skill");
+    let vehicle = document.getElementById("vehicle_no");
 
-/* DROPDOWN */
-function toggleWorkerFields(){
-    var main=document.getElementById("main_type");
-    var skill=document.getElementById("service_type1");
-    var vehicle=document.getElementById("vehicle_number");
+    skill.innerHTML = "<option value=''>Select</option>";
 
-    skill.innerHTML="";
+    if(type === "worker"){
+        vehicle.style.display = "none";
 
-    if(main.value==="workers"){
-        skill.style.visibility="visible";
-        vehicle.style.visibility="hidden";
-
-        var list=["Labour","Helper","Mason","Electrician"];
-        skill.innerHTML="<option value=''>Select Any One</option>";
+        let list = ["Labour","Helper","Mason","Electrician"];
         list.forEach(i=>{
-            var opt=document.createElement("option");
-            opt.value=i;
-            opt.text=i;
+            let opt = document.createElement("option");
+            opt.value = i;
+            opt.text = i;
             skill.appendChild(opt);
         });
     }
-    else if(main.value==="vehicle"){
-        skill.style.visibility="visible";
-        vehicle.style.visibility="visible";
+    else if(type === "vehicle"){
+        vehicle.style.display = "block";
 
-        var list=["Bike","Car","Truck"];
-        skill.innerHTML="<option value=''>Select Vehicle</option>";
+        let list = ["Bike","Car","Truck"];
         list.forEach(i=>{
-            var opt=document.createElement("option");
-            opt.value=i;
-            opt.text=i;
+            let opt = document.createElement("option");
+            opt.value = i;
+            opt.text = i;
             skill.appendChild(opt);
         });
     }
-    else{
-        skill.style.visibility="hidden";
-        vehicle.style.visibility="hidden";
-    }
-
-    skill.style.color="#888";
-}
-
-/* COLOR CHANGE */
-document.addEventListener("change",function(e){
-    if(e.target.tagName==="SELECT"){
-        e.target.style.color = e.target.value==="" ? "#888" : "#000";
-    }
-});
-
-/* DATE */
-flatpickr("#worker_dob",{dateFormat:"d/m/Y"});
-
-/* OTP */
-function sendWorkerOTP(){
-    var num=document.getElementById("worker_mobile").value;
-    if(!num){alert("Enter Mobile");return;}
-
-    var otp=Math.floor(100000+Math.random()*900000);
-    fetch(`https://api.ultramsg.com/${instance}/messages/chat`,{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({token:token,to:num,body:"OTP: "+otp})
-    });
-
-    alert("OTP Sent");
 }
 
 /* SAVE WORKER */
-function worker_save(){
-    var name=document.getElementById("worker_name").value;
-    var mobile=document.getElementById("worker_mobile").value;
-    var gender=document.querySelector('input[name="worker_gender"]:checked');
+function saveWorker(){
+    let name = document.getElementById("worker_name").value;
+    let mobile = document.getElementById("worker_mobile").value;
+    let gender = document.querySelector('input[name="gender"]:checked');
+    let type = document.getElementById("worker_type").value;
+    let skill = document.getElementById("worker_skill").value;
+    let vehicle = document.getElementById("vehicle_no").value;
 
-    if(!name||!mobile||!gender){
-        alert("Fill all fields");
+    if(!name || !mobile || !gender || !type){
+        alert("Please fill all required fields");
         return;
     }
 
-    var list=JSON.parse(localStorage.getItem("workers"))||[];
-    list.push({name,mobile,gender:gender.value});
-    localStorage.setItem("workers",JSON.stringify(list));
+    let workers = JSON.parse(localStorage.getItem("workers")) || [];
 
-    alert("Saved");
+    workers.push({
+        name,
+        mobile,
+        gender: gender.value,
+        type,
+        skill,
+        vehicle
+    });
+
+    localStorage.setItem("workers", JSON.stringify(workers));
+
+    alert("Worker Saved Successfully");
+
     location.reload();
 }
 
-/* SAVE SIGNUP */
-function signupSave(){
-    var name=document.getElementById("signup_name").value;
-    var email=document.getElementById("signup_email").value;
-    var password=document.getElementById("signup_password").value;
-
-    if(!name || !email || !password){
-        alert("Fill all fields");
-        return;
-    }
-
-    var users = JSON.parse(localStorage.getItem("users")) || [];
-    users.push({name,email,password});
-    localStorage.setItem("users",JSON.stringify(users));
-
-    alert("Signup Successful");
-    backLogin();
-}
-
-/* NAVIGATION */
-function openSignup(){
-    document.getElementById("loginForm").style.display = "none";
-    document.getElementById("signupForm").style.display = "block";
-}
-
-function openAddWork(){
-    document.getElementById("loginForm").style.display="none";
-    document.getElementById("addWorkForm").style.display="block";
-}
-
-function backLogin(){
-    document.getElementById("loginForm").style.display="block";
-    document.getElementById("signupForm").style.display="none";
-    document.getElementById("addWorkForm").style.display="none";
-}
 </script>
 
 </body>
