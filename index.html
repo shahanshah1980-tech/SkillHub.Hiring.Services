@@ -5,6 +5,9 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
 
+<!-- Flatpickr CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
 <style>
 body{
     margin:0;
@@ -239,6 +242,9 @@ button{
     </div>
 </div>
 
+<!-- Flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 <script>
 /* COLOR CHANGE */
 function updateSelectColor(el){
@@ -313,20 +319,16 @@ function resetForm(){
     location.reload();
 }
 
-/* RIGHT-SIDE DATEPICKER FOR DOB */
-const dobInput = document.getElementById("worker_dob");
-const dobIcon = document.getElementById("dob_icon");
+/* Flatpickr for DOB */
+flatpickr("#worker_dob", {
+    clickOpens: false,          // open only on icon click
+    position: "auto right",     // opens to the right
+    allowInput: false
+});
 
-dobIcon.addEventListener("click", function(){
-    // Temporarily change input type to date to trigger native picker
-    dobInput.type = "date";
-    dobInput.focus();
-
-    // Revert back to text after picker closes (on blur)
-    dobInput.addEventListener("blur", function revertType() {
-        dobInput.type = "text";
-        dobInput.removeEventListener("blur", revertType);
-    });
+// Open datepicker on icon click
+document.getElementById("dob_icon").addEventListener("click", function() {
+    document.getElementById("worker_dob")._flatpickr.open();
 });
 </script>
 
