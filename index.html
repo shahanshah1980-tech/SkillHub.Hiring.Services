@@ -31,13 +31,20 @@ body{
     position:relative;
     margin:12px 0;
 }
-.input-group input{
+.input-group input,
+.input-group select{
     width:90%;
     padding:12px 40px 12px 15px;
     border:none;
     border-radius:20px;
     outline:none;
     cursor: pointer;
+    background:#fff;
+    color:#888;
+    font-size:16px;
+}
+.input-group select.active {
+    color: #000;
 }
 .input-group i{
     position:absolute;
@@ -59,22 +66,8 @@ body{
     flex: 1;
     min-width: 0;
 }
-.dropdown-row select,
-.dropdown-row input {
-    padding: 12px 15px;
-    border-radius: 20px;
-    border: none;
-    font-size: 16px;
-    outline: none;
-    background: #fff;
-    color: #888;
-    box-sizing: border-box;
-}
 select option[value=""] {
     color: #888;
-}
-select.active {
-    color: #000;
 }
 #service_type1,
 #vehicle_number {
@@ -202,15 +195,17 @@ button{
 
         <input type="text" id="vehicle_number" placeholder="Vehicle No">
     </div>
+
+    <!-- ID Proof Dropdown (Round style) -->
     <div class="input-group">
-        <select id="service_type" onchange="toggleFields(); updateSelectColor(this)">
+        <select id="id_proof" onchange="updateSelectColor(this)">
             <option value="" selected>Select any one</option>
             <option value="Adharcard">Adhar Card</option>
             <option value="Passport">Passport</option>
-            <option value="DL">DL</option>           
+            <option value="DL">DL</option>
         </select>
-
     </div>
+
     <div class="button-group">
         <button onclick="saveWorker()">Submit</button>
         <button onclick="resetForm()">Reset</button>
@@ -285,7 +280,7 @@ function saveWorker(){
 
 function resetForm(){ location.reload(); }
 
-/* ✅ DATEPICKER FIXED – Month dropdown + Year scrollable dropdown ±100 years */
+/* DATEPICKER */
 const currentYear = new Date().getFullYear();
 flatpickr("#worker_dob", {
     clickOpens: false,
