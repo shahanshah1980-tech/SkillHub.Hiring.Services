@@ -36,7 +36,7 @@ body{
     width:98%;
     height:50px; /* fixed uniform height */
     padding:0 15px; 
-    border:none;
+    border:none; /* NO BORDER */
     border-radius:50px; 
     outline:none;
     cursor: pointer;
@@ -73,6 +73,7 @@ body{
     height:50px; /* uniform height */
     border-radius:50px; /* fully rounded */
     box-sizing: border-box; /* fixed height */
+    border:none; /* NO BORDER */
 }
 #service_type1,
 #vehicle_number {
@@ -276,7 +277,6 @@ function toggleFields(){
         vehicle.style.visibility = "hidden";
     }
 
-    // Update color of dynamically added select
     updateSelectColor(skill);
 }
 
@@ -315,7 +315,6 @@ document.getElementById("dob_icon").addEventListener("click", function(){
     document.getElementById("worker_dob")._flatpickr.open();
 });
 
-// Apply select color on page load and dynamically
 document.querySelectorAll('select').forEach(sel => {
     updateSelectColor(sel); // initial color
     sel.addEventListener('change', function() {
