@@ -199,15 +199,6 @@ button{
         </select>
     </div>
 
-    <!-- ✅ Subtype dropdown: bilkul first dropdown ke neeche -->
-    <div class="input-group">
-        <select id="service_subtype" onchange="updateSelectColor(this)">
-            <option value="" selected>Select any one</option>
-            <option value="Sub Option 1">Sub Option 1</option>
-            <option value="Sub Option 2">Sub Option 2</option>
-        </select>
-    </div>
-
     <!-- Second dropdown + vehicle number row (unchanged) -->
     <div class="dropdown-row" id="dropdownRow">
         <select id="service_type1" onchange="updateSelectColor(this)">
@@ -216,7 +207,14 @@ button{
 
         <input type="text" id="vehicle_number" placeholder="Vehicle No">
     </div>
-
+    <!-- ✅ Subtype dropdown: bilkul first dropdown ke neeche -->
+    <div class="input-group">
+        <select id="service_subtype" onchange="updateSelectColor(this)">
+            <option value="" selected>Select any one</option>
+            <option value="Sub Option 1">Sub Option 1</option>
+            <option value="Sub Option 2">Sub Option 2</option>
+        </select>
+    </div>
     <div class="button-group">
         <button onclick="saveWorker()">Submit</button>
         <button onclick="resetForm()">Reset</button>
