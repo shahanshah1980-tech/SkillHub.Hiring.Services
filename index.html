@@ -10,6 +10,7 @@ body{
     margin:0;
     font-family:Arial;
     background:linear-gradient(135deg,#00c6ff,#0072ff);
+    overflow: hidden; /* body scroll disable */
 }
 
 /* CONTAINER */
@@ -22,8 +23,8 @@ body{
     text-align:center;
     color:#fff;
     margin: 20px auto; /* horizontally center */
-    max-height: 80vh;  /* form max height 80% of viewport */
-    overflow-y: auto;  /* scroll if content exceeds max-height */
+    height: 70vh;         /* fixed height for scrollable form */
+    overflow-y: auto;     /* scroll inside container only */
 }
 
 /* INPUT GROUP */
