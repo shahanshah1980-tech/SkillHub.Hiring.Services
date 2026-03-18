@@ -22,57 +22,63 @@ body{
     backdrop-filter:blur(15px);
     padding:30px;
     border-radius:25px;
-    width:700px;
+    width:500px;
     text-align:center;
     color:#fff;
 }
 
-/* INPUT */
-.worker-container input,
-.worker-container select{
-    width:90%;
-    margin:10px 0;
-    padding:12px;
+/* INPUT GROUP */
+.input-group{
+    position:relative;
+    margin:12px 0;
+}
+
+.input-group input{
+    width:100%;
+    padding:12px 40px 12px 15px;
     border:none;
     border-radius:20px;
     outline:none;
-    font-size:15px;
 }
 
-/* ICON INPUT */
-.input-group{
-    position:relative;
-}
+/* ICON */
 .input-group i{
     position:absolute;
-    right:20px;
+    right:15px;
     top:50%;
     transform:translateY(-50%);
     color:#888;
 }
 
-/* GENDER BOX */
+/* SELECT */
+.worker-container select{
+    width:100%;
+    margin:10px 0;
+    padding:12px;
+    border:none;
+    border-radius:20px;
+    outline:none;
+    color:#888;
+}
+
+/* GENDER */
 .gender-box{
     display:flex;
     justify-content:space-around;
     margin:15px 0;
 }
 
-/* OPTION */
 .gender-option{
     display:flex;
     align-items:center;
     gap:8px;
     cursor:pointer;
-    font-size:15px;
 }
 
-/* HIDE DEFAULT RADIO */
 .gender-option input{
     display:none;
 }
 
-/* CIRCLE */
 .radio-circle{
     width:22px;
     height:22px;
@@ -82,7 +88,6 @@ body{
     position:relative;
 }
 
-/* BLACK DOT WHEN SELECTED */
 .gender-option input:checked + .radio-circle::after{
     content:"";
     width:10px;
@@ -93,6 +98,29 @@ body{
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);
+}
+
+/* BUTTONS */
+.button-group{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-top:20px;
+}
+
+button{
+    padding:10px 25px;
+    border:none;
+    border-radius:25px;
+    font-weight:bold;
+    cursor:pointer;
+    background:linear-gradient(135deg,#ff7eb3,#ff758c);
+    color:#fff;
+}
+
+/* HIDDEN */
+#vehicle_no{
+    display:none;
 }
 </style>
 </head>
@@ -112,22 +140,23 @@ body{
         <i class="fa fa-phone"></i>
     </div>
 
-<div class="gender-box">
-    <label class="gender-option">
-        <input type="radio" name="gender" value="male">
-        <span class="radio-circle"></span> Male
-    </label>
+    <!-- GENDER -->
+    <div class="gender-box">
+        <label class="gender-option">
+            <input type="radio" name="gender" value="male">
+            <span class="radio-circle"></span> Male
+        </label>
 
-    <label class="gender-option">
-        <input type="radio" name="gender" value="female">
-        <span class="radio-circle"></span> Female
-    </label>
+        <label class="gender-option">
+            <input type="radio" name="gender" value="female">
+            <span class="radio-circle"></span> Female
+        </label>
 
-    <label class="gender-option">
-        <input type="radio" name="gender" value="other">
-        <span class="radio-circle"></span> Other
-    </label>
-</div>
+        <label class="gender-option">
+            <input type="radio" name="gender" value="other">
+            <span class="radio-circle"></span> Other
+        </label>
+    </div>
 
     <!-- TYPE -->
     <select id="worker_type" onchange="toggleFields()">
@@ -142,14 +171,18 @@ body{
     </select>
 
     <!-- VEHICLE -->
-    <input type="text" id="vehicle_no" placeholder="Vehicle Number" style="display:none">
+    <input type="text" id="vehicle_no" placeholder="Vehicle Number">
 
-    <button onclick="saveWorker()">Submit</button>
+    <!-- BUTTONS -->
+    <div class="button-group">
+        <button onclick="saveWorker()">Submit</button>
+        <button onclick="resetForm()">Reset</button>
+    </div>
 </div>
 
 <script>
 
-/* TOGGLE FIELDS */
+/* TOGGLE */
 function toggleFields(){
     let type = document.getElementById("worker_type").value;
     let skill = document.getElementById("worker_skill");
@@ -160,35 +193,27 @@ function toggleFields(){
     if(type === "worker"){
         vehicle.style.display = "none";
 
-        let list = ["Labour","Helper","Mason","Electrician"];
-        list.forEach(i=>{
-            let opt = document.createElement("option");
-            opt.value = i;
-            opt.text = i;
-            skill.appendChild(opt);
+        ["Labour","Helper","Mason","Electrician"].forEach(i=>{
+            let opt = new Option(i,i);
+            skill.add(opt);
         });
     }
     else if(type === "vehicle"){
         vehicle.style.display = "block";
 
-        let list = ["Bike","Car","Truck"];
-        list.forEach(i=>{
-            let opt = document.createElement("option");
-            opt.value = i;
-            opt.text = i;
-            skill.appendChild(opt);
+        ["Bike","Car","Truck"].forEach(i=>{
+            let opt = new Option(i,i);
+            skill.add(opt);
         });
     }
 }
 
-/* SAVE WORKER */
+/* SAVE */
 function saveWorker(){
     let name = document.getElementById("worker_name").value;
     let mobile = document.getElementById("worker_mobile").value;
     let gender = document.querySelector('input[name="gender"]:checked');
     let type = document.getElementById("worker_type").value;
-    let skill = document.getElementById("worker_skill").value;
-    let vehicle = document.getElementById("vehicle_no").value;
 
     if(!name || !mobile || !gender || !type){
         alert("Please fill all required fields");
@@ -201,15 +226,16 @@ function saveWorker(){
         name,
         mobile,
         gender: gender.value,
-        type,
-        skill,
-        vehicle
+        type
     });
 
     localStorage.setItem("workers", JSON.stringify(workers));
 
     alert("Worker Saved Successfully");
+}
 
+/* RESET */
+function resetForm(){
     location.reload();
 }
 
