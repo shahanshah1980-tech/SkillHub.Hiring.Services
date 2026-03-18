@@ -9,11 +9,9 @@
 body{
     margin:0;
     font-family:Arial;
-    /* display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh; */
+    /* flex centering hata diya taaki content top par aaye */
     background:linear-gradient(135deg,#00c6ff,#0072ff);
+    overflow-y: auto; /* page scroll enable */
 }
 
 /* CONTAINER */
@@ -25,7 +23,9 @@ body{
     width:700px;
     text-align:center;
     color:#fff;
-    margin: 20px auto; /* horizontally center, top margin for spacing below title */
+    margin: 20px auto; /* horizontally center */
+    max-height: calc(100vh - 80px); /* leave some space for heading */
+    overflow-y: auto; /* scroll inside container if content exceeds */
 }
 
 /* INPUT GROUP */
@@ -55,9 +55,9 @@ body{
 .dropdown-row {
     display: flex;
     gap: 10px;
-    width: 98%;            /* same width as mobile input */
-    max-width:98%;          /* ensure fit */
-    margin: 10px auto;      /* center alignment */
+    width: 98%;            
+    max-width:98%;          
+    margin: 10px auto;      
     align-items: center;
 }
 
@@ -74,7 +74,7 @@ body{
     font-size: 16px;
     outline: none;
     background: #fff;
-    color: #888; /* default gray */
+    color: #888; 
     box-sizing: border-box;
 }
 
