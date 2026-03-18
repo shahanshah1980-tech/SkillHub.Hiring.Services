@@ -50,59 +50,53 @@ body{
     color:#888;
 }
 
-/* ROW GROUP */
-.row-group{
-    display:flex;
-    gap:10px;
-    margin-top:10px;
-    max-width:90%;        /* Mobile input width ke same */
-    margin-left:auto;
-    margin-right:auto;    /* Center alignment */
+/* DROPDOWN ROW */
+.dropdown-row {
+    display: flex;
+    gap: 10px;
+    width: 90%;            /* same width as mobile input */
+    max-width:90%;          /* ensure fit */
+    margin: 10px auto;      /* center alignment */
+    align-items: center;
 }
 
-/* DEFAULT (2 FIELD MODE) */
-.row-group select{
-    flex:1;
+.dropdown-row > * {
+    flex: 1;
+    min-width: 0;
 }
 
-/* TYPE FIX WIDTH + RIGHT SHIFT */
-#worker_type{
-    flex:0.8;
-    margin-left:10px; /* Thoda right shift */
+.dropdown-row select,
+.dropdown-row input {
+    padding: 12px 15px;
+    border-radius: 20px;
+    border: none;
+    font-size: 16px;
+    outline: none;
+    background: #fff;
+    color: #888; /* default gray */
+    box-sizing: border-box;
 }
 
-/* HIDE BY DEFAULT */
-#worker_skill{
-    display:none;
-}
-#vehicle_no{
-    display:none;
+/* Dropdown default option gray */
+select option[value=""] {
+    color: #888;
 }
 
-/* WHEN 3 FIELD VISIBLE - Equal Width but within max-width */
-.row-group.three #worker_type,
-.row-group.three #worker_skill,
-.row-group.three #vehicle_no {
-    flex:1;
-    display:block;
+/* Selected option black */
+select.active {
+    color: #000;
 }
 
-/* COMMON FIELD STYLE */
-.row-group select,
-.row-group input{
-    padding:12px;
-    border:none;
-    border-radius:20px;
-    outline:none;
-    font-size:14px;
+/* Initially hide second dropdown & vehicle textbox */
+#service_type1,
+#vehicle_number {
+    visibility: hidden;
 }
 
-/* SELECT COLOR */
-select{
-    color:gray;
-}
-select.active{
-    color:black;
+/* When both visible, equal width and fit inside row */
+.dropdown-row.show-all > * {
+    flex: 1;
+    visibility: visible;
 }
 
 /* GENDER */
@@ -197,21 +191,19 @@ button{
         </label>
     </div>
 
-    <!-- ROW GROUP -->
-    <div class="row-group" id="rowGroup">
-
-        <select id="worker_type" onchange="toggleFields(); updateSelectColor(this)">
-            <option value="" disabled selected>Select Type</option>
+    <!-- DROPDOWN ROW -->
+    <div class="dropdown-row" id="dropdownRow">
+        <select id="service_type" onchange="toggleFields(); updateSelectColor(this)">
+            <option value="" selected>Select Type</option>
             <option value="worker">Worker</option>
             <option value="vehicle">Vehicle</option>
         </select>
 
-        <select id="worker_skill" onchange="updateSelectColor(this)">
-            <option value="" disabled selected>Select Skill</option>
+        <select id="service_type1" onchange="updateSelectColor(this)">
+            <option value="" selected>Select Skill</option>
         </select>
 
-        <input type="text" id="vehicle_no" placeholder="Vehicle No">
-
+        <input type="text" id="vehicle_number" placeholder="Vehicle No">
     </div>
 
     <!-- BUTTONS -->
@@ -222,7 +214,6 @@ button{
 </div>
 
 <script>
-
 /* COLOR CHANGE */
 function updateSelectColor(el){
     if(el.value === ""){
@@ -234,38 +225,34 @@ function updateSelectColor(el){
 
 /* TOGGLE LOGIC */
 function toggleFields(){
-    let type = document.getElementById("worker_type").value;
-    let skill = document.getElementById("worker_skill");
-    let vehicle = document.getElementById("vehicle_no");
-    let row = document.getElementById("rowGroup");
+    let type = document.getElementById("service_type").value;
+    let skill = document.getElementById("service_type1");
+    let vehicle = document.getElementById("vehicle_number");
+    let row = document.getElementById("dropdownRow");
 
-    skill.innerHTML = "<option value='' disabled selected>Select Skill</option>";
+    skill.innerHTML = "<option value='' selected>Select Skill</option>";
+    row.classList.remove("show-all");
 
     if(type === "worker"){
-        row.classList.remove("three");
-
-        skill.style.display = "block";
-        vehicle.style.display = "none";
+        skill.style.visibility = "visible";
+        vehicle.style.visibility = "hidden";
 
         ["Labour","Helper","Mason","Electrician"].forEach(i=>{
             skill.add(new Option(i,i));
         });
     }
     else if(type === "vehicle"){
-        row.classList.add("three");
-
-        skill.style.display = "block";
-        vehicle.style.display = "block";
+        skill.style.visibility = "visible";
+        vehicle.style.visibility = "visible";
+        row.classList.add("show-all"); // apply equal width
 
         ["Bike","Car","Truck"].forEach(i=>{
             skill.add(new Option(i,i));
         });
     }
     else{
-        row.classList.remove("three");
-
-        skill.style.display = "none";
-        vehicle.style.display = "none";
+        skill.style.visibility = "hidden";
+        vehicle.style.visibility = "hidden";
     }
 }
 
@@ -274,7 +261,7 @@ function saveWorker(){
     let name = document.getElementById("worker_name").value;
     let mobile = document.getElementById("worker_mobile").value;
     let gender = document.querySelector('input[name="gender"]:checked');
-    let type = document.getElementById("worker_type").value;
+    let type = document.getElementById("service_type").value;
 
     if(!name || !mobile || !gender || !type){
         alert("Please fill all required fields");
@@ -299,7 +286,6 @@ function saveWorker(){
 function resetForm(){
     location.reload();
 }
-
 </script>
 
 </body>
