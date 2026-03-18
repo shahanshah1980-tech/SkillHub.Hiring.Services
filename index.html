@@ -286,8 +286,10 @@ flatpickr("#worker_dob", {
     position: "auto right",
     allowInput: false,
     dateFormat: "d/m/Y",
-    monthSelectorType: "dropdown",   // ✅ Month dropdown
-    yearSelectorType: "dropdown",    // ❌ (Flatpickr me officially nahi hota but fallback below)
+    monthSelectorType: "dropdown",
+    yearSelectorType: "dropdown",
+    minDate: "1950-01-01",
+    maxDate: "today"
 });
 
 document.getElementById("dob_icon").addEventListener("click", function() {
