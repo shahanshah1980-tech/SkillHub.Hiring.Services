@@ -41,7 +41,7 @@ body{
     outline:none;
     cursor: pointer;
     background:#fff;
-    color:#888;
+    color:#888; /* default gray */
     font-size:16px;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -49,7 +49,7 @@ body{
     box-sizing: border-box; /* ensures height does not grow with padding */
 }
 .input-group select.active {
-    color: #000;
+    color: #000; /* black when selected */
 }
 .input-group i{
     position:absolute;
@@ -276,6 +276,9 @@ function toggleFields(){
         skill.style.visibility = "hidden";
         vehicle.style.visibility = "hidden";
     }
+
+    // Update color of dynamically added select
+    updateSelectColor(skill);
 }
 
 function saveWorker(){
@@ -311,6 +314,14 @@ flatpickr("#worker_dob", {
 
 document.getElementById("dob_icon").addEventListener("click", function(){
     document.getElementById("worker_dob")._flatpickr.open();
+});
+
+// Apply select color on page load and dynamically
+document.querySelectorAll('select').forEach(sel => {
+    updateSelectColor(sel); // initial color
+    sel.addEventListener('change', function() {
+        updateSelectColor(sel);
+    });
 });
 </script>
 
