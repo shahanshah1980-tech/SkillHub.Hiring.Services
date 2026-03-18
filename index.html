@@ -31,7 +31,8 @@ body{
     position:relative;
     margin:12px 0;
 }
-.input-group input{
+.input-group input,
+.input-group select{
     width:90%;
     padding:12px 40px 12px 15px;
     border:none;
@@ -189,27 +190,31 @@ button{
         <i class="fa fa-home"></i>
     </div>
     
-    <div class="dropdown-row" id="dropdownRow">
+    <!-- First Dropdown -->
+    <div class="input-group">
         <select id="service_type" onchange="toggleFields(); updateSelectColor(this)">
             <option value="" selected>Select any one</option>
             <option value="worker">Worker</option>
             <option value="vehicle">Vehicle type</option>
         </select>
-
-        <select id="service_type1" onchange="updateSelectColor(this)">
-            <option value="" selected>Select any one</option>
-        </select>
-
-        <input type="text" id="vehicle_number" placeholder="Vehicle No">
     </div>
 
-    <!-- ✅ NEW DROPDOWN ADDED HERE -->
+    <!-- ✅ Subtype dropdown: bilkul first dropdown ke neeche -->
     <div class="input-group">
         <select id="service_subtype" onchange="updateSelectColor(this)">
             <option value="" selected>Select any one</option>
             <option value="Sub Option 1">Sub Option 1</option>
             <option value="Sub Option 2">Sub Option 2</option>
         </select>
+    </div>
+
+    <!-- Second dropdown + vehicle number row (unchanged) -->
+    <div class="dropdown-row" id="dropdownRow">
+        <select id="service_type1" onchange="updateSelectColor(this)">
+            <option value="" selected>Select any one</option>
+        </select>
+
+        <input type="text" id="vehicle_number" placeholder="Vehicle No">
     </div>
 
     <div class="button-group">
