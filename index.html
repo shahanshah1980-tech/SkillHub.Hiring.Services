@@ -281,12 +281,13 @@ function resetForm(){
     location.reload();
 }
 
-/* ✅ ONLY CHANGE HERE */
 flatpickr("#worker_dob", {
     clickOpens: false,
     position: "auto right",
     allowInput: false,
-    dateFormat: "d/m/Y"
+    dateFormat: "d/m/Y",
+    monthSelectorType: "dropdown",   // ✅ Month dropdown
+    yearSelectorType: "dropdown",    // ❌ (Flatpickr me officially nahi hota but fallback below)
 });
 
 document.getElementById("dob_icon").addEventListener("click", function() {
