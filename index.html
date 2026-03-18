@@ -22,7 +22,7 @@ body{
     backdrop-filter:blur(15px);
     padding:30px;
     border-radius:25px;
-    width:700px;
+    width:550px;
     text-align:center;
     color:#fff;
 }
@@ -34,7 +34,7 @@ body{
 }
 
 .input-group input{
-    width:90%;
+    width:100%;
     padding:12px 40px 12px 15px;
     border:none;
     border-radius:20px;
@@ -75,16 +75,12 @@ body{
     display:none;
 }
 
-/* WHEN 3 FIELD */
-.row-group.three #worker_type{
-    flex:0.7;
-}
-.row-group.three #worker_skill{
-    flex:1;
-}
-.row-group.three #vehicle_no{
-    flex:1;
-    display:block;
+/* WHEN 3 FIELD VISIBLE - Equal Width */
+.row-group.three #worker_type,
+.row-group.three #worker_skill,
+.row-group.three #vehicle_no {
+    flex:1;          /* Equal width */
+    display:block;   /* Ensure visible */
 }
 
 /* COMMON FIELD STYLE */
@@ -232,7 +228,7 @@ function updateSelectColor(el){
     }
 }
 
-/* TOGGLE */
+/* TOGGLE LOGIC */
 function toggleFields(){
     let type = document.getElementById("worker_type").value;
     let skill = document.getElementById("worker_skill");
