@@ -1,135 +1,118 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SkillHub & Hiring Services</title>
+<title>SkillHub Worker Registration</title>
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 <style>
-body{
-    margin:0;
-    font-family:Arial;
-    background:linear-gradient(135deg,#00c6ff,#0072ff);
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
 }
 
-.worker-container{
-    background:rgba(255,255,255,0.15);
-    backdrop-filter:blur(15px);
-    padding:30px;
-    border-radius:25px;
-    width:700px;
-    margin:20px auto;
-    height:70vh;
-    overflow-y:auto;
-    color:#fff;
-    text-align:center;
+/* Container */
+.container {
+    width: 750px;
+    margin: 20px auto;
+    padding: 30px;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(15px);
+    color: #fff;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
-/* HEIGHT FIX */
-input,
-select,
-#vehicle_number,
-#cv_upload{
-    width:98%;
-    height:50px;
-    padding:0 20px;
-    border:none;
-    border-radius:50px;
-    outline:none;
-    background:#fff;
-    color:#888;
-    font-size:16px;
-    box-sizing:border-box;
+/* Inputs */
+.input-group {
+    position: relative;
+    margin: 12px 0;
 }
 
-.input-group{
-    position:relative;
-    margin:12px 0;
+.input-group input,
+.input-group select {
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 50px;
+    padding: 0 20px;
+    outline: none;
+    font-size: 16px;
 }
 
-.input-group i{
-    position:absolute;
-    right:15px;
-    top:50%;
-    transform:translateY(-50%);
-    color:#888;
+/* Icons */
+.input-group i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
 }
 
-.dropdown-row{
-    display:flex;
-    gap:10px;
-    width:98%;
-    margin:10px auto;
+/* Sections */
+.section {
+    margin-top: 20px;
 }
 
-.dropdown-row > *{
-    flex:1;
+/* Gender */
+.gender-box {
+    display: flex;
+    justify-content: space-around;
+    margin: 15px 0;
 }
 
-#service_type1,
-#vehicle_number{
-    visibility:hidden;
+.gender-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.dropdown-row.show-all > *{
-    visibility:visible;
+.gender-option input {
+    display: none;
 }
 
-.gender-box{
-    display:flex;
-    justify-content:space-around;
-    margin:15px 0;
+.radio-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #ccc;
+    position: relative;
 }
 
-.gender-option{
-    display:flex;
-    align-items:center;
-    gap:8px;
+.gender-option input:checked + .radio-circle::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: #000;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.gender-option input{
-    display:none;
+/* Buttons */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
 }
 
-.radio-circle{
-    width:22px;
-    height:22px;
-    border-radius:50%;
-    background:#fff;
-    border:2px solid #ccc;
-    position:relative;
-}
-
-.gender-option input:checked + .radio-circle::after{
-    content:"";
-    width:10px;
-    height:10px;
-    background:#000;
-    border-radius:50%;
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-}
-
-.button-group{
-    display:flex;
-    justify-content:center;
-    gap:15px;
-    margin-top:20px;
-}
-
-button{
-    padding:0 25px;
-    height:50px;
-    border:none;
-    border-radius:50px;
-    font-weight:bold;
-    cursor:pointer;
-    background:linear-gradient(135deg,#ff7eb3,#ff758c);
-    color:#fff;
+button {
+    height: 50px;
+    padding: 0 25px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #ff7eb3, #ff758c);
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
 }
 </style>
 </head>
@@ -138,86 +121,114 @@ button{
 
 <h1 style="text-align:center;color:white;">SkillHub Hiring Services</h1>
 
-<div class="worker-container">
+<div class="container">
 
-<h2>Add Worker</h2>
+<h2>Worker Registration</h2>
+
+<!-- PERSONAL DETAILS -->
+<div class="section">
+<h3>Personal Details</h3>
 
 <div class="input-group">
-<input type="text" id="worker_name" placeholder="Full Name">
+<input type="text" id="name" placeholder="Full Name">
 <i class="fa fa-user"></i>
 </div>
 
 <div class="input-group">
-<input type="text" id="worker_father" placeholder="Father Name">
+<input type="text" id="father" placeholder="Father Name">
 <i class="fa fa-user"></i>
 </div>
 
 <div class="input-group">
-<input type="text" id="worker_dob" placeholder="Date of Birth" readonly>
+<input type="text" id="dob" placeholder="Date of Birth" readonly>
 <i class="fa fa-calendar" id="dob_icon"></i>
 </div>
 
 <div class="gender-box">
 <label class="gender-option">
-<input type="radio" name="gender" value="male">
+<input type="radio" name="gender" value="Male">
 <span class="radio-circle"></span> Male
 </label>
 
 <label class="gender-option">
-<input type="radio" name="gender" value="female">
+<input type="radio" name="gender" value="Female">
 <span class="radio-circle"></span> Female
 </label>
 
 <label class="gender-option">
-<input type="radio" name="gender" value="other">
+<input type="radio" name="gender" value="Other">
 <span class="radio-circle"></span> Other
 </label>
 </div>
 
+</div>
+
+<!-- CONTACT DETAILS -->
+<div class="section">
+<h3>Contact Details</h3>
+
 <div class="input-group">
-<input type="text" id="worker_mobile" placeholder="Mobile Number">
+<input type="text" id="mobile" placeholder="Mobile Number">
 <i class="fa fa-phone"></i>
 </div>
 
 <div class="input-group">
-<input type="email" id="worker_email" placeholder="Email Address">
+<input type="email" id="email" placeholder="Email Address">
 <i class="fa fa-envelope"></i>
 </div>
 
 <div class="input-group">
-<input type="text" id="worker_address" placeholder="Address">
+<input type="text" id="address" placeholder="Address">
 <i class="fa fa-home"></i>
 </div>
 
-<div class="dropdown-row" id="dropdownRow">
-<select id="service_type" onchange="toggleFields(); updateSelectColor(this)">
-<option value="" selected disabled>Select any one</option>
+</div>
+
+<!-- SERVICE DETAILS -->
+<div class="section">
+<h3>Service Details</h3>
+
+<div class="input-group">
+<select id="type" onchange="loadOptions()">
+<option value="">Select Type</option>
 <option value="worker">Worker</option>
-<option value="vehicle">Vehicle type</option>
+<option value="vehicle">Vehicle</option>
 </select>
-
-<select id="service_type1" onchange="updateSelectColor(this)">
-<option value="" selected disabled>Select any one</option>
-</select>
-
-<input type="text" id="vehicle_number" placeholder="Vehicle No">
 </div>
 
-<div class="input-group" style="display:flex;gap:10px;">
-<select id="id_proof" onchange="updateSelectColor(this)">
-<option value="" selected disabled>Select ID</option>
-<option value="Adharcard">Adhar Card</option>
-<option value="Passport">Passport</option>
-<option value="DL">DL</option>
-</select>
-
-<input type="file" id="cv_upload">
-
-<button onclick="viewCV()">View CV</button>
+<div class="input-group">
+<select id="subtype"></select>
 </div>
 
+<div class="input-group" id="vehicleBox" style="display:none;">
+<input type="text" id="vehicle_no" placeholder="Vehicle Number">
+</div>
+
+</div>
+
+<!-- DOCUMENTS -->
+<div class="section">
+<h3>Documents</h3>
+
+<div class="input-group">
+<select id="id_proof">
+<option value="">Select ID Proof</option>
+<option>Aadhar</option>
+<option>Passport</option>
+<option>Driving License</option>
+</select>
+</div>
+
+<div class="input-group">
+<input type="file" id="cv">
+<button onclick="viewFile()">View</button>
+</div>
+
+</div>
+
+<!-- BUTTONS -->
 <div class="button-group">
-<button onclick="saveWorker()">Submit</button>
+<button onclick="save()">Submit</button>
 <button onclick="resetForm()">Reset</button>
 </div>
 
@@ -226,93 +237,78 @@ button{
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <script>
-function updateSelectColor(el){
-    if(el.value===""){ el.style.color="#888"; }
-    else{ el.style.color="#000"; }
-}
 
-function toggleFields(){
-    let type=document.getElementById("service_type").value;
-    let skill=document.getElementById("service_type1");
-    let vehicle=document.getElementById("vehicle_number");
-    let row=document.getElementById("dropdownRow");
+const workerList = [
+"Labour","Helper","Mason","Carpenter","Electrician","Plumber",
+"Painter","Welder","Driver","Cook","Security Guard","Cleaner"
+];
 
-    skill.innerHTML="<option disabled selected>Select any one</option>";
-    row.classList.remove("show-all");
+const vehicleList = [
+"Bike","Car","Truck","Bus","Taxi","Van","Crane","JCB"
+];
 
-    if(type==="worker"){
-        skill.style.visibility="visible";
-        vehicle.style.visibility="hidden";
+function loadOptions() {
+    let type = document.getElementById("type").value;
+    let sub = document.getElementById("subtype");
+    let vehicleBox = document.getElementById("vehicleBox");
 
-        [
-"Labour","Helper","Mason","Steel Fixer","Shuttering Carpenter",
-"Carpenter","Wood Carpenter","Furniture Carpenter","Interior Carpenter",
-"Tile Fixer","Marble Fixer","Granite Fixer","Wall Painter","Spray Painter",
-"POP Worker","Plaster Worker","Gypsum Worker","False Ceiling Worker",
-"Waterproofing Worker","Roofing Worker","Demolition Worker","Electrician",
-"Industrial Electrician","AC Mechanic","AC Technician","Refrigerator Mechanic",
-"Washing Machine Mechanic","Generator Mechanic","Lift Technician","Pump Mechanic",
-"Motor Winder","PC Mechanic","Laptop Mechanic","Computer Hardware Technician",
-"Printer Technician","CCTV Technician","Network Technician","Mobile Repair Technician",
-"LED TV Technician","Solar Technician","Welder","Gas Welder","Arc Welder",
-"Steel Fabricator","Aluminium Fabricator","Iron Worker","Grill Maker",
-"Gate Fabricator","Plumber","Pipe Fitter","Sanitary Fitter","Water Tank Cleaner",
-"Drainage Worker","Furniture Maker","Wood Polisher","Modular Kitchen Installer",
-"Curtain Fitter","Wallpaper Installer","Glass Fitter","Door Window Fitter",
-"Gardener","Landscaper","Pest Control Worker","Cleaning Worker","House Keeping",
-"Security Guard","Driver","Cook","Chef","Waiter","Delivery Boy"
-        ].forEach(i=>skill.add(new Option(i,i)));
-    }
-    else if(type==="vehicle"){
-        skill.style.visibility="visible";
-        vehicle.style.visibility="visible";
-        row.classList.add("show-all");
+    sub.innerHTML = "<option value=''>Select Option</option>";
 
-        [
-"Bike","Scooter","Moped","Auto Rickshaw","E-Rickshaw","Taxi","Cab",
-"Sedan Car","Hatchback Car","SUV","Van","Tempo Traveller",
-"Pickup Truck","Mini Truck","Truck","Heavy Truck","Trailer",
-"Bus","School Bus","Tourist Bus","Ambulance","Fire Truck",
-"Tractor","JCB","Crane","Loader","Dumper","Mixer Truck"
-        ].forEach(i=>skill.add(new Option(i,i)));
+    if (type === "worker") {
+        vehicleBox.style.display = "none";
+        workerList.forEach(i => sub.add(new Option(i,i)));
+    } 
+    else if (type === "vehicle") {
+        vehicleBox.style.display = "block";
+        vehicleList.forEach(i => sub.add(new Option(i,i)));
     }
 }
 
-function saveWorker(){
-    let name=document.getElementById("worker_name").value;
-    let mobile=document.getElementById("worker_mobile").value;
-    let gender=document.querySelector('input[name="gender"]:checked');
-    let type=document.getElementById("service_type").value;
+function save() {
+    let name = document.getElementById("name").value;
+    let mobile = document.getElementById("mobile").value;
+    let gender = document.querySelector('input[name="gender"]:checked');
+    let type = document.getElementById("type").value;
 
-    if(!name||!mobile||!gender||!type){
-        alert("Please fill all required fields");
+    if (!name || !mobile || !gender || !type) {
+        alert("Fill all required fields");
         return;
     }
 
-    let data=JSON.parse(localStorage.getItem("workers"))||[];
-    data.push({name,mobile,gender:gender.value,type});
-    localStorage.setItem("workers",JSON.stringify(data));
+    let data = JSON.parse(localStorage.getItem("workers")) || [];
+
+    data.push({
+        name,
+        mobile,
+        gender: gender.value,
+        type
+    });
+
+    localStorage.setItem("workers", JSON.stringify(data));
 
     alert("Saved Successfully");
 }
 
-function resetForm(){ location.reload(); }
+function resetForm() {
+    location.reload();
+}
 
-function viewCV(){
-    let file=document.getElementById("cv_upload");
-    if(file.files.length===0){
-        alert("Upload CV first");
+function viewFile() {
+    let file = document.getElementById("cv");
+
+    if (!file.files.length) {
+        alert("Upload file first");
         return;
     }
-    let url=URL.createObjectURL(file.files[0]);
+
+    let url = URL.createObjectURL(file.files[0]);
     window.open(url);
 }
 
-flatpickr("#worker_dob",{clickOpens:false,dateFormat:"d/m/Y"});
+flatpickr("#dob", {
+    dateFormat: "d/m/Y"
+});
 
-document.getElementById("dob_icon").onclick=function(){
-    document.getElementById("worker_dob")._flatpickr.open();
-};
 </script>
 
 </body>
