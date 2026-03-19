@@ -236,13 +236,20 @@ select option[value=""] {
         <input type="text" id="vehicle_number" placeholder="Vehicle No">
     </div>
 
-    <!-- CV Upload -->
-    <input type="file" id="cv_upload" accept=".pdf,.doc,.docx" style="width:30%; height:25px; border-radius:50px; background:#fff; padding:10px; cursor:pointer; color:#888;">
+    <div class="input-group" style="display:flex; justify-content:flex-start; margin-left:5px;">
+        <select id="id_proof" onchange="updateSelectColor(this)" style="width:31%; padding:5px; margin-left:5px;">
+            <option value="" selected disabled> Select any one</option>
+            <option value="Adharcard">Adhar Card</option>
+            <option value="Passport">Passport</option>
+            <option value="DL">DL</option>
+        </select>
 
-    <!-- View Button -->
-    <button type="button" onclick="viewCV()" style="width:20%; height:50px;">
-        View CV
-    </button>
+        <input type="file" id="cv_upload" accept=".pdf,.doc,.docx" style="width:30%; height:50px; border-radius:50px; background:#fff; padding:10px; cursor:pointer; color:#888;">
+
+        <button type="button" onclick="viewCV()" style="width:20%; height:50px;">
+            View CV
+        </button>
+    </div>
 
     <div class="button-group">
         <button onclick="saveWorker()">Submit</button>
@@ -254,11 +261,11 @@ select option[value=""] {
 
 <script>
 function updateSelectColor(el){
-    if(el.value === ""){ 
-        el.classList.remove("active"); 
+    if(el.value === ""){
+        el.classList.remove("active");
         el.style.color = "#888";
-    } else { 
-        el.classList.add("active"); 
+    } else {
+        el.classList.add("active");
         el.style.color = "#000";
     }
 }
@@ -320,7 +327,10 @@ function saveWorker(){
     let gender = document.querySelector('input[name="gender"]:checked');
     let type = document.getElementById("service_type").value;
 
-    if(!name || !mobile || !gender || !type){ alert("Please fill all required fields"); return; }
+    if(!name || !mobile || !gender || !type){ 
+        alert("Please fill all required fields"); 
+        return; 
+    }
 
     let workers = JSON.parse(localStorage.getItem("workers")) || [];
     workers.push({ name, mobile, gender: gender.value, type });
@@ -331,7 +341,6 @@ function saveWorker(){
 
 function resetForm(){ location.reload(); }
 
-/* ✅ FIX ADDED */
 function viewCV(){
     let fileInput = document.getElementById("cv_upload");
 
