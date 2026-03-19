@@ -41,7 +41,8 @@ body{
     cursor: pointer;
     background:#fff;
     color:#888;
-    font-size:16px;
+    font-size:16px !important; /* ✅ ONLY CHANGE */
+    font-family:Arial !important; /* ✅ ONLY CHANGE */
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -138,7 +139,7 @@ select:focus {
     box-shadow: none;
 }
 
-/* ✅ ONLY FIX: remove default arrow + keep single ▼ */
+/* Custom ▼ arrow */
 .input-group select,
 .dropdown-row select {
     appearance: none !important;
@@ -150,8 +151,6 @@ select:focus {
     background-position: right 12px center;
     background-size: 14px;
 }
-
-/* extra for old browsers */
 select::-ms-expand {
     display: none;
 }
