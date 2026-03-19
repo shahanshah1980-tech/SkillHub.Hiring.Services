@@ -34,7 +34,8 @@ body{
 #vehicle_number {
     width:98%;
     height:50px;
-    padding:0 15px; 
+    padding:0 20px; 
+    padding-right:45px; /* FIX */
     border:none;
     border-radius:50px; 
     outline:none;
@@ -47,11 +48,6 @@ body{
     -moz-appearance: none;
     appearance: none;
     box-sizing: border-box; 
-}
-
-/* ✅ MATCH INPUT SPACING */
-.input-group select {
-    padding-left: 15px;
 }
 
 .input-group select.active {
@@ -153,10 +149,10 @@ select:focus {
     appearance: none !important;
     -webkit-appearance: none !important;
     -moz-appearance: none !important;
-    padding-right: 35px;
+    padding-right: 45px;
     background-image: url("data:image/svg+xml;utf8,<svg fill='%23888' height='20' viewBox='0 0 20 20' width='20' xmlns='http://www.w3.org/2000/svg'><text x='2' y='15' font-size='14'>▼</text></svg>");
     background-repeat: no-repeat;
-    background-position: right 12px center;
+    background-position: right 15px center;
     background-size: 14px;
 }
 select::-ms-expand {
@@ -167,6 +163,11 @@ input,
 select {
     font-size:16px !important;
     font-family:Arial !important;
+}
+
+/* FIX: placeholder color */
+select option[value=""] {
+    color:#888;
 }
 </style>
 </head>
@@ -227,13 +228,13 @@ select {
     
     <div class="dropdown-row" id="dropdownRow">
         <select id="service_type" onchange="toggleFields(); updateSelectColor(this)">
-            <option value="" selected> Select any one</option>
+            <option value="" selected disabled> Select any one</option>
             <option value="worker">Worker</option>
             <option value="vehicle">Vehicle type</option>
         </select>
 
         <select id="service_type1" onchange="updateSelectColor(this)">
-            <option value="" selected> Select any one</option>
+            <option value="" selected disabled> Select any one</option>
         </select>
 
         <input type="text" id="vehicle_number" placeholder="Vehicle No">
@@ -241,7 +242,7 @@ select {
 
     <div class="input-group" style="display:flex; justify-content:flex-start; margin-left:5px;">
         <select id="id_proof" onchange="updateSelectColor(this)" style="width:32%; padding:5px; margin-left:5px;">
-            <option value="" selected> Select any one</option>
+            <option value="" selected disabled> Select any one</option>
             <option value="Adharcard">Adhar Card</option>
             <option value="Passport">Passport</option>
             <option value="DL">DL</option>
@@ -273,13 +274,15 @@ function toggleFields(){
     let vehicle = document.getElementById("vehicle_number");
     let row = document.getElementById("dropdownRow");
 
-    skill.innerHTML = "<option value='' selected> Select any one</option>";
+    skill.innerHTML = "<option value='' selected disabled> Select any one</option>";
     row.classList.remove("show-all");
 
     if(type === "worker"){
         skill.style.visibility = "visible";
         vehicle.style.visibility = "hidden";
-        [ "Labour","Helper","Mason","Steel Fixer","Shuttering Carpenter",
+
+        [
+        "Labour","Helper","Mason","Steel Fixer","Shuttering Carpenter",
         "Carpenter","Wood Carpenter","Furniture Carpenter","Interior Carpenter",
         "Tile Fixer","Marble Fixer","Granite Fixer","Wall Painter","Spray Painter",
         "POP Worker","Plaster Worker","Gypsum Worker","False Ceiling Worker",
@@ -294,15 +297,19 @@ function toggleFields(){
         "Drainage Worker","Furniture Maker","Wood Polisher","Modular Kitchen Installer",
         "Curtain Fitter","Wallpaper Installer","Glass Fitter","Door Window Fitter",
         "Gardener","Landscaper","Pest Control Worker","Cleaning Worker","House Keeping",
-        "Security Helper"].forEach(i=>{ skill.add(new Option(i,i)); });
+        "Security Helper"
+        ].forEach(i=>{ skill.add(new Option(i,i)); });
     }
     else if(type === "vehicle"){
         skill.style.visibility = "visible";
         vehicle.style.visibility = "visible";
         row.classList.add("show-all");
-        [ "Bike","Scooter","Auto Rickshaw","E-Rickshaw","Tempo","Pickup",
+
+        [
+        "Bike","Scooter","Auto Rickshaw","E-Rickshaw","Tempo","Pickup",
         "Mini Truck","Truck","Taxi","Cab","Van","Bus","School Bus",
-        "Tourist Bus","Ambulance","Tractor","JCB","Crane","Loader","Dumper"].forEach(i=>{ skill.add(new Option(i,i)); });
+        "Tourist Bus","Ambulance","Tractor","JCB","Crane","Loader","Dumper"
+        ].forEach(i=>{ skill.add(new Option(i,i)); });
     }
     else{
         skill.style.visibility = "hidden";
@@ -332,11 +339,7 @@ function resetForm(){ location.reload(); }
 const currentYear = new Date().getFullYear();
 flatpickr("#worker_dob", {
     clickOpens: false,
-    position: "auto right",
-    allowInput: false,
     dateFormat: "d/m/Y",
-    monthSelectorType: "dropdown",
-    yearSelectorType: "dropdown",
     minDate: new Date(currentYear - 100,0,1),
     maxDate: new Date(currentYear + 100,11,31),
     disableMobile: true
