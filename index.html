@@ -35,7 +35,7 @@ body{
     width:98%;
     height:50px;
     padding:0 20px; 
-    padding-right:45px; /* FIX */
+    padding-right:45px;
     border:none;
     border-radius:50px; 
     outline:none;
@@ -49,7 +49,6 @@ body{
     appearance: none;
     box-sizing: border-box; 
 }
-
 .input-group select.active {
     color: #000;
 }
@@ -158,14 +157,11 @@ select:focus {
 select::-ms-expand {
     display: none;
 }
-
 input,
 select {
     font-size:16px !important;
     font-family:Arial !important;
 }
-
-/* FIX: placeholder color */
 select option[value=""] {
     color:#888;
 }
@@ -240,21 +236,13 @@ select option[value=""] {
         <input type="text" id="vehicle_number" placeholder="Vehicle No">
     </div>
 
-    <div class="input-group" style="display:flex; justify-content:flex-start; margin-left:5px;">
-        <select id="id_proof" onchange="updateSelectColor(this)" style="width:31%; padding:5px; margin-left:5px;">
-            <option value="" selected disabled> Select any one</option>
-            <option value="Adharcard">Adhar Card</option>
-            <option value="Passport">Passport</option>
-            <option value="DL">DL</option>
-        </select>
-           <!-- CV Upload -->
+    <!-- CV Upload -->
     <input type="file" id="cv_upload" accept=".pdf,.doc,.docx" style="width:30%; height:50px; border-radius:50px; background:#fff; padding:10px; cursor:pointer; color:#888;">
 
     <!-- View Button -->
     <button type="button" onclick="viewCV()" style="width:20%; height:50px;">
         View CV
     </button>
-    </div>
 
     <div class="button-group">
         <button onclick="saveWorker()">Submit</button>
@@ -342,6 +330,19 @@ function saveWorker(){
 }
 
 function resetForm(){ location.reload(); }
+
+/* ✅ FIX ADDED */
+function viewCV(){
+    let fileInput = document.getElementById("cv_upload");
+
+    if(fileInput.files.length === 0){
+        alert("Please upload a CV first");
+        return;
+    }
+
+    let fileURL = URL.createObjectURL(fileInput.files[0]);
+    window.open(fileURL, "_blank");
+}
 
 const currentYear = new Date().getFullYear();
 flatpickr("#worker_dob", {
