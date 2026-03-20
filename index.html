@@ -51,6 +51,27 @@ button {
     cursor: pointer;
 }
 
+/* 🔥 SERVICE ROW (ONE LINE) */
+.service-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.service-row select,
+.service-row .vehicle-box {
+    flex: 1;
+}
+
+/* Vehicle Input */
+.vehicle-box input {
+    width: 100%;
+    height: 45px;
+    border-radius: 50px;
+    border: none;
+    padding: 0 15px;
+}
+
 /* DOCUMENT BOX */
 .doc-box {
     background: rgba(255,255,255,0.15);
@@ -75,8 +96,7 @@ button {
 .doc-left {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 100%;
+    gap: 10px;
 }
 
 /* TEXT */
@@ -84,7 +104,7 @@ button {
     font-size: 13px;
 }
 
-/* ✅ CHECKBOX CENTER FIX (HAR HAL ME CENTER) */
+/* ✅ CHECKBOX CENTER */
 .doc-left input[type="checkbox"] {
     position: absolute;
     left: 50%;
@@ -131,6 +151,9 @@ button {
 
 <h3>Service Details</h3>
 
+<!-- 🔥 ONE LINE -->
+<div class="service-row">
+
 <select id="type" onchange="loadOptions()">
 <option value="">Select Type</option>
 <option value="worker">Worker</option>
@@ -139,8 +162,10 @@ button {
 
 <select id="subtype"></select>
 
-<div id="vehicleBox" style="display:none;">
+<div id="vehicleBox" class="vehicle-box" style="display:none;">
 <input type="text" placeholder="Vehicle Number">
+</div>
+
 </div>
 
 <h3>Documents</h3>
@@ -171,14 +196,6 @@ button {
     <span class="selected-text"></span>
 </label>
 
-<label class="doc-item">
-    <div class="doc-left">
-        <span>Photo</span>
-        <input type="checkbox" value="Photo">
-    </div>
-    <span class="selected-text"></span>
-</label>    
-    
 </div>
 
 <h3>Upload CV</h3>
