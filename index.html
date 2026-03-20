@@ -59,26 +59,32 @@ button {
     margin-top: 10px;
 }
 
-/* EACH ITEM */
 .doc-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     background: rgba(0,0,0,0.2);
-    padding: 0px 5px;   /* padding कम किया */
-    border-radius: 40px; /* थोड़ा कम rounded */
-    margin: 6px 0;       /* spacing कम */
-    font-size: 14px;      /* text थोड़ा छोटा */
+
+    padding: 2px 10px;     /* बहुत कम padding */
+    margin: 3px 0;         /* spacing कम */
+    
+    border-radius: 25px;
+
+    height: 28px;          /* FIXED HEIGHT (main change) */
+    overflow: hidden;      /* extra content hide */
 }
 
+/* checkbox छोटा */
 .doc-item input {
-    width: auto;
+    transform: scale(0.8);
+    margin-right: 6px;
 }
 
-/* Selected text */
-.selected-text {
-    color: #00ffcc;
+/* text alignment fix */
+.doc-item span {
     font-size: 13px;
+    line-height: 1;
 }
 </style>
 </head>
