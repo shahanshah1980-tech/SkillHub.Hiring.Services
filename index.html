@@ -99,14 +99,12 @@ button {
 <input type="text" placeholder="Vehicle Number">
 </div>
 
-<!-- Documents (MULTI SELECT) -->
+<!-- Documents (CHECKBOX) -->
 <h3>Documents</h3>
 
-<select id="id_proof" multiple>
-<option value="Aadhar">Aadhar</option>
-<option value="Passport">Passport</option>
-<option value="Driving License">Driving License</option>
-</select>
+<label><input type="checkbox" value="Aadhar"> Aadhar</label>
+<label><input type="checkbox" value="Passport"> Passport</label>
+<label><input type="checkbox" value="Driving License"> Driving License</label>
 
 <div id="selectedDocs"></div>
 
@@ -152,18 +150,28 @@ function loadOptions() {
     }
 }
 
-// MULTI SELECT DOCUMENTS
-const selectBox = document.getElementById("id_proof");
+// DOCUMENT CHECKBOX LOGIC
+const checkboxes = document.querySelectorAll("input[type='checkbox']");
 const display = document.getElementById("selectedDocs");
 
-selectBox.addEventListener("change", function() {
-    let selected = Array.from(selectBox.selectedOptions).map(opt => opt.value);
+checkboxes.forEach(cb => {
+    cb.addEventListener("change", () => {
 
-    if(selected.length > 0){
-        display.innerHTML = "Selected Documents: " + selected.join(", ");
-    } else {
-        display.innerHTML = "";
-    }
+        let selected = [];
+
+        checkboxes.forEach(c => {
+            if(c.checked){
+                selected.push(c.value);
+            }
+        });
+
+        if(selected.length > 0){
+            display.innerHTML = "Selected Documents: " + selected.join(", ");
+        } else {
+            display.innerHTML = "";
+        }
+
+    });
 });
 
 // Save
