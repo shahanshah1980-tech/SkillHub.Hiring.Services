@@ -22,10 +22,6 @@ body {
     background: rgba(255,255,255,0.2);
 }
 
-h2, h3 {
-    margin-top: 15px;
-}
-
 input, select {
     width: 95%;
     height: 45px;
@@ -35,13 +31,6 @@ input, select {
     padding: 0 15px;
 }
 
-/* Gender */
-.gender-box {
-    display: flex;
-    gap: 20px;
-}
-
-/* Buttons */
 button {
     padding: 10px 20px;
     border: none;
@@ -59,22 +48,23 @@ button {
     margin-top: 10px;
 }
 
-/* DOCUMENT ROW */
+/* ROW */
 .doc-item {
     display: flex;
+    justify-content: center; /* whole row center */
     align-items: center;
-    justify-content: space-between;
     background: rgba(0,0,0,0.2);
-    padding: 5px 10px;
+    padding: 6px 10px;
     margin: 6px 0;
     border-radius: 25px;
 }
 
-/* LEFT SIDE */
+/* CENTER CONTENT */
 .doc-left {
     display: flex;
     align-items: center;
-    gap: 12px;
+    justify-content: center; /* center text + checkbox */
+    gap: 10px;
 }
 
 /* TEXT */
@@ -82,18 +72,16 @@ button {
     font-size: 14px;
 }
 
-/* CHECKBOX FIX */
+/* CHECKBOX EXACT CENTER */
 .doc-left input[type="checkbox"] {
     width: 18px;
     height: 18px;
     margin: 0;
 }
 
-/* RIGHT SIDE */
+/* STATUS TEXT */
 .selected-text {
-    min-width: 80px;
-    text-align: right;
-    font-size: 12px;
+    display: none; /* optional hide (clean center look) */
 }
 </style>
 
@@ -101,43 +89,9 @@ button {
 
 <body>
 
-<h1 style="text-align:center;">SkillHub Hiring Services</h1>
-
 <div class="container">
 
-<h2>Worker Registration</h2>
-
-<h3>Personal Details</h3>
-
-<input type="text" id="name" placeholder="Full Name">
-<input type="text" id="father" placeholder="Father Name">
-<input type="text" id="dob" placeholder="Date of Birth">
-
-<div class="gender-box">
-<label><input type="radio" name="gender" value="Male"> Male</label>
-<label><input type="radio" name="gender" value="Female"> Female</label>
-<label><input type="radio" name="gender" value="Other"> Other</label>
-</div>
-
-<h3>Contact Details</h3>
-
-<input type="text" id="mobile" placeholder="Mobile Number">
-<input type="email" id="email" placeholder="Email">
-<input type="text" id="address" placeholder="Address">
-
-<h3>Service Details</h3>
-
-<select id="type" onchange="loadOptions()">
-<option value="">Select Type</option>
-<option value="worker">Worker</option>
-<option value="vehicle">Vehicle</option>
-</select>
-
-<select id="subtype"></select>
-
-<div id="vehicleBox" style="display:none;">
-<input type="text" placeholder="Vehicle Number">
-</div>
+<h2 style="text-align:center;">Worker Registration</h2>
 
 <h3>Documents</h3>
 
@@ -146,107 +100,27 @@ button {
 <label class="doc-item">
     <div class="doc-left">
         <span>Aadhar</span>
-        <input type="checkbox" value="Aadhar">
+        <input type="checkbox">
     </div>
-    <span class="selected-text"></span>
 </label>
 
 <label class="doc-item">
     <div class="doc-left">
         <span>Passport</span>
-        <input type="checkbox" value="Passport">
+        <input type="checkbox">
     </div>
-    <span class="selected-text"></span>
 </label>
 
 <label class="doc-item">
     <div class="doc-left">
         <span>Driving License</span>
-        <input type="checkbox" value="Driving License">
+        <input type="checkbox">
     </div>
-    <span class="selected-text"></span>
 </label>
 
 </div>
 
-<h3>Upload CV</h3>
-
-<input type="file" id="cv">
-<button onclick="viewFile()">View File</button>
-
-<br><br>
-
-<button onclick="save()">Submit</button>
-<button onclick="resetForm()">Reset</button>
-
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-<script>
-
-flatpickr("#dob", { dateFormat: "d/m/Y" });
-
-const workerList = ["Labour","Helper","Mason","Carpenter","Electrician"];
-const vehicleList = ["Bike","Car","Truck","Bus"];
-
-function loadOptions() {
-    let type = document.getElementById("type").value;
-    let sub = document.getElementById("subtype");
-    let vehicleBox = document.getElementById("vehicleBox");
-
-    sub.innerHTML = "<option>Select Option</option>";
-
-    if(type === "worker"){
-        vehicleBox.style.display = "none";
-        workerList.forEach(i => sub.add(new Option(i,i)));
-    }
-    else if(type === "vehicle"){
-        vehicleBox.style.display = "block";
-        vehicleList.forEach(i => sub.add(new Option(i,i)));
-    }
-}
-
-// checkbox
-const checkboxes = document.querySelectorAll(".doc-item input");
-
-checkboxes.forEach(cb => {
-    cb.addEventListener("change", function() {
-        let text = this.closest(".doc-item").querySelector(".selected-text");
-        text.innerHTML = this.checked ? "(Selected)" : "";
-    });
-});
-
-function save(){
-    let name = document.getElementById("name").value;
-    let mobile = document.getElementById("mobile").value;
-    let gender = document.querySelector('input[name="gender"]:checked');
-
-    if(!name || !mobile || !gender){
-        alert("Fill all required fields");
-        return;
-    }
-
-    alert("Saved Successfully");
-}
-
-function resetForm(){
-    location.reload();
-}
-
-function viewFile(){
-    let file = document.getElementById("cv");
-
-    if(!file.files.length){
-        alert("Upload file first");
-        return;
-    }
-
-    let url = URL.createObjectURL(file.files[0]);
-    window.open(url);
-}
-
-</script>
 
 </body>
 </html>
