@@ -59,7 +59,7 @@ button {
     margin-top: 10px;
 }
 
-/* ROW */
+/* DOCUMENT ROW */
 .doc-item {
     display: flex;
     align-items: center;
@@ -71,23 +71,32 @@ button {
     height: 28px;
 }
 
-/* TEXT + CHECKBOX WRAP */
+/* LEFT (text + checkbox center alignment) */
 .doc-left {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex: 1;
 }
 
-/* checkbox */
-.doc-item input {
-    transform: scale(0.8);
+/* TEXT (left aligned) */
+.doc-left span {
+    font-size: 13px;
 }
 
-/* selected text */
+/* CHECKBOX CENTER + SAME SIZE */
+.doc-left input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin: 0 auto;
+    transform: none;   /* remove scaling */
+}
+
+/* RIGHT (Selected) */
 .selected-text {
-    font-size: 12px;
     min-width: 80px;
     text-align: right;
+    font-size: 12px;
 }
 </style>
 </head>
