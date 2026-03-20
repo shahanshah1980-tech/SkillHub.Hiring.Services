@@ -75,7 +75,8 @@ button {
 .doc-left {
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: space-between;
+    width: 100%;
 }
 
 /* TEXT */
@@ -83,12 +84,13 @@ button {
     font-size: 13px;
 }
 
-/* ✅ CHECKBOX CENTER FIX (ONLY CHANGE) */
+/* ✅ CHECKBOX CENTER FIX (HAR HAL ME CENTER) */
 .doc-left input[type="checkbox"] {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     width: 16px;
     height: 16px;
-    margin: 0 auto;
-    display: block;
 }
 
 /* RIGHT TEXT */
@@ -98,6 +100,7 @@ button {
     font-size: 12px;
 }
 </style>
+
 </head>
 
 <body>
@@ -208,7 +211,7 @@ function loadOptions() {
     }
 }
 
-// checkbox text
+// checkbox
 const checkboxes = document.querySelectorAll(".doc-item input");
 
 checkboxes.forEach(cb => {
