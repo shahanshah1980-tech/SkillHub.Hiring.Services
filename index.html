@@ -210,12 +210,10 @@ button {
 <div class="section">
 <h3>Documents</h3>
 
-<div class="input-group">
-<select id="id_proof" multiple>
-<option value="Aadhar">Aadhar</option>
-<option value="Passport">Passport</option>
-<option value="Driving License">Driving License</option>
-</select>
+<div class="input-group" id="docList">
+<label><input type="checkbox" value="Aadhar"> Aadhar</label><br>
+<label><input type="checkbox" value="Passport"> Passport</label><br>
+<label><input type="checkbox" value="Driving License"> Driving License</label>
 </div>
 
 <!-- Selected Documents -->
@@ -223,19 +221,24 @@ button {
 
 </div>
 
-<!-- ✅ JavaScript always inside script tag -->
 <script>
-const selectBox = document.getElementById("id_proof");
+const checkboxes = document.querySelectorAll("#docList input");
 const display = document.getElementById("selectedDocs");
 
-selectBox.addEventListener("change", function() {
-    let selected = Array.from(selectBox.selectedOptions).map(opt => opt.value);
+checkboxes.forEach(cb => {
+    cb.addEventListener("change", () => {
+        let selected = [];
 
-    if(selected.length > 0){
-        display.innerHTML = "Selected Documents: " + selected.join(", ");
-    } else {
-        display.innerHTML = "";
-    }
+        checkboxes.forEach(c => {
+            if(c.checked){
+                selected.push(c.value);
+            }
+        });
+
+        display.innerHTML = selected.length 
+            ? "Selected Documents: " + selected.join(", ") 
+            : "";
+    });
 });
 </script>
 const selectBox = document.getElementById("id_proof");
