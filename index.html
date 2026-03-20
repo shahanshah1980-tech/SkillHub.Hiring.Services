@@ -22,6 +22,10 @@ body {
     background: rgba(255,255,255,0.2);
 }
 
+h2, h3 {
+    margin-top: 15px;
+}
+
 input, select {
     width: 95%;
     height: 45px;
@@ -31,11 +35,13 @@ input, select {
     padding: 0 15px;
 }
 
+/* Gender */
 .gender-box {
     display: flex;
     gap: 20px;
 }
 
+/* Buttons */
 button {
     padding: 10px 20px;
     border: none;
@@ -45,16 +51,33 @@ button {
     cursor: pointer;
 }
 
-label {
+/* DOCUMENT BOX */
+.doc-box {
+    background: rgba(255,255,255,0.15);
+    padding: 15px;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+
+/* EACH ITEM */
+.doc-item {
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: space-between;
+    background: rgba(0,0,0,0.2);
+    padding: 10px 15px;
+    border-radius: 50px;
     margin: 8px 0;
 }
 
+.doc-item input {
+    width: auto;
+}
+
+/* Selected text */
 .selected-text {
-    color: yellow;
-    font-size: 14px;
+    color: #00ffcc;
+    font-size: 13px;
 }
 </style>
 </head>
@@ -67,7 +90,7 @@ label {
 
 <h2>Worker Registration</h2>
 
-<!-- Personal -->
+<!-- PERSONAL -->
 <h3>Personal Details</h3>
 
 <input type="text" id="name" placeholder="Full Name">
@@ -80,14 +103,14 @@ label {
 <label><input type="radio" name="gender" value="Other"> Other</label>
 </div>
 
-<!-- Contact -->
+<!-- CONTACT -->
 <h3>Contact Details</h3>
 
 <input type="text" id="mobile" placeholder="Mobile Number">
 <input type="email" id="email" placeholder="Email">
 <input type="text" id="address" placeholder="Address">
 
-<!-- Service -->
+<!-- SERVICE -->
 <h3>Service Details</h3>
 
 <select id="type" onchange="loadOptions()">
@@ -102,25 +125,32 @@ label {
 <input type="text" placeholder="Vehicle Number">
 </div>
 
-<!-- Documents -->
+<!-- DOCUMENTS -->
 <h3>Documents</h3>
 
-<label>
+<div class="doc-box">
+
+<label class="doc-item">
 <input type="checkbox" value="Aadhar">
-Aadhar <span class="selected-text"></span>
+<span>Aadhar</span>
+<span class="selected-text"></span>
 </label>
 
-<label>
+<label class="doc-item">
 <input type="checkbox" value="Passport">
-Passport <span class="selected-text"></span>
+<span>Passport</span>
+<span class="selected-text"></span>
 </label>
 
-<label>
+<label class="doc-item">
 <input type="checkbox" value="Driving License">
-Driving License <span class="selected-text"></span>
+<span>Driving License</span>
+<span class="selected-text"></span>
 </label>
 
-<!-- File -->
+</div>
+
+<!-- FILE -->
 <h3>Upload CV</h3>
 
 <input type="file" id="cv">
@@ -137,10 +167,10 @@ Driving License <span class="selected-text"></span>
 
 <script>
 
-// Date picker
+// Date Picker
 flatpickr("#dob", { dateFormat: "d/m/Y" });
 
-// Load options
+// SERVICE OPTIONS
 const workerList = ["Labour","Helper","Mason","Carpenter","Electrician"];
 const vehicleList = ["Bike","Car","Truck","Bus"];
 
@@ -161,22 +191,24 @@ function loadOptions() {
     }
 }
 
-// Checkbox selected text (SAMNE)
-const checkboxes = document.querySelectorAll("input[type='checkbox']");
+// DOCUMENT CHECKBOX
+const checkboxes = document.querySelectorAll(".doc-item input");
 
 checkboxes.forEach(cb => {
     cb.addEventListener("change", function() {
-        let span = this.parentElement.querySelector(".selected-text");
+
+        let text = this.parentElement.querySelector(".selected-text");
 
         if(this.checked){
-            span.innerHTML = "(Selected)";
+            text.innerHTML = "(Selected)";
         } else {
-            span.innerHTML = "";
+            text.innerHTML = "";
         }
+
     });
 });
 
-// Save
+// SAVE
 function save(){
     let name = document.getElementById("name").value;
     let mobile = document.getElementById("mobile").value;
@@ -190,12 +222,12 @@ function save(){
     alert("Saved Successfully");
 }
 
-// Reset
+// RESET
 function resetForm(){
     location.reload();
 }
 
-// View file
+// VIEW FILE
 function viewFile(){
     let file = document.getElementById("cv");
 
