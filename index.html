@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>SkillHub Worker Registration</title>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 <style>
@@ -15,44 +14,44 @@ body {
 }
 
 .container {
-    width: 750px;
+    width: 700px;
     margin: 20px auto;
-    padding: 30px;
-    border-radius: 25px;
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(15px);
+    padding: 25px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.2);
     color: white;
-}
-
-.input-group {
-    margin: 12px 0;
 }
 
 input, select {
     width: 95%;
     height: 45px;
+    margin: 10px 0;
     border-radius: 50px;
     border: none;
     padding: 0 15px;
 }
 
-.gender-box {
-    display: flex;
-    justify-content: space-around;
+h2,h3 {
+    margin-top: 15px;
 }
 
-.button-group {
-    text-align: center;
-    margin-top: 20px;
+.gender-box {
+    display: flex;
+    gap: 20px;
 }
 
 button {
     padding: 10px 20px;
-    border-radius: 50px;
     border: none;
+    border-radius: 50px;
     background: #ff758c;
     color: white;
     cursor: pointer;
+}
+
+#selectedDocs {
+    margin-top: 10px;
+    font-weight: bold;
 }
 </style>
 </head>
@@ -68,17 +67,9 @@ button {
 <!-- Personal -->
 <h3>Personal Details</h3>
 
-<div class="input-group">
 <input type="text" id="name" placeholder="Full Name">
-</div>
-
-<div class="input-group">
 <input type="text" id="father" placeholder="Father Name">
-</div>
-
-<div class="input-group">
 <input type="text" id="dob" placeholder="Date of Birth">
-</div>
 
 <div class="gender-box">
 <label><input type="radio" name="gender" value="Male"> Male</label>
@@ -89,59 +80,46 @@ button {
 <!-- Contact -->
 <h3>Contact Details</h3>
 
-<div class="input-group">
 <input type="text" id="mobile" placeholder="Mobile Number">
-</div>
-
-<div class="input-group">
 <input type="email" id="email" placeholder="Email">
-</div>
-
-<div class="input-group">
 <input type="text" id="address" placeholder="Address">
-</div>
 
 <!-- Service -->
 <h3>Service Details</h3>
 
-<div class="input-group">
 <select id="type" onchange="loadOptions()">
 <option value="">Select Type</option>
 <option value="worker">Worker</option>
 <option value="vehicle">Vehicle</option>
 </select>
-</div>
 
-<div class="input-group">
 <select id="subtype"></select>
-</div>
 
-<div class="input-group" id="vehicleBox" style="display:none;">
+<div id="vehicleBox" style="display:none;">
 <input type="text" placeholder="Vehicle Number">
 </div>
 
-<!-- Documents -->
+<!-- Documents (MULTI SELECT) -->
 <h3>Documents</h3>
 
-<div id="docList">
-<label><input type="checkbox" value="Aadhar"> Aadhar</label><br>
-<label><input type="checkbox" value="Passport"> Passport</label><br>
-<label><input type="checkbox" value="Driving License"> Driving License</label>
-</div>
+<select id="id_proof" multiple>
+<option value="Aadhar">Aadhar</option>
+<option value="Passport">Passport</option>
+<option value="Driving License">Driving License</option>
+</select>
 
 <div id="selectedDocs"></div>
 
 <!-- File -->
-<div class="input-group">
+<h3>Upload CV</h3>
+
 <input type="file" id="cv">
 <button onclick="viewFile()">View File</button>
-</div>
 
-<!-- Buttons -->
-<div class="button-group">
+<br><br>
+
 <button onclick="save()">Submit</button>
 <button onclick="resetForm()">Reset</button>
-</div>
 
 </div>
 
@@ -152,10 +130,11 @@ button {
 // Date picker
 flatpickr("#dob", { dateFormat: "d/m/Y" });
 
-// Worker & Vehicle List
+// Worker & Vehicle Lists
 const workerList = ["Labour","Helper","Mason","Carpenter","Electrician"];
 const vehicleList = ["Bike","Car","Truck","Bus"];
 
+// Load options
 function loadOptions() {
     let type = document.getElementById("type").value;
     let sub = document.getElementById("subtype");
@@ -173,21 +152,18 @@ function loadOptions() {
     }
 }
 
-// Documents
-const checkboxes = document.querySelectorAll("#docList input");
+// MULTI SELECT DOCUMENTS
+const selectBox = document.getElementById("id_proof");
 const display = document.getElementById("selectedDocs");
 
-checkboxes.forEach(cb => {
-    cb.addEventListener("change", () => {
-        let selected = [];
-        checkboxes.forEach(c => {
-            if(c.checked) selected.push(c.value);
-        });
+selectBox.addEventListener("change", function() {
+    let selected = Array.from(selectBox.selectedOptions).map(opt => opt.value);
 
-        display.innerHTML = selected.length 
-        ? "Selected: " + selected.join(", ")
-        : "";
-    });
+    if(selected.length > 0){
+        display.innerHTML = "Selected Documents: " + selected.join(", ");
+    } else {
+        display.innerHTML = "";
+    }
 });
 
 // Save
