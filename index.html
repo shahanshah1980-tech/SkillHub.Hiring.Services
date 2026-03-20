@@ -211,13 +211,32 @@ button {
 <h3>Documents</h3>
 
 <div class="input-group">
-<select id="id_proof">
-<option value="">Select ID Proof</option>
-<option>Aadhar</option>
-<option>Passport</option>
-<option>Driving License</option>
+<select id="id_proof" multiple>
+<option value="Aadhar">Aadhar</option>
+<option value="Passport">Passport</option>
+<option value="Driving License">Driving License</option>
 </select>
 </div>
+
+<!-- Selected Documents Show Here -->
+<div id="selectedDocs" style="margin-top:10px; font-weight:bold;"></div>
+
+</div>
+
+<script>
+const selectBox = document.getElementById("id_proof");
+const display = document.getElementById("selectedDocs");
+
+selectBox.addEventListener("change", function() {
+    let selected = Array.from(selectBox.selectedOptions).map(opt => opt.value);
+    
+    if(selected.length > 0){
+        display.innerHTML = "Selected Documents: " + selected.join(", ");
+    } else {
+        display.innerHTML = "";
+    }
+});
+</script>
 
 <div class="input-group">
 <input type="file" id="cv">
