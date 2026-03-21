@@ -249,17 +249,18 @@ $(function () {
         changeMonth: true,
         changeYear: true,
         yearRange: "1900:2025",
-        dateFormat: "dd/mm/yy"
+        dateFormat: "dd/mm/yy",
+
+        // ✅ YAHAN ANDAR likhna hai
+        beforeShow: function(input, inst) {
+            setTimeout(function() {
+                inst.dpDiv.css({
+                    top: $(input).offset().top + $(input).outerHeight(),
+                    left: $(input).offset().left + $(input).outerWidth() - inst.dpDiv.outerWidth()
+                });
+            }, 0);
+        }
     });
-});
-    beforeShow: function(input, inst) {
-        setTimeout(function() {
-            inst.dpDiv.css({
-                top: $(input).offset().top + $(input).outerHeight(),
-                left: $(input).offset().left + $(input).outerWidth() - inst.dpDiv.outerWidth()
-            });
-        }, 0);
-    }
 });
 /* ✅ CHECKBOX FIX (RIGHT SIDE TEXT) */
 document.querySelectorAll(".doc-item input").forEach(cb => {
