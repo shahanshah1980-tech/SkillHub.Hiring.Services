@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>SkillHub Worker Registration</title>
 
-<!-- jQuery + jQuery UI (Calendar) -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
@@ -38,13 +37,11 @@ input, select {
     padding: 0 15px;
 }
 
-/* Gender */
 .gender-box {
     display: flex;
     gap: 20px;
 }
 
-/* Button */
 button {
     padding: 10px 20px;
     border: none;
@@ -54,12 +51,10 @@ button {
     cursor: pointer;
 }
 
-/* File Button Gray */
 button.file-btn {
     background: #6c757d !important;
 }
 
-/* Upload Row */
 .upload-row {
     display: flex;
     align-items: center;
@@ -71,10 +66,10 @@ button.file-btn {
 
 #fileName {
     font-size: 14px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     max-width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .service-row {
@@ -107,6 +102,7 @@ button.file-btn {
     margin: 3px 0;
     border-radius: 25px;
     height: 28px;
+    position: relative; /* ✅ important */
 }
 
 .doc-left {
@@ -117,6 +113,16 @@ button.file-btn {
 
 .doc-left span {
     font-size: 13px;
+}
+
+/* ✅ PERFECT CENTER CHECKBOX */
+.doc-left input[type="checkbox"] {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
 }
 
 .selected-text {
@@ -145,7 +151,6 @@ button.file-btn {
 <input type="text" id="name" placeholder="Full Name">
 <input type="text" id="father" placeholder="Father Name">
 
-<!-- ✅ DATE PICKER -->
 <input type="text" id="dob" placeholder="Date of Birth">
 
 <div class="gender-box">
@@ -185,7 +190,7 @@ button.file-btn {
 <label class="doc-item">
     <div class="doc-left">
         <span>Aadhar</span>
-        <input type="checkbox" value="Aadhar">
+        <input type="checkbox">
     </div>
     <span class="selected-text"></span>
 </label>
@@ -193,7 +198,7 @@ button.file-btn {
 <label class="doc-item">
     <div class="doc-left">
         <span>Passport</span>
-        <input type="checkbox" value="Passport">
+        <input type="checkbox">
     </div>
     <span class="selected-text"></span>
 </label>
@@ -201,7 +206,7 @@ button.file-btn {
 <label class="doc-item">
     <div class="doc-left">
         <span>Driving License</span>
-        <input type="checkbox" value="Driving License">
+        <input type="checkbox">
     </div>
     <span class="selected-text"></span>
 </label>
@@ -209,7 +214,7 @@ button.file-btn {
 <label class="doc-item">
     <div class="doc-left">
         <span>Photo</span>
-        <input type="checkbox" value="Photo">
+        <input type="checkbox">
     </div>
     <span class="selected-text"></span>
 </label>
@@ -217,9 +222,9 @@ button.file-btn {
 </div>
 
 <h3 class="upload-row">
-    Upload CV
-    <button id="fileBtn" class="file-btn" onclick="handleFile()">Choose File</button>
-    <span id="fileName"></span>
+Upload CV
+<button id="fileBtn" class="file-btn" onclick="handleFile()">Choose File</button>
+<span id="fileName"></span>
 </h3>
 
 <input type="file" id="cv" onchange="updateButton()">
@@ -232,7 +237,6 @@ button.file-btn {
 </div>
 
 <script>
-// ✅ CALENDAR WITH DROPDOWNS
 $(function () {
     $("#dob").datepicker({
         changeMonth: true,
