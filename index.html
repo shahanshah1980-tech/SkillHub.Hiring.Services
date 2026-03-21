@@ -60,11 +60,18 @@ button.file-btn:hover {
     background: #218838 !important;
 }
 
-/* Upload Row */
+/* Upload Row (ALL IN ONE LINE) */
 .upload-row {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* File name */
+#fileName {
+    font-size: 13px;
+    font-weight: bold;
 }
 
 /* SERVICE ROW */
@@ -135,13 +142,6 @@ button.file-btn:hover {
 /* Hide file input */
 #cv {
     display: none;
-}
-
-/* File Name */
-#fileName {
-    font-size: 13px;
-    font-weight: bold;
-    margin-left: 10px;
 }
 </style>
 
@@ -229,15 +229,18 @@ button.file-btn:hover {
 
 </div>
 
-<!-- Upload Row -->
-<h3 class="upload-row">
-    Upload CV
+<h3>Upload CV</h3>
+
+<!-- ✅ ALL IN ONE LINE -->
+<div class="upload-row">
+    <span>Upload CV</span>
+
     <button id="fileBtn" class="file-btn" onclick="handleFile()">Choose File</button>
-</h3>
+
+    <span id="fileName"></span>
+</div>
 
 <input type="file" id="cv" onchange="updateButton()">
-
-<span id="fileName"></span>
 
 <br><br>
 
@@ -308,7 +311,6 @@ function handleFile(){
     }
 }
 
-/* Save */
 function save(){
     let name = document.getElementById("name").value;
     let mobile = document.getElementById("mobile").value;
@@ -322,7 +324,6 @@ function save(){
     alert("Saved Successfully");
 }
 
-/* Reset */
 function resetForm(){
     location.reload();
 }
