@@ -93,6 +93,7 @@ button.file-btn {
     border-radius: 15px;
 }
 
+/* 🔥 MAIN FIX START */
 .doc-item {
     display: flex;
     align-items: center;
@@ -104,35 +105,28 @@ button.file-btn {
     height: 28px;
 }
 
+/* LEFT SIDE */
 .doc-left {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.doc-left span {
-    font-size: 13px;
-}
-.selected-text {
-    min-width: 80px;
-    text-align: right;
-    font-size: 12px;
-}
-/* ✅ PERFECT CENTER CHECKBOX */
+/* ✔ CHECKBOX PERFECT CENTER */
 .doc-left input[type="checkbox"] {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
     width: 16px;
     height: 16px;
+    margin: 0 auto;   /* horizontal center */
+    display: block;
 }
 
+/* RIGHT TEXT */
 .selected-text {
     min-width: 80px;
     text-align: right;
     font-size: 12px;
 }
+/* 🔥 MAIN FIX END */
 
 #cv {
     display: none;
@@ -249,15 +243,15 @@ $(function () {
     });
 });
 
-const workerList = ["Labour","Helper","Mason","Carpenter","Electrician"];
-const vehicleList = ["Bike","Car","Truck","Bus"];
-
 function loadOptions() {
     let type = document.getElementById("type").value;
     let sub = document.getElementById("subtype");
     let vehicleBox = document.getElementById("vehicleBox");
 
     sub.innerHTML = "<option>Select Option</option>";
+
+    let workerList = ["Labour","Helper","Mason","Carpenter","Electrician"];
+    let vehicleList = ["Bike","Car","Truck","Bus"];
 
     if(type === "worker"){
         vehicleBox.style.display = "none";
@@ -268,13 +262,6 @@ function loadOptions() {
         vehicleList.forEach(i => sub.add(new Option(i,i)));
     }
 }
-
-document.querySelectorAll(".doc-item input").forEach(cb => {
-    cb.addEventListener("change", function() {
-        let text = this.closest(".doc-item").querySelector(".selected-text");
-        text.innerHTML = this.checked ? "(Selected)" : "";
-    });
-});
 
 function updateButton(){
     let file = document.getElementById("cv");
