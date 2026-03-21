@@ -41,7 +41,7 @@ input, select {
     gap: 20px;
 }
 
-/* Default Button (Pink) */
+/* Default Button */
 button {
     padding: 10px 20px;
     border: none;
@@ -51,7 +51,7 @@ button {
     cursor: pointer;
 }
 
-/* File Button (Green) */
+/* File Button Green */
 button.file-btn {
     background: #28a745 !important;
 }
@@ -60,7 +60,7 @@ button.file-btn:hover {
     background: #218838 !important;
 }
 
-/* Upload Row (Same Line) */
+/* Upload Row */
 .upload-row {
     display: flex;
     justify-content: space-between;
@@ -79,12 +79,12 @@ button.file-btn:hover {
     flex: 1;
 }
 
-/* Vehicle Input */
+/* Vehicle */
 .vehicle-box input {
     width: 85%;
 }
 
-/* DOCUMENT BOX (UNCHANGED) */
+/* DOCUMENT BOX */
 .doc-box {
     background: rgba(255,255,255,0.15);
     padding: 15px;
@@ -92,7 +92,7 @@ button.file-btn:hover {
     margin-top: 10px;
 }
 
-/* DOCUMENT ROW (UNCHANGED) */
+/* DOCUMENT ROW */
 .doc-item {
     display: flex;
     align-items: center;
@@ -104,7 +104,7 @@ button.file-btn:hover {
     height: 28px;
 }
 
-/* LEFT SIDE */
+/* LEFT */
 .doc-left {
     display: flex;
     align-items: center;
@@ -116,7 +116,7 @@ button.file-btn:hover {
     font-size: 13px;
 }
 
-/* CHECKBOX (UNCHANGED) */
+/* CHECKBOX CENTER */
 .doc-left input[type="checkbox"] {
     position: absolute;
     left: 50%;
@@ -135,6 +135,13 @@ button.file-btn:hover {
 /* Hide file input */
 #cv {
     display: none;
+}
+
+/* File Name */
+#fileName {
+    font-size: 13px;
+    font-weight: bold;
+    margin-left: 10px;
 }
 </style>
 
@@ -222,13 +229,15 @@ button.file-btn:hover {
 
 </div>
 
-<!-- ✅ SAME LINE FIX -->
+<!-- Upload Row -->
 <h3 class="upload-row">
     Upload CV
-    <button id="fileBtn" class="file-btn" onclick="handleFile()">Upload File</button>
+    <button id="fileBtn" class="file-btn" onclick="handleFile()">Choose File</button>
 </h3>
 
 <input type="file" id="cv" onchange="updateButton()">
+
+<span id="fileName"></span>
 
 <br><br>
 
@@ -263,7 +272,7 @@ function loadOptions() {
     }
 }
 
-/* CHECKBOX LOGIC SAME */
+/* Checkbox */
 const checkboxes = document.querySelectorAll(".doc-item input");
 
 checkboxes.forEach(cb => {
@@ -273,15 +282,18 @@ checkboxes.forEach(cb => {
     });
 });
 
-/* FILE BUTTON */
+/* File Button */
 function updateButton(){
     let file = document.getElementById("cv");
     let btn = document.getElementById("fileBtn");
+    let nameText = document.getElementById("fileName");
 
     if(file.files.length){
         btn.innerText = "View File";
+        nameText.innerText = file.files[0].name;
     } else {
-        btn.innerText = "Upload File";
+        btn.innerText = "Choose File";
+        nameText.innerText = "";
     }
 }
 
@@ -296,7 +308,7 @@ function handleFile(){
     }
 }
 
-/* SAVE */
+/* Save */
 function save(){
     let name = document.getElementById("name").value;
     let mobile = document.getElementById("mobile").value;
@@ -310,7 +322,7 @@ function save(){
     alert("Saved Successfully");
 }
 
-/* RESET */
+/* Reset */
 function resetForm(){
     location.reload();
 }
