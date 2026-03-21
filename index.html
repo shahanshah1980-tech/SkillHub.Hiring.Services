@@ -14,19 +14,6 @@ body {
     color: white;
 }
 
-button {
-    background: #28a745;
-}
-
-/* 👇 iske baad likho */
-.file-btn {
-    background: #28a745;
-}
-
-.file-btn:hover {
-    background: #218838;
-}
-    
 .container {
     width: 700px;
     margin: 20px auto;
@@ -54,7 +41,7 @@ input, select {
     gap: 20px;
 }
 
-/* Buttons */
+/* 🔴 DEFAULT BUTTON (Pink) */
 button {
     padding: 10px 20px;
     border: none;
@@ -62,6 +49,15 @@ button {
     background: #ff758c;
     color: white;
     cursor: pointer;
+}
+
+/* 🟢 FILE BUTTON (Green - FIXED) */
+button.file-btn {
+    background: #28a745;
+}
+
+button.file-btn:hover {
+    background: #218838;
 }
 
 /* SERVICE ROW */
@@ -79,10 +75,6 @@ button {
 /* Vehicle Input */
 .vehicle-box input {
     width: 85%;
-    height: 45px;
-    border-radius: 50px;
-    border: none;
-    padding: 0 15px;
 }
 
 /* DOCUMENT BOX */
@@ -90,50 +82,19 @@ button {
     background: rgba(255,255,255,0.15);
     padding: 15px;
     border-radius: 15px;
-    margin-top: 10px;
 }
 
 /* DOCUMENT ROW */
 .doc-item {
     display: flex;
-    align-items: center;
     justify-content: space-between;
     background: rgba(0,0,0,0.2);
-    padding: 2px 10px;
-    margin: 3px 0;
-    border-radius: 25px;
-    height: 28px;
+    padding: 5px 10px;
+    margin: 5px 0;
+    border-radius: 20px;
 }
 
-/* LEFT SIDE */
-.doc-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-/* TEXT */
-.doc-left span {
-    font-size: 13px;
-}
-
-/* CHECKBOX CENTER */
-.doc-left input[type="checkbox"] {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 16px;
-    height: 16px;
-}
-
-/* RIGHT TEXT */
-.selected-text {
-    min-width: 80px;
-    text-align: right;
-    font-size: 12px;
-}
-
-/* Hide default file input */
+/* Hide file input */
 #cv {
     display: none;
 }
@@ -150,7 +111,6 @@ button {
 <h2>Worker Registration</h2>
 
 <h3>Personal Details</h3>
-
 <input type="text" id="name" placeholder="Full Name">
 <input type="text" id="father" placeholder="Father Name">
 <input type="text" id="dob" placeholder="Date of Birth">
@@ -162,7 +122,6 @@ button {
 </div>
 
 <h3>Contact Details</h3>
-
 <input type="text" id="mobile" placeholder="Mobile Number">
 <input type="email" id="email" placeholder="Email">
 <input type="text" id="address" placeholder="Address">
@@ -170,7 +129,6 @@ button {
 <h3>Service Details</h3>
 
 <div class="service-row">
-
 <select id="type" onchange="loadOptions()">
 <option value="">Select Type</option>
 <option value="worker">Worker</option>
@@ -182,51 +140,21 @@ button {
 <div id="vehicleBox" class="vehicle-box" style="display:none;">
 <input type="text" placeholder="Vehicle Number">
 </div>
-
 </div>
 
 <h3>Documents</h3>
 
 <div class="doc-box">
-
-<label class="doc-item">
-    <div class="doc-left">
-        <span>Aadhar</span>
-        <input type="checkbox" value="Aadhar">
-    </div>
-    <span class="selected-text"></span>
-</label>
-
-<label class="doc-item">
-    <div class="doc-left">
-        <span>Passport</span>
-        <input type="checkbox" value="Passport">
-    </div>
-    <span class="selected-text"></span>
-</label>
-
-<label class="doc-item">
-    <div class="doc-left">
-        <span>Driving License</span>
-        <input type="checkbox" value="Driving License">
-    </div>
-    <span class="selected-text"></span>
-</label>
-
-<label class="doc-item">
-    <div class="doc-left">
-        <span>Photo</span>
-        <input type="checkbox" value="Photo">
-    </div>
-    <span class="selected-text"></span>
-</label>
-    
+<label class="doc-item">Aadhar <input type="checkbox"></label>
+<label class="doc-item">Passport <input type="checkbox"></label>
+<label class="doc-item">Driving License <input type="checkbox"></label>
+<label class="doc-item">Photo <input type="checkbox"></label>
 </div>
 
 <h3>Upload CV</h3>
 
 <input type="file" id="cv" onchange="updateButton()">
-<button id="fileBtn" onclick="handleFile()">Choose File</button>
+<button id="fileBtn" class="file-btn" onclick="handleFile()">Choose File</button>
 
 <br><br>
 
@@ -238,7 +166,6 @@ button {
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <script>
-
 flatpickr("#dob", { dateFormat: "d/m/Y" });
 
 const workerList = ["Labour","Helper","Mason","Carpenter","Electrician"];
@@ -261,17 +188,7 @@ function loadOptions() {
     }
 }
 
-// checkbox
-const checkboxes = document.querySelectorAll(".doc-item input");
-
-checkboxes.forEach(cb => {
-    cb.addEventListener("change", function() {
-        let text = this.closest(".doc-item").querySelector(".selected-text");
-        text.innerHTML = this.checked ? "(Selected)" : "";
-    });
-});
-
-// 🔥 FILE BUTTON LOGIC
+/* FILE BUTTON LOGIC */
 function updateButton(){
     let file = document.getElementById("cv");
     let btn = document.getElementById("fileBtn");
@@ -310,7 +227,6 @@ function save(){
 function resetForm(){
     location.reload();
 }
-
 </script>
 
 </body>
