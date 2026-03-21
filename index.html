@@ -225,7 +225,7 @@ button.file-btn:hover {
 <!-- ✅ SAME LINE FIX -->
 <h3 class="upload-row">
     Upload CV
-    <button id="fileBtn" class="file-btn" onclick="handleFile()">Choose File</button>
+    <button id="fileBtn" class="file-btn" onclick="handleFile()">Upload File</button>
 </h3>
 
 <input type="file" id="cv" onchange="updateButton()">
@@ -281,7 +281,7 @@ function updateButton(){
     if(file.files.length){
         btn.innerText = "View File";
     } else {
-        btn.innerText = "Choose File";
+        btn.innerText = "Upload File";
     }
 }
 
