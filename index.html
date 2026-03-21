@@ -37,11 +37,13 @@ input, select {
     padding: 0 15px;
 }
 
+/* Gender */
 .gender-box {
     display: flex;
     gap: 20px;
 }
 
+/* Button */
 button {
     padding: 10px 20px;
     border: none;
@@ -51,10 +53,12 @@ button {
     cursor: pointer;
 }
 
+/* File Button Gray */
 button.file-btn {
     background: #6c757d !important;
 }
 
+/* Upload Row */
 .upload-row {
     display: flex;
     align-items: center;
@@ -93,41 +97,37 @@ button.file-btn {
     border-radius: 15px;
 }
 
-/* 🔥 MAIN FIX START */
+/* Doc item */
 .doc-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: relative;
-    height: 32px;
-    padding: 0 10px;
     background: rgba(0,0,0,0.2);
-    border-radius: 25px;
+    padding: 2px 10px;
     margin: 3px 0;
+    border-radius: 25px;
+    height: 28px;
+    position: relative;
 }
 
-/* LEFT TEXT */
+/* LEFT */
 .doc-left {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-/* ✅ PERFECT CENTER */
-.doc-item input[type="checkbox"] {
-    position: absolute;
-    left: 50%;
-    top: 25%;
-    transform: translate(-50%, -50%);
+/* Checkbox CENTER */
+.doc-left input[type="checkbox"] {
     width: 16px;
     height: 16px;
 }
 
 /* RIGHT TEXT */
 .selected-text {
-    font-size: 12px;
     min-width: 80px;
     text-align: right;
+    font-size: 12px;
 }
 
 #cv {
@@ -242,6 +242,14 @@ $(function () {
         changeYear: true,
         yearRange: "1900:2025",
         dateFormat: "dd/mm/yy"
+    });
+});
+
+/* ✅ CHECKBOX FIX (RIGHT SIDE TEXT) */
+document.querySelectorAll(".doc-item input").forEach(cb => {
+    cb.addEventListener("change", function() {
+        let text = this.closest(".doc-item").querySelector(".selected-text");
+        text.innerText = this.checked ? "(Selected)" : "";
     });
 });
 
