@@ -53,23 +53,23 @@ button {
 
 /* File Button Gray */
 button.file-btn {
-    background: #6c757d !important;  /* Gray color */
+    background: #6c757d !important;
 }
 
 button.file-btn:hover {
-    background: #5a6268 !important;  /* Darker gray on hover */
+    background: #5a6268 !important;
 }
-/* ✅ Upload Row (ALL IN ONE LINE ALWAYS) */
+
+/* Upload Row */
 .upload-row {
     display: flex;
     align-items: center;
     gap: 15px;
-    flex-wrap: nowrap;   /* always one line */
-    font-size: 24px;     /* bigger text */
+    flex-wrap: nowrap;
+    font-size: 24px;
     font-weight: bold;
 }
 
-/* File name style */
 #fileName {
     font-size: 14px;
     white-space: nowrap;
@@ -78,7 +78,6 @@ button.file-btn:hover {
     max-width: 200px;
 }
 
-/* SERVICE ROW */
 .service-row {
     display: flex;
     gap: 5px;
@@ -90,12 +89,10 @@ button.file-btn:hover {
     flex: 1;
 }
 
-/* Vehicle */
 .vehicle-box input {
     width: 85%;
 }
 
-/* DOCUMENT BOX */
 .doc-box {
     background: rgba(255,255,255,0.15);
     padding: 15px;
@@ -103,7 +100,6 @@ button.file-btn:hover {
     margin-top: 10px;
 }
 
-/* DOCUMENT ROW */
 .doc-item {
     display: flex;
     align-items: center;
@@ -115,19 +111,16 @@ button.file-btn:hover {
     height: 28px;
 }
 
-/* LEFT */
 .doc-left {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-/* TEXT */
 .doc-left span {
     font-size: 13px;
 }
 
-/* CHECKBOX CENTER */
 .doc-left input[type="checkbox"] {
     position: absolute;
     left: 50%;
@@ -136,14 +129,12 @@ button.file-btn:hover {
     height: 16px;
 }
 
-/* RIGHT TEXT */
 .selected-text {
     min-width: 80px;
     text-align: right;
     font-size: 12px;
 }
 
-/* Hide file input */
 #cv {
     display: none;
 }
@@ -163,6 +154,8 @@ button.file-btn:hover {
 
 <input type="text" id="name" placeholder="Full Name">
 <input type="text" id="father" placeholder="Father Name">
+
+<!-- DOB FIELD -->
 <input type="text" id="dob" placeholder="Date of Birth">
 
 <div class="gender-box">
@@ -233,12 +226,9 @@ button.file-btn:hover {
 
 </div>
 
-<!-- ✅ SAME LINE -->
 <h3 class="upload-row">
     Upload CV
-
     <button id="fileBtn" class="file-btn" onclick="handleFile()">Choose File</button>
-
     <span id="fileName"></span>
 </h3>
 
@@ -255,7 +245,13 @@ button.file-btn:hover {
 
 <script>
 
-flatpickr("#dob", { dateFormat: "d/m/Y" });
+// ✅ ADVANCED CALENDAR (MONTH + YEAR DROPDOWN)
+flatpickr("#dob", {
+    dateFormat: "d/m/Y",
+    monthSelectorType: "dropdown",
+    yearSelectorType: "dropdown",
+    allowInput: true
+});
 
 const workerList = ["Labour","Helper","Mason","Carpenter","Electrician"];
 const vehicleList = ["Bike","Car","Truck","Bus"];
@@ -277,7 +273,6 @@ function loadOptions() {
     }
 }
 
-/* Checkbox */
 const checkboxes = document.querySelectorAll(".doc-item input");
 
 checkboxes.forEach(cb => {
@@ -287,7 +282,6 @@ checkboxes.forEach(cb => {
     });
 });
 
-/* File Button */
 function updateButton(){
     let file = document.getElementById("cv");
     let btn = document.getElementById("fileBtn");
