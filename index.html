@@ -41,7 +41,7 @@ input, select {
     gap: 20px;
 }
 
-/* 🔴 DEFAULT BUTTON */
+/* Default Button (Pink) */
 button {
     padding: 10px 20px;
     border: none;
@@ -51,13 +51,20 @@ button {
     cursor: pointer;
 }
 
-/* 🟢 FILE BUTTON (FIX) */
+/* File Button (Green) */
 button.file-btn {
     background: #28a745 !important;
 }
 
 button.file-btn:hover {
     background: #218838 !important;
+}
+
+/* Upload Row (Same Line) */
+.upload-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* SERVICE ROW */
@@ -215,11 +222,13 @@ button.file-btn:hover {
 
 </div>
 
-<h3>Upload CV</h3>
+<!-- ✅ SAME LINE FIX -->
+<h3 class="upload-row">
+    Upload CV
+    <button id="fileBtn" class="file-btn" onclick="handleFile()">Choose File</button>
+</h3>
 
 <input type="file" id="cv" onchange="updateButton()">
-
-<button id="fileBtn" class="file-btn" onclick="handleFile()">Choose File</button>
 
 <br><br>
 
@@ -254,7 +263,7 @@ function loadOptions() {
     }
 }
 
-/* CHECKBOX (UNCHANGED LOGIC) */
+/* CHECKBOX LOGIC SAME */
 const checkboxes = document.querySelectorAll(".doc-item input");
 
 checkboxes.forEach(cb => {
