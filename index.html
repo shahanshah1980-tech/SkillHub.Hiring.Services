@@ -60,18 +60,23 @@ button.file-btn:hover {
     background: #218838 !important;
 }
 
-/* Upload Row (ALL IN ONE LINE) */
+/* ✅ Upload Row (ALL IN ONE LINE ALWAYS) */
 .upload-row {
     display: flex;
     align-items: center;
     gap: 15px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;   /* always one line */
+    font-size: 24px;     /* bigger text */
+    font-weight: bold;
 }
 
-/* File name */
+/* File name style */
 #fileName {
-    font-size: 13px;
-    font-weight: bold;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
 }
 
 /* SERVICE ROW */
@@ -229,16 +234,14 @@ button.file-btn:hover {
 
 </div>
 
-<h3>Upload CV</h3>
-
-<!-- ✅ ALL IN ONE LINE -->
-<div class="upload-row">
-    <span>Upload CV</span>
+<!-- ✅ SAME LINE -->
+<h3 class="upload-row">
+    Upload CV
 
     <button id="fileBtn" class="file-btn" onclick="handleFile()">Choose File</button>
 
     <span id="fileName"></span>
-</div>
+</h3>
 
 <input type="file" id="cv" onchange="updateButton()">
 
