@@ -4,7 +4,10 @@
 <meta charset="UTF-8">
 <title>SkillHub Worker Registration</title>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<!-- jQuery + jQuery UI (Calendar) -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 
 <style>
 body {
@@ -41,7 +44,7 @@ input, select {
     gap: 20px;
 }
 
-/* Default Button */
+/* Button */
 button {
     padding: 10px 20px;
     border: none;
@@ -54,10 +57,6 @@ button {
 /* File Button Gray */
 button.file-btn {
     background: #6c757d !important;
-}
-
-button.file-btn:hover {
-    background: #5a6268 !important;
 }
 
 /* Upload Row */
@@ -97,7 +96,6 @@ button.file-btn:hover {
     background: rgba(255,255,255,0.15);
     padding: 15px;
     border-radius: 15px;
-    margin-top: 10px;
 }
 
 .doc-item {
@@ -119,14 +117,6 @@ button.file-btn:hover {
 
 .doc-left span {
     font-size: 13px;
-}
-
-.doc-left input[type="checkbox"] {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 16px;
-    height: 16px;
 }
 
 .selected-text {
@@ -155,7 +145,7 @@ button.file-btn:hover {
 <input type="text" id="name" placeholder="Full Name">
 <input type="text" id="father" placeholder="Father Name">
 
-<!-- DOB FIELD -->
+<!-- ✅ DATE PICKER -->
 <input type="text" id="dob" placeholder="Date of Birth">
 
 <div class="gender-box">
@@ -241,16 +231,15 @@ button.file-btn:hover {
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
 <script>
-
-// ✅ ADVANCED CALENDAR (MONTH + YEAR DROPDOWN)
-flatpickr("#dob", {
-    dateFormat: "d/m/Y",
-    monthSelectorType: "dropdown",
-    yearSelectorType: "dropdown",
-    allowInput: true
+// ✅ CALENDAR WITH DROPDOWNS
+$(function () {
+    $("#dob").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "1900:2025",
+        dateFormat: "dd/mm/yy"
+    });
 });
 
 const workerList = ["Labour","Helper","Mason","Carpenter","Electrician"];
@@ -273,9 +262,7 @@ function loadOptions() {
     }
 }
 
-const checkboxes = document.querySelectorAll(".doc-item input");
-
-checkboxes.forEach(cb => {
+document.querySelectorAll(".doc-item input").forEach(cb => {
     cb.addEventListener("change", function() {
         let text = this.closest(".doc-item").querySelector(".selected-text");
         text.innerHTML = this.checked ? "(Selected)" : "";
@@ -302,8 +289,7 @@ function handleFile(){
     if(!file.files.length){
         file.click();
     } else {
-        let url = URL.createObjectURL(file.files[0]);
-        window.open(url);
+        window.open(URL.createObjectURL(file.files[0]));
     }
 }
 
@@ -323,7 +309,6 @@ function save(){
 function resetForm(){
     location.reload();
 }
-
 </script>
 
 </body>
