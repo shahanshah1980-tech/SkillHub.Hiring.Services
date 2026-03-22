@@ -346,9 +346,20 @@ function save(){
         return;
     }
 
+    // 🔴 Check if already exists
+    let savedMobiles = JSON.parse(localStorage.getItem("mobiles")) || [];
+
+    if(savedMobiles.includes(mobile)){
+        alert("⚠ Mobile number already registered!");
+        return;
+    }
+
+    // ✅ Save new mobile
+    savedMobiles.push(mobile);
+    localStorage.setItem("mobiles", JSON.stringify(savedMobiles));
+
     alert("Saved Successfully");
 }
-
 function resetForm(){
     location.reload();
 }
