@@ -260,8 +260,20 @@ $("#dob").datepicker({
     changeYear: true,
     yearRange: "1900:2025",
     dateFormat: "dd/mm/yy",
+    defaultDate: new Date(),
 
-    defaultDate: new Date(),   // ✅ current date select karega
+    onSelect: function(dateText, inst) {
+        // Next input field pe focus bhejo
+        let focusable = Array.from(
+            document.querySelectorAll("input, select, button")
+        ).filter(el => el.offsetParent !== null && !el.disabled);
+
+        let index = focusable.indexOf(document.getElementById("dob"));
+
+        if (index > -1 && index < focusable.length - 1) {
+            focusable[index + 1].focus();
+        }
+    },
 
     beforeShow: function(input, inst) {
         setTimeout(function() {
@@ -272,7 +284,6 @@ $("#dob").datepicker({
         }, 0);
     }
 });
-
 document.querySelectorAll(".doc-item input").forEach(cb => {
     cb.addEventListener("change", function() {
         let text = this.closest(".doc-item").querySelector(".selected-text");
