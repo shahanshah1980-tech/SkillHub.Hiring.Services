@@ -350,9 +350,10 @@ function save(){
         return;
     }
 
+    // ✅ Get FULL users list
     let users = JSON.parse(localStorage.getItem("users")) || [];
 
-    // 🔴 DUPLICATE CHECK (Mobile + Email)
+    // 🔴 Duplicate check (Mobile + Email)
     let mobileExists = users.some(u => u.mobile === mobile);
     let emailExists = users.some(u => u.email === email && email !== "");
 
@@ -366,7 +367,7 @@ function save(){
         return;
     }
 
-    // ✅ SAVE DATA
+    // ✅ Save FULL DATA
     let userData = {
         name: name,
         father: father,
@@ -385,6 +386,7 @@ function save(){
 
     alert("Saved Successfully");
 }
+    
 function resetForm(){
     location.reload();
 }
