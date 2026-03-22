@@ -9,7 +9,13 @@
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 
 <style>
-
+body {
+    margin: 0;
+    font-family: Arial;
+    background: linear-gradient(135deg,#00c6ff,#0072ff);
+    color: white;
+    overflow: hidden;
+}
 
 .container {
     width: 700px;
@@ -114,7 +120,7 @@ button.file-btn {
     gap: 10px;
 }
 
-/* SINGLE CLEAN CHECKBOX CENTER */
+/* CHECKBOX CENTER */
 .doc-left input[type="checkbox"] {
     position: absolute;
     left: 50%;
@@ -131,9 +137,11 @@ button.file-btn {
     text-align: right;
     font-size: 12px;
 }
+
 #cv {
     display: none;
 }
+
 #dob {
     display: block;
     margin-left: auto;
