@@ -179,7 +179,8 @@ SkillHub &amp; Hiring Services
 
 <h3>Contact Details</h3>
 
-<input type="text" id="mobile" placeholder="Mobile Number">
+<input type="text" id="mobile" placeholder="Mobile Number" maxlength="10"
+oninput="this.value = this.value.replace(/[^0-9]/g, '')">
 <input type="email" id="email" placeholder="Email">
 <input type="text" id="address" placeholder="Address">
 
