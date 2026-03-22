@@ -18,6 +18,8 @@ body {
 
 .container {
     width: 700px;
+    height: 85vh;
+    overflow-y: auto;
     margin: 20px auto;
     padding: 25px;
     border-radius: 20px;
@@ -117,7 +119,7 @@ button.file-btn {
     gap: 10px;
 }
 
-/* ✅ SINGLE CLEAN CHECKBOX CENTER */
+/* SINGLE CLEAN CHECKBOX CENTER */
 .doc-left input[type="checkbox"] {
     position: absolute;
     left: 50%;
@@ -140,7 +142,7 @@ button.file-btn {
 #dob {
     display: block;
     margin-left: auto;
-}    
+}
 </style>
 
 </head>
@@ -251,7 +253,6 @@ $(function () {
         yearRange: "1900:2025",
         dateFormat: "dd/mm/yy",
 
-        // ✅ YAHAN ANDAR likhna hai
         beforeShow: function(input, inst) {
             setTimeout(function() {
                 inst.dpDiv.css({
@@ -262,7 +263,7 @@ $(function () {
         }
     });
 });
-/* ✅ CHECKBOX FIX (RIGHT SIDE TEXT) */
+
 document.querySelectorAll(".doc-item input").forEach(cb => {
     cb.addEventListener("change", function() {
         let text = this.closest(".doc-item").querySelector(".selected-text");
