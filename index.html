@@ -255,22 +255,22 @@ Upload CV
 </div>
 
 <script>
-$(function () {
-    $("#dob").datepicker({
-        changeMonth: true,
-        changeYear: true,
-        yearRange: "1900:2025",
-        dateFormat: "dd/mm/yy",
+$("#dob").datepicker({
+    changeMonth: true,
+    changeYear: true,
+    yearRange: "1900:2025",
+    dateFormat: "dd/mm/yy",
 
-        beforeShow: function(input, inst) {
-            setTimeout(function() {
-                inst.dpDiv.css({
-                    top: $(input).offset().top + $(input).outerHeight(),
-                    left: $(input).offset().left + $(input).outerWidth() - inst.dpDiv.outerWidth()
-                });
-            }, 0);
-        }
-    });
+    defaultDate: new Date(),   // ✅ current date select karega
+
+    beforeShow: function(input, inst) {
+        setTimeout(function() {
+            inst.dpDiv.css({
+                top: $(input).offset().top + $(input).outerHeight(),
+                left: $(input).offset().left + $(input).outerWidth() - inst.dpDiv.outerWidth()
+            });
+        }, 0);
+    }
 });
 
 document.querySelectorAll(".doc-item input").forEach(cb => {
