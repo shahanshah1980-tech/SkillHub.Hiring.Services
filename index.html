@@ -337,6 +337,8 @@ function handleFile(){
 }
 
 function save(){
+
+    // 📥 Get values
     let name = document.getElementById("name").value.trim();
     let father = document.getElementById("father").value.trim();
     let dob = document.getElementById("dob").value;
@@ -345,29 +347,34 @@ function save(){
     let email = document.getElementById("email").value.trim();
     let address = document.getElementById("address").value.trim();
 
+    // 🔴 Required validation
     if(!name || !father || !dob || !gender || !mobile){
-        alert("Fill all required fields");
+        alert("⚠ Fill all required fields");
         return;
     }
 
-    // ✅ Get FULL users list
+    // 🔴 Mobile validation (10 digits)
+    if(!/^\d{10}$/.test(mobile)){
+        alert("⚠ Enter valid 10 digit mobile number");
+        return;
+    }
+
+    // 📦 Get existing users
     let users = JSON.parse(localStorage.getItem("users")) || [];
 
-    // 🔴 Duplicate check (Mobile + Email)
-    let mobileExists = users.some(u => u.mobile === mobile);
-    let emailExists = users.some(u => u.email === email && email !== "");
-
-    if(mobileExists){
+    // 🔴 Duplicate mobile check
+    if(users.some(u => u.mobile === mobile)){
         alert("⚠ Mobile number already registered!");
         return;
     }
 
-    if(emailExists){
+    // 🔴 Duplicate email check (if entered)
+    if(email && users.some(u => u.email === email)){
         alert("⚠ Email already registered!");
         return;
     }
 
-    // ✅ Save FULL DATA
+    // ✅ Create user object
     let userData = {
         name: name,
         father: father,
@@ -380,11 +387,16 @@ function save(){
         password: mobile
     };
 
+    // ➕ Add new user
     users.push(userData);
 
+    // 💾 Save to localStorage
     localStorage.setItem("users", JSON.stringify(users));
 
-    alert("Saved Successfully");
+    alert("✅ Saved Successfully");
+
+    // 🔄 Reset form
+    document.getElementById("myForm").reset();
 }
     
 function resetForm(){
