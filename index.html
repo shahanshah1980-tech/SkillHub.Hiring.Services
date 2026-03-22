@@ -337,29 +337,61 @@ function handleFile(){
 }
 
 function save(){
-    let name = document.getElementById("name").value;
-    let mobile = document.getElementById("mobile").value;
-    let gender = document.querySelector('input[name="gender"]:checked');
 
-    if(!name || !mobile || !gender){
-        alert("Fill all required fields");
+    let name = document.getElementById("name").value.trim();
+    let father = document.getElementById("father").value.trim();
+    let dob = document.getElementById("dob").value;
+    let gender = document.querySelector('input[name="gender"]:checked');
+    let mobile = document.getElementById("mobile").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let address = document.getElementById("address").value.trim();
+
+    // 🔴 Validation
+    if(!name || !father || !dob || !gender || !mobile){
+        alert("⚠ Please fill all required fields");
         return;
     }
 
-    // 🔴 Check if already exists
-    let savedMobiles = JSON.parse(localStorage.getItem("mobiles")) || [];
+    // 🔴 Mobile validation (10 digits)
+    if(!/^\d{10}$/.test(mobile)){
+        alert("⚠ Enter valid 10 digit mobile number");
+        return;
+    }
 
-    if(savedMobiles.includes(mobile)){
+    // 🔴 Get existing users
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // 🔴 Duplicate check
+    if(users.some(u => u.mobile === mobile)){
         alert("⚠ Mobile number already registered!");
         return;
     }
 
-    // ✅ Save new mobile
-    savedMobiles.push(mobile);
-    localStorage.setItem("mobiles", JSON.stringify(savedMobiles));
+    // ✅ Create user object
+    let userData = {
+        name: name,
+        father: father,
+        dob: dob,
+        gender: gender.value,
+        mobile: mobile,
+        email: email,
+        address: address,
+        username: mobile,
+        password: mobile
+    };
 
-    alert("Saved Successfully");
+    // ✅ Add new user (next line add hoga)
+    users.push(userData);
+
+    // ✅ Save updated list
+    localStorage.setItem("users", JSON.stringify(users));
+
+    alert("✅ Registration Successful");
+
+    // 🔄 Optional: form reset
+    document.querySelector("form")?.reset();
 }
+    
 function resetForm(){
     location.reload();
 }
