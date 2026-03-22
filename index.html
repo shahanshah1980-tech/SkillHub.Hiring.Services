@@ -16,7 +16,6 @@ body {
     color: white;
     overflow: hidden;
 }
-
 .container {
     width: 700px;
     height: 70vh;
@@ -26,14 +25,7 @@ body {
     border-radius: 20px;
     background: rgba(255,255,255,0.2);
 }
-h2 {
-    width: 100%;
-    text-align: center;
-}
-h2, h3 {
-    margin-top: 15px;
-}
-
+h2 { text-align:center; }
 input, select {
     width: 95%;
     height: 45px;
@@ -42,133 +34,60 @@ input, select {
     border: none;
     padding: 0 15px;
 }
-
-/* Gender */
-.gender-box {
-    display: flex;
-    gap: 20px;
-}
-
-/* Button */
+.gender-box { display:flex; gap:20px; }
 button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 50px;
-    background: #ff758c;
-    color: white;
-    cursor: pointer;
+    padding:10px 20px;
+    border:none;
+    border-radius:50px;
+    background:#ff758c;
+    color:white;
+    cursor:pointer;
 }
+button.file-btn { background:#6c757d !important; }
 
-/* File Button Gray */
-button.file-btn {
-    background: #6c757d !important;
-}
-
-/* Upload Row */
 .upload-row {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    flex-wrap: nowrap;
-    font-size: 24px;
-    font-weight: bold;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    font-size:24px;
+    font-weight:bold;
 }
+#fileName { font-size:14px; max-width:200px; overflow:hidden; }
 
-#fileName {
-    font-size: 14px;
-    max-width: 200px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.service-row {
-    display: flex;
-    gap: 5px;
-    align-items: center;
-}
-
-.service-row select,
-.service-row .vehicle-box {
-    flex: 1;
-}
-
-.vehicle-box input {
-    width: 85%;
-}
+.service-row { display:flex; gap:5px; align-items:center; }
+.vehicle-box input { width:85%; }
 
 .doc-box {
     background: rgba(255,255,255,0.15);
     padding: 15px;
     border-radius: 15px;
 }
-
-/* Doc item */
 .doc-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display:flex;
+    justify-content:space-between;
     background: rgba(0,0,0,0.2);
-    padding: 2px 10px;
-    margin: 3px 0;
-    border-radius: 25px;
-    height: 28px;
-    position: relative;
+    padding:2px 10px;
+    margin:3px 0;
+    border-radius:25px;
 }
+.selected-text { font-size:12px; }
 
-/* LEFT SIDE */
-.doc-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-/* CHECKBOX CENTER */
-.doc-left input[type="checkbox"] {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 16px;
-    height: 16px;
-    margin: 0;
-}
-
-/* RIGHT TEXT */
-.selected-text {
-    min-width: 80px;
-    text-align: right;
-    font-size: 12px;
-}
-
-#cv {
-    display: none;
-}
-
-#dob {
-    display: block;
-    margin-left: auto;
-}
+#cv { display:none; }
 </style>
-
 </head>
 
 <body>
 
-<h1 style="text-align:center; margin-top:20px; margin-bottom:0;">
-SkillHub &amp; Hiring Services
-</h1>
-
+<h1 style="text-align:center;">SkillHub & Hiring Services</h1>
 
 <div class="container">
+<form id="myForm">
 
-<h2 style="width:100%; text-align:center;">Worker Registration</h2>
-    
+<h2>Worker Registration</h2>
+
 <h3>Personal Details</h3>
-
 <input type="text" id="name" placeholder="Full Name">
 <input type="text" id="father" placeholder="Father Name">
-
 <input type="text" id="dob" placeholder="Date of Birth">
 
 <div class="gender-box">
@@ -178,16 +97,13 @@ SkillHub &amp; Hiring Services
 </div>
 
 <h3>Contact Details</h3>
-
-<input type="text" id="mobile" placeholder="Mobile Number" maxlength="10"
-oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+<input type="text" id="mobile" maxlength="10" placeholder="Mobile Number"
+oninput="this.value=this.value.replace(/[^0-9]/g,'')">
 <input type="email" id="email" placeholder="Email">
 <input type="text" id="address" placeholder="Address">
 
 <h3>Service Details</h3>
-
 <div class="service-row">
-
 <select id="type" onchange="loadOptions()">
 <option value="">Select Type</option>
 <option value="worker">Worker</option>
@@ -196,221 +112,148 @@ oninput="this.value = this.value.replace(/[^0-9]/g, '')">
 
 <select id="subtype"></select>
 
-<div id="vehicleBox" class="vehicle-box" style="display:none;">
+<div id="vehicleBox" style="display:none;">
 <input type="text" placeholder="Vehicle Number">
 </div>
-
 </div>
 
 <h3>Documents</h3>
-
 <div class="doc-box">
-
-<label class="doc-item">
-    <div class="doc-left">
-        <span>Aadhar</span>
-        <input type="checkbox">
-    </div>
-    <span class="selected-text"></span>
-</label>
-
-<label class="doc-item">
-    <div class="doc-left">
-        <span>Passport</span>
-        <input type="checkbox">
-    </div>
-    <span class="selected-text"></span>
-</label>
-
-<label class="doc-item">
-    <div class="doc-left">
-        <span>Driving License</span>
-        <input type="checkbox">
-    </div>
-    <span class="selected-text"></span>
-</label>
-
-<label class="doc-item">
-    <div class="doc-left">
-        <span>Photo</span>
-        <input type="checkbox">
-    </div>
-    <span class="selected-text"></span>
-</label>
-
+<label class="doc-item"><span>Aadhar</span><input type="checkbox"><span class="selected-text"></span></label>
+<label class="doc-item"><span>Passport</span><input type="checkbox"><span class="selected-text"></span></label>
+<label class="doc-item"><span>Driving License</span><input type="checkbox"><span class="selected-text"></span></label>
+<label class="doc-item"><span>Photo</span><input type="checkbox"><span class="selected-text"></span></label>
 </div>
 
 <h3 class="upload-row">
 Upload CV
-<button id="fileBtn" class="file-btn" onclick="handleFile()">Choose File</button>
+<button type="button" id="fileBtn" class="file-btn" onclick="handleFile()">Choose File</button>
 <span id="fileName"></span>
 </h3>
 
 <input type="file" id="cv" onchange="updateButton()">
 
 <br><br>
+<button type="button" onclick="save()">Submit</button>
+<button type="button" onclick="resetForm()">Reset</button>
 
-<button onclick="save()">Submit</button>
-<button onclick="resetForm()">Reset</button>
-
+</form>
 </div>
 
 <script>
+
+// DATE PICKER
 $("#dob").datepicker({
-    changeMonth: true,
-    changeYear: true,
-    yearRange: "1900:2025",
-    dateFormat: "dd/mm/yy",
-    defaultDate: new Date(),
-
-    onSelect: function(dateText, inst) {
-        // Next input field pe focus bhejo
-        let focusable = Array.from(
-            document.querySelectorAll("input, select, button")
-        ).filter(el => el.offsetParent !== null && !el.disabled);
-
-        let index = focusable.indexOf(document.getElementById("dob"));
-
-        if (index > -1 && index < focusable.length - 1) {
-            focusable[index + 1].focus();
-        }
-    },
-
-    beforeShow: function(input, inst) {
-        setTimeout(function() {
-            inst.dpDiv.css({
-                top: $(input).offset().top + $(input).outerHeight(),
-                left: $(input).offset().left + $(input).outerWidth() - inst.dpDiv.outerWidth()
-            });
-        }, 0);
+    changeMonth:true,
+    changeYear:true,
+    yearRange:"1900:2025",
+    dateFormat:"dd/mm/yy",
+    onSelect:function(){
+        document.getElementById("mobile").focus();
     }
 });
-document.querySelectorAll(".doc-item input").forEach(cb => {
-    cb.addEventListener("change", function() {
-        let text = this.closest(".doc-item").querySelector(".selected-text");
-        text.innerText = this.checked ? "(Selected)" : "";
+
+// DOC SELECT TEXT
+document.querySelectorAll(".doc-item input").forEach(cb=>{
+    cb.addEventListener("change",function(){
+        let t=this.parentElement.querySelector(".selected-text");
+        t.innerText=this.checked?"(Selected)":"";
     });
 });
 
-function loadOptions() {
-    let type = document.getElementById("type").value;
-    let sub = document.getElementById("subtype");
-    let vehicleBox = document.getElementById("vehicleBox");
+// SERVICE OPTIONS
+function loadOptions(){
+    let type=document.getElementById("type").value;
+    let sub=document.getElementById("subtype");
+    let box=document.getElementById("vehicleBox");
 
-    sub.innerHTML = "<option>Select Option</option>";
+    sub.innerHTML="<option>Select Option</option>";
 
-    let workerList = ["Labour","Helper","Mason","Carpenter","Electrician"];
-    let vehicleList = ["Bike","Car","Truck","Bus"];
+    let w=["Labour","Helper","Mason","Carpenter","Electrician"];
+    let v=["Bike","Car","Truck","Bus"];
 
-    if(type === "worker"){
-        vehicleBox.style.display = "none";
-        workerList.forEach(i => sub.add(new Option(i,i)));
-    }
-    else if(type === "vehicle"){
-        vehicleBox.style.display = "block";
-        vehicleList.forEach(i => sub.add(new Option(i,i)));
+    if(type==="worker"){
+        box.style.display="none";
+        w.forEach(i=>sub.add(new Option(i,i)));
+    } else {
+        box.style.display="block";
+        v.forEach(i=>sub.add(new Option(i,i)));
     }
 }
 
+// FILE
 function updateButton(){
-    let file = document.getElementById("cv");
-    let btn = document.getElementById("fileBtn");
-    let nameText = document.getElementById("fileName");
-
-    if(file.files.length){
-        btn.innerText = "View File";
-        nameText.innerText = file.files[0].name;
-    } else {
-        btn.innerText = "Choose File";
-        nameText.innerText = "";
+    let f=cv.files[0];
+    if(f){
+        fileBtn.innerText="View File";
+        fileName.innerText=f.name;
     }
 }
-
 function handleFile(){
-    let file = document.getElementById("cv");
-
-    if(!file.files.length){
-        file.click();
-    } else {
-        window.open(URL.createObjectURL(file.files[0]));
-    }
+    if(!cv.files.length) cv.click();
+    else window.open(URL.createObjectURL(cv.files[0]));
 }
 
+// SAVE FUNCTION (MAIN FIX)
 function save(){
 
-    let name = document.getElementById("name").value.trim();
-    let father = document.getElementById("father").value.trim();
-    let dob = document.getElementById("dob").value;
-    let gender = document.querySelector('input[name="gender"]:checked');
-    let mobile = document.getElementById("mobile").value.trim();
-    let email = document.getElementById("email").value.trim();
-    let address = document.getElementById("address").value.trim();
+    let name=nameField("name");
+    let father=nameField("father");
+    let dob=document.getElementById("dob").value;
+    let gender=document.querySelector('input[name="gender"]:checked');
+    let mobile=nameField("mobile");
+    let email=nameField("email");
+    let address=nameField("address");
 
-    // 🔴 Validation
-    if(!name || !father || !dob || !gender || !mobile){
-        alert("⚠ Please fill all required fields");
+    if(!name||!father||!dob||!gender||!mobile){
+        alert("Fill all required fields");
         return;
     }
 
-    // 🔴 Mobile validation (10 digits)
     if(!/^\d{10}$/.test(mobile)){
-        alert("⚠ Enter valid 10 digit mobile number");
+        alert("Enter valid mobile");
         return;
     }
 
-    // 🔴 Get existing users
-    let users = JSON.parse(localStorage.getItem("users")) || [];
+    let users=JSON.parse(localStorage.getItem("users"))||[];
 
-    // 🔴 Duplicate check
-    if(users.some(u => u.mobile === mobile)){
-        alert("⚠ Mobile number already registered!");
+    if(users.some(u=>u.mobile===mobile)){
+        alert("Already registered");
         return;
     }
 
-    // ✅ Create user object
-    let userData = {
-        name: name,
-        father: father,
-        dob: dob,
-        gender: gender.value,
-        mobile: mobile,
-        email: email,
-        address: address,
-        username: mobile,
-        password: mobile
+    let user={
+        name, father, dob,
+        gender:gender.value,
+        mobile, email, address,
+        username:mobile,
+        password:mobile
     };
 
-    // ✅ Add new user (next line add hoga)
-    users.push(userData);
+    users.push(user);
+    localStorage.setItem("users",JSON.stringify(users));
 
-    // ✅ Save updated list
-    localStorage.setItem("users", JSON.stringify(users));
-
-    alert("✅ Registration Successful");
-
-    // 🔄 Optional: form reset
-    document.querySelector("form")?.reset();
+    alert("Saved Successfully");
+    document.getElementById("myForm").reset();
 }
-    
+
+function nameField(id){
+    return document.getElementById(id).value.trim();
+}
+
+// RESET
 function resetForm(){
-    location.reload();
+    document.getElementById("myForm").reset();
 }
-// Enter key → next field
-document.addEventListener("keydown", function(e) {
-    if (e.key === "Enter") {
-        e.preventDefault();
 
-        let focusable = Array.from(
-            document.querySelectorAll("input, select, button")
-        ).filter(el => el.offsetParent !== null && !el.disabled);
-
-        let index = focusable.indexOf(document.activeElement);
-
-        if (index > -1 && index < focusable.length - 1) {
-            focusable[index + 1].focus();
-        }
-    }
-});    
+// ENTER NEXT
+document.addEventListener("keydown",function(e){
+if(e.key==="Enter"){
+e.preventDefault();
+let f=[...document.querySelectorAll("input,select,button")].filter(el=>el.offsetParent!==null);
+let i=f.indexOf(document.activeElement);
+if(i>-1&&i<f.length-1)f[i+1].focus();
+}});
 </script>
 
 </body>
