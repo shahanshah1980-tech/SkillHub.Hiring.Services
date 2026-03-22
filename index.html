@@ -337,26 +337,51 @@ function handleFile(){
 }
 
 function save(){
-    let name = document.getElementById("name").value;
-    let mobile = document.getElementById("mobile").value;
+    let name = document.getElementById("name").value.trim();
+    let father = document.getElementById("father").value.trim();
+    let dob = document.getElementById("dob").value;
     let gender = document.querySelector('input[name="gender"]:checked');
+    let mobile = document.getElementById("mobile").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let address = document.getElementById("address").value.trim();
 
-    if(!name || !mobile || !gender){
+    if(!name || !father || !dob || !gender || !mobile){
         alert("Fill all required fields");
         return;
     }
 
-    // 🔴 Check if already exists
-    let savedMobiles = JSON.parse(localStorage.getItem("mobiles")) || [];
+    let users = JSON.parse(localStorage.getItem("users")) || [];
 
-    if(savedMobiles.includes(mobile)){
+    // 🔴 DUPLICATE CHECK (Mobile + Email)
+    let mobileExists = users.some(u => u.mobile === mobile);
+    let emailExists = users.some(u => u.email === email && email !== "");
+
+    if(mobileExists){
         alert("⚠ Mobile number already registered!");
         return;
     }
 
-    // ✅ Save new mobile
-    savedMobiles.push(mobile);
-    localStorage.setItem("mobiles", JSON.stringify(savedMobiles));
+    if(emailExists){
+        alert("⚠ Email already registered!");
+        return;
+    }
+
+    // ✅ SAVE DATA
+    let userData = {
+        name: name,
+        father: father,
+        dob: dob,
+        gender: gender.value,
+        mobile: mobile,
+        email: email,
+        address: address,
+        username: mobile,
+        password: mobile
+    };
+
+    users.push(userData);
+
+    localStorage.setItem("users", JSON.stringify(users));
 
     alert("Saved Successfully");
 }
