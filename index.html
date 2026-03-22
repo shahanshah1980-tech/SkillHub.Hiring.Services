@@ -197,48 +197,38 @@ function handleFile(){
 // SAVE FUNCTION (MAIN FIX)
 function save(){
 
-    let name=nameField("name");
-    let father=nameField("father");
-    let dob=document.getElementById("dob").value;
-    let gender=document.querySelector('input[name="gender"]:checked');
-    let mobile=nameField("mobile");
-    let email=nameField("email");
-    let address=nameField("address");
+    let name = document.getElementById("name").value.trim();
+    let father = document.getElementById("father").value.trim();
+    let dob = document.getElementById("dob").value;
+    let gender = document.querySelector('input[name="gender"]:checked');
+    let mobile = document.getElementById("mobile").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let address = document.getElementById("address").value.trim();
 
-    if(!name||!father||!dob||!gender||!mobile){
+    if(!name || !father || !dob || !gender || !mobile){
         alert("Fill all required fields");
         return;
     }
 
-    if(!/^\d{10}$/.test(mobile)){
-        alert("Enter valid mobile");
-        return;
-    }
+    let users = JSON.parse(localStorage.getItem("users")) || [];
 
-    let users=JSON.parse(localStorage.getItem("users"))||[];
-
-    if(users.some(u=>u.mobile===mobile)){
-        alert("Already registered");
-        return;
-    }
-
-    let user={
-        name, father, dob,
-        gender:gender.value,
-        mobile, email, address,
-        username:mobile,
-        password:mobile
+    let userData = {
+        name: name,
+        father: father,
+        dob: dob,
+        gender: gender.value,
+        mobile: mobile,
+        email: email,
+        address: address,
+        username: mobile,
+        password: mobile
     };
 
-    users.push(user);
-    localStorage.setItem("users",JSON.stringify(users));
+    users.push(userData);
+
+    localStorage.setItem("users", JSON.stringify(users));
 
     alert("Saved Successfully");
-    document.getElementById("myForm").reset();
-}
-
-function nameField(id){
-    return document.getElementById(id).value.trim();
 }
 
 // RESET
