@@ -19,17 +19,14 @@ body {
 
 .container {
     width: 700px;
-    height: 70vh;
+    height: 85vh;
     overflow-y: auto;
     margin: 20px auto;
     padding: 25px;
     border-radius: 20px;
     background: rgba(255,255,255,0.2);
 }
-h2 {
-    width: 100%;
-    text-align: center;
-}
+
 h2, h3 {
     margin-top: 15px;
 }
@@ -99,6 +96,37 @@ button.file-btn {
     border-radius: 15px;
 }
 
+.doc-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(0,0,0,0.2);
+    padding: 2px 10px;
+    margin: 3px 0;
+    border-radius: 25px;
+    height: 28px;
+    position: relative;
+}
+
+.doc-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.doc-left input[type="checkbox"] {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.selected-text {
+    min-width: 80px;
+    text-align: right;
+    font-size: 12px;
+}
+
 #cv {
     display: none;
 }
@@ -107,13 +135,25 @@ button.file-btn {
     display: block;
     margin-left: auto;
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    text-align: center;
+}
+
+th, td {
+    border: 1px solid white;
+    padding: 5px;
+}
 </style>
 
 </head>
 
 <body>
 
-<h1 style="text-align:center; margin-top:20px; margin-bottom:0;">
+<h1 style="text-align:center; margin-top:20px;">
 SkillHub & Hiring Services
 </h1>
 
@@ -135,11 +175,8 @@ SkillHub & Hiring Services
 
 <h3>Contact Details</h3>
 
-<input type="text" id="mobile" placeholder="Mobile Number" maxlength="10"
-oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-
+<input type="text" id="mobile" placeholder="Mobile Number">
 <input type="email" id="email" placeholder="Email">
-
 <input type="text" id="address" placeholder="Address">
 
 <h3>Service Details</h3>
@@ -169,6 +206,7 @@ oninput="this.value = this.value.replace(/[^0-9]/g, '')">
         <span>Aadhar</span>
         <input type="checkbox">
     </div>
+    <span class="selected-text"></span>
 </label>
 
 <label class="doc-item">
@@ -176,6 +214,7 @@ oninput="this.value = this.value.replace(/[^0-9]/g, '')">
         <span>Passport</span>
         <input type="checkbox">
     </div>
+    <span class="selected-text"></span>
 </label>
 
 <label class="doc-item">
@@ -183,6 +222,7 @@ oninput="this.value = this.value.replace(/[^0-9]/g, '')">
         <span>Driving License</span>
         <input type="checkbox">
     </div>
+    <span class="selected-text"></span>
 </label>
 
 <label class="doc-item">
@@ -190,6 +230,7 @@ oninput="this.value = this.value.replace(/[^0-9]/g, '')">
         <span>Photo</span>
         <input type="checkbox">
     </div>
+    <span class="selected-text"></span>
 </label>
 
 </div>
@@ -207,6 +248,20 @@ Upload CV
 <button onclick="save()">Submit</button>
 <button onclick="resetForm()">Reset</button>
 
+<h3>Saved Data</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Mobile</th>
+<th>Gender</th>
+<th>Type</th>
+<th>Subtype</th>
+</tr>
+</thead>
+<tbody id="dataTable"></tbody>
+</table>
+
 </div>
 
 <script>
@@ -214,7 +269,7 @@ Upload CV
 $("#dob").datepicker({
     changeMonth: true,
     changeYear: true,
-    yearRange: "1900:2126",
+    yearRange: "1900:2025",
     dateFormat: "dd/mm/yy"
 });
 
@@ -223,7 +278,7 @@ function loadOptions() {
     let sub = document.getElementById("subtype");
     let vehicleBox = document.getElementById("vehicleBox");
 
-    sub.innerHTML = "<option>Select Option</option>";
+    sub.innerHTML = "";
 
     let workerList = ["Labour","Helper","Mason","Carpenter","Electrician"];
     let vehicleList = ["Bike","Car","Truck","Bus"];
@@ -261,57 +316,63 @@ function handleFile(){
 
 function save(){
 
-    let name = document.getElementById("name").value.trim();
-    let father = document.getElementById("father").value.trim();
+    let name = document.getElementById("name").value;
+    let father = document.getElementById("father").value;
     let dob = document.getElementById("dob").value;
     let gender = document.querySelector('input[name="gender"]:checked');
-    let mobile = document.getElementById("mobile").value.trim();
-    let email = document.getElementById("email").value.trim();
-    let address = document.getElementById("address").value.trim();
+    let mobile = document.getElementById("mobile").value;
+    let email = document.getElementById("email").value;
+    let address = document.getElementById("address").value;
     let type = document.getElementById("type").value;
     let subtype = document.getElementById("subtype").value;
 
-    let fileInput = document.getElementById("cv");
-    let file = fileInput.files[0];
-
     if(!name || !father || !dob || !gender || !mobile){
-        alert("⚠ Fill all required fields");
+        alert("Fill all required fields");
         return;
     }
 
     let users = JSON.parse(localStorage.getItem("users")) || [];
 
-    function finalSave(fileData){
+    users.push({
+        name,
+        mobile,
+        gender: gender.value,
+        type,
+        subtype
+    });
 
-        users.push({
-            name, father, dob,
-            gender: gender.value,
-            mobile,
-            email,
-            address,
-            type,
-            subtype,
-            fileName: file ? file.name : "",
-            fileData: fileData || ""
-        });
+    localStorage.setItem("users", JSON.stringify(users));
 
-        localStorage.setItem("users", JSON.stringify(users));
+    alert("Saved Successfully");
 
-        alert("✅ Saved Successfully");
-        location.reload();
-    }
+    loadTable();
+}
 
-    if(file){
-        let reader = new FileReader();
-        reader.onload = e => finalSave(e.target.result);
-        reader.readAsDataURL(file);
-    } else {
-        finalSave("");
-    }
+function loadTable(){
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    let table = document.getElementById("dataTable");
+
+    table.innerHTML = "";
+
+    users.forEach(u => {
+        table.innerHTML += `
+        <tr>
+            <td>${u.name}</td>
+            <td>${u.mobile}</td>
+            <td>${u.gender}</td>
+            <td>${u.type}</td>
+            <td>${u.subtype}</td>
+        </tr>
+        `;
+    });
 }
 
 function resetForm(){
     location.reload();
+}
+
+window.onload = function(){
+    loadTable();
 }
 
 </script>
