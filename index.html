@@ -200,39 +200,10 @@ oninput="this.value = this.value.replace(/[^0-9]/g, '')">
 <h3>Documents</h3>
 
 <div class="doc-box">
-
-<label class="doc-item">
-    <div class="doc-left">
-        <span>Aadhar</span>
-        <input type="checkbox">
-    </div>
-    <span class="selected-text"></span>
-</label>
-
-<label class="doc-item">
-    <div class="doc-left">
-        <span>Passport</span>
-        <input type="checkbox">
-    </div>
-    <span class="selected-text"></span>
-</label>
-
-<label class="doc-item">
-    <div class="doc-left">
-        <span>Driving License</span>
-        <input type="checkbox">
-    </div>
-    <span class="selected-text"></span>
-</label>
-
-<label class="doc-item">
-    <div class="doc-left">
-        <span>Photo</span>
-        <input type="checkbox">
-    </div>
-    <span class="selected-text"></span>
-</label>
-
+<label class="doc-item"><div class="doc-left"><span>Aadhar</span><input type="checkbox"></div><span class="selected-text"></span></label>
+<label class="doc-item"><div class="doc-left"><span>Passport</span><input type="checkbox"></div><span class="selected-text"></span></label>
+<label class="doc-item"><div class="doc-left"><span>Driving License</span><input type="checkbox"></div><span class="selected-text"></span></label>
+<label class="doc-item"><div class="doc-left"><span>Photo</span><input type="checkbox"></div><span class="selected-text"></span></label>
 </div>
 
 <h3 class="upload-row">
@@ -247,6 +218,9 @@ Upload CV
 
 <button onclick="save()">Submit</button>
 <button onclick="resetForm()">Reset</button>
+
+<h3>Saved Records</h3>
+<div id="records" style="background:rgba(0,0,0,0.2); padding:10px; border-radius:10px;"></div>
 
 </div>
 
@@ -300,6 +274,20 @@ function handleFile(){
     }
 }
 
+function displayRecords() {
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    let div = document.getElementById("records");
+
+    div.innerHTML = "";
+
+    users.forEach((u, index) => {
+        div.innerHTML += `
+        <div style="margin:5px 0;">
+            ${index + 1}. ${u.name} | ${u.mobile} | ${u.email || "-"}
+        </div>`;
+    });
+}
+
 function save(){
 
     let name = document.getElementById("name").value.trim();
@@ -338,78 +326,16 @@ function save(){
     localStorage.setItem("users", JSON.stringify(users));
 
     alert("✅ Saved Successfully");
-    location.reload();
+
+    displayRecords(); // ✅ show instantly
 }
 
 function resetForm(){
     location.reload();
 }
 
-</script>
+window.onload = displayRecords;
 
-<script>
-// ✅ LIVE MOBILE & EMAIL MESSAGE (added only)
-
-let mobileTimer, emailTimer;
-
-document.getElementById("mobile").addEventListener("input", function () {
-    clearTimeout(mobileTimer);
-    mobileTimer = setTimeout(() => {
-
-        let mobile = this.value.trim();
-        let users = JSON.parse(localStorage.getItem("users")) || [];
-
-        let msg = document.getElementById("mobileMsg");
-
-        if (!/^\d{10}$/.test(mobile)) {
-            msg.innerText = "⚠ Enter 10 digit mobile";
-            msg.style.color = "yellow";
-            return;
-        }
-
-        if (users.some(u => u.mobile === mobile)) {
-            msg.innerText = "❌ Already registered";
-            msg.style.color = "red";
-        } else {
-            msg.innerText = "✅ Available";
-            msg.style.color = "white";
-        }
-
-    }, 500);
-});
-
-document.getElementById("email").addEventListener("input", function () {
-    clearTimeout(emailTimer);
-    emailTimer = setTimeout(() => {
-
-        let email = this.value.trim();
-        let users = JSON.parse(localStorage.getItem("users")) || [];
-
-        let msg = document.getElementById("emailMsg");
-
-        let pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (email === "") {
-            msg.innerText = "";
-            return;
-        }
-
-        if (!pattern.test(email)) {
-            msg.innerText = "⚠ Invalid email";
-            msg.style.color = "red";
-            return;
-        }
-
-        if (users.some(u => u.email === email)) {
-            msg.innerText = "❌ Already registered";
-            msg.style.color = "red";
-        } else {
-            msg.innerText = "✅ Available";
-            msg.style.color = "white";
-        }
-
-    }, 500);
-});
 </script>
 
 </body>
