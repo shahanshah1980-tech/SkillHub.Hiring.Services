@@ -279,41 +279,58 @@ function save(){
     let gender = document.querySelector('input[name="gender"]:checked');
     let mobile = document.getElementById("mobile").value.trim();
     let email = document.getElementById("email").value.trim();
+    let address = document.getElementById("address").value.trim();
+    let type = document.getElementById("type").value;
+    let subtype = document.getElementById("subtype").value;
+
+    let fileInput = document.getElementById("fileInput");
+    let file = fileInput.files[0];
 
     if(!name || !father || !dob || !gender || !mobile){
         alert("⚠ Fill all required fields");
         return;
     }
 
-    let oldData = localStorage.getItem("users") || "";
+    let users = JSON.parse(localStorage.getItem("users")) || [];
 
-    // ✅ old JSON fix
-    if(oldData.startsWith("[")){
-        oldData = "";
-        localStorage.removeItem("users");
-    }
-
-    if(oldData.includes(mobile)){
+    // duplicate mobile check
+    if(users.some(u => u.mobile === mobile)){
         alert("⚠ Mobile already exists");
         return;
     }
 
-    if(email && oldData.includes(email)){
-        alert("⚠ Email already exists");
-        return;
+    let saveData = (fileData) => {
+
+        users.push({
+            name: name,
+            father: father,
+            dob: dob,
+            gender: gender.value,
+            mobile: mobile,
+            password: mobile, // 🔥 mobile = password
+            email: email,
+            address: address,
+            type: type,
+            subtype: subtype,
+            file: fileData || ""
+        });
+
+        localStorage.setItem("users", JSON.stringify(users));
+
+        alert("✅ Saved Successfully");
+        location.reload();
+    };
+
+    if(file){
+        let reader = new FileReader();
+        reader.onload = function(e){
+            saveData(e.target.result);
+        };
+        reader.readAsDataURL(file);
+    } else {
+        saveData("");
     }
-
-    let count = oldData ? oldData.split("\n").length : 0;
-
-    let newLine = `${count + 1}. ${name} | ${mobile} | ${email || "-"}`;
-
-    let finalData = oldData ? oldData + "\n" + newLine : newLine;
-
-    localStorage.setItem("users", finalData);
-
-    alert("✅ Saved Successfully");
 }
-
 function resetForm(){
     location.reload();
 }
