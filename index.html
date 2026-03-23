@@ -43,11 +43,13 @@ input, select {
     padding: 0 15px;
 }
 
+/* Gender */
 .gender-box {
     display: flex;
     gap: 20px;
 }
 
+/* Button */
 button {
     padding: 10px 20px;
     border: none;
@@ -57,10 +59,12 @@ button {
     cursor: pointer;
 }
 
+/* File Button Gray */
 button.file-btn {
     background: #6c757d !important;
 }
 
+/* Upload Row */
 .upload-row {
     display: flex;
     align-items: center;
@@ -99,6 +103,7 @@ button.file-btn {
     border-radius: 15px;
 }
 
+/* Doc item */
 .doc-item {
     display: flex;
     align-items: center;
@@ -111,12 +116,14 @@ button.file-btn {
     position: relative;
 }
 
+/* LEFT SIDE */
 .doc-left {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
+/* CHECKBOX CENTER */
 .doc-left input[type="checkbox"] {
     position: absolute;
     left: 50%;
@@ -127,6 +134,7 @@ button.file-btn {
     margin: 0;
 }
 
+/* RIGHT TEXT */
 .selected-text {
     min-width: 80px;
     text-align: right;
@@ -151,15 +159,16 @@ button.file-btn {
 SkillHub &amp; Hiring Services
 </h1>
 
+
 <div class="container">
-<form id="myForm">
 
 <h2 style="width:100%; text-align:center;">Worker Registration</h2>
-
+    
 <h3>Personal Details</h3>
 
 <input type="text" id="name" placeholder="Full Name">
 <input type="text" id="father" placeholder="Father Name">
+
 <input type="text" id="dob" placeholder="Date of Birth">
 
 <div class="gender-box">
@@ -233,7 +242,7 @@ oninput="this.value = this.value.replace(/[^0-9]/g, '')">
 
 <h3 class="upload-row">
 Upload CV
-<button type="button" id="fileBtn" class="file-btn" onclick="handleFile()">Choose File</button>
+<button id="fileBtn" class="file-btn" onclick="handleFile()">Choose File</button>
 <span id="fileName"></span>
 </h3>
 
@@ -241,22 +250,21 @@ Upload CV
 
 <br><br>
 
-<button type="button" onclick="save()">Submit</button>
-<button type="button" onclick="resetForm()">Reset</button>
+<button onclick="save()">Submit</button>
+<button onclick="resetForm()">Reset</button>
 
-</form>
 </div>
 
 <script>
-
 $("#dob").datepicker({
     changeMonth: true,
     changeYear: true,
-    yearRange: "1900:2100",
+    yearRange: "1900:2025",
     dateFormat: "dd/mm/yy",
     defaultDate: new Date(),
 
     onSelect: function(dateText, inst) {
+        // Next input field pe focus bhejo
         let focusable = Array.from(
             document.querySelectorAll("input, select, button")
         ).filter(el => el.offsetParent !== null && !el.disabled);
@@ -268,31 +276,15 @@ $("#dob").datepicker({
         }
     },
 
-    // ✅ Right side open
-beforeShow: function(input, inst) {
-    setTimeout(function() {
-        let $input = $(input);
-        let $dp = inst.dpDiv;
-
-        let leftPos = $input.offset().left + $input.outerWidth() + 10;
-        let topPos = $input.offset().top + $input.outerHeight();
-
-        // Form ke boundary ke andar rakho
-        let container = $(".container");
-        let containerRight = container.offset().left + container.outerWidth();
-
-        // Agar right me space nahi hai to left me shift
-        if (leftPos + $dp.outerWidth() > containerRight) {
-            leftPos = $input.offset().left - $dp.outerWidth() - 10;
-        }
-
-        $dp.css({
-            top: topPos,
-            left: leftPos
-        });
-    }, 0);
-}
-
+    beforeShow: function(input, inst) {
+        setTimeout(function() {
+            inst.dpDiv.css({
+                top: $(input).offset().top + $(input).outerHeight(),
+                left: $(input).offset().left + $(input).outerWidth() - inst.dpDiv.outerWidth()
+            });
+        }, 0);
+    }
+});
 document.querySelectorAll(".doc-item input").forEach(cb => {
     cb.addEventListener("change", function() {
         let text = this.closest(".doc-item").querySelector(".selected-text");
@@ -345,6 +337,8 @@ function handleFile(){
 }
 
 function save(){
+
+    // 📥 Get values
     let name = document.getElementById("name").value.trim();
     let father = document.getElementById("father").value.trim();
     let dob = document.getElementById("dob").value;
@@ -353,80 +347,77 @@ function save(){
     let email = document.getElementById("email").value.trim();
     let address = document.getElementById("address").value.trim();
 
+    // 🔴 Required validation
     if(!name || !father || !dob || !gender || !mobile){
         alert("⚠ Fill all required fields");
         return;
     }
 
+    // 🔴 Mobile validation (10 digits)
     if(!/^\d{10}$/.test(mobile)){
         alert("⚠ Enter valid 10 digit mobile number");
         return;
     }
 
+    // 📦 Get existing users
     let users = JSON.parse(localStorage.getItem("users")) || [];
 
+    // 🔴 Duplicate mobile check
     if(users.some(u => u.mobile === mobile)){
         alert("⚠ Mobile number already registered!");
         return;
     }
 
+    // 🔴 Duplicate email check (if entered)
     if(email && users.some(u => u.email === email)){
         alert("⚠ Email already registered!");
         return;
     }
 
+    // ✅ Create user object
     let userData = {
-        name, father, dob,
+        name: name,
+        father: father,
+        dob: dob,
         gender: gender.value,
-        mobile, email, address,
+        mobile: mobile,
+        email: email,
+        address: address,
         username: mobile,
         password: mobile
     };
 
+    // ➕ Add new user
     users.push(userData);
+
+    // 💾 Save to localStorage
     localStorage.setItem("users", JSON.stringify(users));
 
     alert("✅ Saved Successfully");
 
+    // 🔄 Reset form
     document.getElementById("myForm").reset();
-    document.getElementById("fileName").innerText = "";
-    document.getElementById("fileBtn").innerText = "Choose File";
 }
-
+    
 function resetForm(){
     location.reload();
 }
-// 🔴 FIXED: ENTER + BLUR ISSUE HANDLING
-let mobileInput = document.getElementById("mobile");
-
-function checkDuplicateMobile(e) {
-    let mobile = mobileInput.value.trim();
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-
-    if (!mobile) return false;
-
-    if (users.some(u => u.mobile === mobile)) {
-        alert("⚠ Mobile number already registered!");
-        mobileInput.focus();
-        mobileInput.select();
-        if (e) e.preventDefault();
-        return true;
-    }
-    return false;
-}
-
-mobileInput.addEventListener("keydown", function (e) {
+// Enter key → next field
+document.addEventListener("keydown", function(e) {
     if (e.key === "Enter") {
-        if (checkDuplicateMobile(e)) return;
-    }
-});
+        e.preventDefault();
 
-// 🔧 ONLY CHANGE HERE (SAFE CHECK)
-mobileInput.addEventListener("blur", function () {
-    if (document.activeElement !== mobileInput) {
-        checkDuplicateMobile();
+        let focusable = Array.from(
+            document.querySelectorAll("input, select, button")
+        ).filter(el => el.offsetParent !== null && !el.disabled);
+
+        let index = focusable.indexOf(document.activeElement);
+
+        if (index > -1 && index < focusable.length - 1) {
+            focusable[index + 1].focus();
+        }
     }
-});
+});    
 </script>
 
 </body>
