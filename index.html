@@ -287,6 +287,12 @@ function save(){
 
     let oldData = localStorage.getItem("users") || "";
 
+    // ✅ old JSON fix
+    if(oldData.startsWith("[")){
+        oldData = "";
+        localStorage.removeItem("users");
+    }
+
     if(oldData.includes(mobile)){
         alert("⚠ Mobile already exists");
         return;
