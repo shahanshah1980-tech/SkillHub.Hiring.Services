@@ -325,16 +325,41 @@ function handleFile(){
 }
 
 function save(){
+
     let name = document.getElementById("name").value;
+    let father = document.getElementById("father").value;
+    let dob = document.getElementById("dob").value;
     let mobile = document.getElementById("mobile").value;
-    let gender = document.querySelector('input[name="gender"]:checked');
+    let email = document.getElementById("email").value;
+    let address = document.getElementById("address").value;
+    let type = document.getElementById("type").value;
+    let subtype = document.getElementById("subtype").value;
+
+    let genderEl = document.querySelector('input[name="gender"]:checked');
+    let gender = genderEl ? genderEl.value : "";
 
     if(!name || !mobile || !gender){
         alert("Fill all required fields");
         return;
     }
 
+    // 👇 NEW USER OBJECT
+    let newUser = {
+        name, father, dob, gender, mobile, email, address, type, subtype
+    };
+
+    // 👇 LOCAL STORAGE SE OLD DATA LO
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // 👇 NEW USER ADD KARO
+    users.push(newUser);
+
+    // 👇 DOBARA SAVE KARO
+    localStorage.setItem("users", JSON.stringify(users));
+
     alert("Saved Successfully");
+
+    console.log(users); // check in console
 }
 
 function resetForm(){
