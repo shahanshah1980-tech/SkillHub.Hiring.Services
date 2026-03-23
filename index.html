@@ -309,7 +309,7 @@ function updateButton(){
         btn.innerText = "View File";
         nameText.innerText = file.files[0].name;
     } else {
-        btn.innerText = "Choose File";
+        btn.innerText = "Upload File";
         nameText.innerText = "";
     }
 }
@@ -334,7 +334,9 @@ function save(){
     let address = document.getElementById("address").value;
     let type = document.getElementById("type").value;
     let subtype = document.getElementById("subtype").value;
-
+    let subtype = document.getElementById("vechilno").value;
+    let subtype = document.getElementById("uploadfile").value;    
+    
     let genderEl = document.querySelector('input[name="gender"]:checked');
     let gender = genderEl ? genderEl.value : "";
 
@@ -345,7 +347,7 @@ function save(){
 
     // 👇 NEW USER OBJECT
     let newUser = {
-        name, father, dob, gender, mobile, email, address, type, subtype
+        name, father, dob, gender, mobile, email, address, type, subtype, vechilno, uploadfile
     };
 
     // 👇 LOCAL STORAGE SE OLD DATA LO
