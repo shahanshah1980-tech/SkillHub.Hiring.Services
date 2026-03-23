@@ -14,14 +14,21 @@ body {
     font-family: Arial;
     background: linear-gradient(135deg,#00c6ff,#0072ff);
     color: white;
+    overflow: hidden;
 }
 
 .container {
     width: 700px;
+    height: 85vh;
+    overflow-y: auto;
     margin: 20px auto;
     padding: 25px;
     border-radius: 20px;
     background: rgba(255,255,255,0.2);
+}
+
+h2, h3 {
+    margin-top: 15px;
 }
 
 input, select {
@@ -33,6 +40,13 @@ input, select {
     padding: 0 15px;
 }
 
+/* Gender */
+.gender-box {
+    display: flex;
+    gap: 20px;
+}
+
+/* Button */
 button {
     padding: 10px 20px;
     border: none;
@@ -42,38 +56,133 @@ button {
     cursor: pointer;
 }
 
-table {
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
-    background: white;
-    color: black;
+/* File Button Gray */
+button.file-btn {
+    background: #6c757d !important;
 }
 
-th, td {
-    border: 1px solid black;
-    padding: 8px;
-    text-align: center;
+/* Upload Row */
+.upload-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: nowrap;
+    font-size: 24px;
+    font-weight: bold;
 }
 
-#cv { display: none; }
+#fileName {
+    font-size: 14px;
+    max-width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.service-row {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.service-row select,
+.service-row .vehicle-box {
+    flex: 1;
+}
+
+.vehicle-box input {
+    width: 85%;
+}
+
+.doc-box {
+    background: rgba(255,255,255,0.15);
+    padding: 15px;
+    border-radius: 15px;
+}
+
+/* Doc item */
+.doc-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(0,0,0,0.2);
+    padding: 2px 10px;
+    margin: 3px 0;
+    border-radius: 25px;
+    height: 28px;
+    position: relative;
+}
+
+/* LEFT SIDE */
+.doc-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* CHECKBOX CENTER */
+.doc-left input[type="checkbox"] {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    margin: 0;
+}
+
+/* RIGHT TEXT */
+.selected-text {
+    min-width: 80px;
+    text-align: right;
+    font-size: 12px;
+}
+
+#cv {
+    display: none;
+}
+
+#dob {
+    display: block;
+    margin-left: auto;
+}
 </style>
 
 </head>
 
 <body>
 
+<h1 style="text-align:center; margin-top:20px; margin-bottom:0;">
+SkillHub &amp; Hiring Services
+</h1>
+
+
 <div class="container">
 
 <h2>Worker Registration</h2>
 
+<h3>Personal Details</h3>
+
 <input type="text" id="name" placeholder="Full Name">
 <input type="text" id="father" placeholder="Father Name">
+
 <input type="text" id="dob" placeholder="Date of Birth">
+
+<div class="gender-box">
+<label><input type="radio" name="gender" value="Male"> Male</label>
+<label><input type="radio" name="gender" value="Female"> Female</label>
+<label><input type="radio" name="gender" value="Other"> Other</label>
+</div>
+
+<h3>Contact Details</h3>
 
 <input type="text" id="mobile" placeholder="Mobile Number">
 <input type="email" id="email" placeholder="Email">
 <input type="text" id="address" placeholder="Address">
+
+<h3>Service Details</h3>
+
+<div class="service-row">
 
 <select id="type" onchange="loadOptions()">
 <option value="">Select Type</option>
@@ -83,119 +192,151 @@ th, td {
 
 <select id="subtype"></select>
 
-<input type="file" id="cv">
+<div id="vehicleBox" class="vehicle-box" style="display:none;">
+<input type="text" placeholder="Vehicle Number">
+</div>
+
+</div>
+
+<h3>Documents</h3>
+
+<div class="doc-box">
+
+<label class="doc-item">
+    <div class="doc-left">
+        <span>Aadhar</span>
+        <input type="checkbox">
+    </div>
+    <span class="selected-text"></span>
+</label>
+
+<label class="doc-item">
+    <div class="doc-left">
+        <span>Passport</span>
+        <input type="checkbox">
+    </div>
+    <span class="selected-text"></span>
+</label>
+
+<label class="doc-item">
+    <div class="doc-left">
+        <span>Driving License</span>
+        <input type="checkbox">
+    </div>
+    <span class="selected-text"></span>
+</label>
+
+<label class="doc-item">
+    <div class="doc-left">
+        <span>Photo</span>
+        <input type="checkbox">
+    </div>
+    <span class="selected-text"></span>
+</label>
+
+</div>
+
+<h3 class="upload-row">
+Upload CV
+<button id="fileBtn" class="file-btn" onclick="handleFile()">Choose File</button>
+<span id="fileName"></span>
+</h3>
+
+<input type="file" id="cv" onchange="updateButton()">
 
 <br><br>
 
 <button onclick="save()">Submit</button>
-
-<h2>Saved Data</h2>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Mobile</th>
-<th>Type</th>
-<th>SubType</th>
-<th>File</th>
-</tr>
-</thead>
-<tbody id="tableData"></tbody>
-</table>
+<button onclick="resetForm()">Reset</button>
 
 </div>
 
 <script>
+$(function () {
+    $("#dob").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "1900:2025",
+        dateFormat: "dd/mm/yy",
 
-function loadOptions(){
+        beforeShow: function(input, inst) {
+            setTimeout(function() {
+                inst.dpDiv.css({
+                    top: $(input).offset().top + $(input).outerHeight(),
+                    left: $(input).offset().left + $(input).outerWidth() - inst.dpDiv.outerWidth()
+                });
+            }, 0);
+        }
+    });
+});
+
+document.querySelectorAll(".doc-item input").forEach(cb => {
+    cb.addEventListener("change", function() {
+        let text = this.closest(".doc-item").querySelector(".selected-text");
+        text.innerText = this.checked ? "(Selected)" : "";
+    });
+});
+
+function loadOptions() {
     let type = document.getElementById("type").value;
     let sub = document.getElementById("subtype");
+    let vehicleBox = document.getElementById("vehicleBox");
 
-    sub.innerHTML = "";
+    sub.innerHTML = "<option>Select Option</option>";
+
+    let workerList = ["Labour","Helper","Mason","Carpenter","Electrician"];
+    let vehicleList = ["Bike","Car","Truck","Bus"];
 
     if(type === "worker"){
-        ["Labour","Helper","Mason"].forEach(i => sub.add(new Option(i,i)));
-    } else if(type === "vehicle"){
-        ["Bike","Car","Truck"].forEach(i => sub.add(new Option(i,i)));
+        vehicleBox.style.display = "none";
+        workerList.forEach(i => sub.add(new Option(i,i)));
+    }
+    else if(type === "vehicle"){
+        vehicleBox.style.display = "block";
+        vehicleList.forEach(i => sub.add(new Option(i,i)));
+    }
+}
+
+function updateButton(){
+    let file = document.getElementById("cv");
+    let btn = document.getElementById("fileBtn");
+    let nameText = document.getElementById("fileName");
+
+    if(file.files.length){
+        btn.innerText = "View File";
+        nameText.innerText = file.files[0].name;
+    } else {
+        btn.innerText = "Choose File";
+        nameText.innerText = "";
+    }
+}
+
+function handleFile(){
+    let file = document.getElementById("cv");
+
+    if(!file.files.length){
+        file.click();
+    } else {
+        window.open(URL.createObjectURL(file.files[0]));
     }
 }
 
 function save(){
-
     let name = document.getElementById("name").value;
     let mobile = document.getElementById("mobile").value;
-    let subtype = document.getElementById("subtype").value;
-    let type = document.getElementById("type").value;
+    let gender = document.querySelector('input[name="gender"]:checked');
 
-    let fileInput = document.getElementById("cv");
-    let file = fileInput.files[0];
-
-    if(!name || !mobile){
-        alert("Fill required fields");
+    if(!name || !mobile || !gender){
+        alert("Fill all required fields");
         return;
     }
 
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-
-    function finalSave(fileData){
-
-        users.push({
-            name,
-            mobile,
-            type,
-            subtype,
-            file: fileData
-        });
-
-        localStorage.setItem("users", JSON.stringify(users));
-
-        loadTable();   // 🔥 important
-        resetForm();
-
-        alert("Saved Successfully");
-    }
-
-    if(file){
-        let reader = new FileReader();
-        reader.onload = e => finalSave(e.target.result);
-        reader.readAsDataURL(file);
-    } else {
-        finalSave("");
-    }
-}
-
-function loadTable(){
-
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-    let tbody = document.getElementById("tableData");
-
-    tbody.innerHTML = "";
-
-    users.forEach(u => {
-        let row = `<tr>
-            <td>${u.name}</td>
-            <td>${u.mobile}</td>
-            <td>${u.type}</td>
-            <td>${u.subtype}</td>
-            <td>${u.file ? "Uploaded" : "No File"}</td>
-        </tr>`;
-
-        tbody.innerHTML += row;
-    });
+    alert("Saved Successfully");
 }
 
 function resetForm(){
-    document.getElementById("name").value = "";
-    document.getElementById("father").value = "";
-    document.getElementById("dob").value = "";
-    document.getElementById("mobile").value = "";
-    document.getElementById("email").value = "";
-    document.getElementById("address").value = "";
-    document.getElementById("cv").value = "";
+    location.reload();
 }
-
-window.onload = loadTable;
-
 </script>
 
 </body>
