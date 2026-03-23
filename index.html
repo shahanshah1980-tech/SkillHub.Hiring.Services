@@ -43,13 +43,11 @@ input, select {
     padding: 0 15px;
 }
 
-/* Gender */
 .gender-box {
     display: flex;
     gap: 20px;
 }
 
-/* Button */
 button {
     padding: 10px 20px;
     border: none;
@@ -59,12 +57,10 @@ button {
     cursor: pointer;
 }
 
-/* File Button Gray */
 button.file-btn {
     background: #6c757d !important;
 }
 
-/* Upload Row */
 .upload-row {
     display: flex;
     align-items: center;
@@ -103,7 +99,6 @@ button.file-btn {
     border-radius: 15px;
 }
 
-/* Doc item */
 .doc-item {
     display: flex;
     align-items: center;
@@ -116,14 +111,12 @@ button.file-btn {
     position: relative;
 }
 
-/* LEFT SIDE */
 .doc-left {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-/* CHECKBOX CENTER */
 .doc-left input[type="checkbox"] {
     position: absolute;
     left: 50%;
@@ -134,7 +127,6 @@ button.file-btn {
     margin: 0;
 }
 
-/* RIGHT TEXT */
 .selected-text {
     min-width: 80px;
     text-align: right;
@@ -156,14 +148,13 @@ button.file-btn {
 <body>
 
 <h1 style="text-align:center; margin-top:20px; margin-bottom:0;">
-SkillHub &amp; Hiring Services
+SkillHub & Hiring Services
 </h1>
-
 
 <div class="container">
 
-<h2 style="width:100%; text-align:center;">Worker Registration</h2>
-    
+<h2>Worker Registration</h2>
+
 <h3>Personal Details</h3>
 
 <input type="text" id="name" placeholder="Full Name">
@@ -181,7 +172,11 @@ SkillHub &amp; Hiring Services
 
 <input type="text" id="mobile" placeholder="Mobile Number" maxlength="10"
 oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+<div id="mobileMsg" style="font-size:12px; margin-left:10px;"></div>
+
 <input type="email" id="email" placeholder="Email">
+<div id="emailMsg" style="font-size:12px; margin-left:10px;"></div>
+
 <input type="text" id="address" placeholder="Address">
 
 <h3>Service Details</h3>
@@ -256,40 +251,12 @@ Upload CV
 </div>
 
 <script>
+
 $("#dob").datepicker({
     changeMonth: true,
     changeYear: true,
     yearRange: "1900:2025",
-    dateFormat: "dd/mm/yy",
-    defaultDate: new Date(),
-
-    onSelect: function(dateText, inst) {
-        // Next input field pe focus bhejo
-        let focusable = Array.from(
-            document.querySelectorAll("input, select, button")
-        ).filter(el => el.offsetParent !== null && !el.disabled);
-
-        let index = focusable.indexOf(document.getElementById("dob"));
-
-        if (index > -1 && index < focusable.length - 1) {
-            focusable[index + 1].focus();
-        }
-    },
-
-    beforeShow: function(input, inst) {
-        setTimeout(function() {
-            inst.dpDiv.css({
-                top: $(input).offset().top + $(input).outerHeight(),
-                left: $(input).offset().left + $(input).outerWidth() - inst.dpDiv.outerWidth()
-            });
-        }, 0);
-    }
-});
-document.querySelectorAll(".doc-item input").forEach(cb => {
-    cb.addEventListener("change", function() {
-        let text = this.closest(".doc-item").querySelector(".selected-text");
-        text.innerText = this.checked ? "(Selected)" : "";
-    });
+    dateFormat: "dd/mm/yy"
 });
 
 function loadOptions() {
@@ -320,9 +287,6 @@ function updateButton(){
     if(file.files.length){
         btn.innerText = "View File";
         nameText.innerText = file.files[0].name;
-    } else {
-        btn.innerText = "Choose File";
-        nameText.innerText = "";
     }
 }
 
@@ -338,98 +302,114 @@ function handleFile(){
 
 function save(){
 
-    // 📥 Get values
     let name = document.getElementById("name").value.trim();
     let father = document.getElementById("father").value.trim();
     let dob = document.getElementById("dob").value;
     let gender = document.querySelector('input[name="gender"]:checked');
     let mobile = document.getElementById("mobile").value.trim();
     let email = document.getElementById("email").value.trim();
-    let address = document.getElementById("address").value.trim();
 
-    // 🔴 Required validation
     if(!name || !father || !dob || !gender || !mobile){
         alert("⚠ Fill all required fields");
         return;
     }
 
-    // 🔴 Mobile validation (10 digits)
-    if(!/^\d{10}$/.test(mobile)){
-        alert("⚠ Enter valid 10 digit mobile number");
-        return;
-    }
-
-    // 📦 Get existing users
     let users = JSON.parse(localStorage.getItem("users")) || [];
 
-    // 🔴 Duplicate mobile check
     if(users.some(u => u.mobile === mobile)){
-        alert("⚠ Mobile number already registered!");
+        alert("⚠ Mobile already exists");
         return;
     }
 
-    // 🔴 Duplicate email check (if entered)
     if(email && users.some(u => u.email === email)){
-        alert("⚠ Email already registered!");
+        alert("⚠ Email already exists");
         return;
     }
 
-    // ✅ Create user object
-    let userData = {
-        name: name,
-        father: father,
-        dob: dob,
+    users.push({
+        name,
+        father,
+        dob,
         gender: gender.value,
-        mobile: mobile,
-        email: email,
-        address: address,
-        username: mobile,
-        password: mobile
-    };
+        mobile,
+        email
+    });
 
-    // ➕ Add new user
-    users.push(userData);
-
-    // 💾 Save to localStorage
     localStorage.setItem("users", JSON.stringify(users));
 
     alert("✅ Saved Successfully");
-
-    // 🔄 Reset form
-    document.getElementById("myForm").reset();
+    location.reload();
 }
-    
+
 function resetForm(){
     location.reload();
 }
-// Enter key → next field
-document.addEventListener("keydown", function(e) {
-    if (e.key === "Enter") {
-        e.preventDefault();
 
-        let focusable = Array.from(
-            document.querySelectorAll("input, select, button")
-        ).filter(el => el.offsetParent !== null && !el.disabled);
+</script>
 
-        let index = focusable.indexOf(document.activeElement);
-
-        if (index > -1 && index < focusable.length - 1) {
-            focusable[index + 1].focus();
-        }
-    }
-});  
+<script>
+// ✅ LIVE MOBILE & EMAIL MESSAGE (added only)
 
 let mobileTimer, emailTimer;
 
 document.getElementById("mobile").addEventListener("input", function () {
     clearTimeout(mobileTimer);
-    mobileTimer = setTimeout(checkDuplicateMobile, 500); // 0.5 sec delay
+    mobileTimer = setTimeout(() => {
+
+        let mobile = this.value.trim();
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+
+        let msg = document.getElementById("mobileMsg");
+
+        if (!/^\d{10}$/.test(mobile)) {
+            msg.innerText = "⚠ Enter 10 digit mobile";
+            msg.style.color = "yellow";
+            return;
+        }
+
+        if (users.some(u => u.mobile === mobile)) {
+            msg.innerText = "❌ Already registered";
+            msg.style.color = "red";
+        } else {
+            msg.innerText = "✅ Available";
+            msg.style.color = "lightgreen";
+        }
+
+    }, 500);
 });
 
 document.getElementById("email").addEventListener("input", function () {
     clearTimeout(emailTimer);
-    emailTimer = setTimeout(checkDuplicateEmail, 500); // 0.5 sec delay
-});    
+    emailTimer = setTimeout(() => {
+
+        let email = this.value.trim();
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+
+        let msg = document.getElementById("emailMsg");
+
+        let pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (email === "") {
+            msg.innerText = "";
+            return;
+        }
+
+        if (!pattern.test(email)) {
+            msg.innerText = "⚠ Invalid email";
+            msg.style.color = "yellow";
+            return;
+        }
+
+        if (users.some(u => u.email === email)) {
+            msg.innerText = "❌ Already registered";
+            msg.style.color = "red";
+        } else {
+            msg.innerText = "✅ Available";
+            msg.style.color = "lightgreen";
+        }
+
+    }, 500);
+});
 </script>
 
 </body>
