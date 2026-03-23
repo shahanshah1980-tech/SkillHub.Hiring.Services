@@ -14,6 +14,7 @@ body {
     font-family: Arial;
     background: linear-gradient(135deg,#00c6ff,#0072ff);
     color: white;
+    overflow: hidden;
 }
 
 .container {
@@ -25,9 +26,12 @@ body {
     border-radius: 20px;
     background: rgba(255,255,255,0.2);
 }
-
-h2, h3 {
+h2 {
+    width: 100%;
     text-align: center;
+}
+h2, h3 {
+    margin-top: 15px;
 }
 
 input, select {
@@ -61,6 +65,9 @@ button.file-btn {
     display: flex;
     align-items: center;
     gap: 15px;
+    flex-wrap: nowrap;
+    font-size: 24px;
+    font-weight: bold;
 }
 
 #fileName {
@@ -74,10 +81,11 @@ button.file-btn {
 .service-row {
     display: flex;
     gap: 5px;
+    align-items: center;
 }
 
 .service-row select,
-.vehicle-box {
+.service-row .vehicle-box {
     flex: 1;
 }
 
@@ -94,13 +102,20 @@ button.file-btn {
 #cv {
     display: none;
 }
+
+#dob {
+    display: block;
+    margin-left: auto;
+}
 </style>
 
 </head>
 
 <body>
 
-<h1 style="text-align:center;">SkillHub & Hiring Services</h1>
+<h1 style="text-align:center; margin-top:20px; margin-bottom:0;">
+SkillHub & Hiring Services
+</h1>
 
 <div class="container">
 
@@ -120,7 +135,8 @@ button.file-btn {
 
 <h3>Contact Details</h3>
 
-<input type="text" id="mobile" placeholder="Mobile Number" maxlength="10">
+<input type="text" id="mobile" placeholder="Mobile Number" maxlength="10"
+oninput="this.value = this.value.replace(/[^0-9]/g, '')">
 
 <input type="email" id="email" placeholder="Email">
 
@@ -138,16 +154,51 @@ button.file-btn {
 
 <select id="subtype"></select>
 
-</div>
-
-<div id="vehicleBox" style="display:none;">
+<div id="vehicleBox" class="vehicle-box" style="display:none;">
 <input type="text" placeholder="Vehicle Number">
 </div>
 
-<h3>Upload CV</h3>
+</div>
 
-<button class="file-btn" id="fileBtn" onclick="handleFile()">Choose File</button>
+<h3>Documents</h3>
+
+<div class="doc-box">
+
+<label class="doc-item">
+    <div class="doc-left">
+        <span>Aadhar</span>
+        <input type="checkbox">
+    </div>
+</label>
+
+<label class="doc-item">
+    <div class="doc-left">
+        <span>Passport</span>
+        <input type="checkbox">
+    </div>
+</label>
+
+<label class="doc-item">
+    <div class="doc-left">
+        <span>Driving License</span>
+        <input type="checkbox">
+    </div>
+</label>
+
+<label class="doc-item">
+    <div class="doc-left">
+        <span>Photo</span>
+        <input type="checkbox">
+    </div>
+</label>
+
+</div>
+
+<h3 class="upload-row">
+Upload CV
+<button id="fileBtn" class="file-btn" onclick="handleFile()">Choose File</button>
 <span id="fileName"></span>
+</h3>
 
 <input type="file" id="cv" onchange="updateButton()">
 
@@ -167,12 +218,12 @@ $("#dob").datepicker({
     dateFormat: "dd/mm/yy"
 });
 
-function loadOptions(){
+function loadOptions() {
     let type = document.getElementById("type").value;
     let sub = document.getElementById("subtype");
     let vehicleBox = document.getElementById("vehicleBox");
 
-    sub.innerHTML = "";
+    sub.innerHTML = "<option>Select Option</option>";
 
     let workerList = ["Labour","Helper","Mason","Carpenter","Electrician"];
     let vehicleList = ["Bike","Car","Truck","Bus"];
@@ -180,7 +231,8 @@ function loadOptions(){
     if(type === "worker"){
         vehicleBox.style.display = "none";
         workerList.forEach(i => sub.add(new Option(i,i)));
-    } else if(type === "vehicle"){
+    }
+    else if(type === "vehicle"){
         vehicleBox.style.display = "block";
         vehicleList.forEach(i => sub.add(new Option(i,i)));
     }
@@ -188,9 +240,11 @@ function loadOptions(){
 
 function updateButton(){
     let file = document.getElementById("cv");
+    let btn = document.getElementById("fileBtn");
     let nameText = document.getElementById("fileName");
 
     if(file.files.length){
+        btn.innerText = "View File";
         nameText.innerText = file.files[0].name;
     }
 }
@@ -221,7 +275,7 @@ function save(){
     let file = fileInput.files[0];
 
     if(!name || !father || !dob || !gender || !mobile){
-        alert("⚠ Fill required fields");
+        alert("⚠ Fill all required fields");
         return;
     }
 
@@ -230,9 +284,7 @@ function save(){
     function finalSave(fileData){
 
         users.push({
-            name,
-            father,
-            dob,
+            name, father, dob,
             gender: gender.value,
             mobile,
             email,
@@ -246,8 +298,7 @@ function save(){
         localStorage.setItem("users", JSON.stringify(users));
 
         alert("✅ Saved Successfully");
-
-        resetForm();
+        location.reload();
     }
 
     if(file){
@@ -260,14 +311,7 @@ function save(){
 }
 
 function resetForm(){
-    document.getElementById("name").value = "";
-    document.getElementById("father").value = "";
-    document.getElementById("dob").value = "";
-    document.getElementById("mobile").value = "";
-    document.getElementById("email").value = "";
-    document.getElementById("address").value = "";
-    document.getElementById("fileName").innerText = "";
-    document.getElementById("cv").value = "";
+    location.reload();
 }
 
 </script>
