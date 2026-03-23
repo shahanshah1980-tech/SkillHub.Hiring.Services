@@ -417,7 +417,40 @@ document.addEventListener("keydown", function(e) {
             focusable[index + 1].focus();
         }
     }
-});    
+});  
+
+// 🔴 Duplicate Mobile Check (TAB + ENTER)
+let mobileInput = document.getElementById("mobile");
+
+function checkDuplicateMobile(e) {
+    let mobile = mobileInput.value.trim();
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    if (!mobile) return;
+
+    if (users.some(u => u.mobile === mobile)) {
+        alert("⚠ Mobile number already registered!");
+
+        if (e) e.preventDefault();
+        mobileInput.focus();
+        return true;
+    }
+    return false;
+}
+
+// ✅ TAB
+mobileInput.addEventListener("blur", function () {
+    checkDuplicateMobile();
+});
+
+// ✅ ENTER
+mobileInput.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+        checkDuplicateMobile(e);
+    }
+});
+
+    
 </script>
 
 </body>
