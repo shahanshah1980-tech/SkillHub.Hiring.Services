@@ -363,36 +363,63 @@ function resetForm(){
 
 // 🔴 FIXED: ENTER + BLUR ISSUE HANDLING
 let mobileInput = document.getElementById("mobile");
+let emailInput = document.getElementById("email");
 
-function checkDuplicateMobile(e) {
-    let mobile = mobileInput.value.trim();
+// 🔴 COMMON CHECK FUNCTION
+function checkDuplicate(field, type, e) {
+    let value = field.value.trim();
     let users = JSON.parse(localStorage.getItem("users")) || [];
 
-    if (!mobile) return false;
+    if (!value) return false;
 
-    if (users.some(u => u.mobile === mobile)) {
-        alert("⚠ Mobile number already registered!");
-        mobileInput.focus();
-        mobileInput.select();
+    let exists = false;
+
+    if (type === "mobile") {
+        exists = users.some(u => u.mobile === value);
+    }
+
+    if (type === "email") {
+        exists = users.some(u => u.email === value);
+    }
+
+    if (exists) {
+        alert("⚠ " + (type === "mobile" ? "Mobile" : "Email") + " already registered!");
+        field.focus();
+        field.select();
         if (e) e.preventDefault();
         return true;
     }
+
     return false;
 }
 
+// 🔴 MOBILE ENTER
 mobileInput.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
-        if (checkDuplicateMobile(e)) return;
+        if (checkDuplicate(mobileInput, "mobile", e)) return;
     }
 });
 
-// 🔧 ONLY CHANGE HERE (SAFE CHECK)
+// 🔴 MOBILE BLUR (SAFE)
 mobileInput.addEventListener("blur", function () {
     if (document.activeElement !== mobileInput) {
-        checkDuplicateMobile();
+        checkDuplicate(mobileInput, "mobile");
     }
 });
 
+// 🔴 EMAIL ENTER
+emailInput.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+        if (checkDuplicate(emailInput, "email", e)) return;
+    }
+});
+
+// 🔴 EMAIL BLUR (SAFE)
+emailInput.addEventListener("blur", function () {
+    if (document.activeElement !== emailInput) {
+        checkDuplicate(emailInput, "email");
+    }
+});
 </script>
 
 </body>
