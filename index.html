@@ -275,17 +275,9 @@ function handleFile(){
 }
 
 function displayRecords() {
-    let users = JSON.parse(localStorage.getItem("users")) || [];
+    let data = localStorage.getItem("users") || "";
     let div = document.getElementById("records");
-
-    div.innerHTML = "";
-
-    users.forEach((u, index) => {
-        div.innerHTML += `
-        <div style="margin:5px 0;">
-            ${index + 1}. ${u.name} | ${u.mobile} | ${u.email || "-"}
-        </div>`;
-    });
+    div.innerHTML = data.replace(/\n/g, "<br>");
 }
 
 function save(){
@@ -302,32 +294,29 @@ function save(){
         return;
     }
 
-    let users = JSON.parse(localStorage.getItem("users")) || [];
+    let oldData = localStorage.getItem("users") || "";
 
-    if(users.some(u => u.mobile === mobile)){
+    if(oldData.includes(mobile)){
         alert("⚠ Mobile already exists");
         return;
     }
 
-    if(email && users.some(u => u.email === email)){
+    if(email && oldData.includes(email)){
         alert("⚠ Email already exists");
         return;
     }
 
-    users.push({
-        name,
-        father,
-        dob,
-        gender: gender.value,
-        mobile,
-        email
-    });
+    let count = oldData ? oldData.split("\n").length : 0;
 
-    localStorage.setItem("users", JSON.stringify(users));
+    let newLine = `${count + 1}. ${name} | ${mobile} | ${email || "-"}`;
+
+    let finalData = oldData ? oldData + "\n" + newLine : newLine;
+
+    localStorage.setItem("users", finalData);
 
     alert("✅ Saved Successfully");
 
-    displayRecords(); // ✅ show instantly
+    displayRecords();
 }
 
 function resetForm(){
