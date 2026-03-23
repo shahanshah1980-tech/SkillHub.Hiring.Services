@@ -19,14 +19,17 @@ body {
 
 .container {
     width: 700px;
-    height: 85vh;
+    height: 70vh;
     overflow-y: auto;
     margin: 20px auto;
     padding: 25px;
     border-radius: 20px;
     background: rgba(255,255,255,0.2);
 }
-
+h2 {
+    width: 100%;
+    text-align: center;
+}
 h2, h3 {
     margin-top: 15px;
 }
@@ -159,8 +162,8 @@ SkillHub &amp; Hiring Services
 
 <div class="container">
 
-<h2>Worker Registration</h2>
-
+<h2 style="width:100%; text-align:center;">Worker Registration</h2>
+    
 <h3>Personal Details</h3>
 
 <input type="text" id="name" placeholder="Full Name">
@@ -252,22 +255,22 @@ Upload CV
 </div>
 
 <script>
-$(function () {
-    $("#dob").datepicker({
-        changeMonth: true,
-        changeYear: true,
-        yearRange: "1900:2025",
-        dateFormat: "dd/mm/yy",
+$("#dob").datepicker({
+    changeMonth: true,
+    changeYear: true,
+    yearRange: "1900:2025",
+    dateFormat: "dd/mm/yy",
 
-        beforeShow: function(input, inst) {
-            setTimeout(function() {
-                inst.dpDiv.css({
-                    top: $(input).offset().top + $(input).outerHeight(),
-                    left: $(input).offset().left + $(input).outerWidth() - inst.dpDiv.outerWidth()
-                });
-            }, 0);
-        }
-    });
+    defaultDate: new Date(),   // ✅ current date select karega
+
+    beforeShow: function(input, inst) {
+        setTimeout(function() {
+            inst.dpDiv.css({
+                top: $(input).offset().top + $(input).outerHeight(),
+                left: $(input).offset().left + $(input).outerWidth() - inst.dpDiv.outerWidth()
+            });
+        }, 0);
+    }
 });
 
 document.querySelectorAll(".doc-item input").forEach(cb => {
@@ -337,6 +340,22 @@ function save(){
 function resetForm(){
     location.reload();
 }
+// Enter key → next field
+document.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+        e.preventDefault();
+
+        let focusable = Array.from(
+            document.querySelectorAll("input, select, button")
+        ).filter(el => el.offsetParent !== null && !el.disabled);
+
+        let index = focusable.indexOf(document.activeElement);
+
+        if (index > -1 && index < focusable.length - 1) {
+            focusable[index + 1].focus();
+        }
+    }
+});    
 </script>
 
 </body>
