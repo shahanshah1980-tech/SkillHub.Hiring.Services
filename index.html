@@ -219,9 +219,6 @@ Upload CV
 <button onclick="save()">Submit</button>
 <button onclick="resetForm()">Reset</button>
 
-<h3>Saved Records</h3>
-<div id="records" style="background:rgba(0,0,0,0.2); padding:10px; border-radius:10px;"></div>
-
 </div>
 
 <script>
@@ -274,12 +271,6 @@ function handleFile(){
     }
 }
 
-function displayRecords() {
-    let data = localStorage.getItem("users") || "";
-    let div = document.getElementById("records");
-    div.innerHTML = data.replace(/\n/g, "<br>");
-}
-
 function save(){
 
     let name = document.getElementById("name").value.trim();
@@ -315,15 +306,11 @@ function save(){
     localStorage.setItem("users", finalData);
 
     alert("✅ Saved Successfully");
-
-    displayRecords();
 }
 
 function resetForm(){
     location.reload();
 }
-
-window.onload = displayRecords;
 
 </script>
 
