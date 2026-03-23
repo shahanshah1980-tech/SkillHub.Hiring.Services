@@ -420,6 +420,7 @@ document.addEventListener("keydown", function(e) {
 });  
 
 // 🔴 Duplicate Mobile Check (TAB + ENTER)
+
 let mobileInput = document.getElementById("mobile");
 
 function checkDuplicateMobile(e) {
@@ -429,28 +430,30 @@ function checkDuplicateMobile(e) {
     if (!mobile) return;
 
     if (users.some(u => u.mobile === mobile)) {
-        alert("⚠ Mobile number already registered!");
+
+        // ⚠️ Important: thoda delay dena
+        setTimeout(() => {
+            alert("⚠ Mobile number already registered!");
+            mobileInput.focus();
+        }, 10);
 
         if (e) e.preventDefault();
-        mobileInput.focus();
         return true;
     }
     return false;
 }
 
-// ✅ TAB
+// TAB
 mobileInput.addEventListener("blur", function () {
     checkDuplicateMobile();
 });
 
-// ✅ ENTER
+// ENTER
 mobileInput.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
         checkDuplicateMobile(e);
     }
-});
-
-    
+});    
 </script>
 
 </body>
