@@ -269,18 +269,29 @@ $("#dob").datepicker({
     },
 
     // ✅ Right side open
-    beforeShow: function(input, inst) {
-        setTimeout(function() {
-            let $input = $(input);
-            let $dp = inst.dpDiv;
+beforeShow: function(input, inst) {
+    setTimeout(function() {
+        let $input = $(input);
+        let $dp = inst.dpDiv;
 
-            $dp.css({
-                top: $input.offset().top + $input.outerHeight(),
-                left: $input.offset().left + $input.outerWidth() + 10
-            });
-        }, 0);
-    }
-});
+        let leftPos = $input.offset().left + $input.outerWidth() + 10;
+        let topPos = $input.offset().top + $input.outerHeight();
+
+        // Form ke boundary ke andar rakho
+        let container = $(".container");
+        let containerRight = container.offset().left + container.outerWidth();
+
+        // Agar right me space nahi hai to left me shift
+        if (leftPos + $dp.outerWidth() > containerRight) {
+            leftPos = $input.offset().left - $dp.outerWidth() - 10;
+        }
+
+        $dp.css({
+            top: topPos,
+            left: leftPos
+        });
+    }, 0);
+}
 
 document.querySelectorAll(".doc-item input").forEach(cb => {
     cb.addEventListener("change", function() {
