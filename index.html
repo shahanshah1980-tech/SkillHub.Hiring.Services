@@ -417,6 +417,18 @@ document.addEventListener("keydown", function(e) {
             focusable[index + 1].focus();
         }
     }
+});  
+
+let mobileTimer, emailTimer;
+
+document.getElementById("mobile").addEventListener("input", function () {
+    clearTimeout(mobileTimer);
+    mobileTimer = setTimeout(checkDuplicateMobile, 500); // 0.5 sec delay
+});
+
+document.getElementById("email").addEventListener("input", function () {
+    clearTimeout(emailTimer);
+    emailTimer = setTimeout(checkDuplicateEmail, 500); // 0.5 sec delay
 });    
 </script>
 
