@@ -254,7 +254,32 @@ $("#dob").datepicker({
     changeYear: true,
     yearRange: "1900:2100",
     dateFormat: "dd/mm/yy",
-    defaultDate: new Date()
+    defaultDate: new Date(),
+
+    onSelect: function(dateText, inst) {
+        let focusable = Array.from(
+            document.querySelectorAll("input, select, button")
+        ).filter(el => el.offsetParent !== null && !el.disabled);
+
+        let index = focusable.indexOf(document.getElementById("dob"));
+
+        if (index > -1 && index < focusable.length - 1) {
+            focusable[index + 1].focus();
+        }
+    },
+
+    // ✅ Right side open
+    beforeShow: function(input, inst) {
+        setTimeout(function() {
+            let $input = $(input);
+            let $dp = inst.dpDiv;
+
+            $dp.css({
+                top: $input.offset().top + $input.outerHeight(),
+                left: $input.offset().left + $input.outerWidth() + 10
+            });
+        }, 0);
+    }
 });
 
 document.querySelectorAll(".doc-item input").forEach(cb => {
@@ -361,65 +386,6 @@ function resetForm(){
     location.reload();
 }
 
-// 🔴 FIXED: ENTER + BLUR ISSUE HANDLING
-let mobileInput = document.getElementById("mobile");
-let emailInput = document.getElementById("email");
-
-// 🔴 COMMON CHECK FUNCTION
-function checkDuplicate(field, type, e) {
-    let value = field.value.trim();
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-
-    if (!value) return false;
-
-    let exists = false;
-
-    if (type === "mobile") {
-        exists = users.some(u => u.mobile === value);
-    }
-
-    if (type === "email") {
-        exists = users.some(u => u.email === value);
-    }
-
-    if (exists) {
-        alert("⚠ " + (type === "mobile" ? "Mobile" : "Email") + " already registered!");
-        field.focus();
-        field.select();
-        if (e) e.preventDefault();
-        return true;
-    }
-
-    return false;
-}
-
-// 🔴 MOBILE ENTER
-mobileInput.addEventListener("keydown", function (e) {
-    if (e.key === "Enter") {
-        if (checkDuplicate(mobileInput, "mobile", e)) return;
-    }
-});
-
-// 🔴 MOBILE BLUR (SAFE)
-mobileInput.addEventListener("blur", function () {
-    if (document.activeElement !== mobileInput) {
-        checkDuplicate(mobileInput, "mobile");
-    }
-});
-
-// 🔴 EMAIL ENTER
-emailInput.addEventListener("keydown", function (e) {
-    if (e.key === "Enter") {
-        if (checkDuplicate(emailInput, "email", e)) return;
-    }
-});
-
-// 🔴 EMAIL BLUR (SAFE)
-emailInput.addEventListener("blur", function () {
-    if (document.activeElement !== emailInput) {
-        checkDuplicate(emailInput, "email");
-    }
-});
 </script>
 
 </body>
