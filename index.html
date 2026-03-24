@@ -1,389 +1,232 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>SkillHub & Hiring Services</title>
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { 
+  Users, 
+  Truck, 
+  ShieldCheck, 
+  ArrowRight, 
+  Sparkles, 
+  Zap,
+  Globe,
+  Clock,
+  Building2
+} from "lucide-react";
 
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+export default function Home() {
+  return (
+    <div className="flex flex-col min-h-screen">
+      {/* Header */}
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-16 items-center justify-between px-4 md:px-8">
+          <div className="flex items-center gap-2">
+            <div className="bg-primary p-1.5 rounded-lg">
+              <Zap className="h-6 w-6 text-primary-foreground" />
+            </div>
+            <span className="text-xl font-bold font-headline text-primary">Skill & Drive Hub</span>
+          </div>
+          <nav className="hidden md:flex gap-6">
+            <Link href="#features" className="text-sm font-medium hover:text-primary transition-colors">Features</Link>
+            <Link href="#how-it-works" className="text-sm font-medium hover:text-primary transition-colors">How it Works</Link>
+            <Link href="/browse" className="text-sm font-medium hover:text-primary transition-colors">Browse</Link>
+          </nav>
+          <div className="flex items-center gap-3">
+            <Button variant="ghost" asChild>
+              <Link href="/login">Login</Link>
+            </Button>
+            <Button asChild>
+              <Link href="/register">Get Started</Link>
+            </Button>
+          </div>
+        </div>
+      </header>
 
-<style>
-body {
-    margin: 0;
-    font-family: Arial;
-    background: linear-gradient(135deg,#00c6ff,#0072ff);
-    color: white;
-    overflow: hidden;
-}
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="relative py-20 md:py-32 overflow-hidden bg-primary text-primary-foreground">
+          <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://picsum.photos/seed/skilldrive1/1920/1080')] bg-cover bg-center" />
+          <div className="container relative z-10 px-4 md:px-8 text-center max-w-4xl mx-auto">
+            <Badge variant="secondary" className="mb-4 py-1 px-4 text-sm font-medium">
+              <Sparkles className="mr-2 h-4 w-4" /> AI-Powered Logistics & Workforce
+            </Badge>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 font-headline leading-tight">
+              Connect with Skilled Professionals & Book Premium Fleets
+            </h1>
+            <p className="text-lg md:text-xl mb-10 opacity-90 max-w-2xl mx-auto font-body">
+              The all-in-one platform for hiring expert workers and booking vehicles—from single units to entire bulk fleets.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground h-12 px-8 text-lg" asChild>
+                <Link href="/requests/new">
+                  Post a Request <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <Button size="lg" variant="outline" className="h-12 px-8 text-lg border-primary-foreground/20 hover:bg-primary-foreground/10" asChild>
+                <Link href="/browse">Explore Services</Link>
+              </Button>
+            </div>
+          </div>
+        </section>
 
-.container {
-    width: 700px;
-    height: 70vh;
-    overflow-y: auto;
-    margin: 20px auto;
-    padding: 25px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.2);
-}
-h2 {
-    width: 100%;
-    text-align: center;
-}
-h2, h3 {
-    margin-top: 15px;
-}
+        {/* Categories Section */}
+        <section id="features" className="py-20 bg-background">
+          <div className="container px-4 md:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold font-headline mb-4">Everything You Need to Scale</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Comprehensive solutions for hirers, workers, and vehicle providers.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <Card className="border-none shadow-lg hover:shadow-xl transition-shadow bg-card">
+                <CardContent className="pt-8 text-center">
+                  <div className="bg-primary/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <Users className="h-8 w-8 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-bold font-headline mb-3">Skilled Workers</h3>
+                  <p className="text-muted-foreground mb-6">
+                    Hire verified professionals for construction, logistics, tech, and creative services. Individual or team bookings.
+                  </p>
+                  <Button variant="link" className="text-accent p-0 font-semibold" asChild>
+                    <Link href="/browse?type=worker">Find Workers <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                  </Button>
+                </CardContent>
+              </Card>
 
-input, select {
-    width: 95%;
-    height: 45px;
-    margin: 10px 0;
-    border-radius: 50px;
-    border: none;
-    padding: 0 15px;
-}
+              <Card className="border-none shadow-lg hover:shadow-xl transition-shadow bg-card">
+                <CardContent className="pt-8 text-center">
+                  <div className="bg-accent/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <Truck className="h-8 w-8 text-accent" />
+                  </div>
+                  <h3 className="text-xl font-bold font-headline mb-3">Vehicle Booking</h3>
+                  <p className="text-muted-foreground mb-6">
+                    Book cars, vans, trucks, or specialized machinery. Single bookings or bulk fleet management for large-scale operations.
+                  </p>
+                  <Button variant="link" className="text-accent p-0 font-semibold" asChild>
+                    <Link href="/browse?type=vehicle">Book Vehicles <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                  </Button>
+                </CardContent>
+              </Card>
 
-/* Gender */
-.gender-box {
-    display: flex;
-    gap: 20px;
-}
+              <Card className="border-none shadow-lg hover:shadow-xl transition-shadow bg-card">
+                <CardContent className="pt-8 text-center">
+                  <div className="bg-primary/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <Building2 className="h-8 w-8 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-bold font-headline mb-3">Vehicle Provider Registration</h3>
+                  <p className="text-muted-foreground mb-6">
+                    List your vehicles and reach thousands of hirers. Join our network of verified fleet providers and grow your business.
+                  </p>
+                  <Button variant="link" className="text-accent p-0 font-semibold" asChild>
+                    <Link href="/register?role=provider">Register Now <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
 
-/* Button */
-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 50px;
-    background: #ff758c;
-    color: white;
-    cursor: pointer;
-}
+        {/* Features Grid */}
+        <section className="py-20 bg-secondary/30">
+          <div className="container px-4 md:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold font-headline mb-6 leading-tight">
+                  Designed for Trust, Built for Performance
+                </h2>
+                <div className="space-y-6">
+                  <div className="flex gap-4">
+                    <div className="mt-1">
+                      <ShieldCheck className="h-6 w-6 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold font-headline">Verified Profiles</h4>
+                      <p className="text-muted-foreground">Every worker and vehicle provider undergoes a rigorous verification process to ensure reliability.</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-4">
+                    <div className="mt-1">
+                      <Globe className="h-6 w-6 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold font-headline">Location Intelligence</h4>
+                      <p className="text-muted-foreground">Smart matching based on proximity, reducing transit times and operational costs.</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-4">
+                    <div className="mt-1">
+                      <Clock className="h-6 w-6 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold font-headline">Real-time Tracking</h4>
+                      <p className="text-muted-foreground">Monitor service progress and vehicle location with our integrated dashboard.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="relative">
+                <div className="rounded-3xl overflow-hidden shadow-2xl border-8 border-white">
+                  <img 
+                    src="https://picsum.photos/seed/skilldrive2/800/600" 
+                    alt="Platform Dashboard" 
+                    className="w-full h-auto"
+                    data-ai-hint="dashboard interface"
+                  />
+                </div>
+                <div className="absolute -bottom-6 -right-6 bg-accent text-accent-foreground p-6 rounded-2xl shadow-xl hidden md:block">
+                  <div className="text-3xl font-bold font-headline">99%</div>
+                  <div className="text-sm font-medium">Customer Satisfaction</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
 
-/* File Button Gray */
-button.file-btn {
-    background: #6c757d !important;
-}
-
-/* Upload Row */
-.upload-row {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    flex-wrap: nowrap;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-#fileName {
-    font-size: 14px;
-    max-width: 200px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.service-row {
-    display: flex;
-    gap: 5px;
-    align-items: center;
-}
-
-.service-row select,
-.service-row .vehicle-box {
-    flex: 1;
-}
-
-.vehicle-box input {
-    width: 85%;
-}
-
-.doc-box {
-    background: rgba(255,255,255,0.15);
-    padding: 15px;
-    border-radius: 15px;
-}
-
-/* Doc item */
-.doc-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgba(0,0,0,0.2);
-    padding: 2px 10px;
-    margin: 3px 0;
-    border-radius: 25px;
-    height: 28px;
-    position: relative;
-}
-
-/* LEFT SIDE */
-.doc-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-/* CHECKBOX CENTER */
-.doc-left input[type="checkbox"] {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 16px;
-    height: 16px;
-    margin: 0;
-}
-
-/* RIGHT TEXT */
-.selected-text {
-    min-width: 80px;
-    text-align: right;
-    font-size: 12px;
-}
-
-#cv {
-    display: none;
-}
-
-#dob {
-    display: block;
-    margin-left: auto;
-}
-</style>
-
-</head>
-
-<body>
-
-<h1 style="text-align:center; margin-top:20px; margin-bottom:0;">
-SkillHub &amp; Hiring Services
-</h1>
-
-
-<div class="container">
-
-<h2 style="width:100%; text-align:center;">Worker Registration</h2>
-    
-<h3>Personal Details</h3>
-
-<input type="text" id="name" placeholder="Full Name">
-<input type="text" id="father" placeholder="Father Name">
-
-<input type="text" id="dob" placeholder="Date of Birth">
-
-<div class="gender-box">
-<label><input type="radio" name="gender" value="Male"> Male</label>
-<label><input type="radio" name="gender" value="Female"> Female</label>
-<label><input type="radio" name="gender" value="Other"> Other</label>
-</div>
-
-<h3>Contact Details</h3>
-
-<input type="text" id="mobile" placeholder="Mobile Number">
-<input type="email" id="email" placeholder="Email">
-<input type="text" id="address" placeholder="Address">
-
-<h3>Service Details</h3>
-
-<div class="service-row">
-
-<select id="type" onchange="loadOptions()">
-<option value="">Select Type</option>
-<option value="worker">Worker</option>
-<option value="vehicle">Vehicle</option>
-</select>
-
-<select id="subtype"></select>
-
-<div id="vehicleBox" class="vehicle-box" style="display:none;">
-<input type="text" placeholder="Vehicle Number">
-</div>
-
-</div>
-
-<h3>Documents</h3>
-
-<div class="doc-box">
-
-<label class="doc-item">
-    <div class="doc-left">
-        <span>Aadhar</span>
-        <input type="checkbox">
+      {/* Footer */}
+      <footer className="bg-primary text-primary-foreground py-12">
+        <div className="container px-4 md:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+            <div className="col-span-1 md:col-span-2">
+              <div className="flex items-center gap-2 mb-6">
+                <Zap className="h-6 w-6 text-accent" />
+                <span className="text-xl font-bold font-headline">Skill & Drive Hub</span>
+              </div>
+              <p className="max-w-sm opacity-70 mb-6">
+                The premier destination for bridging the gap between talent, machinery, and market demand. Built for the modern enterprise.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4 font-headline">Platform</h4>
+              <ul className="space-y-2 opacity-70 text-sm">
+                <li><Link href="/browse" className="hover:text-accent transition-colors">Browse Workers</Link></li>
+                <li><Link href="/browse" className="hover:text-accent transition-colors">Browse Vehicles</Link></li>
+                <li><Link href="/requests/new" className="hover:text-accent transition-colors">Post Request</Link></li>
+                <li><Link href="/pricing" className="hover:text-accent transition-colors">Pricing</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4 font-headline">Support</h4>
+              <ul className="space-y-2 opacity-70 text-sm">
+                <li><Link href="/help" className="hover:text-accent transition-colors">Help Center</Link></li>
+                <li><Link href="/privacy" className="hover:text-accent transition-colors">Privacy Policy</Link></li>
+                <li><Link href="/terms" className="hover:text-accent transition-colors">Terms of Service</Link></li>
+                <li><Link href="/contact" className="hover:text-accent transition-colors">Contact Us</Link></li>
+              </ul>
+            </div>
+          </div>
+          <div className="pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm opacity-60">
+            <p>&copy; 2024 Skill & Drive Hub. All rights reserved.</p>
+            <div className="flex gap-6">
+              <Link href="#" className="hover:text-accent transition-colors">Twitter</Link>
+              <Link href="#" className="hover:text-accent transition-colors">LinkedIn</Link>
+              <Link href="#" className="hover:text-accent transition-colors">Facebook</Link>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
-    <span class="selected-text"></span>
-</label>
-
-<label class="doc-item">
-    <div class="doc-left">
-        <span>Passport</span>
-        <input type="checkbox">
-    </div>
-    <span class="selected-text"></span>
-</label>
-
-<label class="doc-item">
-    <div class="doc-left">
-        <span>Driving License</span>
-        <input type="checkbox">
-    </div>
-    <span class="selected-text"></span>
-</label>
-
-<label class="doc-item">
-    <div class="doc-left">
-        <span>Photo</span>
-        <input type="checkbox">
-    </div>
-    <span class="selected-text"></span>
-</label>
-
-</div>
-
-<h3 class="upload-row">
-Upload CV
-<button id="fileBtn" class="file-btn" onclick="handleFile()">Upload File</button>
-<span id="fileName"></span>
-</h3>
-
-<input type="file" id="cv" onchange="updateButton()">
-
-<br><br>
-
-<button onclick="save()">Submit</button>
-<button onclick="resetForm()">Reset</button>
-
-</div>
-
-<script>
-$("#dob").datepicker({
-    changeMonth: true,
-    changeYear: true,
-    yearRange: "1900:2126",
-    dateFormat: "dd/mm/yy",
-
-    defaultDate: new Date(),   // ✅ current date select karega
-
-    beforeShow: function(input, inst) {
-        setTimeout(function() {
-            inst.dpDiv.css({
-                top: $(input).offset().top + $(input).outerHeight(),
-                left: $(input).offset().left + $(input).outerWidth() - inst.dpDiv.outerWidth()
-            });
-        }, 0);
-    }
-});
-
-document.querySelectorAll(".doc-item input").forEach(cb => {
-    cb.addEventListener("change", function() {
-        let text = this.closest(".doc-item").querySelector(".selected-text");
-        text.innerText = this.checked ? "(Selected)" : "";
-    });
-});
-
-function loadOptions() {
-    let type = document.getElementById("type").value;
-    let sub = document.getElementById("subtype");
-    let vehicleBox = document.getElementById("vehicleBox");
-
-    sub.innerHTML = "<option>Select Option</option>";
-
-    let workerList = ["Labour","Helper","Mason","Carpenter","Electrician"];
-    let vehicleList = ["Bike","Car","Truck","Bus"];
-
-    if(type === "worker"){
-        vehicleBox.style.display = "none";
-        workerList.forEach(i => sub.add(new Option(i,i)));
-    }
-    else if(type === "vehicle"){
-        vehicleBox.style.display = "block";
-        vehicleList.forEach(i => sub.add(new Option(i,i)));
-    }
+  );
 }
-
-function updateButton(){
-    let file = document.getElementById("cv");
-    let btn = document.getElementById("fileBtn");
-    let nameText = document.getElementById("fileName");
-
-    if(file.files.length){
-        btn.innerText = "View File";
-        nameText.innerText = file.files[0].name;
-    } else {
-        btn.innerText = "Upload File";
-        nameText.innerText = "";
-    }
-}
-
-function handleFile(){
-    let file = document.getElementById("cv");
-
-    if(!file.files.length){
-        file.click();
-    } else {
-        window.open(URL.createObjectURL(file.files[0]));
-    }
-}
-
-function save(){
-
-    let name = document.getElementById("name").value;
-    let father = document.getElementById("father").value;
-    let dob = document.getElementById("dob").value;
-    let mobile = document.getElementById("mobile").value;
-    let email = document.getElementById("email").value;
-    let address = document.getElementById("address").value;
-    let type = document.getElementById("type").value;
-    let subtype = document.getElementById("subtype").value;
-    let subtype = document.getElementById("vechilno").value;
-    let subtype = document.getElementById("uploadfile").value;    
-    
-    let genderEl = document.querySelector('input[name="gender"]:checked');
-    let gender = genderEl ? genderEl.value : "";
-
-    if(!name || !mobile || !gender){
-        alert("Fill all required fields");
-        return;
-    }
-
-    // 👇 NEW USER OBJECT
-    let newUser = {
-        name, father, dob, gender, mobile, email, address, type, subtype, vechilno, uploadfile
-    };
-
-    // 👇 LOCAL STORAGE SE OLD DATA LO
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-
-    // 👇 NEW USER ADD KARO
-    users.push(newUser);
-
-    // 👇 DOBARA SAVE KARO
-    localStorage.setItem("users", JSON.stringify(users));
-
-    alert("Saved Successfully");
-
-    console.log(users); // check in console
-}
-
-function resetForm(){
-    location.reload();
-}
-// Enter key → next field
-document.addEventListener("keydown", function(e) {
-    if (e.key === "Enter") {
-        e.preventDefault();
-
-        let focusable = Array.from(
-            document.querySelectorAll("input, select, button")
-        ).filter(el => el.offsetParent !== null && !el.disabled);
-
-        let index = focusable.indexOf(document.activeElement);
-
-        if (index > -1 && index < focusable.length - 1) {
-            focusable[index + 1].focus();
-        }
-    }
-});  
-</script>
-
-</body>
-</html>
