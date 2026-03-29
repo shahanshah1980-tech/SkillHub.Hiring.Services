@@ -8,11 +8,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
-
 <style>
 body {
     margin: 0;
@@ -298,18 +293,7 @@ function handleFile(){
     }
 }
 
-// Firebase Configuration
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-const storage = firebase.storage();
-
-async function save(){
+function save(){
 
     let name = document.getElementById("name").value.trim();
     let father = document.getElementById("father").value.trim();
@@ -329,35 +313,40 @@ async function save(){
         return;
     }
 
-    // Check if mobile already exists in Firebase
-    let existing = await db.collection("users").where("mobile","==",mobile).get();
-    if(!existing.empty){
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    if(users.some(u => u.mobile === mobile)){
         alert("⚠ Mobile already exists");
         return;
     }
 
-    let fileURL = "";
+    function finalSave(fileData){
 
-    if(file){
-        const storageRef = storage.ref('cvs/' + file.name);
-        await storageRef.put(file);
-        fileURL = await storageRef.getDownloadURL();
+        users.push({
+            name, father, dob,
+            gender: gender.value,
+            mobile,
+            password: mobile,
+            email,
+            address,
+            type,
+            subtype,
+            file: fileData || ""
+        });
+
+        localStorage.setItem("users", JSON.stringify(users));
+
+        alert("✅ Saved Successfully");
+        location.reload();
     }
 
-    await db.collection("users").add({
-        name, father, dob,
-        gender: gender.value,
-        mobile,
-        password: mobile,
-        email,
-        address,
-        type,
-        subtype,
-        cv: fileURL
-    });
-
-    alert("✅ Saved Successfully to Cloud");
-    location.reload();
+    if(file){
+        let reader = new FileReader();
+        reader.onload = e => finalSave(e.target.result);
+        reader.readAsDataURL(file);
+    } else {
+        finalSave("");
+    }
 }
 
 function resetForm(){
